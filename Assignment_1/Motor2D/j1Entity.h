@@ -56,10 +56,7 @@ public:
 		if (c2->type == COLLIDER_FLOOR)
 		{
 			virtualPosition.y = c2->rect.y - animation->GetCurrentFrame().h;
-			if (!colliding_bottom)
-			{
-				colliding_bottom = true;
-			}
+			
 			if (state == JUMPING)
 			{
 				if (App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT)
