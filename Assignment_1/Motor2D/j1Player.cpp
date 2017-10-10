@@ -48,6 +48,14 @@ j1Player::j1Player()
 j1Player::~j1Player()
 {}
 
+bool j1Player::Awake(pugi::xml_node& config)
+{
+	speed = config.attribute("speed").as_float();
+	jump_force = config.attribute("jump_force").as_float();
+
+	return true;
+}
+
 // Load assets
 bool j1Player::Start()
 {
@@ -59,8 +67,6 @@ bool j1Player::Start()
 		collider = App->collision->AddCollider({ 0, 0, 21, 33 }, COLLIDER_PLAYER, this);
 
 	animation = &idle_right;
-	speed = PLAYER_SPEED;
-	jump_force = 0.5;
 
 	position.x = 50;
 	position.y = 150;
@@ -209,8 +215,6 @@ bool j1Player::Load(pugi::xml_node& data)
 {
 	virtualPosition.x = data.attribute("position_x").as_int();
 	virtualPosition.y = data.attribute("position_y").as_int();
-	speed = data.attribute("speed").as_float();
-	jump_force = data.attribute("jump_force").as_float();
 	
 	return true;
 }
@@ -219,8 +223,6 @@ bool j1Player::Save(pugi::xml_node& data) const
 {
 	data.append_attribute("position_x") = position.x;
 	data.append_attribute("position_y") = position.y;
-	data.append_attribute("speed") = speed;
-	data.append_attribute("jump_force") = jump_force;
 	
 	return true;
 }
