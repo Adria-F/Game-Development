@@ -32,7 +32,7 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	App->map->Load("platformer.tmx"); //hello2.tmx
-	App->collision->AddCollider({ 45, 187, 1000, 20 }, COLLIDER_FLOOR, this);
+	App->collision->AddCollider({ 45, 285, 1000, 20 }, COLLIDER_FLOOR, this);
 	return true;
 }
 
