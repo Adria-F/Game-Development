@@ -12,6 +12,9 @@
 
 j1Player::j1Player()
 {
+	name.create("player");
+	
+	// ----- Animations -----
 	idle_right.PushBack({ 0, 66, 21, 33 });
 	idle_left.PushBack({ 84, 66, 21, 33 });
 
@@ -131,55 +134,6 @@ bool j1Player::Update(float dt)
 		}
 	}
 
-	/*if (jumping)
-	{
-		if (state != JUMPING)
-		{
-			v.y = 0.7; //3.2
-			state = JUMPING;
-		}
-		if (animation == &right || animation == &idle_right)
-		{
-			animation = &jumping_right;
-		}
-		else if (animation == &left || animation == &idle_left)
-		{
-			animation = &jumping_left;
-		}
-	}
-	if (going_left)
-	{
-		a.x = -0.1;
-		if (animation == &jumping_right)
-			animation = &jumping_left;
-		else if (animation != &jumping_left)
-		{
-			animation = &left;
-			state = LEFT;
-		}
-	}
-	if (going_right)
-	{
-		a.x = 0.1;
-		if (animation == &jumping_left)
-			animation = &jumping_right;
-		else if (animation != &jumping_right)
-		{
-			animation = &right;
-			state = RIGHT;
-		}
-	}
-	if (going_left == false && going_right == false)
-	{
-		a.x = 0;
-	}
-
-	if (going_down)
-	{
-		going_down = false;
-		position.y += 1;
-	}*/
-	// ------------------------
 	collider->SetPos(virtualPosition.x + collider_move.x + (App->render->camera.x / 2), virtualPosition.y + collider_move.y);
 
 	App->player->colliding_left = false;
@@ -249,4 +203,24 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	}*/
 
 	Entity_OnCollision(c1, c2);
+}
+
+bool j1Player::Load(pugi::xml_node& data)
+{
+	virtualPosition.x = data.attribute("position_x").as_int();
+	virtualPosition.y = data.attribute("position_y").as_int();
+	speed = data.attribute("speed").as_float();
+	jump_force = data.attribute("jump_force").as_float();
+	
+	return true;
+}
+
+bool j1Player::Save(pugi::xml_node& data) const
+{
+	data.append_attribute("position_x") = position.x;
+	data.append_attribute("position_y") = position.y;
+	data.append_attribute("speed") = speed;
+	data.append_attribute("jump_force") = jump_force;
+	
+	return true;
 }

@@ -8,7 +8,7 @@
 #include "j1Render.h"
 #include "j1Collision.h"
 
-#define gravity -0.0025 // -0.1
+#define gravity -0.0025
 
 struct SDL_Texture;
 
@@ -38,13 +38,6 @@ public:
 		if (v.y < -1)
 			v.y = -1;
 		virtualPosition.y -= v.y;
-
-		/*if (a.x > 0)
-			v.x += (a.x * ((colliding_right) ? 0 : 1));
-		else if (a.x < 0 && position.x + App->render->camera.x > App->render->camera.x)
-			v.x += (a.x * ((colliding_left) ? 0 : 1));
-		else
-			v.x = 0;*/
 
 		virtualPosition.x += v.x;
 
