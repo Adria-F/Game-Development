@@ -1,0 +1,5 @@
+﻿  j1Scene.cpp
+d:\rma\gddv--year-2-\dev_assignment_1\motor2d\j1collision.h(19): warning C4099: 'Collider': type name first seen using 'class' now seen using 'struct'
+  d:\rma\gddv--year-2-\dev_assignment_1\motor2d\j1collision.h(18): note: see declaration of 'Collider'
+  Motor2D.vcxproj -> D:\rma\GDDV--Year-2-\Dev_Assignment_1\Debug\Motor 2D.exe
+  Motor2D.vcxproj -> D:\rma\GDDV--Year-2-\Dev_Assignment_1\Debug\Motor 2D.pdb (Full PDB)

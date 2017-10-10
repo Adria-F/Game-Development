@@ -1,0 +1,42 @@
+#ifndef __ModulePlayer_H__
+#define __ModulePlayer_H__
+
+#include "j1Module.h"
+#include "j1Entity.h"
+#include "Animation.h"
+#include "p2Point.h"
+
+#define PLAYER_SPEED 2
+
+struct SDL_Texture;
+struct Collider;
+
+class j1Player : public Entity
+{
+public:
+	j1Player();
+	~j1Player();
+
+	bool Start();
+	bool Update(float dt);
+	bool PostUpdate();
+	bool CleanUp();
+	void OnCollision(Collider* c1, Collider* c2);
+
+public:
+
+	COLLIDER_TYPE collider_type;
+
+	Collider* collidingC;
+
+	bool jumping;
+	bool dead;
+	bool falling;
+
+	uint points = 0;
+	int lives = 3;
+	int num = 0;
+	fPoint collider_move;
+};
+
+#endif
