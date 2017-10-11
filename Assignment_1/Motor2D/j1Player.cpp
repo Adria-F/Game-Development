@@ -5,6 +5,7 @@
 #include "j1Collision.h"
 #include "j1Player.h"
 #include "p2Log.h"
+#include "j1Window.h"
 
 #include<stdio.h>
 
@@ -150,8 +151,19 @@ bool j1Player::Update(float dt)
 
 bool j1Player::PostUpdate()
 {
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !colliding_right && v.x == 0)
+	{
+		v.x = speed;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !colliding_left && v.x == 0)
+	{
+		v.x = -speed;
+	}
+
 	position.x = virtualPosition.x;
 	position.y = virtualPosition.y;
+	int win_scale = App->win->GetScale();
+	pos_relCam = App->player->position.x + App->render->camera.x / win_scale;
 
 	App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame());
 

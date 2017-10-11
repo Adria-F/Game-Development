@@ -6,8 +6,6 @@
 #include "Animation.h"
 #include "p2Point.h"
 
-#define PLAYER_SPEED 2
-
 struct SDL_Texture;
 struct Collider;
 
@@ -28,10 +26,6 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 public:
-
-	COLLIDER_TYPE collider_type;
-
-	Collider* collidingC;
 
 	bool jumping;
 	bool dead;
