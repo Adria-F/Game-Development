@@ -140,7 +140,7 @@ bool j1Player::Update(float dt)
 		}
 	}
 
-	collider->SetPos(virtualPosition.x + collider_move.x + (App->render->camera.x / 2), virtualPosition.y + collider_move.y);
+	collider->SetPos(virtualPosition.x + collider_move.x, virtualPosition.y + collider_move.y);
 
 	App->player->colliding_left = false;
 	App->player->colliding_right = false;
@@ -153,8 +153,7 @@ bool j1Player::PostUpdate()
 	position.x = virtualPosition.x;
 	position.y = virtualPosition.y;
 
-	App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame(), 1.0, false);
-	LOG("Blited Player");
+	App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame());
 
 	return true;
 }

@@ -118,6 +118,7 @@ private:
 	bool LoadImageLayer(pugi::xml_node& node, ImageLayer* set);
 	// TODO 3: Create a method that loads a single laye
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
+	bool LoadColliders(pugi::xml_node& node);
 
 public:
 

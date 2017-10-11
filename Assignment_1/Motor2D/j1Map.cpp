@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
+#include "j1Collision.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -118,6 +119,16 @@ bool j1Map::CleanUp()
 	}
 	data.tilesets.clear();
 
+	p2List_item<ImageLayer*>* item_imageLayer;
+	item_imageLayer = data.image_layers.start;
+
+	while (item_imageLayer != NULL)
+	{
+		RELEASE(item_imageLayer->data);
+		item_imageLayer = item_imageLayer->next;
+	}
+	data.image_layers.clear();
+
 	// TODO 2: clean up all layer data
 	// Remove all layers
 	p2List_item<MapLayer*>* item_layer;
@@ -203,6 +214,19 @@ bool j1Map::Load(const char* file_name)
 		data.layers.add(set);
 	}
 
+	pugi::xml_node object;
+	p2SString object_name;
+	for (object = map_file.child("map").child("objectgroup"); object && ret; object = object.next_sibling("objectgroup"))
+	{
+		object_name = object.attribute("name").as_string();
+		if (object_name == "Collision")
+		{
+			LoadColliders(object);
+			break;
+		}
+	}
+
+	// Log info ----------------------
 	if(ret == true)
 	{
 		LOG("Successfully parsed map XML file: %s", file_name);
@@ -401,6 +425,42 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	{
 		layer->tiles[i] = tile.attribute("gid").as_uint();
 		i++;
+	}
+
+	return ret;
+}
+
+bool j1Map::LoadColliders(pugi::xml_node& node)
+{
+	bool ret = true;
+
+	pugi::xml_node object;
+	COLLIDER_TYPE collider_type;
+	p2SString type;
+	for (object = node.child("object"); object; object = object.next_sibling("object"))
+	{
+		type = object.attribute("type").as_string();
+		if (type == "floor")
+		{
+			collider_type = COLLIDER_FLOOR;
+		}
+		else if (type == "jumpable")
+		{
+			collider_type = COLLIDER_NONE;
+		}
+		else
+		{
+			LOG("Collider type undefined");
+			continue;
+		}
+
+		SDL_Rect shape;
+		shape.x = object.attribute("x").as_int();
+		shape.y = object.attribute("y").as_int();
+		shape.w = object.attribute("width").as_int();
+		shape.h = object.attribute("height").as_int();
+
+		App->collision->AddCollider(shape, collider_type);
 	}
 
 	return ret;

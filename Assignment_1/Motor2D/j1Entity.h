@@ -55,6 +55,7 @@ public:
 	{
 		if (c2->type == COLLIDER_FLOOR)
 		{
+			virtualPosition.y = c2->rect.y - animation->GetCurrentFrame().h;
 			if (((c2->rect.y - v.y + 1) > (c1->rect.y + (c1->rect.h)))) //The collision is from bottom
 			{
 				if (colliding_bottom == false)
