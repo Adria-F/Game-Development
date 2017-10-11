@@ -55,24 +55,31 @@ public:
 	{
 		if (c2->type == COLLIDER_FLOOR)
 		{
-			virtualPosition.y = c2->rect.y - animation->GetCurrentFrame().h;
-			
-			if (state == JUMPING)
+			if (((c2->rect.y - v.y + 1) > (c1->rect.y + (c1->rect.h)))) //The collision is from bottom
 			{
-				if (App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT)
+				if (colliding_bottom == false)
 				{
-					v.x = 0;
 					v.y = 0;
-					state = IDLE;
+					if (App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT || v.x == 0)
+					{
+						v.x = 0;
+						state = IDLE;
+					}
+					else if (v.x > 0)
+					{
+						state = RIGHT;
+					}
+					else if (v.x < 0)
+					{
+						state = LEFT;
+					}
+					colliding_bottom = true;
 				}
-				else if (v.x > 0)
-				{
-					state = RIGHT;
-				}
-				else if (v.x < 0)
-				{
-					state = LEFT;
-				}
+				if (animation == &jumping_left)
+					animation = &idle_left;
+				else if (animation == &jumping_right)
+					animation = &idle_right;
+				//collidingC = c2;
 			}
 		}
 	}

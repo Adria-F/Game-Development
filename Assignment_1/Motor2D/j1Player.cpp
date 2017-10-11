@@ -205,7 +205,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			animation = &idle_left;
 		else if (animation == &jumping_right)
 			animation = &idle_right;
-		collidingC = c2;
+		//collidingC = c2;
 	}*/
 
 	Entity_OnCollision(c1, c2);

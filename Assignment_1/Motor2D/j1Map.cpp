@@ -31,6 +31,18 @@ void j1Map::Draw()
 	if(map_loaded == false)
 		return;
 
+	//Draw all image layers
+	p2List_item<ImageLayer*>* image = nullptr;
+	for (image = data.image_layers.start; image; image = image->next)
+	{
+		SDL_Texture* texture = image->data->texture;
+		iPoint position;
+		position.x = image->data->offset_x;
+		position.y = image->data->offset_y;
+		SDL_Rect section = { 0, 0, image->data->width, image->data->height };
+		App->render->Blit(texture, position.x, position.y, &section);
+	}
+
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
 	p2List_item<MapLayer*>* item = nullptr;
 	MapLayer* layer = nullptr;
@@ -161,6 +173,19 @@ bool j1Map::Load(const char* file_name)
 		}
 
 		data.tilesets.add(set);
+	}
+
+	pugi::xml_node image_layer;
+	for (image_layer = map_file.child("map").child("imagelayer"); image_layer && ret; image_layer = image_layer.next_sibling("imagelayer"))
+	{
+		ImageLayer* set = new ImageLayer();
+
+		if (ret == true)
+		{
+			ret = LoadImageLayer(image_layer, set);
+		}
+
+		data.image_layers.add(set);
 	}
 
 	// TODO 4: Iterate all layers and load each of them
@@ -337,6 +362,22 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 		set->num_tiles_width = set->tex_width / set->tile_width;
 		set->num_tiles_height = set->tex_height / set->tile_height;
 	}
+
+	return ret;
+}
+
+bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* set)
+{
+	bool ret = true;
+
+	set->name = node.attribute("name").as_string();
+	set->offset_x = node.attribute("offsetx").as_int();
+	set->offset_y = node.attribute("offsety").as_int();
+
+	pugi::xml_node image = node.child("image");
+	set->width = image.attribute("width").as_int();
+	set->height = image.attribute("height").as_int();
+	set->texture = App->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
 
 	return ret;
 }

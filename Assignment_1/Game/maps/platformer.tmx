@@ -15,11 +15,11 @@
   <tile id="155" terrain="0,0,0,0"/>
   <tile id="213" terrain="0,0,,"/>
  </tileset>
- <imagelayer name="Capa de Imagen 1" offsetx="0" offsety="100">
-  <image source="Background.png" width="950" height="256"/>
+ <imagelayer name="Capa de Imagen 1">
+  <image source="Background.png" width="2080" height="384"/>
  </imagelayer>
- <imagelayer name="Capa de Imagen 2" offsetx="0" offsety="100">
-  <image source="Layer 3 anim2.png" width="950" height="256"/>
+ <imagelayer name="Capa de Imagen 2" offsetx="0" offsety="-20">
+  <image source="Layer 3 anim2.png" width="1500" height="404"/>
  </imagelayer>
  <layer name="Ground 3" width="65" height="12">
   <data>
