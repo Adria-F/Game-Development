@@ -22,6 +22,9 @@ j1Player::j1Player()
 	jumping_right.PushBack({ 63, 33, 21, 33 });
 	jumping_left.PushBack({ 63, 132, 21, 33 });
 
+	falling_right.PushBack({ 84, 33, 21, 33 });
+	falling_left.PushBack({ 84, 132, 21, 33 });
+
 	right.PushBack({ 0, 0, 21, 33 });
 	right.PushBack({ 21, 0, 21, 33 });
 	right.PushBack({ 42, 0, 21, 33 });
@@ -41,6 +44,18 @@ j1Player::j1Player()
 	left.PushBack({ 21, 132, 21, 33 });
 	left.PushBack({ 42, 132, 21, 33 });
 	left.speed = 0.007f;
+
+	jump_cloud.PushBack({ 108, 60, 52, 20 });
+	jump_cloud.PushBack({ 108, 40, 52, 20 });
+	jump_cloud.PushBack({ 108, 20, 52, 20 });
+	jump_cloud.PushBack({108, 0, 52, 20});
+	jump_cloud.PushBack({ 108, 0, 0, 0 });
+	jump_cloud.speed = 0.015f;
+	jump_cloud.loop = false;
+	
+
+	cloud_offset.x = -16;
+	cloud_offset.y = 17;
 
 	/*collider_move.x = 2;
 	collider_move.y = 0;*/
@@ -134,10 +149,24 @@ bool j1Player::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
-		if (state != JUMPING)
+		if (!double_jump)
 		{
-			v.y = jump_force;
-			state = JUMPING;
+			if (state == JUMPING || state == FALLING)
+			{
+				double_jump = true;
+				cloud_pos.x = position.x + cloud_offset.x;
+				cloud_pos.y = position.y + cloud_offset.y;
+				v.y = (jump_force * 2 / 3);
+				if (state == FALLING)
+				{
+					state = JUMPING;
+				}
+			}
+			else
+			{
+				v.y = jump_force;
+				state = JUMPING;
+			}
 		}
 	}
 
@@ -166,6 +195,11 @@ bool j1Player::PostUpdate()
 	pos_relCam = App->player->position.x + App->render->camera.x / win_scale;
 
 	App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame());
+
+	if (double_jump)
+	{
+		App->render->Blit(graphics, cloud_pos.x, cloud_pos.y, &jump_cloud.GetCurrentFrame());
+	}
 
 	return true;
 }
@@ -218,6 +252,15 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			animation = &idle_right;
 		//collidingC = c2;
 	}*/
+
+	if (c2->type == COLLIDER_FLOOR)
+	{
+		if (((c2->rect.y - v.y + 1) > (c1->rect.y + (c1->rect.h)))) //The collision is from bottom
+		{
+			double_jump = false;
+			jump_cloud.Reset();
+		}
+	}
 
 	Entity_OnCollision(c1, c2);
 }

@@ -6,7 +6,7 @@
 	<audio />
 	<map />
 	<scene />
-	<player position_x="-89" position_y="-1994" />
+	<player position_x="203" position_y="331" />
 	<:anonymous />
 	<renderer>
 		<camera x="0" y="0" />

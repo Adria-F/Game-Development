@@ -73,6 +73,8 @@ bool j1Collision::Update(float dt)
 			else if ((c1 == App->player->collidingFloor || c2 == App->player->collidingFloor) && ((c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR) || (c2->type == COLLIDER_PLAYER && c1->type == COLLIDER_FLOOR)))
 			{
 				App->player->colliding_bottom = false;
+				if (App->player->state != JUMPING)
+					App->player->state = FALLING;
 			}
 		}
 	}

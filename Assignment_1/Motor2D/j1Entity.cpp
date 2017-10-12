@@ -28,7 +28,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 	{
 		if (((c2->rect.y - v.y + 1) > (c1->rect.y + (c1->rect.h)))) //The collision is from bottom
 		{
-			virtualPosition.y = c2->rect.y - animation->GetCurrentFrame().h;
+			//virtualPosition.y = c2->rect.y - animation->GetCurrentFrame().h;
 			if (colliding_bottom == false)
 			{
 				v.y = 0;
@@ -83,6 +83,10 @@ void Entity::setAnimation()
 		{
 			animation = &jumping_right;
 		}
+		else if (state == FALLING)
+		{
+			animation = &falling_right;
+		}
 		else
 		{
 			animation = &right;
@@ -93,6 +97,10 @@ void Entity::setAnimation()
 		if (state == JUMPING)
 		{
 			animation = &jumping_left;
+		}
+		else if (state == FALLING)
+		{
+			animation = &falling_left;
 		}
 		else
 		{

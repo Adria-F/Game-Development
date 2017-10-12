@@ -15,6 +15,7 @@ enum entity_state
 	RIGHT,
 	LEFT,
 	JUMPING,
+	FALLING,
 	DEAD,
 	DAMAGED
 };
@@ -54,6 +55,8 @@ public:
 	Animation left;
 	Animation jumping_left;
 	Animation jumping_right;
+	Animation falling_left;
+	Animation falling_right;
 	Animation death;
 	int pos_relCam;
 

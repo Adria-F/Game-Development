@@ -35,6 +35,12 @@ public:
 	int lives = 3;
 	int num = 0;
 	fPoint collider_move;
+
+	Animation jump_cloud;
+	iPoint cloud_offset;
+	iPoint cloud_pos;
+
+	bool double_jump;
 };
 
 #endif
