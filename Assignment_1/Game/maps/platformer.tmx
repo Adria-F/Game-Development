@@ -2603,9 +2603,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="40"/>
-   <tile gid="156"/>
-   <tile gid="42"/>
+   <tile gid="169"/>
+   <tile gid="170"/>
+   <tile gid="198"/>
    <tile gid="0"/>
    <tile gid="69"/>
    <tile gid="184"/>
@@ -2668,9 +2668,9 @@
    <tile gid="127"/>
    <tile gid="13"/>
    <tile gid="0"/>
-   <tile gid="228"/>
-   <tile gid="200"/>
-   <tile gid="171"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="69"/>
    <tile gid="184"/>
@@ -3169,7 +3169,7 @@
   <object id="23" type="floor" x="946" y="-1" width="12" height="190"/>
   <object id="24" type="floor" x="956" y="161" width="57.3333" height="47.3333"/>
   <object id="25" type="floor" x="1066" y="221" width="74.3333" height="161"/>
-  <object id="26" type="floor" x="1070.67" y="95" width="69.3333" height="52.3333"/>
+  <object id="26" type="floor" x="1070.67" y="95" width="69.3333" height="21"/>
   <object id="29" type="floor" x="1192.67" y="64" width="109.667" height="320"/>
   <object id="30" type="floor" x="1329.67" y="127" width="91.3333" height="257"/>
   <object id="31" type="floor" x="1459" y="62" width="118" height="320"/>
