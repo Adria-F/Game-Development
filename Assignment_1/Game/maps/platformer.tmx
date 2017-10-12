@@ -3157,7 +3157,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <objectgroup color="#ff0000" name="Collision" visible="0">
+ <objectgroup color="#ff0000" name="Collision">
   <object id="15" type="floor" x="1" y="379" width="114" height="6"/>
   <object id="16" type="floor" x="137" y="353.667" width="171" height="30.3333"/>
   <object id="17" type="floor" x="335" y="288" width="97" height="95"/>
@@ -3173,9 +3173,9 @@
   <object id="29" type="floor" x="1192.67" y="64" width="109.667" height="320"/>
   <object id="30" type="floor" x="1329.67" y="127" width="91.3333" height="257"/>
   <object id="31" type="floor" x="1459" y="62" width="118" height="320"/>
-  <object id="32" type="floor" x="1620" y="161" width="86" height="51.6667"/>
-  <object id="33" type="floor" x="1792" y="159" width="31.3333" height="52.6667"/>
-  <object id="34" type="floor" x="1909" y="158" width="55" height="53"/>
+  <object id="32" type="floor" x="1620" y="161" width="92.6667" height="51.6667"/>
+  <object id="33" type="floor" x="1786" y="159" width="43.3333" height="52.6667"/>
+  <object id="34" type="floor" x="1903.67" y="158" width="68.3333" height="53"/>
   <object id="35" type="floor" x="2001.67" y="96" width="80.6667" height="52.3333"/>
  </objectgroup>
 </map>
