@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="65" height="12" tilewidth="32" tileheight="32" nextobjectid="45">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="65" height="12" tilewidth="32" tileheight="32" nextobjectid="46">
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" tilecount="232" columns="29">
   <image source="tileset.png" width="950" height="256"/>
   <terraintypes>
@@ -3202,5 +3202,8 @@
   <object id="42" type="floor" x="297" y="134" width="141" height="82"/>
   <object id="43" type="floor" x="331" y="103" width="137" height="81"/>
   <object id="44" type="floor" x="393" y="69" width="140" height="78"/>
+ </objectgroup>
+ <objectgroup color="#0000ff" name="Logic">
+  <object id="45" name="player_start_pos" x="489.727" y="318.727" width="21" height="33"/>
  </objectgroup>
 </map>

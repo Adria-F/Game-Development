@@ -5,6 +5,8 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Collision.h"
+#include "j1Player.h"
+#include "j1Window.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -225,7 +227,10 @@ bool j1Map::Load(const char* file_name)
 		if (object_name == "Collision")
 		{
 			LoadColliders(object);
-			break;
+		}
+		else if (object_name == "Logic")
+		{
+			LoadLogic(object);
 		}
 	}
 
@@ -464,6 +469,31 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 		shape.h = object.attribute("height").as_int();
 
 		App->collision->AddCollider(shape, collider_type);
+	}
+
+	return ret;
+}
+
+bool j1Map::LoadLogic(pugi::xml_node& node)
+{
+	bool ret = true;
+
+	pugi::xml_node object;
+	p2SString name;
+	for (object = node.child("object"); object; object = object.next_sibling("object"))
+	{
+		name = object.attribute("name").as_string();
+		if (name == "player_start_pos")
+		{
+			App->player->position.x = object.attribute("x").as_int();
+			App->player->position.y = object.attribute("y").as_int();
+
+			App->render->virtualCamPos = -(App->player->position.x * (int)App->win->GetScale() - 100);
+			if (App->render->virtualCamPos > 0)
+			{
+				App->render->virtualCamPos = 0;
+			}
+		}
 	}
 
 	return ret;

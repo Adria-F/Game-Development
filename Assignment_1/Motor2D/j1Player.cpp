@@ -59,8 +59,6 @@ j1Player::j1Player()
 
 	/*collider_move.x = 2;
 	collider_move.y = 0;*/
-	position.x = 50;
-	position.y = 150;
 }
 
 j1Player::~j1Player()
@@ -205,6 +203,9 @@ bool j1Player::PostUpdate()
 	{
 		App->render->Blit(graphics, cloud_pos.x, cloud_pos.y, &jump_cloud.GetCurrentFrame());
 	}
+
+	LOG("%d", position.x);
+	LOG("%f", App->render->virtualCamPos);
 
 	return true;
 }
