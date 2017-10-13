@@ -73,6 +73,10 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 			}
 		}
 	}
+	if (c2->type == COLLIDER_FLAG)
+	{
+		SDL_QUIT;
+	}
 }
 
 void Entity::setAnimation()
