@@ -59,6 +59,8 @@ j1Player::j1Player()
 
 	/*collider_move.x = 2;
 	collider_move.y = 0;*/
+	position.x = 50;
+	position.y = 150;
 }
 
 j1Player::~j1Player()
@@ -77,15 +79,18 @@ bool j1Player::Start()
 {
 	LOG("Loading player");
 
-	graphics = App->tex->Load("textures/Character spritesheet.png");
+	if (graphics == nullptr)
+		graphics = App->tex->Load("textures/Character spritesheet.png");
 
 	if (collider == nullptr)
 		collider = App->collision->AddCollider({ 0, 0, 21, 33 }, COLLIDER_PLAYER, this);
 
-	animation = &idle_right;
+	collidingFloor = nullptr;
+	colliding_bottom = false;
+	colliding_left = false;
+	colliding_right = false;
 
-	position.x = 50;
-	position.y = 150;
+	animation = &idle_right;
 
 	virtualPosition.x = position.x;
 	virtualPosition.y = position.y;

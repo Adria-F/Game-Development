@@ -5,6 +5,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Module.h"
+#include "j1App.h"
 
 // TODO 1: Create a struct for the map layer
 // ----------------------------------------------------
@@ -40,6 +41,13 @@ struct ImageLayer
 	int offset_y;
 	int width;
 	int height;
+
+	~ImageLayer()
+	{
+		App->tex->UnLoad(texture);
+		texture = nullptr;
+	}
+
 };
 
 // ----------------------------------------------------
@@ -61,6 +69,13 @@ struct TileSet
 	int					num_tiles_height;
 	int					offset_x;
 	int					offset_y;
+
+	~TileSet()
+	{
+		App->tex->UnLoad(texture);
+		texture = nullptr;
+	}
+
 };
 
 enum MapTypes

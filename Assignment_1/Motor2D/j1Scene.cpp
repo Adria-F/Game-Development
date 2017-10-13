@@ -14,6 +14,16 @@
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
+	
+	// Add all levels to the list
+	level* lvl1 = new level("platformer.tmx");
+	level* lvl2 = new level("platformer2.tmx");
+
+	levels.add(lvl1);
+	levels.add(lvl2);
+
+	current_lvl = levels.start;
+
 }
 
 // Destructor
@@ -32,7 +42,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("platformer.tmx"); //hello2.tmx
+	App->map->Load(levels.start->data->mapPath.GetString()); //hello2.tmx
 
 	return true;
 }
@@ -63,6 +73,8 @@ bool j1Scene::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x += 1;
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		LoadLvl(0);
 	
 	// Move camera with player -----------------------
 	uint win_width, win_height;
@@ -104,4 +116,39 @@ bool j1Scene::CleanUp()
 	LOG("Freeing scene");
 
 	return true;
+}
+
+void j1Scene::LoadLvl(int num)
+{
+	if (num == 0)
+	{
+		current_lvl = current_lvl->next;
+		if (current_lvl == nullptr)
+		{
+			current_lvl = levels.start;
+		}
+	}
+	else
+	{
+		p2List_item<level*>* lvl = levels.start;
+		for (int i = 1; i < num; i++)
+		{
+			lvl = lvl->next;
+			if (lvl == nullptr)
+			{
+				LOG("There is no level %d to load", num);
+				break;
+			}
+		}
+		current_lvl = lvl;
+	}
+
+	if (current_lvl != nullptr)
+	{
+		App->map->Load(current_lvl->data->mapPath.GetString());
+
+		// Restart player data
+		App->player->collider = nullptr; //Has to be null in order to be created
+		App->player->Start();
+	}
 }

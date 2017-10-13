@@ -2,8 +2,21 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "p2Point.h"
 
 struct SDL_Texture;
+
+struct level
+{
+	level(char* mapPath)
+	{
+		this->mapPath.create(mapPath);
+	}
+
+	p2SString mapPath;
+	iPoint player_start_pos;
+	iPoint end;
+};
 
 class j1Scene : public j1Module
 {
@@ -32,7 +45,14 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-private:
+	// If num is 0 it will load the next level or the first one if there is no next level
+	void LoadLvl(int num = 0);
+
+public:
+
+	p2List<level*> levels;
+	p2List_item<level*>* current_lvl;
+
 };
 
 #endif // __j1SCENE_H__
