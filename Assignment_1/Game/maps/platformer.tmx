@@ -4,22 +4,42 @@
   <image source="tileset.png" width="950" height="256"/>
   <terraintypes>
    <terrain name="ground" tile="-1"/>
+   <terrain name="grass" tile="-1"/>
   </terraintypes>
   <tile id="10" terrain=",,,0"/>
   <tile id="12" terrain=",,0,"/>
   <tile id="39" terrain=",0,,0"/>
   <tile id="41" terrain="0,,0,"/>
+  <tile id="48" terrain=",,,1"/>
+  <tile id="49" terrain=",,1,1"/>
+  <tile id="50" terrain=",,1,"/>
+  <tile id="77" terrain=",1,,1"/>
+  <tile id="78" terrain="1,1,1,1"/>
+  <tile id="79" terrain="1,,1,"/>
+  <tile id="82" terrain="1,1,1,"/>
+  <tile id="83" terrain="1,1,,1"/>
   <tile id="97" terrain=",0,,"/>
   <tile id="99" terrain="0,,,"/>
+  <tile id="106" terrain=",1,,"/>
+  <tile id="107" terrain="1,1,,"/>
+  <tile id="108" terrain="1,,,"/>
+  <tile id="111" terrain="1,,1,1"/>
+  <tile id="112" terrain=",1,1,1"/>
   <tile id="126" terrain=",,0,0"/>
   <tile id="155" terrain="0,0,0,0"/>
   <tile id="213" terrain="0,0,,"/>
  </tileset>
  <imagelayer name="Capa de Imagen 1">
   <image source="Background.png" width="2080" height="384"/>
+  <properties>
+   <property name="speed" type="int" value="1"/>
+  </properties>
  </imagelayer>
  <imagelayer name="Capa de Imagen 2" offsetx="0" offsety="-20">
   <image source="Layer 3 anim2.png" width="1500" height="404"/>
+  <properties>
+   <property name="speed" type="int" value="2"/>
+  </properties>
  </imagelayer>
  <layer name="Ground 3" width="65" height="12">
   <data>
@@ -3166,7 +3186,7 @@
   <object id="20" type="floor" x="656" y="223" width="131" height="28"/>
   <object id="21" type="floor" x="845" y="287" width="170.333" height="97"/>
   <object id="22" type="floor" x="871.667" y="192" width="87.3333" height="18.3333"/>
-  <object id="23" type="floor" x="946" y="-1" width="12" height="190"/>
+  <object id="23" type="floor" x="933" y="-1" width="25" height="193"/>
   <object id="24" type="floor" x="956" y="161" width="57.3333" height="47.3333"/>
   <object id="25" type="floor" x="1066" y="221" width="74.3333" height="161"/>
   <object id="26" type="floor" x="1070.67" y="95" width="69.3333" height="21"/>
