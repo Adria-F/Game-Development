@@ -46,6 +46,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 					state = LEFT;
 				}
 				colliding_bottom = true;
+				//Touching ground sound
 			}
 			collidingFloor = c2;
 		}
@@ -72,10 +73,6 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 				v.y = 0;
 			}
 		}
-	}
-	if (c2->type == COLLIDER_END_FLAG)
-	{
-		SDL_QUIT;
 	}
 }
 

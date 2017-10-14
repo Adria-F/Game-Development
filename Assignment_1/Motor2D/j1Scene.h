@@ -8,12 +8,15 @@ struct SDL_Texture;
 
 struct level
 {
-	level(char* mapPath)
+	level(int num, char* mapPath)
 	{
 		this->mapPath.create(mapPath);
+		lvl = num;
 	}
 
 	p2SString mapPath;
+	int lvl;
+	int length;
 	iPoint player_start_pos;
 	iPoint end;
 };

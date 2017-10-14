@@ -41,6 +41,25 @@ struct ImageLayer
 	int offset_y;
 	int width;
 	int height;
+	fPoint position;
+	float speed = 0;
+	bool constant_movement = false;
+
+	ImageLayer()
+	{}
+
+	ImageLayer(ImageLayer* copy)
+	{
+		name = copy->name;
+		texture = copy->texture;
+		offset_x = copy->offset_x;
+		offset_y = copy->offset_y;
+		width = copy->width;
+		height = copy->height;
+		position = copy->position;
+		speed = copy->speed;
+		constant_movement = copy->constant_movement;
+	}
 
 	~ImageLayer()
 	{
@@ -120,7 +139,7 @@ public:
 	bool CleanUp();
 
 	// Load new map
-	bool Load(const char* path);
+	bool Load(const char* path, int& map_length);
 
 	// TODO 8: Create a method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
@@ -134,7 +153,7 @@ private:
 	// TODO 3: Create a method that loads a single laye
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadColliders(pugi::xml_node& node);
-	bool LoadLogic(pugi::xml_node& node);
+	bool LoadLogic(pugi::xml_node& node, int& map_length);
 
 public:
 

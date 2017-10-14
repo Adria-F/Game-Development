@@ -29,16 +29,28 @@
   <tile id="155" terrain="0,0,0,0"/>
   <tile id="213" terrain="0,0,,"/>
  </tileset>
- <imagelayer name="Capa de Imagen 1">
+ <imagelayer name="Background">
   <image source="Background.png" width="2080" height="384"/>
+ </imagelayer>
+ <imagelayer name="Clouds">
+  <image source="Layer 1 clound anim1.png" width="1500" height="207"/>
   <properties>
-   <property name="speed" type="int" value="1"/>
+   <property name="constant_movement" type="bool" value="true"/>
+   <property name="speed" type="float" value="0.1"/>
   </properties>
  </imagelayer>
- <imagelayer name="Capa de Imagen 2" offsetx="0" offsety="-20">
+ <imagelayer name="Mountains (Back)" offsetx="0" offsety="-20">
+  <image source="Layer 1 anim1.png" width="1500" height="404"/>
+  <properties>
+   <property name="constant_movement" type="bool" value="false"/>
+   <property name="speed" type="float" value="0.03"/>
+  </properties>
+ </imagelayer>
+ <imagelayer name="Mountains (Front)" offsetx="0" offsety="-20">
   <image source="Layer 3 anim2.png" width="1500" height="404"/>
   <properties>
-   <property name="speed" type="int" value="2"/>
+   <property name="constant_movement" type="bool" value="false"/>
+   <property name="speed" type="float" value="0.05"/>
   </properties>
  </imagelayer>
  <layer name="Ground 3" width="65" height="12">
@@ -3197,11 +3209,11 @@
   <object id="33" type="floor" x="1786" y="159" width="43.3333" height="52.6667"/>
   <object id="34" type="floor" x="1903.67" y="158" width="68.3333" height="53"/>
   <object id="35" type="floor" x="2001.67" y="96" width="80.6667" height="52.3333"/>
-  <object id="45" x="2021.33" y="379.333" width="36.6667" height="3.33333"/>
-  <object id="46" type="end_flag" x="2058.67" y="38.6667" width="20.6667" height="54"/>
  </objectgroup>
  <objectgroup color="#0000ff" name="Logic">
+  <properties>
+   <property name="map_length" type="int" value="2112"/>
+  </properties>
   <object id="40" name="player_start_pos" x="11.75" y="345.875" width="21" height="33"/>
-  <object id="42" name="end" x="2056" y="0.666663" width="24.6666" height="92.6667"/>
  </objectgroup>
 </map>

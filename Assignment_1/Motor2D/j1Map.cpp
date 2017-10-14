@@ -39,11 +39,12 @@ void j1Map::Draw()
 	for (image = data.image_layers.start; image; image = image->next)
 	{
 		SDL_Texture* texture = image->data->texture;
-		iPoint position;
-		position.x = image->data->offset_x;
-		position.y = image->data->offset_y;
 		SDL_Rect section = { 0, 0, image->data->width, image->data->height };
-		App->render->Blit(texture, position.x, position.y, &section);
+		if (image->data->position.x < -image->data->width)
+		{
+			image->data->position.x = image->data->width;
+		}
+		App->render->Blit(texture, image->data->position.x, image->data->position.y, &section);
 	}
 
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
@@ -147,7 +148,7 @@ bool j1Map::CleanUp()
 }
 
 // Load new map
-bool j1Map::Load(const char* file_name)
+bool j1Map::Load(const char* file_name, int& map_length)
 {
 	bool ret = true;
 
@@ -200,8 +201,10 @@ bool j1Map::Load(const char* file_name)
 		{
 			ret = LoadImageLayer(image_layer, set);
 		}
-
+		ImageLayer* set2 = new ImageLayer(set);
 		data.image_layers.add(set);
+		set2->position.x += set2->width;
+		data.image_layers.add(set2);
 	}
 
 	// TODO 4: Iterate all layers and load each of them
@@ -230,7 +233,7 @@ bool j1Map::Load(const char* file_name)
 		}
 		else if (object_name == "Logic")
 		{
-			LoadLogic(object);
+			LoadLogic(object, map_length);
 		}
 	}
 
@@ -403,13 +406,27 @@ bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* set)
 	bool ret = true;
 
 	set->name = node.attribute("name").as_string();
-	set->offset_x = node.attribute("offsetx").as_int();
-	set->offset_y = node.attribute("offsety").as_int();
+	set->position.x = set->offset_x = node.attribute("offsetx").as_int();
+	set->position.y = set->offset_y = node.attribute("offsety").as_int();
 
 	pugi::xml_node image = node.child("image");
 	set->width = image.attribute("width").as_int();
 	set->height = image.attribute("height").as_int();
 	set->texture = App->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
+
+	pugi::xml_node property;
+	for (property = node.child("properties").child("property"); property; property = property.next_sibling("property"))
+	{
+		p2SString name = property.attribute("name").as_string();
+		if (name == "speed")
+		{
+			set->speed = property.attribute("value").as_float();
+		}
+		if (name == "constant_movement")
+		{
+			set->constant_movement = property.attribute("value").as_bool();
+		}
+	}
 
 	return ret;
 }
@@ -456,10 +473,6 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 		{
 			collider_type = COLLIDER_NONE;
 		}
-		else if (type == "end_flag")
-		{
-			collider_type = COLLIDER_END_FLAG;
-		}
 		else
 		{
 			LOG("Collider type undefined");
@@ -478,7 +491,7 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 	return ret;
 }
 
-bool j1Map::LoadLogic(pugi::xml_node& node)
+bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length)
 {
 	bool ret = true;
 
@@ -498,9 +511,15 @@ bool j1Map::LoadLogic(pugi::xml_node& node)
 				App->render->virtualCamPos = 0;
 			}
 		}
-		if (name == "end")
+	}
+
+	pugi::xml_node property;
+	for (property = node.child("properties").child("property"); property; property = property.next_sibling("property"))
+	{
+		p2SString name = property.attribute("name").as_string();
+		if (name == "map_length")
 		{
-			SDL_QUIT;
+			map_length = property.attribute("value").as_int();
 		}
 	}
 

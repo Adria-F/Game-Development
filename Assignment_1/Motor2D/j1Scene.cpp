@@ -16,8 +16,8 @@ j1Scene::j1Scene() : j1Module()
 	name.create("scene");
 	
 	// Add all levels to the list
-	level* lvl1 = new level("platformer.tmx");
-	level* lvl2 = new level("platformer2.tmx");
+	level* lvl1 = new level(1, "platformer.tmx");
+	level* lvl2 = new level(2, "platformer2.tmx");
 
 	levels.add(lvl1);
 	levels.add(lvl2);
@@ -42,7 +42,9 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load(levels.start->data->mapPath.GetString()); //hello2.tmx
+	App->map->Load(levels.start->data->mapPath.GetString(), current_lvl->data->length); //hello2.tmx
+
+	//Background music
 
 	return true;
 }
@@ -79,7 +81,10 @@ bool j1Scene::Update(float dt)
 	// Move camera with player -----------------------
 	uint win_width, win_height;
 	App->win->GetWindowSize(win_width, win_height);
-	if (App->player->pos_relCam > (win_width / App->win->GetScale() / 2) )
+	int max_camera_pos = current_lvl->data->length + (win_width);
+	max_camera_pos *= -1;
+	//max_camera_pos = -5000; //Comment to activate camera limit
+	if ((App->player->pos_relCam > (win_width / App->win->GetScale() / 2) ) && (App->render->virtualCamPos > max_camera_pos))
 	{
 		App->render->virtualCamPos -= App->player->speed * 2;
 	}
@@ -145,8 +150,7 @@ void j1Scene::LoadLvl(int num)
 
 	if (current_lvl != nullptr)
 	{
-		App->map->Load(current_lvl->data->mapPath.GetString());
-
+		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length);
 		// Restart player data
 		App->player->collider = nullptr; //Has to be null in order to be created
 		App->player->Start();

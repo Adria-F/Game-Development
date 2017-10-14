@@ -6,6 +6,8 @@
 #include "j1Player.h"
 #include "p2Log.h"
 #include "j1Window.h"
+#include "j1Map.h"
+#include "j1Scene.h"
 
 #include<stdio.h>
 
@@ -164,14 +166,18 @@ bool j1Player::Update(float dt)
 				{
 					state = JUMPING;
 				}
+				//Double jumping sound
 			}
 			else
 			{
 				v.y = jump_force;
 				state = JUMPING;
+				//Jumping sound
 			}
 		}
 	}
+
+	//if (v.x != 0 && colliding_bottom) running sound
 
 	collider->SetPos(virtualPosition.x + collider_move.x, virtualPosition.y + collider_move.y);
 
@@ -190,6 +196,22 @@ bool j1Player::PostUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !colliding_left && v.x == 0)
 	{
 		v.x = -speed;
+	}
+
+	p2List_item<ImageLayer*>* image = nullptr;
+	for (image = App->map->data.image_layers.start; image; image = image->next)
+	{
+		if (image->data->speed > 0)
+		{
+			if (image->data->constant_movement)
+			{
+				image->data->position.x -= image->data->speed;
+			}
+			else if (v.x > 0)
+			{
+				image->data->position.x -= image->data->speed;
+			}
+		}
 	}
 
 	position.x = virtualPosition.x;
@@ -273,6 +295,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 bool j1Player::Load(pugi::xml_node& data)
 {
+	App->scene->LoadLvl(data.attribute("level").as_int());
 	virtualPosition.x = data.attribute("position_x").as_int();
 	virtualPosition.y = data.attribute("position_y").as_int();
 	
@@ -283,6 +306,7 @@ bool j1Player::Save(pugi::xml_node& data) const
 {
 	data.append_attribute("position_x") = position.x;
 	data.append_attribute("position_y") = position.y;
+	data.append_attribute("level") = App->scene->current_lvl->data->lvl;
 	
 	return true;
 }
