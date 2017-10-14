@@ -456,6 +456,10 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 		{
 			collider_type = COLLIDER_NONE;
 		}
+		else if (type == "end_flag")
+		{
+			collider_type = COLLIDER_END_FLAG;
+		}
 		else
 		{
 			LOG("Collider type undefined");
@@ -493,6 +497,10 @@ bool j1Map::LoadLogic(pugi::xml_node& node)
 			{
 				App->render->virtualCamPos = 0;
 			}
+		}
+		if (name == "end")
+		{
+			SDL_QUIT;
 		}
 	}
 

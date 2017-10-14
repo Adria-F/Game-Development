@@ -73,7 +73,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 			}
 		}
 	}
-	if (c2->type == COLLIDER_FLAG)
+	if (c2->type == COLLIDER_END_FLAG)
 	{
 		SDL_QUIT;
 	}
