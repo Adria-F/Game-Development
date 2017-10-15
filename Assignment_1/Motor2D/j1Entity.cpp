@@ -3,6 +3,7 @@
 #include "j1Render.h"
 #include "j1Collision.h"
 #include "j1Input.h"
+#include "j1Audio.h"
 
 bool Entity::Entity_Update()
 {
@@ -46,7 +47,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 					state = LEFT;
 				}
 				colliding_bottom = true;
-				//App->audio->LoadFx("audio/fx/landing");
+				App->audio->LoadFx("audio/fx/landing.wav");
 				//Touching ground sound
 			}
 			collidingFloor = c2;

@@ -12,9 +12,15 @@ j1Collision::j1Collision()
 
 	matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_FLOOR][COLLIDER_JUMPABLE] = false;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_FLOOR] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_JUMPABLE] = true;
+
+	matrix[COLLIDER_JUMPABLE][COLLIDER_FLOOR] = false;
+	matrix[COLLIDER_JUMPABLE][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_JUMPABLE][COLLIDER_JUMPABLE] = false;
 
 }
 
@@ -108,6 +114,9 @@ void j1Collision::DebugDraw()
 			break;
 		case COLLIDER_PLAYER: // green
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			break;
+		case COLLIDER_JUMPABLE: // cyan
+			App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
 			break;
 		}
 	}
