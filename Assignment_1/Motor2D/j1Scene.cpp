@@ -93,15 +93,23 @@ bool j1Scene::Update(float dt)
 
 	if (App->player->position.x > current_lvl->data->length - 32 - App->player->animation->GetCurrentFrame().w)
 	{
-		if (current_lvl == levels.end)
+		if (end_reached == 0)
 		{
-			App->audio->PlayFx(win_fx, 0);
+			end_reached = SDL_GetTicks();
+			if (current_lvl == levels.end)
+			{
+				App->audio->PlayFx(win_fx, 0);
+			}
+			else
+			{
+				App->audio->PlayFx(complete_level_fx, 0);
+			}
 		}
-		else
+		if ((current_lvl == levels.end && SDL_GetTicks() > end_reached + 5000) || (current_lvl != levels.end && SDL_GetTicks() > end_reached + 500))
 		{
-			App->audio->PlayFx(complete_level_fx, 0);
+			end_reached = 0;
+			App->scene->LoadLvl(0);
 		}
-		App->scene->LoadLvl(0);
 	}
 
 	App->map->Draw();
