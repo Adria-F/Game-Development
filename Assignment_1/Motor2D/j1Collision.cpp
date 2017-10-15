@@ -76,7 +76,7 @@ bool j1Collision::Update(float dt)
 				if (matrix[c2->type][c1->type] && c2->callback)
 					c2->callback->OnCollision(c2, c1);
 			}
-			else if ((c1 == App->player->collidingFloor || c2 == App->player->collidingFloor) && ((c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR) || (c2->type == COLLIDER_PLAYER && c1->type == COLLIDER_FLOOR)))
+			else if ((c1 == App->player->collidingFloor || c2 == App->player->collidingFloor) && ((c1->type == COLLIDER_PLAYER && (c2->type == COLLIDER_FLOOR || c2->type == COLLIDER_JUMPABLE)) || (c2->type == COLLIDER_PLAYER && (c1->type == COLLIDER_FLOOR || c1->type == COLLIDER_JUMPABLE)))) // When there is no longer collision between player and the previous floor or jumpable collider
 			{
 				App->player->colliding_bottom = false;
 				if (App->player->state != JUMPING)

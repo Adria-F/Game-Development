@@ -76,6 +76,34 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 			}
 		}
 	}
+	else if (c2->type == COLLIDER_JUMPABLE)
+	{
+		if (((c2->rect.y - v.y + 1) > (c1->rect.y + (c1->rect.h)))) //The collision is from bottom
+		{
+			//virtualPosition.y = c2->rect.y - animation->GetCurrentFrame().h;
+			if (colliding_bottom == false)
+			{
+				v.y = 0;
+				if (App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT || v.x == 0)
+				{
+					v.x = 0;
+					state = IDLE;
+				}
+				else if (v.x > 0)
+				{
+					state = RIGHT;
+				}
+				else if (v.x < 0)
+				{
+					state = LEFT;
+				}
+				colliding_bottom = true;
+				App->audio->PlayFx(landing_fx, 0);
+				//Touching ground sound
+			}
+			collidingFloor = c2;
+		}
+	}
 }
 
 void Entity::setAnimation()
