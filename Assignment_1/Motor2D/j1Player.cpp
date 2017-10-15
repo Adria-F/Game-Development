@@ -185,9 +185,10 @@ bool j1Player::Update(float dt)
 		}
 	}
 	//Running sound
-	if (v.x != 0 && colliding_bottom)
+	if (v.x != 0 && colliding_bottom && SDL_GetTicks() > step_time)
 	{
 		App->audio->PlayFx(step_fx, 0);
+		step_time = SDL_GetTicks() + (1 / right.speed * 4);
 	}
 
 	collider->SetPos(virtualPosition.x + collider_move.x, virtualPosition.y + collider_move.y);

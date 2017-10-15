@@ -471,7 +471,7 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 		}
 		else if (type == "jumpable")
 		{
-			collider_type = COLLIDER_NONE;
+			collider_type = COLLIDER_JUMPABLE;
 		}
 		else
 		{

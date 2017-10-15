@@ -1,12 +1,7 @@
-﻿  j1Player.cpp
+﻿  j1Collision.cpp
+d:\rma\game-development\assignment_1\motor2d\j1player.h(10): warning C4099: 'Collider': type name first seen using 'class' now seen using 'struct'
+  d:\rma\game-development\assignment_1\motor2d\j1module.h(13): note: see declaration of 'Collider'
 d:\rma\game-development\assignment_1\motor2d\j1collision.h(20): warning C4099: 'Collider': type name first seen using 'class' now seen using 'struct'
   d:\rma\game-development\assignment_1\motor2d\j1collision.h(19): note: see declaration of 'Collider'
-d:\rma\game-development\assignment_1\motor2d\j1player.cpp(96): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\rma\game-development\assignment_1\motor2d\j1player.cpp(97): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\rma\game-development\assignment_1\motor2d\j1player.cpp(193): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-d:\rma\game-development\assignment_1\motor2d\j1player.cpp(228): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-d:\rma\game-development\assignment_1\motor2d\j1player.cpp(229): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-d:\rma\game-development\assignment_1\motor2d\j1player.cpp(310): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\rma\game-development\assignment_1\motor2d\j1player.cpp(311): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   Motor2D.vcxproj -> D:\rma\Game-Development\Assignment_1\Debug\Motor 2D.exe
   Motor2D.vcxproj -> D:\rma\Game-Development\Assignment_1\Debug\Motor 2D.pdb (Partial PDB)

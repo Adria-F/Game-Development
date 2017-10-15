@@ -37,6 +37,7 @@ public:
 	fPoint collider_move;
 
 	uint double_jump_fx, jump_fx, step_fx;
+	float step_time = 0;
 
 	Animation jump_cloud;
 	iPoint cloud_offset;
