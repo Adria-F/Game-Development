@@ -95,6 +95,7 @@ bool j1Scene::Update(float dt)
 	{
 		if (end_reached == 0)
 		{
+			App->player->won = true;
 			end_reached = SDL_GetTicks();
 			if (current_lvl == levels.end)
 			{
@@ -108,6 +109,7 @@ bool j1Scene::Update(float dt)
 		if ((current_lvl == levels.end && SDL_GetTicks() > end_reached + 5000) || (current_lvl != levels.end && SDL_GetTicks() > end_reached + 500))
 		{
 			end_reached = 0;
+			App->player->won = false;
 			App->scene->LoadLvl(0);
 		}
 	}

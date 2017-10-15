@@ -28,12 +28,8 @@ public:
 public:
 
 	bool jumping;
-	bool dead;
 	bool falling;
 
-	uint points = 0;
-	int lives = 3;
-	int num = 0;
 	fPoint collider_move;
 
 	uint double_jump_fx, jump_fx, step_fx, die_fx;
@@ -44,6 +40,7 @@ public:
 	iPoint cloud_pos;
 
 	bool double_jump;
+	bool won;
 };
 
 #endif

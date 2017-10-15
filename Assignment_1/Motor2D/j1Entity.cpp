@@ -8,11 +8,11 @@
 bool Entity::Entity_Update()
 {
 	v.y += (gravity * ((colliding_bottom) ? 0 : 1));
-	if (v.y < -1)
-		v.y = -1;
+	if (v.y < -6)
+		v.y = -6;
 	virtualPosition.y -= v.y;
 
-	if (pos_relCam > 0 || v.x > 0)
+	if (pos_relCam > 2 || v.x > 0)
 		virtualPosition.x += v.x;
 
 	colliding_right = false;
@@ -142,11 +142,11 @@ void Entity::setAnimation()
 	{
 		if (state == IDLE)
 		{
-			if (animation == &left || animation == &jumping_left)
+			if (animation == &left || animation == &jumping_left || animation == &falling_left)
 			{
 				animation = &idle_left;
 			}
-			else if (animation == &right || animation == &jumping_right)
+			else if (animation == &right || animation == &jumping_right || animation == &falling_right)
 			{
 				animation = &idle_right;
 			}

@@ -1,52 +1,16 @@
-﻿  j1Collision.cpp
-c:\users\norman-pc\documents\github\game-development\assignment_1\motor2d\j1Player.h(10): warning C4099: 'Collider': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
-  c:\users\norman-pc\documents\github\game-development\assignment_1\motor2d\j1Module.h(13): note: vea la declaración de 'Collider'
-c:\users\norman-pc\documents\github\game-development\assignment_1\motor2d\j1Collision.h(19): warning C4099: 'Collider': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
-  c:\users\norman-pc\documents\github\game-development\assignment_1\motor2d\j1Collision.h(18): note: vea la declaración de 'Collider'
-  j1Entity.cpp
-c:\users\norman-pc\documents\github\game-development\assignment_1\motor2d\j1Collision.h(19): warning C4099: 'Collider': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
-  c:\users\norman-pc\documents\github\game-development\assignment_1\motor2d\j1Collision.h(18): note: vea la declaración de 'Collider'
-j1Entity.cpp(10): warning C4244: '+=': conversión de 'double' a 'float'; posible pérdida de datos
-  j1Main.cpp
-  j1App.cpp
-c:\users\norman-pc\documents\github\game-development\assignment_1\motor2d\j1Collision.h(19): warning C4099: 'Collider': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
-  c:\users\norman-pc\documents\github\game-development\assignment_1\motor2d\j1Collision.h(18): note: vea la declaración de 'Collider'
-  j1Audio.cpp
-  j1Input.cpp
-c:\users\norman-pc\documents\github\game-development\assignment_1\motor2d\j1Player.h(10): warning C4099: 'Collider': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
-  c:\users\norman-pc\documents\github\game-development\assignment_1\motor2d\j1Module.h(13): note: vea la declaración de 'Collider'
-  j1Map.cpp
-c:\users\norman-pc\documents\github\game-development\assignment_1\motor2d\j1Collision.h(19): warning C4099: 'Collider': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
-  c:\users\norman-pc\documents\github\game-development\assignment_1\motor2d\j1Collision.h(18): note: vea la declaración de 'Collider'
-j1Map.cpp(45): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-j1Map.cpp(47): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-j1Map.cpp(68): warning C4018: '>=': no coinciden signed/unsigned
-j1Map.cpp(68): warning C4018: '<': no coinciden signed/unsigned
-j1Map.cpp(409): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-j1Map.cpp(410): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-j1Map.cpp(508): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  j1Player.cpp
-c:\users\norman-pc\documents\github\game-development\assignment_1\motor2d\j1Collision.h(19): warning C4099: 'Collider': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
-  c:\users\norman-pc\documents\github\game-development\assignment_1\motor2d\j1Collision.h(18): note: vea la declaración de 'Collider'
-j1Player.cpp(96): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-j1Player.cpp(97): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-j1Player.cpp(191): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-j1Player.cpp(226): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-j1Player.cpp(227): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-j1Player.cpp(308): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-j1Player.cpp(309): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  j1Scene.cpp
-c:\users\norman-pc\documents\github\game-development\assignment_1\motor2d\j1Collision.h(19): warning C4099: 'Collider': nombre de tipo visto anteriormente usando 'class' ahora se ve usando 'struct'
-  c:\users\norman-pc\documents\github\game-development\assignment_1\motor2d\j1Collision.h(18): note: vea la declaración de 'Collider'
-j1Scene.cpp(87): warning C4018: '>': no coinciden signed/unsigned
-  p2Log.cpp
-  j1Render.cpp
-j1Render.cpp(49): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-j1Render.cpp(73): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-  j1Textures.cpp
-  j1Window.cpp
-  pugixml.cpp
-  Generando código
-  All 456 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  Generación de código finalizada
-  Motor2D.vcxproj -> C:\Users\Norman-PC\Documents\GitHub\Game-Development\Assignment_1\Release\Motor 2D.exe
+﻿  j1Player.cpp
+d:\rma\game-development\assignment_1\motor2d\j1Collision.h(20): warning C4099: 'Collider': type name first seen using 'class' now seen using 'struct'
+  d:\rma\game-development\assignment_1\motor2d\j1Collision.h(19): note: see declaration of 'Collider'
+j1Player.cpp(96): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+j1Player.cpp(97): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+j1Player.cpp(195): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+j1Player.cpp(230): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+j1Player.cpp(231): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+j1Player.cpp(272): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+j1Player.cpp(273): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Generating code
+  1 of 456 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Motor2D.vcxproj -> D:\rma\Game-Development\Assignment_1\Release\Motor 2D.exe

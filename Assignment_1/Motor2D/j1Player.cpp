@@ -36,7 +36,7 @@ j1Player::j1Player()
 	right.PushBack({ 0, 33, 21, 33 });
 	right.PushBack({ 21, 33, 21, 33 });
 	right.PushBack({ 42, 33, 21, 33 });
-	right.speed = 0.007f;
+	right.speed = 0.07f;
 
 	left.PushBack({ 0, 99, 21, 33 });
 	left.PushBack({ 21, 99, 21, 33 });
@@ -46,14 +46,14 @@ j1Player::j1Player()
 	left.PushBack({ 0, 132, 21, 33 });
 	left.PushBack({ 21, 132, 21, 33 });
 	left.PushBack({ 42, 132, 21, 33 });
-	left.speed = 0.007f;
+	left.speed = 0.07f;
 
 	jump_cloud.PushBack({ 108, 60, 52, 20 });
 	jump_cloud.PushBack({ 108, 40, 52, 20 });
 	jump_cloud.PushBack({ 108, 20, 52, 20 });
 	jump_cloud.PushBack({108, 0, 52, 20});
 	jump_cloud.PushBack({ 108, 0, 0, 0 });
-	jump_cloud.speed = 0.015f;
+	jump_cloud.speed = 0.17f;
 	jump_cloud.loop = false;
 	
 
@@ -102,7 +102,6 @@ bool j1Player::Start()
 	landing_fx = App->audio->LoadFx("audio/fx/landing.wav");
 	die_fx = App->audio->LoadFx("audio/fx/die.wav");
 
-	dead = false;
 	return true;
 }
 
@@ -189,7 +188,7 @@ bool j1Player::Update(float dt)
 	if (v.x != 0 && colliding_bottom && SDL_GetTicks() > step_time)
 	{
 		App->audio->PlayFx(step_fx, 0);
-		step_time = SDL_GetTicks() + (1 / right.speed * 4);
+		step_time = SDL_GetTicks() + (1 / right.speed) + 450;
 	}
 
 	collider->SetPos(virtualPosition.x + collider_move.x, virtualPosition.y + collider_move.y);
@@ -233,10 +232,10 @@ bool j1Player::PostUpdate()
 	int win_scale = App->win->GetScale();
 	pos_relCam = App->player->position.x + App->render->camera.x / win_scale;
 
-	if (position.y > App->win->screen_surface->h / win_scale + 50)
+	if (position.y > App->win->screen_surface->h / win_scale + 50 && !won)
 	{
 		App->audio->PlayFx(die_fx, 0);
-		App->scene->LoadLvl(1);
+		App->scene->LoadLvl(App->scene->current_lvl->data->lvl);
 	}
 
 	App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame());
