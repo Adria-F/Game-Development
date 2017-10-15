@@ -294,11 +294,11 @@ bool j1Player::Load(pugi::xml_node& data)
 bool j1Player::Save(pugi::xml_node& data) const
 {
 	data.append_attribute("position_x") = position.x;
-<<<<<<< HEAD
+
 	data.append_attribute("position_y") = position.y - 5;
-=======
+
 	data.append_attribute("position_y") = position.y - 4;
->>>>>>> origin/master
+
 	data.append_attribute("level") = App->scene->current_lvl->data->lvl;
 	
 	return true;
