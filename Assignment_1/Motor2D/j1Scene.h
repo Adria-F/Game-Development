@@ -57,6 +57,7 @@ public:
 	p2List_item<level*>* current_lvl;
 	uint complete_level_fx, win_fx;
 	float end_reached = 0;
+	int max_camera_pos = 0;
 
 };
 

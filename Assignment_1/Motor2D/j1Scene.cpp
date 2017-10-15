@@ -80,7 +80,7 @@ bool j1Scene::Update(float dt)
 	// Move camera with player -----------------------
 	uint win_width, win_height;
 	App->win->GetWindowSize(win_width, win_height);
-	int max_camera_pos = current_lvl->data->length + (win_width);
+	max_camera_pos = current_lvl->data->length + (win_width);
 	max_camera_pos *= -1;
 	if ((App->player->pos_relCam > (win_width / App->win->GetScale() / 2) ) && (App->render->virtualCamPos > max_camera_pos))
 	{

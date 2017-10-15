@@ -283,6 +283,10 @@ bool j1Player::Load(pugi::xml_node& data)
 	{
 		App->render->virtualCamPos = 0;
 	}
+	if (App->render->virtualCamPos < App->scene->max_camera_pos)
+	{
+		App->render->virtualCamPos = App->scene->max_camera_pos;
+	}
 	
 	return true;
 }
@@ -290,7 +294,7 @@ bool j1Player::Load(pugi::xml_node& data)
 bool j1Player::Save(pugi::xml_node& data) const
 {
 	data.append_attribute("position_x") = position.x;
-	data.append_attribute("position_y") = position.y - 3;
+	data.append_attribute("position_y") = position.y - 5;
 	data.append_attribute("level") = App->scene->current_lvl->data->lvl;
 	
 	return true;

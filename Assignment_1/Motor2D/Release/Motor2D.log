@@ -8,6 +8,7 @@ j1Player.cpp(237): warning C4244: '=': conversion from 'float' to 'int', possibl
 j1Player.cpp(238): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 j1Player.cpp(279): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 j1Player.cpp(280): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+j1Player.cpp(288): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   Generating code
   1 of 456 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
