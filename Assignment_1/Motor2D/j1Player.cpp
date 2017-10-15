@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
+#include "j1Audio.h"
 
 #include<stdio.h>
 
@@ -167,17 +168,22 @@ bool j1Player::Update(float dt)
 					state = JUMPING;
 				}
 				//Double jumping sound
+				App->audio->PlayFx(App->audio->LoadFx("audio/fx/double_jump"), 0);
 			}
 			else
 			{
 				v.y = jump_force;
 				state = JUMPING;
 				//Jumping sound
+				App->audio->PlayFx(App->audio->LoadFx("audio/fx/jump"), 0);
 			}
 		}
 	}
-
-	//if (v.x != 0 && colliding_bottom) running sound
+	//Running sound
+	if (v.x != 0 && colliding_bottom)
+	{
+		App->audio->PlayFx(App->audio->LoadFx("audio/fx/step"), 0);
+	}
 
 	collider->SetPos(virtualPosition.x + collider_move.x, virtualPosition.y + collider_move.y);
 

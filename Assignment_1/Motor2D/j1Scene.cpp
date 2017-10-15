@@ -43,8 +43,8 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	App->map->Load(levels.start->data->mapPath.GetString(), current_lvl->data->length); //hello2.tmx
-
 	//Background music
+	App->audio->PlayMusic("audio/music/bg_music");
 
 	return true;
 }
