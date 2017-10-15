@@ -91,16 +91,24 @@ bool j1Player::Start()
 	colliding_left = false;
 	colliding_right = false;
 
+	v.x = 0;
+	v.y = 0;
+
 	animation = &idle_right;
 
 	virtualPosition.x = position.x;
 	virtualPosition.y = position.y;
 
-	step_fx = App->audio->LoadFx("audio/fx/step.wav");
-	jump_fx = App->audio->LoadFx("audio/fx/jump.wav");
-	double_jump_fx = App->audio->LoadFx("audio/fx/double_jump.wav");
-	landing_fx = App->audio->LoadFx("audio/fx/landing.wav");
-	die_fx = App->audio->LoadFx("audio/fx/die.wav");
+	if (step_fx == 0)
+		step_fx = App->audio->LoadFx("audio/fx/step.wav");
+	if (jump_fx == 0)
+		jump_fx = App->audio->LoadFx("audio/fx/jump.wav");
+	if (double_jump_fx == 0)
+		double_jump_fx = App->audio->LoadFx("audio/fx/double_jump.wav");
+	if (landing_fx == 0)
+		landing_fx = App->audio->LoadFx("audio/fx/landing.wav");
+	if (die_fx == 0)
+		die_fx = App->audio->LoadFx("audio/fx/die.wav");
 
 	return true;
 }
@@ -271,6 +279,10 @@ bool j1Player::Load(pugi::xml_node& data)
 	virtualPosition.x = data.attribute("position_x").as_int();
 	virtualPosition.y = data.attribute("position_y").as_int();
 	App->render->virtualCamPos = -(virtualPosition.x * (int)App->win->GetScale() - 100);
+	if (App->render->virtualCamPos > 0)
+	{
+		App->render->virtualCamPos = 0;
+	}
 	
 	return true;
 }
@@ -278,7 +290,7 @@ bool j1Player::Load(pugi::xml_node& data)
 bool j1Player::Save(pugi::xml_node& data) const
 {
 	data.append_attribute("position_x") = position.x;
-	data.append_attribute("position_y") = position.y;
+	data.append_attribute("position_y") = position.y - 3;
 	data.append_attribute("level") = App->scene->current_lvl->data->lvl;
 	
 	return true;

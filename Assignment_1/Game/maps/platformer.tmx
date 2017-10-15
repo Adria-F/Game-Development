@@ -36,21 +36,21 @@
   <image source="Layer 1 clound anim1.png" width="1500" height="207"/>
   <properties>
    <property name="constant_movement" type="bool" value="true"/>
-   <property name="speed" type="float" value="0.1"/>
+   <property name="speed" type="float" value="0.7"/>
   </properties>
  </imagelayer>
  <imagelayer name="Mountains (Back)" offsetx="0" offsety="-20">
   <image source="Layer 1 anim1.png" width="1500" height="404"/>
   <properties>
    <property name="constant_movement" type="bool" value="false"/>
-   <property name="speed" type="float" value="0.03"/>
+   <property name="speed" type="float" value="0.2"/>
   </properties>
  </imagelayer>
  <imagelayer name="Mountains (Front)" offsetx="0" offsety="-20">
   <image source="Layer 3 anim2.png" width="1500" height="404"/>
   <properties>
    <property name="constant_movement" type="bool" value="false"/>
-   <property name="speed" type="float" value="0.05"/>
+   <property name="speed" type="float" value="0.4"/>
   </properties>
  </imagelayer>
  <layer name="Ground 3" width="65" height="12">
@@ -3190,21 +3190,21 @@
   </data>
  </layer>
  <objectgroup color="#ff0000" name="Collision">
-  <object id="15" type="floor" x="1" y="379" width="114" height="6"/>
-  <object id="16" type="floor" x="137" y="346.334" width="171" height="37.6666"/>
-  <object id="17" type="floor" x="335" y="283.333" width="97" height="99.6667"/>
+  <object id="15" type="floor" x="1" y="379.727" width="114" height="5.27273"/>
+  <object id="16" type="floor" x="137" y="347.084" width="171" height="36.9166"/>
+  <object id="17" type="floor" x="335" y="283.515" width="97" height="99.4849"/>
   <object id="18" type="floor" x="461" y="346.667" width="193" height="36.3333"/>
-  <object id="19" type="jumpable" x="559.333" y="282.333" width="86.6667" height="67.6667"/>
-  <object id="20" type="jumpable" x="656" y="217.667" width="131" height="33.3333"/>
+  <object id="19" type="jumpable" x="559.333" y="284.083" width="86.6667" height="65.9167"/>
+  <object id="20" type="jumpable" x="656" y="219.667" width="131" height="31.3333"/>
   <object id="21" type="floor" x="845" y="283" width="170.333" height="101"/>
-  <object id="22" type="floor" x="871.667" y="186" width="87.3333" height="24.3333"/>
+  <object id="22" type="floor" x="876.417" y="188" width="82.5833" height="22.3333"/>
   <object id="23" type="floor" x="933" y="-1" width="25" height="193"/>
-  <object id="24" type="floor" x="956" y="154.333" width="57.3333" height="54"/>
+  <object id="24" type="floor" x="956" y="156.333" width="54.8333" height="52"/>
   <object id="25" type="floor" x="1066" y="219" width="74.3333" height="163"/>
   <object id="26" type="floor" x="1070.67" y="91.6667" width="69.3333" height="24.3333"/>
   <object id="29" type="floor" x="1192.67" y="59.3333" width="109.667" height="324.667"/>
-  <object id="30" type="floor" x="1329.67" y="122.333" width="91.3333" height="261.667"/>
-  <object id="31" type="floor" x="1459" y="58.6667" width="118" height="323.333"/>
+  <object id="30" type="floor" x="1329.67" y="124.833" width="91.3333" height="259.167"/>
+  <object id="31" type="floor" x="1459" y="60.1667" width="118" height="321.833"/>
   <object id="32" type="floor" x="1620" y="155.667" width="92.6667" height="57"/>
   <object id="33" type="floor" x="1786" y="155.667" width="43.3333" height="56"/>
   <object id="34" type="floor" x="1903.67" y="154.667" width="68.3333" height="56.3333"/>
