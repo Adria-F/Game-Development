@@ -7,7 +7,7 @@ It is a platformer game done for the first assignment of the videogames developm
 Decompress the .zip file in any directory and execute the executable inside the decompressed folder.
 
 #### Controls:
-##### A - Move player to the left
+##### A ######- Move player to the left
 ##### D - Move player to the right
 ##### ESPACE - jump/double jump (on air)
 ##### F1 - Start from the very first level
