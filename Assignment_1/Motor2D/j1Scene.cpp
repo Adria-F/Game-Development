@@ -45,6 +45,8 @@ bool j1Scene::Start()
 	App->map->Load(levels.start->data->mapPath.GetString(), current_lvl->data->length); //hello2.tmx
 	//Background music
 	App->audio->PlayMusic("audio/music/bg_music.ogg");
+	complete_level_fx = App->audio->LoadFx("audio/fx/level_complete.wav");
+	win_fx = App->audio->LoadFx("audio/fx/win.wav");
 
 	return true;
 }
@@ -83,14 +85,25 @@ bool j1Scene::Update(float dt)
 	App->win->GetWindowSize(win_width, win_height);
 	int max_camera_pos = current_lvl->data->length + (win_width);
 	max_camera_pos *= -1;
-	//max_camera_pos = -5000; //Comment to activate camera limit
 	if ((App->player->pos_relCam > (win_width / App->win->GetScale() / 2) ) && (App->render->virtualCamPos > max_camera_pos))
 	{
 		App->render->virtualCamPos -= App->player->speed * 2;
 	}
 	// ------------------------------------------------
 
-	//App->render->Blit(img, 0, 0);
+	if (App->player->position.x > current_lvl->data->length - 32 - App->player->animation->GetCurrentFrame().w)
+	{
+		if (current_lvl == levels.end)
+		{
+			App->audio->PlayFx(win_fx, 0);
+		}
+		else
+		{
+			App->audio->PlayFx(complete_level_fx, 0);
+		}
+		App->scene->LoadLvl(0);
+	}
+
 	App->map->Draw();
 
 	// TODO 7: Set the window title like

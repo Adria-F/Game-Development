@@ -100,6 +100,7 @@ bool j1Player::Start()
 	jump_fx = App->audio->LoadFx("audio/fx/jump.wav");
 	double_jump_fx = App->audio->LoadFx("audio/fx/double_jump.wav");
 	landing_fx = App->audio->LoadFx("audio/fx/landing.wav");
+	die_fx = App->audio->LoadFx("audio/fx/die.wav");
 
 	dead = false;
 	return true;
@@ -210,7 +211,7 @@ bool j1Player::PostUpdate()
 		v.x = -speed;
 	}
 
-	p2List_item<ImageLayer*>* image = nullptr;
+	p2List_item<ImageLayer*>* image = nullptr; // Parallax when player moves
 	for (image = App->map->data.image_layers.start; image; image = image->next)
 	{
 		if (image->data->speed > 0)
@@ -228,8 +229,15 @@ bool j1Player::PostUpdate()
 
 	position.x = virtualPosition.x;
 	position.y = virtualPosition.y;
+
 	int win_scale = App->win->GetScale();
 	pos_relCam = App->player->position.x + App->render->camera.x / win_scale;
+
+	if (position.y > App->win->screen_surface->h / win_scale + 50)
+	{
+		App->audio->PlayFx(die_fx, 0);
+		App->scene->LoadLvl(1);
+	}
 
 	App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame());
 
@@ -246,54 +254,7 @@ bool j1Player::PostUpdate()
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
-	/*if ((c2->rect.x + 4) > (c1->rect.x + (c1->rect.w)))
-	{ 
-		//LOG("Collision from right");
-		//going_right = false;
-		if (v.x > 0)
-		{
-			v.x = 0;
-		}
-		colliding_right = true;
-	}
-	else if ((c2->rect.x + (c2->rect.w)) < (c1->rect.x + 5))
-	{ 
-		//LOG("Collision from left");
-		//going_left = false;
-		if (v.x < 0)
-		{
-			v.x = 0;
-		}
-		colliding_left = true;
-	}
-	if ((c2->rect.y + (c2->rect.h)) < (c1->rect.y + 4))
-	{ 
-		//LOG("Collision from top");
-		if (v.y > 0)
-		{
-			v.y = 0;
-		}
-		//position.y += 1;
-		colliding_top = true;
-		collidingC = c2;
-	}*/
-	/*if (((c2->rect.y - v.y + 1) > (c1->rect.y + (c1->rect.h))))
-	{ 
-		//LOG("Collision from bottom");
-		if (colliding_bottom == false)
-		{
-			v.y = 0;
-			state = IDLE;
-			colliding_bottom = true;
-		}
-		if (animation == &jumping_left)
-			animation = &idle_left;
-		else if (animation == &jumping_right)
-			animation = &idle_right;
-		//collidingC = c2;
-	}*/
-
-	if (c2->type == COLLIDER_FLOOR)
+	if (c2->type == COLLIDER_FLOOR || c2->type == COLLIDER_JUMPABLE)
 	{
 		if (((c2->rect.y - v.y + 1) > (c1->rect.y + (c1->rect.h)))) //The collision is from bottom
 		{

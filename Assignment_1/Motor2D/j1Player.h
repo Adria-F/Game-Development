@@ -36,7 +36,7 @@ public:
 	int num = 0;
 	fPoint collider_move;
 
-	uint double_jump_fx, jump_fx, step_fx;
+	uint double_jump_fx, jump_fx, step_fx, die_fx;
 	float step_time = 0;
 
 	Animation jump_cloud;

@@ -55,6 +55,7 @@ public:
 
 	p2List<level*> levels;
 	p2List_item<level*>* current_lvl;
+	uint complete_level_fx, win_fx;
 
 };
 
