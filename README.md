@@ -13,6 +13,7 @@ Decompress the .zip file in any directory and execute the executable inside the 
 
 **ESPACE** - jump/double jump (on air)
 
+##### Debug functionality:
 **F1** - Start from the very first level
 
 **F2** - Start from the beginning of the current level
