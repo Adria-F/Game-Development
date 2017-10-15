@@ -47,7 +47,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 					state = LEFT;
 				}
 				colliding_bottom = true;
-				App->audio->LoadFx("audio/fx/landing.wav");
+				App->audio->PlayFx(landing_fx, 0);
 				//Touching ground sound
 			}
 			collidingFloor = c2;

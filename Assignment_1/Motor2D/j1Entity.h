@@ -60,6 +60,8 @@ public:
 	Animation death;
 	int pos_relCam;
 
+	uint landing_fx;
+
 	Collider* collider;
 	Collider* collidingFloor;
 
