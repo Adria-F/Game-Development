@@ -304,6 +304,7 @@ bool j1Player::Load(pugi::xml_node& data)
 	App->scene->LoadLvl(data.attribute("level").as_int());
 	virtualPosition.x = data.attribute("position_x").as_int();
 	virtualPosition.y = data.attribute("position_y").as_int();
+	App->render->virtualCamPos = -(virtualPosition.x * (int)App->win->GetScale() - 100);
 	
 	return true;
 }
