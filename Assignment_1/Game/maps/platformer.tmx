@@ -3191,24 +3191,24 @@
  </layer>
  <objectgroup color="#ff0000" name="Collision">
   <object id="15" type="floor" x="1" y="379" width="114" height="6"/>
-  <object id="16" type="floor" x="137" y="353.667" width="171" height="30.3333"/>
-  <object id="17" type="floor" x="335" y="288" width="97" height="95"/>
-  <object id="18" type="floor" x="461" y="352" width="193" height="31"/>
-  <object id="19" type="jumpable" x="564" y="287" width="82" height="63"/>
-  <object id="20" type="jumpable" x="656" y="223" width="131" height="28"/>
-  <object id="21" type="floor" x="845" y="287" width="170.333" height="97"/>
-  <object id="22" type="floor" x="871.667" y="192" width="87.3333" height="18.3333"/>
+  <object id="16" type="floor" x="137" y="346.334" width="171" height="37.6666"/>
+  <object id="17" type="floor" x="335" y="283.333" width="97" height="99.6667"/>
+  <object id="18" type="floor" x="461" y="346.667" width="193" height="36.3333"/>
+  <object id="19" type="jumpable" x="559.333" y="282.333" width="86.6667" height="67.6667"/>
+  <object id="20" type="jumpable" x="656" y="217.667" width="131" height="33.3333"/>
+  <object id="21" type="floor" x="845" y="283" width="170.333" height="101"/>
+  <object id="22" type="floor" x="871.667" y="186" width="87.3333" height="24.3333"/>
   <object id="23" type="floor" x="933" y="-1" width="25" height="193"/>
-  <object id="24" type="floor" x="956" y="161" width="57.3333" height="47.3333"/>
-  <object id="25" type="floor" x="1066" y="221" width="74.3333" height="161"/>
-  <object id="26" type="floor" x="1070.67" y="95" width="69.3333" height="21"/>
-  <object id="29" type="floor" x="1192.67" y="64" width="109.667" height="320"/>
-  <object id="30" type="floor" x="1329.67" y="127" width="91.3333" height="257"/>
-  <object id="31" type="floor" x="1459" y="62" width="118" height="320"/>
-  <object id="32" type="floor" x="1620" y="161" width="92.6667" height="51.6667"/>
-  <object id="33" type="floor" x="1786" y="159" width="43.3333" height="52.6667"/>
-  <object id="34" type="floor" x="1903.67" y="158" width="68.3333" height="53"/>
-  <object id="35" type="floor" x="2001.67" y="96" width="80.6667" height="52.3333"/>
+  <object id="24" type="floor" x="956" y="154.333" width="57.3333" height="54"/>
+  <object id="25" type="floor" x="1066" y="219" width="74.3333" height="163"/>
+  <object id="26" type="floor" x="1070.67" y="91.6667" width="69.3333" height="24.3333"/>
+  <object id="29" type="floor" x="1192.67" y="59.3333" width="109.667" height="324.667"/>
+  <object id="30" type="floor" x="1329.67" y="122.333" width="91.3333" height="261.667"/>
+  <object id="31" type="floor" x="1459" y="58.6667" width="118" height="323.333"/>
+  <object id="32" type="floor" x="1620" y="155.667" width="92.6667" height="57"/>
+  <object id="33" type="floor" x="1786" y="155.667" width="43.3333" height="56"/>
+  <object id="34" type="floor" x="1903.67" y="154.667" width="68.3333" height="56.3333"/>
+  <object id="35" type="floor" x="2001.67" y="90" width="80.6667" height="58.3333"/>
  </objectgroup>
  <objectgroup color="#0000ff" name="Logic">
   <properties>
