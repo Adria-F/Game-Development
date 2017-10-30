@@ -218,7 +218,7 @@ bool j1Player::PostUpdate()
 		v.x = -speed;
 	}
 
-	p2List_item<ImageLayer*>* image = nullptr; // Parallax when player moves
+	/*p2List_item<ImageLayer*>* image = nullptr; // Parallax when player moves
 	for (image = App->map->data.image_layers.start; image; image = image->next)
 	{
 		if (image->data->speed > 0)
@@ -232,7 +232,7 @@ bool j1Player::PostUpdate()
 				image->data->position.x -= image->data->speed;
 			}
 		}
-	}
+	}*/
 
 	position.x = virtualPosition.x;
 	position.y = virtualPosition.y;

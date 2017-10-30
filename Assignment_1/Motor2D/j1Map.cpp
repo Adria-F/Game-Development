@@ -56,6 +56,7 @@ void j1Map::Draw()
 	{
 		layer = item->data;
 		
+		//Each layer
 		for (int j = 0; j < data.height; j++)
 		{
 			for (int i = 0; i < data.width; i++)

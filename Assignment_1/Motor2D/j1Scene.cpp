@@ -88,6 +88,7 @@ bool j1Scene::Update(float dt)
 	}
 	// ------------------------------------------------
 
+	// Win condition
 	if (App->player->position.x > current_lvl->data->length - 32 - App->player->animation->GetCurrentFrame().w)
 	{
 		if (end_reached == 0)
@@ -108,6 +109,23 @@ bool j1Scene::Update(float dt)
 			end_reached = 0;
 			App->player->won = false;
 			App->scene->LoadLvl(0);
+		}
+	}
+
+	// Parallax
+	p2List_item<ImageLayer*>* image = nullptr; // Parallax when player moves
+	for (image = App->map->data.image_layers.start; image; image = image->next)
+	{
+		if (image->data->speed > 0)
+		{
+			if (image->data->constant_movement)
+			{
+				image->data->position.x -= image->data->speed;
+			}
+			else if (App->player->v.x > 0 && (App->player->pos_relCam > (win_width / App->win->GetScale() / 2)) && (App->render->virtualCamPos > max_camera_pos))
+			{
+				image->data->position.x -= image->data->speed;
+			}
 		}
 	}
 
