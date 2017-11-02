@@ -29,7 +29,3 @@ https://github.com/Adria-F/Game-Development
 ## Credits
 A game made by Norman Benet González & Adrià Ferrer Comas.
 
-
-## License
-All the art & audio that we use are free for comercial use & took from the internet.
-
