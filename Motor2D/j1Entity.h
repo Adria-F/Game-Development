@@ -20,6 +20,13 @@ enum entity_state
 	DAMAGED
 };
 
+enum entity_type
+{
+	PLAYER,
+	ENEMY1, //needs name
+	ENEMY2 //needs name
+};
+
 class Entity : public j1Module
 {
 public:
@@ -34,20 +41,31 @@ public:
 
 	void Entity_OnCollision(Collider* c1, Collider* c2);
 
+	virtual bool specificAnimation()
+	{
+		return false;
+	}
+
 private:
 
 	void setAnimation();
 
 public:
 
-	iPoint position;
-	fPoint virtualPosition;
-	fPoint v;
+	iPoint position; //To draw
+	fPoint virtualPosition; //To move
+	int pos_relCam; //Position on screen
+	fPoint v; //Current velocity
+	
+	//Keep orientation of collision
 	bool colliding_bottom;
 	bool colliding_right;
 	bool colliding_left;
-	entity_state state;
+
 	SDL_Texture* graphics = nullptr;
+	
+	entity_state state;
+	//Basic animations
 	Animation* animation = nullptr;
 	Animation idle_right;
 	Animation idle_left;
@@ -58,12 +76,11 @@ public:
 	Animation falling_left;
 	Animation falling_right;
 	Animation death;
-	int pos_relCam;
-
+	
 	uint landing_fx;
 
 	Collider* collider;
-	Collider* collidingFloor;
+	Collider* collidingFloor; //Last platform collision
 
 	float speed;
 	float jump_force;

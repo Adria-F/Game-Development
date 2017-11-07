@@ -143,7 +143,7 @@ bool j1Player::Update(float dt)
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
 	{
-		if (v.x < 0 && state != JUMPING)
+		if (state == LEFT)
 		{
 			v.x = 0;
 			state = IDLE;
@@ -159,7 +159,7 @@ bool j1Player::Update(float dt)
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
 	{
-		if (v.x > 0 && state != JUMPING)
+		if (state == RIGHT)
 		{
 			v.x = 0;
 			state = IDLE;
@@ -218,22 +218,6 @@ bool j1Player::PostUpdate()
 		v.x = -speed;
 	}
 
-	/*p2List_item<ImageLayer*>* image = nullptr; // Parallax when player moves
-	for (image = App->map->data.image_layers.start; image; image = image->next)
-	{
-		if (image->data->speed > 0)
-		{
-			if (image->data->constant_movement)
-			{
-				image->data->position.x -= image->data->speed;
-			}
-			else if (v.x > 0)
-			{
-				image->data->position.x -= image->data->speed;
-			}
-		}
-	}*/
-
 	position.x = virtualPosition.x;
 	position.y = virtualPosition.y;
 
@@ -252,9 +236,6 @@ bool j1Player::PostUpdate()
 	{
 		App->render->Blit(graphics, cloud_pos.x, cloud_pos.y, &jump_cloud.GetCurrentFrame());
 	}
-
-	LOG("%d", position.x);
-	LOG("%f", App->render->virtualCamPos);
 
 	return true;
 }
