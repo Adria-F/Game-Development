@@ -63,6 +63,7 @@ public:
 	bool colliding_left;
 
 	SDL_Texture* graphics = nullptr;
+	SDL_Texture* graphics_god = nullptr;
 	
 	entity_state state;
 	//Basic animations

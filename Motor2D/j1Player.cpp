@@ -83,6 +83,9 @@ bool j1Player::Start()
 	if (graphics == nullptr)
 		graphics = App->tex->Load("textures/character/Character spritesheet.png");
 
+	if (graphics_god == nullptr)
+		graphics_god = App->tex->Load("textures/character/godmode_spritesheet.png");
+
 	if (collider == nullptr)
 		collider = App->collision->AddCollider({ 0, 0, 21, 33 }, COLLIDER_PLAYER, this);
 
@@ -230,7 +233,11 @@ bool j1Player::PostUpdate()
 		App->scene->LoadLvl(App->scene->current_lvl->data->lvl);
 	}
 
-	App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame());
+	//When f10 is clicked he converts into super sayan (god mode)
+	if(god_mode)
+		App->render->Blit(graphics_god, position.x, position.y, &animation->GetCurrentFrame());
+	else if(god_mode == false)
+		App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame());
 
 	if (double_jump)
 	{
