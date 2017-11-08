@@ -33,12 +33,15 @@ public:
 
 	fPoint collider_move;
 
-	uint double_jump_fx, jump_fx, step_fx, die_fx;
+	uint double_jump_fx, jump_fx, step_fx, die_fx, SSJ_transformation, SSJ_off;
 	float step_time = 0;
 
 	Animation jump_cloud;
 	iPoint cloud_offset;
 	iPoint cloud_pos;
+
+	Animation SSJ_aura;
+	iPoint aura_offset;
 
 	bool double_jump;
 	bool won;

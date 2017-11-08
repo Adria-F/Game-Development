@@ -19,7 +19,7 @@ j1Player::j1Player()
 	name.create("player");
 	
 	// ----- Animations -----
-	idle_right.PushBack({ 0, 66, 21, 33 });
+	idle_right.PushBack({ 0, 66, 21, 33 }); // 7, 12
 	idle_left.PushBack({ 84, 66, 21, 33 });
 
 	jumping_right.PushBack({ 63, 33, 21, 33 });
@@ -56,9 +56,16 @@ j1Player::j1Player()
 	jump_cloud.speed = 0.17f;
 	jump_cloud.loop = false;
 	
-
 	cloud_offset.x = -16;
 	cloud_offset.y = 17;
+
+	SSJ_aura.PushBack({ 163, 1, 36, 45 });
+	SSJ_aura.PushBack({ 163, 47, 36, 45 });
+	SSJ_aura.PushBack({ 163, 94, 36, 45 });
+	SSJ_aura.speed = 0.1f;
+
+	aura_offset.x = -7;
+	aura_offset.y = -12;
 
 	/*collider_move.x = 2;
 	collider_move.y = 0;*/
@@ -112,6 +119,10 @@ bool j1Player::Start()
 		landing_fx = App->audio->LoadFx("audio/fx/landing.wav");
 	if (die_fx == 0)
 		die_fx = App->audio->LoadFx("audio/fx/die.wav");
+	if (SSJ_transformation == 0)
+		SSJ_transformation = App->audio->LoadFx("audio/fx/SSJ_transformation.wav");
+	if (SSJ_off == 0)
+		SSJ_off = App->audio->LoadFx("audio/fx/SSJ_off.wav");
 
 	return true;
 }
@@ -122,6 +133,7 @@ bool j1Player::CleanUp()
 	LOG("Unloading player");
 
 	App->tex->UnLoad(graphics);
+	App->tex->UnLoad(graphics_god);
 	if (collider != nullptr)
 	{
 		collider->to_delete = true;
@@ -234,10 +246,16 @@ bool j1Player::PostUpdate()
 	}
 
 	//When f10 is clicked he converts into super sayan (god mode)
-	if(god_mode)
+	if (god_mode)
+	{
+		App->render->Blit(graphics_god, position.x + aura_offset.x, position.y + aura_offset.y, &SSJ_aura.GetCurrentFrame());
 		App->render->Blit(graphics_god, position.x, position.y, &animation->GetCurrentFrame());
-	else if(god_mode == false)
+		App->render->Blit(graphics_god, position.x + aura_offset.x, position.y + aura_offset.y, &SSJ_aura.GetCurrentFrame());
+	}
+	else if (god_mode == false)
+	{
 		App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame());
+	}
 
 	if (double_jump)
 	{

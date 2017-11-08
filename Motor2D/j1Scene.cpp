@@ -81,10 +81,14 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
 		if (App->player->god_mode)
+		{
 			App->player->god_mode = false;
+			App->audio->PlayFx(App->player->SSJ_off, 0);
+		}
 		else
 		{
 			App->player->god_mode = true;
+			App->audio->PlayFx(App->player->SSJ_transformation, 0);
 		}
 	}
 
