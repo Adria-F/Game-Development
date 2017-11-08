@@ -81,7 +81,7 @@ bool j1Player::Start()
 	LOG("Loading player");
 
 	if (graphics == nullptr)
-		graphics = App->tex->Load("textures/Character spritesheet.png");
+		graphics = App->tex->Load("textures/character/Character spritesheet.png");
 
 	if (collider == nullptr)
 		collider = App->collision->AddCollider({ 0, 0, 21, 33 }, COLLIDER_PLAYER, this);

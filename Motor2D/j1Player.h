@@ -29,6 +29,7 @@ public:
 
 	bool jumping;
 	bool falling;
+	bool god_mode = false;
 
 	fPoint collider_move;
 

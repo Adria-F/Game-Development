@@ -48,6 +48,7 @@ bool j1Scene::Start()
 	complete_level_fx = App->audio->LoadFx("audio/fx/level_complete.wav");
 	win_fx = App->audio->LoadFx("audio/fx/win.wav");
 
+
 	return true;
 }
 
@@ -76,7 +77,27 @@ bool j1Scene::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
-	
+
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		if (App->player->god_mode)
+			App->player->god_mode = false;
+		else
+		{
+			App->player->god_mode = true;
+		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	{
+
+	}
+
+	if ((App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN))
+	{
+		
+	}
+
 	// Move camera with player -----------------------
 	uint win_width, win_height;
 	App->win->GetWindowSize(win_width, win_height);
