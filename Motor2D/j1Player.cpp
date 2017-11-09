@@ -117,7 +117,7 @@ bool j1Player::CleanUp()
 // Update: draw background
 bool j1Player::Update(float dt)
 {
-	//Entity_Update(dt);
+	Entity_Update(dt);
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
 	{
@@ -186,6 +186,7 @@ bool j1Player::Update(float dt)
 			v.y = (jump_force * 2 / 3) / 2;
 		}
 	}
+	
 	//Running sound
 	if (v.x != 0 && colliding_bottom && SDL_GetTicks() > step_time)
 	{

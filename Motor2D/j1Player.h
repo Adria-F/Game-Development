@@ -27,8 +27,8 @@ public:
 
 public:
 
-	bool jumping;
-	bool falling;
+	bool jumping = false;
+	bool falling = false;
 	bool god_mode = false;
 
 	fPoint collider_move;
@@ -44,8 +44,8 @@ public:
 	Animation SSJ_aura;
 	iPoint aura_offset;
 
-	bool double_jump;
-	bool won;
+	bool double_jump = false;
+	bool won = false;
 };
 
 #endif

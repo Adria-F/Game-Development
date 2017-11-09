@@ -235,8 +235,5 @@ Animation Entity::LoadAnimation(const char* animationPath, const char* animation
 		}
 	}
 
-	pugi::xml_node image = animation.child("map").child("imagelayer").child("image");
-	//ret.texture = App->tex->Load(image.attribute("source").as_string());
-
 	return ret;
 }

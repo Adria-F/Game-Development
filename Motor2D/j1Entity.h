@@ -57,9 +57,9 @@ public:
 	fPoint v; //Current velocity
 	
 	//Keep orientation of collision
-	bool colliding_bottom;
-	bool colliding_right;
-	bool colliding_left;
+	bool colliding_bottom = false;
+	bool colliding_right = false;
+	bool colliding_left = false;
 
 	SDL_Texture* graphics = nullptr;
 	
