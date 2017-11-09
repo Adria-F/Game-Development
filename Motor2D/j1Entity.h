@@ -24,8 +24,8 @@ enum entity_state
 enum entity_type
 {
 	PLAYER,
-	ENEMY1, //needs name
-	ENEMY2 //needs name
+	CHARGER,
+	BAT
 };
 
 class Entity : public j1Module
