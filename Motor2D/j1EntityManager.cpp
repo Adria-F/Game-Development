@@ -2,6 +2,8 @@
 #include "j1Charger.h"
 #include "j1Bat.h"
 #include "p2Log.h"
+#include "j1Render.h"
+#include "j1App.h"
 
 j1EntityManager::j1EntityManager()
 {}
@@ -18,7 +20,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 bool j1EntityManager::Start()
 {
-	createEntity(entity_type::BAT);
+	createEntity(entity_type::BAT, 100, 0);
 
 	return true;
 }
@@ -40,6 +42,7 @@ bool j1EntityManager::PostUpdate()
 	{
 		entity->data->position.x = entity->data->virtualPosition.x;
 		entity->data->position.y = entity->data->virtualPosition.y;
+		App->render->Blit(entity->data->graphics, entity->data->position.x, entity->data->position.y);
 	}
 
 	return true;
@@ -47,11 +50,15 @@ bool j1EntityManager::PostUpdate()
 
 bool j1EntityManager::CleanUp()
 {
+	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
+	{
+		entity->data->CleanUp();
+	}
 
 	return true;
 }
 
-Entity* j1EntityManager::createEntity(entity_type type)
+Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 {
 	Entity* ret = nullptr;
 	
@@ -65,6 +72,8 @@ Entity* j1EntityManager::createEntity(entity_type type)
 		break;
 	}
 	ret->type = type;
+	ret->virtualPosition.x = ret->position.x = x;
+	ret->virtualPosition.y = ret->position.y = y;
 	entities.add(ret);
 
 	return ret;

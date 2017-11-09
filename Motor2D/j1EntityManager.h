@@ -18,7 +18,7 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
-	Entity* createEntity(entity_type type);
+	Entity* createEntity(entity_type type, int x, int y);
 
 private:
 

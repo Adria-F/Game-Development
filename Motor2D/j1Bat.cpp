@@ -25,23 +25,24 @@ bool Bat::Awake(pugi::xml_node&)
 {
 	return true;
 }
-bool Bat::Start()
-{
-	return true;
-}
+
 bool Bat::Update(float dt)
 {
-	App->render->Blit(graphics, position.x, position.y);
 	return true;
 }
+
 bool Bat::PostUpdate()
 {
 	return true;
 }
+
 bool Bat::CleanUp()
 {
+	App->tex->UnLoad(graphics);
+
 	return true;
 }
+
 void Bat::OnCollision(Collider* c1, Collider* c2)
 {
 
@@ -51,6 +52,7 @@ bool Bat::Load(pugi::xml_node&)
 {
 	return true;
 }
+
 bool Bat::Save(pugi::xml_node&) const
 {
 	return true;
