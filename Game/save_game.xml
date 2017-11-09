@@ -6,9 +6,9 @@
 	<audio />
 	<map />
 	<scene />
-	<player position_x="871" position_y="152" level="1" />
+	<player position_x="228" position_y="311" level="2" />
 	<:anonymous />
 	<renderer>
-		<camera x="-1232" y="0" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>

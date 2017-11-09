@@ -151,6 +151,7 @@ bool j1Map::CleanUp()
 // Load new map
 bool j1Map::Load(const char* file_name, int& map_length)
 {
+	BROFILER_CATEGORY("Load Map", Profiler::Color::Aquamarine);
 	bool ret = true;
 
 	//Clean previous map before loading another one
