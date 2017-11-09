@@ -117,6 +117,7 @@ bool j1Player::CleanUp()
 // Update: draw background
 bool j1Player::Update(float dt)
 {
+	LOG("Player Update");
 	Entity_Update();
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
@@ -176,6 +177,14 @@ bool j1Player::Update(float dt)
 				App->audio->PlayFx(jump_fx, 0);
 
 			}
+		}
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+	{
+		// If player release space in mid jump, the character won't reach max height
+		if (!double_jump && v.y > (jump_force * 2 / 3) / 2)
+		{
+			v.y = (jump_force * 2 / 3) / 2;
 		}
 	}
 	//Running sound
