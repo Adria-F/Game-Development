@@ -6,7 +6,7 @@
 #include "j1Audio.h"
 #include "p2Log.h"
 
-bool Entity::Entity_Update()
+bool Entity::Entity_Update(float dt)
 {
 	v.y += (gravity * ((colliding_bottom) ? 0 : 1));
 	if (v.y < -6)

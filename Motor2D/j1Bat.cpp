@@ -7,47 +7,51 @@
 #include "p2Log.h"
 #include "j1Window.h"
 #include "j1Map.h"
-#include "j1Scene.h"
 #include "j1Audio.h"
+#include "j1Textures.h"
 
-j1Bat::j1Bat() : Entity("bat")
+Bat::Bat() : Entity("bat")
 {
-}
-
-j1Bat::~j1Bat()
-{
-}
-
-bool j1Bat::Awake(pugi::xml_node&)
-{
-	return true;
-}
-bool j1Bat::Start()
-{
-	return true;
-}
-bool j1Bat::Update(float dt)
-{
-	return true;
-}
-bool j1Bat::PostUpdate()
-{
-	return true;
-}
-bool j1Bat::CleanUp()
-{
-	return true;
-}
-void j1Bat::OnCollision(Collider* c1, Collider* c2)
-{
-
+	graphics = App->tex->Load("textures/enemies/bat.png");
+	speed = 2;
+	jump_force = 6;
 }
 
-bool j1Bat::Load(pugi::xml_node&)
+Bat::~Bat()
+{
+}
+
+bool Bat::Awake(pugi::xml_node&)
 {
 	return true;
 }
-bool j1Bat::Save(pugi::xml_node&) const
+bool Bat::Start()
+{
+	return true;
+}
+bool Bat::Update(float dt)
+{
+	App->render->Blit(graphics, position.x, position.y);
+	return true;
+}
+bool Bat::PostUpdate()
+{
+	return true;
+}
+bool Bat::CleanUp()
+{
+	return true;
+}
+void Bat::OnCollision(Collider* c1, Collider* c2)
+{
+
+}
+
+bool Bat::Load(pugi::xml_node&)
+{
+	return true;
+}
+bool Bat::Save(pugi::xml_node&) const
 {
 	return true;
 }

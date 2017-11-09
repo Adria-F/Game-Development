@@ -6,10 +6,11 @@
 #include "Animation.h"
 #include "p2Point.h"
 
-class j1Charger : public Entity
+class Charger : public Entity
 {
-	j1Charger();
-	~j1Charger();
+public:
+	Charger();
+	~Charger();
 
 	bool Awake(pugi::xml_node&);
 	bool Start();

@@ -10,44 +10,44 @@
 #include "j1Scene.h"
 #include "j1Audio.h"
 
-j1Charger::j1Charger() : Entity("charger")
+Charger::Charger() : Entity("charger")
 {
 }
 
-j1Charger::~j1Charger()
+Charger::~Charger()
 {
 }
 
-bool j1Charger::Awake(pugi::xml_node&)
+bool Charger::Awake(pugi::xml_node&)
 {
 	return true;
 }
-bool j1Charger::Start()
+bool Charger::Start()
 {
 	return true;
 }
-bool j1Charger::Update(float dt)
+bool Charger::Update(float dt)
 {
 	return true;
 }
-bool j1Charger::PostUpdate()
+bool Charger::PostUpdate()
 {
 	return true;
 }
-bool j1Charger::CleanUp()
+bool Charger::CleanUp()
 {
 	return true;
 }
-void j1Charger::OnCollision(Collider* c1, Collider* c2)
+void Charger::OnCollision(Collider* c1, Collider* c2)
 {
 
 }
 
-bool j1Charger::Load(pugi::xml_node&)
+bool Charger::Load(pugi::xml_node&)
 {
 	return true;
 }
-bool j1Charger::Save(pugi::xml_node&) const
+bool Charger::Save(pugi::xml_node&) const
 {
 	return true;
 }

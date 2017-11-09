@@ -117,8 +117,7 @@ bool j1Player::CleanUp()
 // Update: draw background
 bool j1Player::Update(float dt)
 {
-	LOG("Player Update");
-	Entity_Update();
+	//Entity_Update(dt);
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
 	{

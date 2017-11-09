@@ -6,11 +6,11 @@
 #include "Animation.h"
 #include "p2Point.h"
 
-class j1Bat : public Entity
+class Bat : public Entity
 {
 public:
-	j1Bat();
-	~j1Bat();
+	Bat();
+	~Bat();
 
 	bool Awake(pugi::xml_node&);
 	bool Start();

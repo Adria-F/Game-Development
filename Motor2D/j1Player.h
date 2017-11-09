@@ -40,6 +40,7 @@ public:
 	iPoint cloud_offset;
 	iPoint cloud_pos;
 
+	SDL_Texture* graphics_god = nullptr;
 	Animation SSJ_aura;
 	iPoint aura_offset;
 

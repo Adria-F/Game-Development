@@ -48,7 +48,7 @@ public:
 		falling_left = LoadAnimation(path.GetString(), "falling_left");
 	}
 
-	bool Entity_Update();
+	bool Entity_Update(float dt);
 
 	void Entity_OnCollision(Collider* c1, Collider* c2);
 
@@ -76,7 +76,6 @@ public:
 	bool colliding_left;
 
 	SDL_Texture* graphics = nullptr;
-	SDL_Texture* graphics_god = nullptr;
 	
 	entity_state state;
 	//Basic animations
@@ -98,6 +97,8 @@ public:
 
 	float speed;
 	float jump_force;
+
+	entity_type type;
 };
 
 #endif // !__ModuleEntity_H__

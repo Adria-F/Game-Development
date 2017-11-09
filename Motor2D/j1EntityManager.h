@@ -18,6 +18,8 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
+	Entity* createEntity(entity_type type);
+
 private:
 
 	p2List<Entity*> entities;
