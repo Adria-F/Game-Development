@@ -43,6 +43,12 @@
     <ClCompile Include="j1Entity.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1Bat.cpp">
+      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Charger.cpp">
+      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -108,6 +114,12 @@
     <ClInclude Include="j1Collision.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="j1Charger.h">
+      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Bat.h">
+      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -127,6 +139,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Tools\PuguiXML">
       <UniqueIdentifier>{7cb78d67-17cc-45eb-af97-e2106becce7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\Enemies">
+      <UniqueIdentifier>{ee1e42ca-4f27-4ebd-8cc0-0a550ccfea77}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
