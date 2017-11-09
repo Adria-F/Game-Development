@@ -4,6 +4,7 @@
 #include "j1Collision.h"
 #include "j1Input.h"
 #include "j1Audio.h"
+#include "p2Log.h"
 
 bool Entity::Entity_Update()
 {
@@ -172,4 +173,53 @@ void Entity::setAnimation()
 			animation = &right;
 		}
 	}
+}
+
+Animation Entity::LoadAnimation(const char* animationPath, const char* animationName)
+{
+	Animation ret;
+
+	pugi::xml_document animation;
+	pugi::xml_parse_result result = animation.load_file(animationPath);
+	if (result == NULL)
+	{
+		LOG("Could not load animation xml file %s. pugi error: %s", animationName, result.description());
+	}
+
+	pugi::xml_node objectGroup;
+	for (objectGroup = animation.child("map").child("objectgroup"); objectGroup; objectGroup = objectGroup.next_sibling("objectgroup"))
+	{
+		p2SString objectname = objectGroup.attribute("name").as_string();
+		if (objectname == animationName)
+		{
+			int x, y, h, w;
+			float speed;
+			for (pugi::xml_node sprite = objectGroup.child("object"); sprite; sprite = sprite.next_sibling("object"))
+			{
+				x = sprite.attribute("x").as_int();
+				y = sprite.attribute("y").as_int();
+				w = sprite.attribute("width").as_int();
+				h = sprite.attribute("height").as_int();
+
+				ret.PushBack({ x, y, w, h });
+
+				for (pugi::xml_node property = objectGroup.child("properties").child("property"); property; property = property.next_sibling("property"))
+				{
+					p2SString name = property.attribute("name").as_string();
+					if (name == "speed")
+					{
+						speed = property.attribute("value").as_float();
+						ret.speed = speed;
+						break;
+					}
+				}
+			}
+			break;
+		}
+	}
+
+	pugi::xml_node image = animation.child("map").child("imagelayer").child("image");
+	//ret.texture = App->tex->Load(image.attribute("source").as_string());
+
+	return ret;
 }

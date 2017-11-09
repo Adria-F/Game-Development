@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="165" tilewidth="1" tileheight="1" nextobjectid="32">
+ <imagelayer name="spritesheet">
+  <image source="../textures/character/godmode_spritesheet.png" width="200" height="165"/>
+ </imagelayer>
+ <objectgroup name="right">
+  <properties>
+   <property name="speed" type="float" value="0.07"/>
+  </properties>
+  <object id="6" x="0" y="0" width="21" height="33"/>
+  <object id="7" x="21" y="0" width="21" height="33"/>
+  <object id="8" x="42" y="0" width="21" height="33"/>
+  <object id="9" x="63" y="0" width="21" height="33"/>
+  <object id="10" x="84" y="0" width="21" height="33"/>
+  <object id="11" x="0" y="33" width="21" height="33"/>
+  <object id="12" x="21" y="33" width="21" height="33"/>
+  <object id="13" x="42" y="33" width="21" height="33"/>
+ </objectgroup>
+ <objectgroup name="left">
+  <properties>
+   <property name="speed" type="float" value="0.07"/>
+  </properties>
+  <object id="15" x="0" y="99" width="21" height="33"/>
+  <object id="16" x="21" y="99" width="21" height="33"/>
+  <object id="17" x="42" y="99" width="21" height="33"/>
+  <object id="18" x="63" y="99" width="21" height="33"/>
+  <object id="19" x="84" y="99" width="21" height="33"/>
+  <object id="20" x="0" y="132" width="21" height="33"/>
+  <object id="21" x="21" y="132" width="21" height="33"/>
+  <object id="22" x="42" y="132" width="21" height="33"/>
+ </objectgroup>
+ <objectgroup name="idle_right">
+  <object id="24" x="0" y="66" width="21" height="33"/>
+ </objectgroup>
+ <objectgroup name="idle_left">
+  <object id="25" x="84" y="66" width="21" height="33"/>
+ </objectgroup>
+ <objectgroup name="jumping_right">
+  <object id="28" x="63" y="33" width="21" height="33"/>
+ </objectgroup>
+ <objectgroup name="falling_right">
+  <object id="29" x="84" y="33" width="21" height="33"/>
+ </objectgroup>
+ <objectgroup name="jumping_left">
+  <object id="30" x="63" y="132" width="21" height="33"/>
+ </objectgroup>
+ <objectgroup name="falling_left">
+  <object id="31" x="84" y="132" width="21" height="33"/>
+ </objectgroup>
+ <objectgroup color="#ff0000" name="collider">
+  <object id="26" type="entity" x="0" y="0" width="21" height="33"/>
+  <object id="27" type="collider" x="3" y="2" width="15" height="31"/>
+ </objectgroup>
+</map>

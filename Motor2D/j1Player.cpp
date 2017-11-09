@@ -14,48 +14,19 @@
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
-j1Player::j1Player()
+j1Player::j1Player() : Entity("player")
 {
 	name.create("player");
-	
-	// ----- Animations -----
-	idle_right.PushBack({ 0, 66, 21, 33 }); // 7, 12
-	idle_left.PushBack({ 84, 66, 21, 33 });
 
-	jumping_right.PushBack({ 63, 33, 21, 33 });
-	jumping_left.PushBack({ 63, 132, 21, 33 });
-
-	falling_right.PushBack({ 84, 33, 21, 33 });
-	falling_left.PushBack({ 84, 132, 21, 33 });
-
-	right.PushBack({ 0, 0, 21, 33 });
-	right.PushBack({ 21, 0, 21, 33 });
-	right.PushBack({ 42, 0, 21, 33 });
-	right.PushBack({ 63, 0, 21, 33 });
-	right.PushBack({ 84, 0, 21, 33 });
-	right.PushBack({ 0, 33, 21, 33 });
-	right.PushBack({ 21, 33, 21, 33 });
-	right.PushBack({ 42, 33, 21, 33 });
-	right.speed = 0.07f;
-
-	left.PushBack({ 0, 99, 21, 33 });
-	left.PushBack({ 21, 99, 21, 33 });
-	left.PushBack({ 42, 99, 21, 33 });
-	left.PushBack({ 63, 99, 21, 33 });
-	left.PushBack({ 84, 99, 21, 33 });
-	left.PushBack({ 0, 132, 21, 33 });
-	left.PushBack({ 21, 132, 21, 33 });
-	left.PushBack({ 42, 132, 21, 33 });
-	left.speed = 0.07f;
-
+	// Animations
 	jump_cloud.PushBack({ 108, 60, 52, 20 });
 	jump_cloud.PushBack({ 108, 40, 52, 20 });
 	jump_cloud.PushBack({ 108, 20, 52, 20 });
-	jump_cloud.PushBack({108, 0, 52, 20});
+	jump_cloud.PushBack({ 108, 0, 52, 20 });
 	jump_cloud.PushBack({ 108, 0, 0, 0 });
 	jump_cloud.speed = 0.17f;
 	jump_cloud.loop = false;
-	
+
 	cloud_offset.x = -16;
 	cloud_offset.y = 17;
 
