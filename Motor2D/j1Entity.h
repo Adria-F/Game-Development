@@ -43,7 +43,7 @@ public:
 		return false;
 	}
 
-	Animation LoadAnimation(const char* animationPath, const char* animationName);
+	Animation* LoadAnimation(const char* animationPath, const char* animationName);
 
 private:
 
@@ -66,15 +66,15 @@ public:
 	entity_state state;
 	//Basic animations
 	Animation* animation = nullptr;
-	Animation idle_right;
-	Animation idle_left;
-	Animation right;
-	Animation left;
-	Animation jumping_left;
-	Animation jumping_right;
-	Animation falling_left;
-	Animation falling_right;
-	Animation death;
+	Animation* idle_right;
+	Animation* idle_left;
+	Animation* right;
+	Animation* left;
+	Animation* jumping_left;
+	Animation* jumping_right;
+	Animation* falling_left;
+	Animation* falling_right;
+	Animation* death;
 	
 	uint landing_fx;
 

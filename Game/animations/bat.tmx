@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="552" height="444" tilewidth="1" tileheight="1" nextobjectid="17">
+ <imagelayer name="spritesheet">
+  <image source="../textures/enemies/bat.png" width="552" height="444"/>
+ </imagelayer>
+ <objectgroup name="idle_left">
+  <properties>
+   <property name="speed" type="float" value="0.2"/>
+  </properties>
+  <object id="1" x="0" y="0" width="184" height="148"/>
+  <object id="2" x="184" y="0" width="184" height="148"/>
+  <object id="3" x="368" y="0" width="184" height="148"/>
+  <object id="4" x="0" y="148" width="184" height="148"/>
+ </objectgroup>
+ <objectgroup name="left">
+  <properties>
+   <property name="speed" type="float" value="0.2"/>
+  </properties>
+  <object id="9" x="0" y="0" width="184" height="148"/>
+  <object id="10" x="184" y="0" width="184" height="148"/>
+  <object id="11" x="368" y="0" width="184" height="148"/>
+  <object id="12" x="0" y="148" width="184" height="148"/>
+ </objectgroup>
+ <objectgroup name="idle_right">
+  <properties>
+   <property name="speed" type="float" value="0.2"/>
+  </properties>
+  <object id="5" x="368" y="148" width="184" height="148"/>
+  <object id="6" x="0" y="296" width="184" height="148"/>
+  <object id="7" x="184" y="296" width="184" height="148"/>
+  <object id="8" x="368" y="296" width="184" height="148"/>
+ </objectgroup>
+ <objectgroup name="right">
+  <properties>
+   <property name="speed" type="float" value="0.2"/>
+  </properties>
+  <object id="13" x="368" y="148" width="184" height="148"/>
+  <object id="14" x="0" y="296" width="184" height="148"/>
+  <object id="15" x="184" y="296" width="184" height="148"/>
+  <object id="16" x="368" y="296" width="184" height="148"/>
+ </objectgroup>
+</map>

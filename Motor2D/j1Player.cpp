@@ -75,7 +75,7 @@ bool j1Player::Start()
 	v.x = 0;
 	v.y = 0;
 
-	animation = &idle_right;
+	animation = idle_right;
 
 	virtualPosition.x = position.x;
 	virtualPosition.y = position.y;
@@ -191,7 +191,7 @@ bool j1Player::Update(float dt)
 	if (v.x != 0 && colliding_bottom && SDL_GetTicks() > step_time)
 	{
 		App->audio->PlayFx(step_fx, 0);
-		step_time = SDL_GetTicks() + (1 / right.speed) + 450;
+		step_time = SDL_GetTicks() + (1 / right->speed) + 450;
 	}
 
 	collider->SetPos(virtualPosition.x + collider_move.x, virtualPosition.y + collider_move.y);

@@ -129,72 +129,74 @@ void Entity::setAnimation()
 	{ }
 	else if (v.x > 0)
 	{
-		if (state == JUMPING)
+		if (state == JUMPING && jumping_right != nullptr)
 		{
-			animation = &jumping_right;
+			animation = jumping_right;
 		}
-		else if (state == FALLING)
+		else if (state == FALLING && falling_right != nullptr)
 		{
-			animation = &falling_right;
+			animation = falling_right;
 		}
-		else
+		else if (right != nullptr)
 		{
-			animation = &right;
+			animation = right;
 		}
 	}
 	else if (v.x < 0)
 	{
-		if (state == JUMPING)
+		if (state == JUMPING && jumping_left != nullptr)
 		{
-			animation = &jumping_left;
+			animation = jumping_left;
 		}
-		else if (state == FALLING)
+		else if (state == FALLING && falling_left != nullptr)
 		{
-			animation = &falling_left;
+			animation = falling_left;
 		}
-		else
+		else if (left != nullptr)
 		{
-			animation = &left;
+			animation = left;
 		}
 	}
 	else
 	{
 		if (state == IDLE)
 		{
-			if (animation == &left || animation == &jumping_left || animation == &falling_left)
+			if ((animation == left || animation == jumping_left || animation == falling_left) && idle_left != nullptr)
 			{
-				animation = &idle_left;
+				animation = idle_left;
 			}
-			else if (animation == &right || animation == &jumping_right || animation == &falling_right)
+			else if ((animation == right || animation == jumping_right || animation == falling_right) && idle_right != nullptr)
 			{
-				animation = &idle_right;
+				animation = idle_right;
 			}
 		}
 		else if (state == JUMPING)
 		{
-			if (animation == &idle_left)
+			if (animation == idle_left && jumping_left != nullptr)
 			{
-				animation = &jumping_left;
+				animation = jumping_left;
 			}
-			else if (animation == &idle_right)
+			else if (animation == idle_right && jumping_right != nullptr)
 			{
-				animation = &jumping_right;
+				animation = jumping_right;
 			}
 		}
-		else if (state == LEFT)
+		else if (state == LEFT && left != nullptr)
 		{
-			animation = &left;
+			animation = left;
 		}
-		else if (state == RIGHT)
+		else if (state == RIGHT && right != nullptr)
 		{
-			animation = &right;
+			animation = right;
 		}
 	}
 }
 
-Animation Entity::LoadAnimation(const char* animationPath, const char* animationName)
+Animation* Entity::LoadAnimation(const char* animationPath, const char* animationName)
 {
-	Animation ret;
+	Animation* ret = new Animation();
+
+	bool animationFound = false;
 
 	pugi::xml_document animation;
 	pugi::xml_parse_result result = animation.load_file(animationPath);
@@ -209,8 +211,21 @@ Animation Entity::LoadAnimation(const char* animationPath, const char* animation
 		p2SString objectname = objectGroup.attribute("name").as_string();
 		if (objectname == animationName)
 		{
+			animationFound = true;
 			int x, y, h, w;
 			float speed;
+
+			for (pugi::xml_node property = objectGroup.child("properties").child("property"); property; property = property.next_sibling("property"))
+			{
+				p2SString name = property.attribute("name").as_string();
+				if (name == "speed")
+				{
+					speed = property.attribute("value").as_float();
+					ret->speed = speed;
+					break;
+				}
+			}
+
 			for (pugi::xml_node sprite = objectGroup.child("object"); sprite; sprite = sprite.next_sibling("object"))
 			{
 				x = sprite.attribute("x").as_int();
@@ -218,22 +233,14 @@ Animation Entity::LoadAnimation(const char* animationPath, const char* animation
 				w = sprite.attribute("width").as_int();
 				h = sprite.attribute("height").as_int();
 
-				ret.PushBack({ x, y, w, h });
-
-				for (pugi::xml_node property = objectGroup.child("properties").child("property"); property; property = property.next_sibling("property"))
-				{
-					p2SString name = property.attribute("name").as_string();
-					if (name == "speed")
-					{
-						speed = property.attribute("value").as_float();
-						ret.speed = speed;
-						break;
-					}
-				}
+				ret->PushBack({ x, y, w, h });
 			}
 			break;
 		}
 	}
 
-	return ret;
+	if (animationFound)
+		return ret;
+	else
+		return nullptr;
 }

@@ -20,7 +20,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 bool j1EntityManager::Start()
 {
-	createEntity(entity_type::BAT, 100, 0);
+	Entity* test = createEntity(entity_type::BAT, 100, 0);
 
 	return true;
 }
@@ -42,7 +42,7 @@ bool j1EntityManager::PostUpdate()
 	{
 		entity->data->position.x = entity->data->virtualPosition.x;
 		entity->data->position.y = entity->data->virtualPosition.y;
-		App->render->Blit(entity->data->graphics, entity->data->position.x, entity->data->position.y);
+		App->render->Blit(entity->data->graphics, entity->data->position.x, entity->data->position.y, &entity->data->animation->GetCurrentFrame());
 	}
 
 	return true;
@@ -74,6 +74,7 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 	ret->type = type;
 	ret->virtualPosition.x = ret->position.x = x;
 	ret->virtualPosition.y = ret->position.y = y;
+	ret->animation = ret->idle_right;
 	entities.add(ret);
 
 	return ret;
