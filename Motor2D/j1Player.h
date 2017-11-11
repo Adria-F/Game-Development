@@ -31,8 +31,6 @@ public:
 	bool falling = false;
 	bool god_mode = false;
 
-	fPoint collider_move;
-
 	uint double_jump_fx, jump_fx, step_fx, die_fx, SSJ_transformation, SSJ_off;
 	float step_time = 0;
 

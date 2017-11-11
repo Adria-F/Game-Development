@@ -79,6 +79,7 @@ public:
 	uint landing_fx;
 
 	Collider* collider;
+	fPoint collider_offset;
 	Collider* collidingFloor; //Last platform collision
 
 	float speed;

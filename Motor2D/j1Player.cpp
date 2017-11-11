@@ -38,8 +38,8 @@ j1Player::j1Player() : Entity("player")
 	aura_offset.x = -7;
 	aura_offset.y = -12;
 
-	/*collider_move.x = 2;
-	collider_move.y = 0;*/
+	/*collider_offset.x = 2;
+	collider_offset.y = 0;*/
 }
 
 j1Player::~j1Player()
@@ -193,8 +193,6 @@ bool j1Player::Update(float dt)
 		App->audio->PlayFx(step_fx, 0);
 		step_time = SDL_GetTicks() + (1 / right->speed) + 450;
 	}
-
-	collider->SetPos(virtualPosition.x + collider_move.x, virtualPosition.y + collider_move.y);
 
 	App->player->colliding_left = false;
 	App->player->colliding_right = false;

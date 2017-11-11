@@ -15,6 +15,8 @@ Charger::Charger() : Entity("charger")
 	graphics = App->tex->Load("textures/enemies/charger.png");
 	speed = 2;
 	jump_force = 6;
+	animation = idle_right;
+	collider = App->collision->AddCollider({ 0, 0, 97, 72 }, COLLIDER_ENEMY, this);
 }
 
 Charger::~Charger()
@@ -31,6 +33,7 @@ bool Charger::Start()
 }
 bool Charger::Update(float dt)
 {
+
 	return true;
 }
 bool Charger::PostUpdate()
@@ -43,7 +46,7 @@ bool Charger::CleanUp()
 }
 void Charger::OnCollision(Collider* c1, Collider* c2)
 {
-
+	Entity_OnCollision(c1, c2);
 }
 
 bool Charger::Load(pugi::xml_node&)
