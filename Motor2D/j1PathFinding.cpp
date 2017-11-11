@@ -14,28 +14,28 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill, const uint& max_jum
 {
 	iPoint cell;
 
-	if (this->jump_value % 2 != 0)
+	if (jump_value == 0 || jump_value % 2 != 0)
 	{
-		if (this->jump_value < max_jump_value)
+		if (jump_value < max_jump_value)
 		{
 			//Cell up
-			cell.create(this->coords.x, this->coords.y - 1);
+			cell.create(coords.x, coords.y - 1);
 			if (App->pathfinding->isWalkable(cell))
 				list_to_fill.list.add(PathNode(-1, -1, -1, cell, this));
 		}
 		//Cel down
-		cell.create(this->coords.x, this->coords.y + 1);
+		cell.create(coords.x, coords.y + 1);
 		if (App->pathfinding->isWalkable(cell))
 			list_to_fill.list.add(PathNode(-1, -1, -1, cell, this));
 	}
-	if (this->jump_value % 2 == 0)
+	if (jump_value == 0 || jump_value % 2 == 0)
 	{
 		//Cell right
-		cell.create(this->coords.x + 1, this->coords.y);
+		cell.create(coords.x + 1, coords.y);
 		if (App->pathfinding->isWalkable(cell))
 			list_to_fill.list.add(PathNode(-1, -1, -1, cell, this));
 		//Cell left
-		cell.create(this->coords.x - 1, this->coords.y);
+		cell.create(coords.x - 1, coords.y);
 		if (App->pathfinding->isWalkable(cell))
 			list_to_fill.list.add(PathNode(-1, -1, -1, cell, this));
 	}
@@ -48,15 +48,15 @@ bool PathNode::touchingGround() const
 	return !App->pathfinding->isWalkable({ this->coords.x, this->coords.y + 1 });
 }
 
-void PathNode::calculateJumpValue(const uint& max_jump_value)
+void PathNode::calculateJumpValue(const uint& max_jump_value, bool flying)
 {
-	if (this->touchingGround())
+	if (this->touchingGround() || flying)
 		jump_value = 0;
 	else
 	{
-		if(parent->coords.x == coords.x)
+		if(parent->coords.x == coords.x) //Moved vertically
 		{
-			if (parent->coords.y < coords.y)
+			if (parent->coords.y > coords.y) //Moved up
 			{
 				if (parent->touchingGround())
 				{
@@ -64,10 +64,13 @@ void PathNode::calculateJumpValue(const uint& max_jump_value)
 				}
 				else
 				{
-					jump_value = parent->jump_value + 2;
+					if (parent->jump_value % 2 != 0)
+						jump_value = parent->jump_value + 1;
+					else
+						jump_value = parent->jump_value + 2;
 				}
 			}
-			else if (parent->coords.y > coords.y)
+			else if (parent->coords.y < coords.y) //Moved down
 			{
 				if (parent->jump_value < max_jump_value)
 				{
@@ -75,11 +78,14 @@ void PathNode::calculateJumpValue(const uint& max_jump_value)
 				}
 				else
 				{
-					jump_value = parent->jump_value + 2;
+					if (parent->jump_value % 2 != 0)
+						jump_value = parent->jump_value + 1;
+					else
+						jump_value = parent->jump_value + 2;
 				}
 			}
 		}
-		else if(parent->coords.y == coords.y)
+		else if(parent->coords.y == coords.y) //Moved horizontally
 		{ 
 			jump_value = parent->jump_value + 1;
 		}
@@ -109,14 +115,22 @@ p2List_item<PathNode>* PathList::Find(const iPoint& point) const
 p2List_item<PathNode>* PathList::FindLowestValue() const
 {
 	p2List_item<PathNode>* ret = NULL;
-	int min = 65535;
+	PathNode min;
+	min.F = 65535;
 
 	p2List_item<PathNode>* item = list.end;
 	while (item)
 	{
-		if (item->data.F < min)
+		if (item->data.F == min.F)
 		{
-			min = item->data.F;
+			if (item->data.jump_value < min.jump_value)
+			{
+				min = item->data;
+			}
+		}
+		else if (item->data.F < min.F)
+		{
+			min = item->data;
 			ret = item;
 		}
 		item = item->prev;
@@ -149,7 +163,14 @@ PathList j1PathFinding::getPath(Entity* entity, const iPoint& destination) const
 {
 	PathList path;
 
+	//add origin to open list
 
+	// LOOP (pop the node with lowest score from open list)
+	//fill a patList with walkable adjacent neighbors
+	//calculate the values of neighbors and add them to open list
+	//repeat loop
+
+	//max_jump_value has to be entity max jumpable cells * 2
 
 	return path;
 }

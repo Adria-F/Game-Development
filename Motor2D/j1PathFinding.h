@@ -21,7 +21,7 @@ struct PathNode
 
 	uint FindWalkableAdjacents(PathList& list_to_fill, const uint& max_jump_value) const;
 	bool touchingGround() const;
-	void calculateJumpValue(const uint& max_jump_value);
+	void calculateJumpValue(const uint& max_jump_value, bool flying);
 	int calculateF(const iPoint& destination);
 
 	const PathNode* parent;
