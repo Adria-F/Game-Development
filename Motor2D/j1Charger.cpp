@@ -12,6 +12,9 @@
 
 Charger::Charger() : Entity("charger")
 {
+	graphics = App->tex->Load("textures/enemies/charger.png");
+	speed = 2;
+	jump_force = 6;
 }
 
 Charger::~Charger()

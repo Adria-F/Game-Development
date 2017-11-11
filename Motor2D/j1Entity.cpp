@@ -11,6 +11,7 @@ Entity::Entity(const char* name)
 	v.x = 0;
 	v.y = 0;
 
+	//We need attack for the charger?
 	p2SString path("animations/%s.tmx", name);
 	idle_right = LoadAnimation(path.GetString(), "idle_right");
 	idle_left = LoadAnimation(path.GetString(), "idle_left");

@@ -161,16 +161,21 @@ bool j1PathFinding::isWalkable(const iPoint& coords) const
 
 PathList j1PathFinding::getPath(Entity* entity, const iPoint& destination) const
 {
-	PathList path;
+	PathList path;	
+	////add origin to open list
+	//PathNode item;
+	//p2List_item <PathNode*>* open_list;
+	//for (open_list = path.list.add.start(entity->position); open_list; open_list = open_list->next)
+	//{
+	//	item.FindWalkableAdjacents(path, 6);
+	//	path.FindLowestValue();
+	//}
+	//// LOOP (pop the node with lowest score from open list)
+	////fill a patList with walkable adjacent neighbors
+	////calculate the values of neighbors and add them to open list
+	////repeat loop
 
-	//add origin to open list
-
-	// LOOP (pop the node with lowest score from open list)
-	//fill a patList with walkable adjacent neighbors
-	//calculate the values of neighbors and add them to open list
-	//repeat loop
-
-	//max_jump_value has to be entity max jumpable cells * 2
+	////max_jump_value has to be entity max jumpable cells * 2
 
 	return path;
 }
