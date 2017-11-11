@@ -10,6 +10,7 @@
 #include "j1Scene.h"
 #include "j1Collision.h"
 #include "j1Player.h"
+#include "j1PathFinding.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -129,12 +130,12 @@ bool j1Scene::Update(float dt)
 				App->audio->PlayFx(complete_level_fx, 0);
 			}
 		}
-		if ((current_lvl == levels.end && SDL_GetTicks() > end_reached + 5000) || (current_lvl != levels.end && SDL_GetTicks() > end_reached + 500))
-		{
-			end_reached = 0;
-			App->player->won = false;
-			App->scene->LoadLvl(0);
-		}
+	}
+	if  (App->player->won && ((current_lvl == levels.end && SDL_GetTicks() > end_reached + 5000) || (current_lvl != levels.end && SDL_GetTicks() > end_reached + 500)))
+	{
+		end_reached = 0;
+		App->player->won = false;
+		App->scene->LoadLvl(0);
 	}
 
 	// Parallax
@@ -211,6 +212,7 @@ void j1Scene::LoadLvl(int num)
 	if (current_lvl != nullptr)
 	{
 		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length);
+		
 		// Restart player data
 		App->player->collider = nullptr; //Has to be null in order to be created
 		App->player->Start();

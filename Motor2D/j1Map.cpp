@@ -7,6 +7,7 @@
 #include "j1Collision.h"
 #include "j1Player.h"
 #include "j1Window.h"
+#include "j1PathFinding.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -213,14 +214,25 @@ bool j1Map::Load(const char* file_name, int& map_length)
 	pugi::xml_node layer;
 	for (layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
 	{
-		MapLayer* set = new MapLayer();
-
-		if (ret == true)
+		p2SString name = layer.attribute("name").as_string();
+		if (name == "Walkability")
 		{
-			ret = LoadLayer(layer, set);
+			int w, h;
+			uchar* data = NULL;
+			if (LoadWalkabilityMap(layer, w, h, &data))
+				App->pathfinding->SetMap(w, h, data);
 		}
+		else
+		{
+			MapLayer* set = new MapLayer();
 
-		data.layers.add(set);
+			if (ret == true)
+			{
+				ret = LoadLayer(layer, set);
+			}
+
+			data.layers.add(set);
+		}
 	}
 
 	pugi::xml_node object;
@@ -525,4 +537,26 @@ bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length)
 	}
 
 	return ret;
+}
+
+bool j1Map::LoadWalkabilityMap(pugi::xml_node& node, int & width, int & height, uchar ** buffer) const
+{
+	
+	width = node.attribute("width").as_int();
+	height = node.attribute("height").as_int();
+
+	uchar* map = new uchar[width*height];
+	memset(map, 1, width*height);
+
+	int i = 0;
+	for (pugi::xml_node tile = node.child("data").child("tile"); tile; tile = tile.next_sibling("tile"))
+	{
+		int tile_value = tile.attribute("gid").as_int();
+		map[i] = (tile_value > 0) ? 0 : 1; //1 if it is walkable
+		i++;
+	}
+	
+	*buffer = map;
+
+	return true;
 }
