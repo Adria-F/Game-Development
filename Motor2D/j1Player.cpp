@@ -45,14 +45,6 @@ j1Player::j1Player() : Entity("player")
 j1Player::~j1Player()
 {}
 
-bool j1Player::Awake(pugi::xml_node& config)
-{
-	speed = config.attribute("speed").as_float();
-	jump_force = config.attribute("jump_force").as_float();
-
-	return true;
-}
-
 // Load assets
 bool j1Player::Start()
 {

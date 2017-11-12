@@ -220,7 +220,8 @@ PathList j1PathFinding::getPath(Entity* entity, const iPoint& destination) const
 	{
 		p2List_item<PathNode>* lowest_node = open.FindLowestValue();
 		p2List<PathNode> neighbors;
-	/*	lowest_node->data.FindWalkableAdjacents(neighbors, )*/
+
+		lowest_node->data.FindWalkableAdjacents(neighbors, entity->max_jump_value);
 	}
 	//p2List_item <PathNode*>* open_list;
 	//for (open_list = path.list.add.start(entity->position); open_list; open_list = open_list->next)

@@ -2,8 +2,8 @@
 #define __ENTITY_MANAGER_H__
 
 #include "j1Module.h"
-#include "j1Entity.h"
 #include "p2List.h"
+#include "j1Entity.h"
 
 class j1EntityManager : public j1Module
 {

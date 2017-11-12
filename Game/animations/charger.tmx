@@ -37,4 +37,10 @@
   <object id="21" x="256" y="92" width="128" height="92"/>
   <object id="22" x="384" y="92" width="128" height="92"/>
  </objectgroup>
+ <objectgroup name="Logic">
+  <properties>
+   <property name="jump_force" type="float" value="6"/>
+   <property name="speed" type="float" value="2"/>
+  </properties>
+ </objectgroup>
 </map>

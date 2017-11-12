@@ -47,7 +47,11 @@
  <objectgroup name="falling_left">
   <object id="31" x="84" y="132" width="21" height="33"/>
  </objectgroup>
- <objectgroup color="#ff0000" name="collider">
+ <objectgroup color="#ff0000" name="Logic">
+  <properties>
+   <property name="jump_force" type="float" value="6"/>
+   <property name="speed" type="float" value="2"/>
+  </properties>
   <object id="26" type="entity" x="0" y="0" width="21" height="33"/>
   <object id="27" type="collider" x="3" y="2" width="15" height="31"/>
  </objectgroup>

@@ -3,10 +3,13 @@
 #include "j1Bat.h"
 #include "p2Log.h"
 #include "j1Render.h"
+#include "j1Map.h"
 #include "j1App.h"
 
 j1EntityManager::j1EntityManager()
-{}
+{
+	name.create("entityManager");
+}
 
 j1EntityManager::~j1EntityManager()
 {}
@@ -14,6 +17,10 @@ j1EntityManager::~j1EntityManager()
 bool j1EntityManager::Awake(pugi::xml_node& config)
 {
 	this->config = config;
+	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
+	{
+		entity->data->Awake(config.child(entity->data->name.GetString()));
+	}
 
 	return true;
 }
@@ -76,6 +83,11 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 	ret->virtualPosition.x = ret->position.x = x;
 	ret->virtualPosition.y = ret->position.y = y;
 	ret->animation = ret->idle_right;
+
+	float time = ret->jump_force / -gravity;
+	int max_height = (ret->jump_force * time) + ((gravity / 2) * time * time);
+	ret->max_jump_value = (max_height / App->map->data.tile_height) * 2;
+
 	entities.add(ret);
 
 	return ret;

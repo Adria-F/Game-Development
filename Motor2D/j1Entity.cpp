@@ -5,14 +5,17 @@
 #include "j1Input.h"
 #include "j1Audio.h"
 #include "p2Log.h"
+#include "j1EntityManager.h"
 
 Entity::Entity(const char* name)
 {
 	v.x = 0;
 	v.y = 0;
+	this->name.create(name);
 
 	//We need attack for the charger?
 	p2SString path("animations/%s.tmx", name);
+	LoadLogic(path.GetString());
 	idle_right = LoadAnimation(path.GetString(), "idle_right");
 	idle_left = LoadAnimation(path.GetString(), "idle_left");
 	right = LoadAnimation(path.GetString(), "right");
@@ -247,4 +250,33 @@ Animation* Entity::LoadAnimation(const char* animationPath, const char* animatio
 		return ret;
 	else
 		return nullptr;
+}
+
+void Entity::LoadLogic(const char* animationPath)
+{
+	pugi::xml_document animation;
+	pugi::xml_parse_result result = animation.load_file(animationPath);
+	if (result == NULL)
+	{
+		LOG("Could not load; %s. pugi error: %s", animationPath, result.description());
+	}
+	else
+	{
+		pugi::xml_node objectGroup;
+		for (objectGroup = animation.child("map").child("objectgroup"); objectGroup; objectGroup = objectGroup.next_sibling("objectgroup"))
+		{
+			p2SString objectname = objectGroup.attribute("name").as_string();
+			if (objectname == "Logic")
+			{
+				for (pugi::xml_node property = objectGroup.child("properties").child("property"); property; property = property.next_sibling("property"))
+				{
+					p2SString name = property.attribute("name").as_string();
+					if (name == "speed")
+						speed = property.attribute("value").as_float();
+					else if (name == "jump_force")
+						jump_force = property.attribute("value").as_float();
+				}
+			}
+		}
+	}
 }

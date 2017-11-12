@@ -44,6 +44,7 @@ public:
 	}
 
 	Animation* LoadAnimation(const char* animationPath, const char* animationName);
+	void LoadLogic(const char* animationPath);
 
 private:
 
@@ -66,24 +67,25 @@ public:
 	entity_state state;
 	//Basic animations
 	Animation* animation = nullptr;
-	Animation* idle_right;
-	Animation* idle_left;
-	Animation* right;
-	Animation* left;
-	Animation* jumping_left;
-	Animation* jumping_right;
-	Animation* falling_left;
-	Animation* falling_right;
-	Animation* death;
+	Animation* idle_right = nullptr;
+	Animation* idle_left = nullptr;
+	Animation* right = nullptr;
+	Animation* left = nullptr;
+	Animation* jumping_left = nullptr;
+	Animation* jumping_right = nullptr;
+	Animation* falling_left = nullptr;
+	Animation* falling_right = nullptr;
+	Animation* death = nullptr;
 	
-	uint landing_fx;
+	uint landing_fx = 0;
 
-	Collider* collider;
+	Collider* collider = nullptr;
 	fPoint collider_offset;
-	Collider* collidingFloor; //Last platform collision
+	Collider* collidingFloor = nullptr; //Last platform collision
 
 	float speed;
 	float jump_force;
+	uint max_jump_value = 0;
 
 	entity_type type;
 };
