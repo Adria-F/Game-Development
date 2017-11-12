@@ -1,4 +1,5 @@
 #include "j1PathFinding.h"
+#include "j1Map.h"
 #include "j1App.h"
 
 PathNode::PathNode() : g(-1), h(-1), jump_value(0), coords(-1, -1), parent(NULL)
@@ -10,7 +11,7 @@ PathNode::PathNode(int g, int h, int jump_value, const iPoint& pos, const PathNo
 PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), jump_value(node.jump_value), coords(node.coords), parent(node.parent)
 {}
 
-uint PathNode::FindWalkableAdjacents(PathList& list_to_fill, const uint& max_jump_value) const
+uint PathNode::FindWalkableAdjacents(p2List<PathNode>& list_to_fill, const uint& max_jump_value) const
 {
 	iPoint cell;
 
@@ -21,26 +22,26 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill, const uint& max_jum
 			//Cell up
 			cell.create(coords.x, coords.y - 1);
 			if (App->pathfinding->isWalkable(cell))
-				list_to_fill.list.add(PathNode(-1, -1, -1, cell, this));
+				list_to_fill.add(PathNode(-1, -1, -1, cell, this));
 		}
 		//Cel down
 		cell.create(coords.x, coords.y + 1);
 		if (App->pathfinding->isWalkable(cell))
-			list_to_fill.list.add(PathNode(-1, -1, -1, cell, this));
+			list_to_fill.add(PathNode(-1, -1, -1, cell, this));
 	}
 	if (jump_value == 0 || jump_value % 2 == 0)
 	{
 		//Cell right
 		cell.create(coords.x + 1, coords.y);
 		if (App->pathfinding->isWalkable(cell))
-			list_to_fill.list.add(PathNode(-1, -1, -1, cell, this));
+			list_to_fill.add(PathNode(-1, -1, -1, cell, this));
 		//Cell left
 		cell.create(coords.x - 1, coords.y);
 		if (App->pathfinding->isWalkable(cell))
-			list_to_fill.list.add(PathNode(-1, -1, -1, cell, this));
+			list_to_fill.add(PathNode(-1, -1, -1, cell, this));
 	}
 
-	return list_to_fill.list.count();
+	return list_to_fill.count();
 }
 
 bool PathNode::touchingGround() const
@@ -100,19 +101,34 @@ int PathNode::calculateF(const iPoint& destination)
 	return g + h;
 }
 
-p2List_item<PathNode>* PathList::Find(const iPoint& point) const
+void PathList::Add(const PathNode& node)
 {
-	p2List_item<PathNode>* item = list.start;
+	p2List_item<p2List<PathNode>>* list = Find(node.coords);
+	if (list != NULL)
+	{
+		list->data.add(node);
+	}
+	else
+	{
+		p2List<PathNode> newList;
+		newList.add(node);
+		this->list.add(newList);
+	}
+}
+
+p2List_item<p2List<PathNode>>* PathList::Find(const iPoint& point) const
+{
+	p2List_item<p2List<PathNode>>* item = list.start;
 	while (item)
 	{
-		if (item->data.coords == point)
+		if (item->data.start->data.coords == point)
 			return item;
 		item = item->next;
 	}
 	return NULL;
 }
 
-p2List_item<PathNode>* PathList::FindLowestValue() const
+p2List_item<PathNode>* PathList::FindListLowestValue(const p2List<PathNode>& list) const
 {
 	p2List_item<PathNode>* ret = NULL;
 	PathNode min;
@@ -126,12 +142,41 @@ p2List_item<PathNode>* PathList::FindLowestValue() const
 			if (item->data.jump_value < min.jump_value)
 			{
 				min = item->data;
+				ret = item;
 			}
 		}
 		else if (item->data.F < min.F)
 		{
 			min = item->data;
 			ret = item;
+		}
+		item = item->prev;
+	}
+	return ret;
+}
+
+p2List_item<PathNode>* PathList::FindLowestValue() const
+{
+	p2List_item<PathNode>* ret = NULL;
+	PathNode min;
+	min.F = 65535;
+
+	p2List_item<p2List<PathNode>>* item = list.end;
+	while (item)
+	{
+		p2List_item<PathNode>* lowestPathNode = FindListLowestValue(item->data);
+		if (lowestPathNode->data.F == min.F)
+		{
+			if (lowestPathNode->data.jump_value < min.jump_value)
+			{
+				min = lowestPathNode->data;
+				ret = lowestPathNode;
+			}
+		}
+		if (lowestPathNode->data.F < min.F)
+		{
+			min = lowestPathNode->data;
+			ret = lowestPathNode;
 		}
 		item = item->prev;
 	}
@@ -161,8 +206,10 @@ bool j1PathFinding::isWalkable(const iPoint& coords) const
 
 PathList j1PathFinding::getPath(Entity* entity, const iPoint& destination) const
 {
-	PathList path;	
-	////add origin to open list
+	PathList path;
+	
+	//add origin to open list
+	//iPoint origin = App->map->WorldToMap(entity->position.x, entity->position.y);
 	//PathNode item;
 	//p2List_item <PathNode*>* open_list;
 	//for (open_list = path.list.add.start(entity->position); open_list; open_list = open_list->next)
