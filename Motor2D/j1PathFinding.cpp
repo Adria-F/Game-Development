@@ -22,23 +22,23 @@ uint PathNode::FindWalkableAdjacents(p2List<PathNode>& list_to_fill, const uint&
 			//Cell up
 			cell.create(coords.x, coords.y - 1);
 			if (App->pathfinding->isWalkable(cell))
-				list_to_fill.add(PathNode(-1, -1, -1, cell, this));
+				list_to_fill.add(PathNode(-1, -1, 0, cell, this));
 		}
 		//Cel down
 		cell.create(coords.x, coords.y + 1);
 		if (App->pathfinding->isWalkable(cell))
-			list_to_fill.add(PathNode(-1, -1, -1, cell, this));
+			list_to_fill.add(PathNode(-1, -1, 0, cell, this));
 	}
 	if (jump_value == 0 || jump_value % 2 == 0)
 	{
 		//Cell right
 		cell.create(coords.x + 1, coords.y);
 		if (App->pathfinding->isWalkable(cell))
-			list_to_fill.add(PathNode(-1, -1, -1, cell, this));
+			list_to_fill.add(PathNode(-1, -1, 0, cell, this));
 		//Cell left
 		cell.create(coords.x - 1, coords.y);
 		if (App->pathfinding->isWalkable(cell))
-			list_to_fill.add(PathNode(-1, -1, -1, cell, this));
+			list_to_fill.add(PathNode(-1, -1, 0, cell, this));
 	}
 
 	return list_to_fill.count();
@@ -150,6 +150,8 @@ p2List_item<PathNode>* PathList::FindListLowestValue(const p2List<PathNode>& lis
 			min = item->data;
 			ret = item;
 		}
+		if (item == list.start)
+			break;
 		item = item->prev;
 	}
 	return ret;
@@ -204,37 +206,44 @@ bool j1PathFinding::isWalkable(const iPoint& coords) const
 	return ret;
 }
 
-PathList j1PathFinding::getPath(Entity* entity, const iPoint& destination) const
+p2DynArray<iPoint> j1PathFinding::getPath(Entity* entity, const iPoint& destination) const
 {
-	PathList path;		
-
 	//add origin to open list
 	PathList open;
 	iPoint origin_coords = App->map->WorldToMap(entity->position.x, entity->position.y);
 	PathNode origin;
-	origin.calculateF(destination);
+	iPoint destination_coords = App->map->WorldToMap(destination.x, destination.y);
 	origin.coords = origin_coords;
 	open.Add(origin);
 
+	//Add cells to open list until destination is found
 	while (true)
 	{
 		p2List_item<PathNode>* lowest_node = open.FindLowestValue();
+		if (lowest_node->data.coords == destination_coords)
+			break;
+
 		p2List<PathNode> neighbors;
-
-		lowest_node->data.FindWalkableAdjacents(neighbors, entity->max_jump_value);
+		uint num_neighbors = lowest_node->data.FindWalkableAdjacents(neighbors, entity->max_jump_value);
+		p2List_item<PathNode>* curr_neighbor = neighbors.start;
+		for (int i = 0; i < num_neighbors; i++)
+		{
+			curr_neighbor->data.F = curr_neighbor->data.calculateF(destination_coords);
+			curr_neighbor->data.calculateJumpValue(entity->max_jump_value, entity->flying);
+			open.Add(curr_neighbor->data);
+			if (curr_neighbor->data.coords == destination_coords)
+				break;
+			curr_neighbor = curr_neighbor->next;
+		}
 	}
-	//p2List_item <PathNode*>* open_list;
-	//for (open_list = path.list.add.start(entity->position); open_list; open_list = open_list->next)
-	//{
-	//	item.FindWalkableAdjacents(path, 6);
-	//	path.FindLowestValue();
-	//}
-	//// LOOP (pop the node with lowest score from open list)
-	////fill a patList with walkable adjacent neighbors
-	////calculate the values of neighbors and add them to open list
-	////repeat loop
 
-	////max_jump_value has to be entity max jumpable cells * 2
+	//calculate path
+	p2DynArray<iPoint> path;
+	for (const PathNode* current = &open.list.end->data.start->data; current->coords != origin.coords; current = current->parent)
+	{
+		path.PushBack(current->coords);
+	}
+	path.Flip();
 
 	return path;
 }

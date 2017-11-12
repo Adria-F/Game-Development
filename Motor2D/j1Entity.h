@@ -86,6 +86,7 @@ public:
 	float speed;
 	float jump_force;
 	uint max_jump_value = 0;
+	bool flying = false;
 
 	entity_type type;
 };

@@ -77,6 +77,7 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 		break;
 	case BAT:
 		ret = new Bat();
+		ret->flying = true;
 		break;
 	}
 	ret->type = type;

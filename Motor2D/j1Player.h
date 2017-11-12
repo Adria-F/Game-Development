@@ -5,6 +5,7 @@
 #include "j1Entity.h"
 #include "Animation.h"
 #include "p2Point.h"
+#include "p2DynArray.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -43,6 +44,9 @@ public:
 
 	bool double_jump = false;
 	bool won = false;
+
+	p2DynArray<iPoint> path;
+	SDL_Texture* path_marker;
 };
 
 #endif

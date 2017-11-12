@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Audio.h"
+#include "j1PathFinding.h"
 
 #include<stdio.h>
 
@@ -86,6 +87,10 @@ bool j1Player::Start()
 		SSJ_transformation = App->audio->LoadFx("audio/fx/SSJ_transformation.wav");
 	if (SSJ_off == 0)
 		SSJ_off = App->audio->LoadFx("audio/fx/SSJ_off.wav");
+
+	/*//temp
+	path = App->pathfinding->getPath(this, { 150, 10 });
+	path_marker = App->tex->Load("assets/maps/non-walkable-tile.png");*/
 
 	return true;
 }
@@ -231,6 +236,14 @@ bool j1Player::PostUpdate()
 	{
 		App->render->Blit(graphics, cloud_pos.x, cloud_pos.y, &jump_cloud.GetCurrentFrame());
 	}
+
+	/*int i = 0;
+	while(path.Count() > 0)
+	{
+		iPoint coords = App->map->MapToWorld(path.At(i)->x, path.At(i)->y);
+		App->render->Blit(path_marker, coords.x, coords.y);
+		i++;
+	}*/
 
 	return true;
 }

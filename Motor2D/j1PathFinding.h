@@ -6,6 +6,7 @@
 #include "p2Point.h"
 #include "p2List.h"
 #include "j1Entity.h"
+#include "p2DynArray.h"
 
 class PathList;
 
@@ -48,7 +49,7 @@ public:
 	~j1PathFinding()
 	{}
 	
-	PathList getPath(Entity* entity, const iPoint& destination) const;
+	p2DynArray<iPoint> getPath(Entity* entity, const iPoint& destination) const;
 	void SetMap(uint width, uint height, uchar* data);
 	bool isWalkable(const iPoint& coords) const;
 
