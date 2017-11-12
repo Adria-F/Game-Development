@@ -206,11 +206,22 @@ bool j1PathFinding::isWalkable(const iPoint& coords) const
 
 PathList j1PathFinding::getPath(Entity* entity, const iPoint& destination) const
 {
-	PathList path;
-	
+	PathList path;		
+
 	//add origin to open list
-	//iPoint origin = App->map->WorldToMap(entity->position.x, entity->position.y);
-	//PathNode item;
+	PathList open;
+	iPoint origin_coords = App->map->WorldToMap(entity->position.x, entity->position.y);
+	PathNode origin;
+	origin.calculateF(destination);
+	origin.coords = origin_coords;
+	open.Add(origin);
+
+	while (true)
+	{
+		p2List_item<PathNode>* lowest_node = open.FindLowestValue();
+		p2List<PathNode> neighbors;
+	/*	lowest_node->data.FindWalkableAdjacents(neighbors, )*/
+	}
 	//p2List_item <PathNode*>* open_list;
 	//for (open_list = path.list.add.start(entity->position); open_list; open_list = open_list->next)
 	//{

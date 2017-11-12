@@ -31,10 +31,12 @@ struct PathList
 {
 	p2List_item<p2List<PathNode>>* Find(const iPoint& coords) const;
 	p2List_item<PathNode>* FindLowestValue() const;
-	p2List_item<PathNode>* FindListLowestValue(const p2List<PathNode>& list) const;
 	void Add(const PathNode& node);
 
 	p2List<p2List<PathNode>> list;
+
+private:
+	p2List_item<PathNode>* FindListLowestValue(const p2List<PathNode>& list) const;
 };
 
 class j1PathFinding : public j1Module
