@@ -88,8 +88,9 @@ bool j1Player::Start()
 	if (SSJ_off == 0)
 		SSJ_off = App->audio->LoadFx("audio/fx/SSJ_off.wav");
 
-	/*//temp
-	path = App->pathfinding->getPath(this, { 150, 10 });
+	//temp
+	/*max_jump_value = 6;
+	path = App->pathfinding->getPath(this, { 288, 320 });
 	path_marker = App->tex->Load("assets/maps/non-walkable-tile.png");*/
 
 	return true;
@@ -191,9 +192,6 @@ bool j1Player::Update(float dt)
 		step_time = SDL_GetTicks() + (1 / right->speed) + 450;
 	}
 
-	App->player->colliding_left = false;
-	App->player->colliding_right = false;
-
 	return true;
 }
 
@@ -208,12 +206,7 @@ bool j1Player::PostUpdate()
 		v.x = -speed;
 	}
 
-	position.x = virtualPosition.x;
-	position.y = virtualPosition.y;
-
 	int win_scale = App->win->GetScale();
-	pos_relCam = App->player->position.x + App->render->camera.x / win_scale;
-
 	if (position.y > App->win->screen_surface->h / win_scale + 50 && !won)
 	{
 		App->audio->PlayFx(die_fx, 0);

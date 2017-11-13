@@ -28,6 +28,55 @@ bool Bat::Awake(pugi::xml_node&)
 
 bool Bat::Update(float dt)
 {
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+	{
+		v.x = -speed;
+		if (state != JUMPING && state != DEAD)
+		{
+			state = LEFT;
+		}
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
+	{
+		if (state == LEFT)
+		{
+			v.x = 0;
+			state = IDLE;
+		}
+	}
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+	{
+		v.x = speed;
+		if (state != JUMPING && state != DEAD)
+		{
+			state = RIGHT;
+		}
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
+	{
+		if (state == RIGHT)
+		{
+			v.x = 0;
+			state = IDLE;
+		}
+	}
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
+	{
+		v.y = speed;
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_UP)
+	{
+		v.y = 0;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
+	{
+		v.y = -speed;
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
+	{
+		v.y = 0;
+	}
+	
 	return true;
 }
 

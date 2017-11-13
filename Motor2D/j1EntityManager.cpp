@@ -48,8 +48,7 @@ bool j1EntityManager::PostUpdate()
 {
 	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
 	{
-		entity->data->position.x = entity->data->virtualPosition.x;
-		entity->data->position.y = entity->data->virtualPosition.y;
+		entity->data->PostUpdate();
 		App->render->Blit(entity->data->graphics, entity->data->position.x, entity->data->position.y, &entity->data->animation->GetCurrentFrame());
 	}
 

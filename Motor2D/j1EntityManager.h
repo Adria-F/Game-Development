@@ -20,7 +20,7 @@ public:
 
 	Entity* createEntity(entity_type type, int x, int y);
 
-private:
+public:
 
 	p2List<Entity*> entities;
 	pugi::xml_node config;

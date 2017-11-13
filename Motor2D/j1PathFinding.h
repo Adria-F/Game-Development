@@ -17,7 +17,7 @@ struct PathNode
 	PathNode(const PathNode& node);
 
 	iPoint coords;
-	float g, h, F;
+	int g, h, F;
 	int jump_value;
 
 	uint FindWalkableAdjacents(p2List<PathNode>& list_to_fill, const uint& max_jump_value) const;
@@ -32,12 +32,10 @@ struct PathList
 {
 	p2List_item<p2List<PathNode>>* Find(const iPoint& coords) const;
 	p2List_item<PathNode>* FindLowestValue() const;
+	p2List_item<PathNode>* FindListLowestValue(const p2List<PathNode>* list) const;
 	void Add(const PathNode& node);
 
-	p2List<p2List<PathNode>> list;
-
-private:
-	p2List_item<PathNode>* FindListLowestValue(const p2List<PathNode>& list) const;
+	p2List<p2List<PathNode>> list;	
 };
 
 class j1PathFinding : public j1Module

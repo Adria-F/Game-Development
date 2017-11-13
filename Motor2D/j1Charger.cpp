@@ -33,11 +33,71 @@ bool Charger::Start()
 }
 bool Charger::Update(float dt)
 {
-	
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+	{
+		v.x = -speed;
+		if (state != JUMPING && state != DEAD)
+		{
+			state = LEFT;
+		}
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
+	{
+		if (state == LEFT)
+		{
+			v.x = 0;
+			state = IDLE;
+		}
+	}
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+	{
+		v.x = speed;
+		if (state != JUMPING && state != DEAD)
+		{
+			state = RIGHT;
+		}
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
+	{
+		if (state == RIGHT)
+		{
+			v.x = 0;
+			state = IDLE;
+		}
+	}
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
+	{
+		if (state == JUMPING || state == FALLING)
+		{
+			v.y = (jump_force * 2 / 3);
+			if (state == FALLING)
+			{
+				state = JUMPING;
+			}
+		}
+		else
+		{
+			v.y = jump_force;
+			state = JUMPING;
+		}
+
+	}
+
 	return true;
 }
 bool Charger::PostUpdate()
 {
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && !colliding_right && v.x == 0)
+	{
+		v.x = -speed;
+		state = LEFT;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT && !colliding_left && v.x == 0)
+	{
+		v.x = speed;
+		state = RIGHT;
+	}
+
 	return true;
 }
 bool Charger::CleanUp()

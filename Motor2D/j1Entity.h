@@ -62,6 +62,11 @@ public:
 	bool colliding_right = false;
 	bool colliding_left = false;
 
+	bool going_right = false;
+	bool going_left = false;
+	bool jumping = false;
+	bool going_down = false;
+
 	SDL_Texture* graphics = nullptr;
 	
 	entity_state state;

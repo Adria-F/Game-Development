@@ -8,7 +8,7 @@ PathNode::PathNode() : g(-1), h(-1), jump_value(0), coords(-1, -1), parent(NULL)
 PathNode::PathNode(int g, int h, int jump_value, const iPoint& pos, const PathNode* parent) : g(g), h(h), jump_value(jump_value), coords(pos), parent(parent)
 {}
 
-PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), jump_value(node.jump_value), coords(node.coords), parent(node.parent)
+PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), jump_value(node.jump_value), F(node.F), coords(node.coords), parent(node.parent)
 {}
 
 uint PathNode::FindWalkableAdjacents(p2List<PathNode>& list_to_fill, const uint& max_jump_value) const
@@ -128,13 +128,16 @@ p2List_item<p2List<PathNode>>* PathList::Find(const iPoint& point) const
 	return NULL;
 }
 
-p2List_item<PathNode>* PathList::FindListLowestValue(const p2List<PathNode>& list) const
+p2List_item<PathNode>* PathList::FindListLowestValue(const p2List<PathNode>* list) const
 {
+	if (list == nullptr)
+		return NULL;
+
 	p2List_item<PathNode>* ret = NULL;
 	PathNode min;
 	min.F = 65535;
 
-	p2List_item<PathNode>* item = list.end;
+	p2List_item<PathNode>* item = list->end;
 	while (item)
 	{
 		if (item->data.F == min.F)
@@ -150,7 +153,7 @@ p2List_item<PathNode>* PathList::FindListLowestValue(const p2List<PathNode>& lis
 			min = item->data;
 			ret = item;
 		}
-		if (item == list.start)
+		if (item == list->start)
 			break;
 		item = item->prev;
 	}
@@ -166,7 +169,7 @@ p2List_item<PathNode>* PathList::FindLowestValue() const
 	p2List_item<p2List<PathNode>>* item = list.end;
 	while (item)
 	{
-		p2List_item<PathNode>* lowestPathNode = FindListLowestValue(item->data);
+		p2List_item<PathNode>* lowestPathNode = FindListLowestValue(&item->data);
 		if (lowestPathNode->data.F == min.F)
 		{
 			if (lowestPathNode->data.jump_value < min.jump_value)
@@ -180,6 +183,8 @@ p2List_item<PathNode>* PathList::FindLowestValue() const
 			min = lowestPathNode->data;
 			ret = lowestPathNode;
 		}
+		if (item == list.start)
+			break;
 		item = item->prev;
 	}
 	return ret;
@@ -214,25 +219,31 @@ p2DynArray<iPoint> j1PathFinding::getPath(Entity* entity, const iPoint& destinat
 	PathNode origin;
 	iPoint destination_coords = App->map->WorldToMap(destination.x, destination.y);
 	origin.coords = origin_coords;
+	origin.g = 0;
+	origin.h = origin.F = origin.coords.DistanceTo(destination);
 	open.Add(origin);
 
 	//Add cells to open list until destination is found
 	while (true)
 	{
-		p2List_item<PathNode>* lowest_node = open.FindLowestValue();
-		if (lowest_node->data.coords == destination_coords)
+		PathNode lowest_node = open.FindLowestValue()->data;
+		if (lowest_node.coords == destination_coords)
 			break;
 
 		p2List<PathNode> neighbors;
-		uint num_neighbors = lowest_node->data.FindWalkableAdjacents(neighbors, entity->max_jump_value);
+		uint num_neighbors = lowest_node.FindWalkableAdjacents(neighbors, entity->max_jump_value);
 		p2List_item<PathNode>* curr_neighbor = neighbors.start;
 		for (int i = 0; i < num_neighbors; i++)
 		{
+			p2List_item<PathNode>* old_instance = open.FindListLowestValue(&open.Find(curr_neighbor->data.coords)->data);
 			curr_neighbor->data.F = curr_neighbor->data.calculateF(destination_coords);
 			curr_neighbor->data.calculateJumpValue(entity->max_jump_value, entity->flying);
-			open.Add(curr_neighbor->data);
-			if (curr_neighbor->data.coords == destination_coords)
-				break;
+			if (old_instance == nullptr || (curr_neighbor->data.F < old_instance->data.F || (curr_neighbor->data.F == old_instance->data.F && curr_neighbor->data.jump_value < old_instance->data.jump_value)))
+			{
+				open.Add(curr_neighbor->data);
+				if (curr_neighbor->data.coords == destination_coords)
+					break;
+			}
 			curr_neighbor = curr_neighbor->next;
 		}
 	}
