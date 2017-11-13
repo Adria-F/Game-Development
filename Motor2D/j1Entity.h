@@ -61,6 +61,7 @@ public:
 	bool colliding_bottom = false;
 	bool colliding_right = false;
 	bool colliding_left = false;
+	bool colliding_top = false;
 
 	bool going_right = false;
 	bool going_left = false;
@@ -95,6 +96,7 @@ public:
 
 	entity_type type;
 	float scale = 1;
+	iPoint sprite_pos, collider_pos, collider_size;
 };
 
 #endif // !__ModuleEntity_H__

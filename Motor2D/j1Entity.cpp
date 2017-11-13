@@ -60,7 +60,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 	{
 		if ((c2->rect.y - v.y + 1) > (c1->rect.y + (c1->rect.h))) //The collision is from bottom
 		{
-			virtualPosition.y = c2->rect.y - collider->rect.h + 1;
+			virtualPosition.y = c2->rect.y - collider->rect.h - collider_offset.y + 1;
 			if (colliding_bottom == false)
 			{
 				v.y = 0;
@@ -111,7 +111,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 	{
 		if (((c2->rect.y - v.y + 1) > (c1->rect.y + (c1->rect.h)))) //The collision is from bottom
 		{
-			virtualPosition.y = c2->rect.y - collider->rect.h + 1;
+			virtualPosition.y = c2->rect.y - collider->rect.h - collider_offset.y + 1;
 			if (colliding_bottom == false)
 			{
 				v.y = 0;
@@ -283,6 +283,24 @@ void Entity::LoadLogic(const char* animationPath)
 					else if (name == "jump_force")
 						jump_force = property.attribute("value").as_float();
 				}
+				for (pugi::xml_node object = objectGroup.child("object"); object; object = object.next_sibling("object"))
+				{				
+					p2SString name = object.attribute("name").as_string();
+					if (name == "sprite")
+					{
+						sprite_pos.x = object.attribute("x").as_int();
+						sprite_pos.y = object.attribute("y").as_int();
+					}
+					else if (name == "collider")
+					{
+						collider_pos.x = object.attribute("x").as_int();
+						collider_pos.y = object.attribute("y").as_int();
+						collider_size.x = object.attribute("width").as_int();
+						collider_size.y = object.attribute("height").as_int();
+					}
+				}
+				collider_offset.x = collider_pos.x - sprite_pos.x;
+				collider_offset.y = collider_pos.y - sprite_pos.y;
 			}
 		}
 	}

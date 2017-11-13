@@ -17,7 +17,9 @@ Charger::Charger() : Entity("charger")
 	jump_force = 6;
 	animation = idle_right;
 	scale = 0.5f;
-	collider = App->collision->AddCollider({ 0, 0, (int)(97*scale), (int)(72*scale) }, COLLIDER_ENEMY, this);
+	collider = App->collision->AddCollider({ 0, 0, (int)(collider_size.x*scale), (int)(collider_size.y*scale) }, COLLIDER_ENEMY, this);
+	collider_offset.x *= scale;
+	collider_offset.y *= scale;
 }
 
 Charger::~Charger()
@@ -68,15 +70,7 @@ bool Charger::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
 	{
-		if (state == JUMPING || state == FALLING)
-		{
-			v.y = (jump_force * 2 / 3);
-			if (state == FALLING)
-			{
-				state = JUMPING;
-			}
-		}
-		else
+		if (state != JUMPING && state != FALLING)
 		{
 			v.y = jump_force;
 			state = JUMPING;
@@ -88,12 +82,12 @@ bool Charger::Update(float dt)
 }
 bool Charger::PostUpdate()
 {
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && !colliding_right && v.x == 0)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && !colliding_left && v.x == 0)
 	{
 		v.x = -speed;
 		state = LEFT;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT && !colliding_left && v.x == 0)
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT && !colliding_right && v.x == 0)
 	{
 		v.x = speed;
 		state = RIGHT;

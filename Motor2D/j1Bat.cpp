@@ -16,6 +16,9 @@ Bat::Bat() : Entity("bat")
 	speed = 2;
 	jump_force = 6;
 	scale = 0.2f;
+	collider = App->collision->AddCollider({ 0, 0, (int)(collider_size.x*scale), (int)(collider_size.y*scale) }, COLLIDER_ENEMY, this);
+	collider_offset.x *= scale;
+	collider_offset.y *= scale;
 }
 
 Bat::~Bat()
@@ -32,10 +35,7 @@ bool Bat::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		v.x = -speed;
-		if (state != JUMPING && state != DEAD)
-		{
-			state = LEFT;
-		}
+		state = LEFT;
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
 	{
@@ -48,10 +48,7 @@ bool Bat::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
 	{
 		v.x = speed;
-		if (state != JUMPING && state != DEAD)
-		{
-			state = RIGHT;
-		}
+		state = RIGHT;
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
 	{
@@ -83,6 +80,17 @@ bool Bat::Update(float dt)
 
 bool Bat::PostUpdate()
 {
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && !colliding_left && v.x == 0)
+	{
+		v.x = -speed;
+		state = LEFT;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT && !colliding_right && v.x == 0)
+	{
+		v.x = speed;
+		state = RIGHT;
+	}
+	
 	return true;
 }
 

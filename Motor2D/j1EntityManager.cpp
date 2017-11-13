@@ -5,6 +5,7 @@
 #include "j1Render.h"
 #include "j1Map.h"
 #include "j1App.h"
+#include "j1Collision.h"
 
 j1EntityManager::j1EntityManager()
 {
@@ -72,7 +73,7 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 	switch (type)
 	{
 	case CHARGER:
-		ret = new Charger();	
+		ret = new Charger();
 		break;
 	case BAT:
 		ret = new Bat();
