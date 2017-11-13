@@ -45,12 +45,12 @@ bool j1EntityManager::Update(float dt)
 	return true;
 }
 
-bool j1EntityManager::PostUpdate()
+bool j1EntityManager::PostUpdate(float dt)
 {
 	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
 	{
-		entity->data->PostUpdate();
-		App->render->Blit(entity->data->graphics, entity->data->position.x, entity->data->position.y, &entity->data->animation->GetCurrentFrame(), entity->data->scale);
+		entity->data->PostUpdate(dt);
+		App->render->Blit(entity->data->graphics, entity->data->position.x, entity->data->position.y, &entity->data->animation->GetCurrentFrame(dt), entity->data->scale);
 	}
 
 	return true;

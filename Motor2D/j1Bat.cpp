@@ -78,7 +78,7 @@ bool Bat::Update(float dt)
 	return true;
 }
 
-bool Bat::PostUpdate()
+bool Bat::PostUpdate(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && !colliding_left && v.x == 0)
 	{

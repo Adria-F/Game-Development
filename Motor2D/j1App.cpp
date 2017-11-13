@@ -92,6 +92,8 @@ bool j1App::Awake()
 		app_config = config.child("app");
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
+
+		framerate_cap = app_config.attribute("framerate_cap").as_uint();
 	}
 
 	if(ret == true)
@@ -165,6 +167,11 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 // ---------------------------------------------
 void j1App::PrepareUpdate()
 {
+	frame_count++;
+	last_sec_frame_count++;
+
+	dt = frame_time.ReadSec();
+	frame_time.Start();
 }
 
 // ---------------------------------------------
@@ -175,6 +182,36 @@ void j1App::FinishUpdate()
 
 	if(want_to_load == true)
 		LoadGameNow();
+
+	// Framerate calculations --
+
+	if (last_sec_frame_time.Read() > 1000)
+	{
+		last_sec_frame_time.Start();
+		prev_last_sec_frame_count = last_sec_frame_count;
+		last_sec_frame_count = 0;
+	}
+
+	float avg_fps = float(frame_count) / startup_time.ReadSec();
+	float seconds_since_startup = startup_time.ReadSec();
+	uint32 last_frame_ms = frame_time.Read();
+	uint32 frames_on_last_update = prev_last_sec_frame_count;
+
+	static char title[256];
+	if (cap_frames)
+		sprintf_s(title, 256, "Not a typical platformer || Last sec frames: %i | Av.FPS: %.2f | Last Fram Ms: %02u | Framerate Cap: ON", frames_on_last_update, avg_fps, last_frame_ms);
+	else
+		sprintf_s(title, 256, "Not a typical platformer || Last sec frames: %i | Av.FPS: %.2f | Last Fram Ms: %02u | Framerate Cap: OFF", frames_on_last_update, avg_fps, last_frame_ms);
+
+	App->win->SetTitle(title);
+
+	// TODO 2: Use SDL_Delay to make sure you get your capped framerate
+	// TODO3: Measure accurately the amount of time it SDL_Delay actually waits compared to what was expected
+	float waiting_time = (1000 / framerate_cap) - last_frame_ms;
+	PERF_START(ptimer);
+	if (cap_frames)
+		SDL_Delay(waiting_time);
+	LOG("Expected wait time: %f | Real wait time: %f", waiting_time, ptimer.ReadMs());
 }
 
 // Call modules before each loop iteration
@@ -236,7 +273,7 @@ bool j1App::PostUpdate()
 			continue;
 		}
 
-		ret = item->data->PostUpdate();
+		ret = item->data->PostUpdate(dt);
 	}
 
 	return ret;
