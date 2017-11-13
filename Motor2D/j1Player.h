@@ -18,7 +18,7 @@ public:
 
 	bool Start();
 	bool Update(float dt);
-	bool PostUpdate();
+	bool PostUpdate(float dt);
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 

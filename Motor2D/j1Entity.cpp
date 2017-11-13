@@ -29,13 +29,13 @@ Entity::Entity(const char* name)
 
 bool Entity::Entity_Update(float dt)
 {
-	v.y += (gravity * ((colliding_bottom || flying) ? 0 : 1));
-	if (v.y < -6)
-		v.y = -6;
-	virtualPosition.y -= v.y;
+	v.y += (gravity * ((colliding_bottom || flying) ? 0 : 1)); //*dt
+	if (v.y < -jump_force)
+		v.y = -jump_force;
+	virtualPosition.y -= v.y; //*dt
 
 	if (pos_relCam > 2 || v.x > 0)
-		virtualPosition.x += v.x;
+		virtualPosition.x += v.x; //*dt
 
 	colliding_right = false;
 	colliding_left = false;

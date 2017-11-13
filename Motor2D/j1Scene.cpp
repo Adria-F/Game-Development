@@ -95,7 +95,7 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 	{
-
+		App->cap_frames = !App->cap_frames;
 	}
 
 	if ((App->input->GetKey(SDL_SCANCODE_F12) == KEY_DOWN))
@@ -115,7 +115,7 @@ bool j1Scene::Update(float dt)
 	// ------------------------------------------------
 
 	// Win condition
-	if (App->player->position.x > current_lvl->data->length - 32 - App->player->animation->GetCurrentFrame().w)
+	if (App->player->position.x > current_lvl->data->length - 32 - App->player->animation->GetCurrentFrame(dt).w)
 	{
 		if (end_reached == 0)
 		{
@@ -157,16 +157,11 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 
-	// TODO 7: Set the window title like
-	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"
-	p2SString title("Not A Typical Platformer");
-
-	App->win->SetTitle(title.GetString());
 	return true;
 }
 
 // Called each loop iteration
-bool j1Scene::PostUpdate()
+bool j1Scene::PostUpdate(float dt)
 {
 	bool ret = true;
 

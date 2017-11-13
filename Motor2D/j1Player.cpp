@@ -195,7 +195,7 @@ bool j1Player::Update(float dt)
 	return true;
 }
 
-bool j1Player::PostUpdate()
+bool j1Player::PostUpdate(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !colliding_right && v.x == 0)
 	{
@@ -216,18 +216,18 @@ bool j1Player::PostUpdate()
 	//When f10 is clicked he converts into super sayan (god mode)
 	if (god_mode)
 	{
-		App->render->Blit(graphics_god, position.x + aura_offset.x, position.y + aura_offset.y, &SSJ_aura.GetCurrentFrame());
-		App->render->Blit(graphics_god, position.x, position.y, &animation->GetCurrentFrame());
-		App->render->Blit(graphics_god, position.x + aura_offset.x, position.y + aura_offset.y, &SSJ_aura.GetCurrentFrame());
+		App->render->Blit(graphics_god, position.x + aura_offset.x, position.y + aura_offset.y, &SSJ_aura.GetCurrentFrame(dt));
+		App->render->Blit(graphics_god, position.x, position.y, &animation->GetCurrentFrame(dt));
+		App->render->Blit(graphics_god, position.x + aura_offset.x, position.y + aura_offset.y, &SSJ_aura.GetCurrentFrame(dt));
 	}
 	else if (god_mode == false)
 	{
-		App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame());
+		App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame(dt));
 	}
 
 	if (double_jump)
 	{
-		App->render->Blit(graphics, cloud_pos.x, cloud_pos.y, &jump_cloud.GetCurrentFrame());
+		App->render->Blit(graphics, cloud_pos.x, cloud_pos.y, &jump_cloud.GetCurrentFrame(dt));
 	}
 
 	/*int i = 0;
