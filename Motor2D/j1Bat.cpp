@@ -15,6 +15,7 @@ Bat::Bat() : Entity("bat")
 	graphics = App->tex->Load("textures/enemies/bat.png");
 	speed = 2;
 	jump_force = 6;
+	scale = 0.2f;
 }
 
 Bat::~Bat()

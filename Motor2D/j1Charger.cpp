@@ -16,7 +16,8 @@ Charger::Charger() : Entity("charger")
 	speed = 2;
 	jump_force = 6;
 	animation = idle_right;
-	collider = App->collision->AddCollider({ 0, 0, 97, 72 }, COLLIDER_ENEMY, this);
+	scale = 0.5f;
+	collider = App->collision->AddCollider({ 0, 0, (int)(97*scale), (int)(72*scale) }, COLLIDER_ENEMY, this);
 }
 
 Charger::~Charger()

@@ -94,6 +94,7 @@ public:
 	bool flying = false;
 
 	entity_type type;
+	float scale = 1;
 };
 
 #endif // !__ModuleEntity_H__

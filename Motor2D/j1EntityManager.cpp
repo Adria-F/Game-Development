@@ -27,8 +27,8 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 bool j1EntityManager::Start()
 {
-	//createEntity(entity_type::BAT, 100, 0);
-	createEntity(entity_type::CHARGER, 100, 0);
+	createEntity(entity_type::BAT, 100, 0);
+	//createEntity(entity_type::CHARGER, 100, 0);
 
 	return true;
 }
@@ -49,7 +49,7 @@ bool j1EntityManager::PostUpdate()
 	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
 	{
 		entity->data->PostUpdate();
-		App->render->Blit(entity->data->graphics, entity->data->position.x, entity->data->position.y, &entity->data->animation->GetCurrentFrame());
+		App->render->Blit(entity->data->graphics, entity->data->position.x, entity->data->position.y, &entity->data->animation->GetCurrentFrame(), entity->data->scale);
 	}
 
 	return true;
