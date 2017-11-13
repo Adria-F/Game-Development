@@ -64,8 +64,11 @@ struct ImageLayer
 
 	~ImageLayer()
 	{
-		App->tex->UnLoad(texture);
-		texture = nullptr;
+		if (texture != nullptr)
+		{
+			App->tex->UnLoad(texture);
+			texture = nullptr;
+		}
 	}
 
 };
@@ -92,8 +95,11 @@ struct TileSet
 
 	~TileSet()
 	{
-		App->tex->UnLoad(texture);
-		texture = nullptr;
+		if (texture != nullptr)
+		{
+			App->tex->UnLoad(texture);
+			texture = nullptr;
+		}
 	}
 
 };
