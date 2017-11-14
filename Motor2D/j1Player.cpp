@@ -252,6 +252,11 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
+	if (c2->type == COLLIDER_ENEMY)
+	{
+		
+	}
+
 	Entity_OnCollision(c1, c2);
 }
 

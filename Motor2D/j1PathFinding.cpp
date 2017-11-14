@@ -137,10 +137,12 @@ p2DynArray<iPoint> j1PathFinding::getPath(Entity* entity, const iPoint& destinat
 			{
 				p2List_item<PathNode>* old_instance = open.Find(curr_neighbor->data.coords);
 				curr_neighbor->data.F = curr_neighbor->data.calculateF(destination_coords);
+
 				if (old_instance != NULL && curr_neighbor->data.g < old_instance->data.g)
 				{
 					*old_instance = *curr_neighbor;
 				}
+
 				else if (old_instance == NULL)
 				{
 					open.list.add(curr_neighbor->data);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="165" tilewidth="1" tileheight="1" nextobjectid="32">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="200" height="165" tilewidth="1" tileheight="1" nextobjectid="33">
  <imagelayer name="spritesheet">
-  <image source="../textures/character/godmode_spritesheet.png" width="200" height="165"/>
+  <image source="../textures/character/Character spritesheet.png" width="160" height="165"/>
  </imagelayer>
  <objectgroup name="right">
   <properties>
@@ -34,6 +34,9 @@
  </objectgroup>
  <objectgroup name="idle_left">
   <object id="25" x="84" y="66" width="21" height="33"/>
+ </objectgroup>
+ <objectgroup name="death">
+  <object id="32" x="21" y="66" width="21" height="33"/>
  </objectgroup>
  <objectgroup name="jumping_right">
   <object id="28" x="63" y="33" width="21" height="33"/>
