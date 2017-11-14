@@ -91,16 +91,19 @@ bool j1Collision::Update(float dt)
 				if (App->player->state != JUMPING)
 					App->player->state = FALLING;
 			}
-			else
+			else if (c1->type == COLLIDER_ENEMY || c2->type == COLLIDER_ENEMY)
 			{
-				for (p2List_item<Entity*>* entity = App->entityManager->entities.start; entity; entity = entity->next)
+				p2List_item<Entity*>* entity;
+				for (entity = App->entityManager->entities.start; entity; entity = entity->next)
 				{
-					if ((c1 == entity->data->collidingFloor || c2 == entity->data->collidingFloor) && ((c1->type == entity->data->collider->type && (c2->type == COLLIDER_FLOOR || c2->type == COLLIDER_JUMPABLE)) || (c2->type == entity->data->collider->type && (c1->type == COLLIDER_FLOOR || c1->type == COLLIDER_JUMPABLE)))) // When there is no longer collision between entity and the previous floor or jumpable collider
-					{
-						entity->data->colliding_bottom = false;
-						if (entity->data->state != JUMPING)
-							entity->data->state = FALLING;
-					}
+					if (entity->data->collider == c1 || entity->data->collider == c2)
+						break;
+				}
+				if ((c1 == entity->data->collidingFloor || c2 == entity->data->collidingFloor) && ((c1->type == entity->data->collider->type && (c2->type == COLLIDER_FLOOR || c2->type == COLLIDER_JUMPABLE)) || (c2->type == entity->data->collider->type && (c1->type == COLLIDER_FLOOR || c1->type == COLLIDER_JUMPABLE)))) // When there is no longer collision between entity and the previous floor or jumpable collider
+				{
+					entity->data->colliding_bottom = false;
+					if (entity->data->state != JUMPING)
+						entity->data->state = FALLING;
 				}
 			}
 		}

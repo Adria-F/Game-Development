@@ -210,7 +210,8 @@ bool j1Player::PostUpdate(float dt)
 	if (position.y > App->win->screen_surface->h / win_scale + 50 && !won)
 	{
 		App->audio->PlayFx(die_fx, 0);
-		App->scene->LoadLvl(App->scene->current_lvl->data->lvl);
+		App->scene->load_lvl = true;
+		App->scene->newLvl = App->scene->current_lvl->data->lvl;
 	}
 
 	//When f10 is clicked he converts into super sayan (god mode)

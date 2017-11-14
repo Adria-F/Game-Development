@@ -11,6 +11,7 @@
 #include "j1Collision.h"
 #include "j1Player.h"
 #include "j1PathFinding.h"
+#include "j1EntityManager.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -49,7 +50,6 @@ bool j1Scene::Start()
 	complete_level_fx = App->audio->LoadFx("audio/fx/level_complete.wav");
 	win_fx = App->audio->LoadFx("audio/fx/win.wav");
 
-
 	return true;
 }
 
@@ -63,14 +63,23 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		LoadLvl(1);
+	{
+		load_lvl = true;
+		newLvl = 1;
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		if (current_lvl->data->lvl == 2)
-			LoadLvl(2);
+		{
+			load_lvl = true;
+			newLvl = 2;
+		}
 		else
-			LoadLvl(1);
+		{
+			load_lvl = true;
+			newLvl = 1;
+		}
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
@@ -135,7 +144,7 @@ bool j1Scene::Update(float dt)
 	{
 		end_reached = 0;
 		App->player->won = false;
-		App->scene->LoadLvl(0);
+		load_lvl = true;
 	}
 
 	// Parallax
@@ -164,6 +173,13 @@ bool j1Scene::Update(float dt)
 bool j1Scene::PostUpdate(float dt)
 {
 	bool ret = true;
+
+	if (load_lvl)
+	{
+		LoadLvl(newLvl);
+		load_lvl = false;
+		newLvl = 0;
+	}
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
@@ -209,6 +225,7 @@ void j1Scene::LoadLvl(int num)
 		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length);
 		
 		// Restart player data
+		App->player->collider->to_delete = true;
 		App->player->collider = nullptr; //Has to be null in order to be created
 		App->player->Start();
 	}

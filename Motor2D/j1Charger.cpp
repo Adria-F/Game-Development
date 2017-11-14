@@ -15,7 +15,6 @@ Charger::Charger() : Entity("charger")
 	graphics = App->tex->Load("textures/enemies/charger.png");
 	speed = 2;
 	jump_force = 6;
-	animation = idle_right;
 	scale = 0.5f;
 	collider = App->collision->AddCollider({ 0, 0, (int)(collider_size.x*scale), (int)(collider_size.y*scale) }, COLLIDER_ENEMY, this);
 	collider_offset.x *= scale;
@@ -24,6 +23,7 @@ Charger::Charger() : Entity("charger")
 
 Charger::~Charger()
 {
+
 }
 
 bool Charger::Awake(pugi::xml_node&)
@@ -75,7 +75,6 @@ bool Charger::Update(float dt)
 			v.y = jump_force;
 			state = JUMPING;
 		}
-
 	}
 
 	return true;

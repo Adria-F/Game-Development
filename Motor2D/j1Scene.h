@@ -59,6 +59,9 @@ public:
 	float end_reached = 0;
 	int max_camera_pos = 0;
 
+	bool load_lvl = false;
+	int newLvl = 0;
+
 };
 
 #endif // __j1SCENE_H__

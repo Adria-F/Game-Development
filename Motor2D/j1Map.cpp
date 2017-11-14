@@ -8,6 +8,7 @@
 #include "j1Player.h"
 #include "j1Window.h"
 #include "j1PathFinding.h"
+#include "j1EntityManager.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -152,6 +153,19 @@ bool j1Map::CleanUp()
 	}
 	data.layers.clear();
 
+	//Clean colliders
+	p2List_item<Collider*>* item_collider;
+	item_collider = data.colliders.start;
+
+	while (item_collider != NULL)
+	{
+		item_collider->data->to_delete = true;		
+		item_collider = item_collider->next;
+	}
+	data.colliders.clear();
+
+	App->entityManager->CleanUp(); //Clean entities;
+
 	// Clean up the pugui tree
 	map_file.reset();
 
@@ -165,8 +179,6 @@ bool j1Map::Load(const char* file_name, int& map_length)
 
 	//Clean previous map before loading another one
 	CleanUp();
-	// Colliders too
-	App->collision->CleanUp();
 
 	p2SString tmp("%s%s", folder.GetString(), file_name);
 
@@ -507,7 +519,7 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 		shape.w = object.attribute("width").as_int();
 		shape.h = object.attribute("height").as_int();
 
-		App->collision->AddCollider(shape, collider_type);
+		data.colliders.add(App->collision->AddCollider(shape, collider_type));
 	}
 
 	return ret;
@@ -519,9 +531,11 @@ bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length)
 
 	pugi::xml_node object;
 	p2SString name;
+	p2SString type;
 	for (object = node.child("object"); object; object = object.next_sibling("object"))
 	{
 		name = object.attribute("name").as_string();
+		type = object.attribute("type").as_string();
 		if (name == "player_start_pos")
 		{
 			App->player->position.x = object.attribute("x").as_int();
@@ -531,6 +545,20 @@ bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length)
 			if (App->render->virtualCamPos > 0)
 			{
 				App->render->virtualCamPos = 0;
+			}
+		}
+		if (type == "enemy")
+		{
+			int x, y;
+			x = object.attribute("x").as_int();
+			y = object.attribute("y").as_int();
+			if (name == "charger")
+			{
+				App->entityManager->createEntity(CHARGER, x, y);
+			}
+			else if (name == "bat")
+			{
+				App->entityManager->createEntity(BAT, x, y);
 			}
 		}
 	}
