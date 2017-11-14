@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="165" tilewidth="1" tileheight="1" nextobjectid="32">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="200" height="165" tilewidth="1" tileheight="1" nextobjectid="32">
  <imagelayer name="spritesheet">
   <image source="../textures/character/godmode_spritesheet.png" width="200" height="165"/>
  </imagelayer>
@@ -53,6 +53,6 @@
    <property name="speed" type="float" value="2"/>
   </properties>
   <object id="26" type="entity" x="0" y="0" width="21" height="33"/>
-  <object id="27" type="collider" x="3" y="2" width="15" height="31"/>
+  <object id="27" type="collider" x="3" y="2" width="15" height="29"/>
  </objectgroup>
 </map>
