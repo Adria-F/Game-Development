@@ -7,6 +7,7 @@
 #include "p2Log.h"
 #include "j1EntityManager.h"
 #include "j1Window.h"
+#include "j1Textures.h"
 
 Entity::Entity(const char* name)
 {
@@ -25,6 +26,13 @@ Entity::Entity(const char* name)
 	jumping_left = LoadAnimation(path.GetString(), "jumping_left");
 	falling_right = LoadAnimation(path.GetString(), "falling_right");
 	falling_left = LoadAnimation(path.GetString(), "falling_left");
+}
+
+Entity::~Entity()
+{
+	App->tex->UnLoad(graphics);
+	graphics = nullptr;
+	collider->to_delete = true;
 }
 
 bool Entity::Entity_Update(float dt)

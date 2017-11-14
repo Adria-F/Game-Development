@@ -33,6 +33,7 @@ class Entity : public j1Module
 public:
 
 	Entity(const char* name);
+	virtual ~Entity();
 
 	bool Entity_Update(float dt);
 

@@ -28,8 +28,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 bool j1EntityManager::Start()
 {
-	//createEntity(entity_type::BAT, 100, 0);
-	createEntity(entity_type::CHARGER, 100, 0);
+
 
 	return true;
 }
@@ -58,10 +57,15 @@ bool j1EntityManager::PostUpdate(float dt)
 
 bool j1EntityManager::CleanUp()
 {
-	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
+	p2List_item<Entity*>* item;
+	item = entities.start;
+
+	while (item != NULL)
 	{
-		entity->data->CleanUp();
+		RELEASE(item->data);
+		item = item->next;
 	}
+	entities.clear();
 
 	return true;
 }
@@ -83,7 +87,7 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 	ret->type = type;
 	ret->virtualPosition.x = ret->position.x = x;
 	ret->virtualPosition.y = ret->position.y = y;
-	ret->animation = ret->idle_right;
+	ret->animation = ret->idle_left;
 
 	float time = ret->jump_force / -gravity;
 	int max_height = (ret->jump_force * time) + ((gravity / 2) * time * time);
