@@ -94,6 +94,7 @@ bool j1Player::Start()
 	//temp
 	/*path = App->pathfinding->getPath(this, { 100, 345 });*/
 	path_marker = App->tex->Load("maps/non_walkable_tile.png");
+	
 	/*path.PushBack({ 0, 10 });
 	path.PushBack({ 1, 10 });
 	path.PushBack({ 2, 10 });
@@ -122,6 +123,8 @@ bool j1Player::CleanUp()
 bool j1Player::Update(float dt)
 {
 	Entity_Update(dt);
+
+	//App->pathfinding->getPath(this, { 100, 345 });
 
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		dead = !dead;
@@ -245,9 +248,9 @@ bool j1Player::PostUpdate(float dt)
 	}
 
 	int i = 0;
-	while( i < path.Count())
+	while( i < App->pathfinding->path.Count())
 	{
-		iPoint coords = App->map->MapToWorld(path.At(i)->x, path.At(i)->y);
+		iPoint coords = App->map->MapToWorld(App->pathfinding->path.At(i)->x, App->pathfinding->path.At(i)->y);
 		App->render->Blit(path_marker, coords.x, coords.y);
 		i++;
 	}

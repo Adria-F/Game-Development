@@ -1,38 +1,12 @@
 #ifndef __PATH_FINDING_H__
 #define __PATH_FINDING_H__
 
-
 #include "j1Module.h"
 #include "p2Point.h"
 #include "p2List.h"
 #include "j1Entity.h"
 #include "p2DynArray.h"
-
-class PathList;
-
-struct PathNode
-{
-	PathNode();
-	PathNode(int g, int h, const iPoint& pos, const PathNode* parent);
-	PathNode(const PathNode& node);
-
-	iPoint coords;
-	int g, h, F;
-
-	uint FindWalkableAdjacents(p2List<PathNode>& list_to_fill) const;
-	bool touchingGround() const;
-	int calculateF(const iPoint& destination);
-
-	const PathNode* parent;
-};
-
-struct PathList
-{
-	p2List_item<PathNode>* Find(const iPoint& coords) const;
-	p2List_item<PathNode>* FindLowestValue() const;
-
-	p2List<PathNode> list;	
-};
+#include "p2PQueue.h"
 
 class j1PathFinding : public j1Module
 {
@@ -43,14 +17,22 @@ public:
 	~j1PathFinding()
 	{}
 	
-	p2DynArray<iPoint> getPath(Entity* entity, const iPoint& destination) const;
+	void getPath(Entity* entity, const iPoint& destination);
 	void SetMap(uint width, uint height, uchar* data);
 	bool isWalkable(const iPoint& coords) const;
+	void ResetPath();
+	p2DynArray<iPoint>	path;
 
 private:
 
 	uint width, height;
 	uchar* map;
+
+	p2PQueue<iPoint>	frontier;
+	p2List<iPoint>		visited;
+	p2List<iPoint>		breadcrumbs;
+	uint				cost_so_far[65][13];
+
 };
 
 #endif // !__PATH_FINDING_H__

@@ -9,6 +9,9 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Audio.h"
+//temp
+#include "j1PathFinding.h"
+#include "j1Player.h"
 
 Charger::Charger() : Entity("charger")
 {
@@ -36,6 +39,7 @@ bool Charger::Start()
 }
 bool Charger::Update(float dt)
 {
+	App->pathfinding->getPath(this, App->player->position);
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		v.x = -speed;

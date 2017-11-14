@@ -285,7 +285,7 @@ public:
 	/**
 	* returns the first apperance of data as index (-1 if not found)
 	*/
-	int find(const tdata& data)
+	int find(const tdata& data) const
 	{
 		p2List_item<tdata>* tmp = start;
 		int index = 0;
