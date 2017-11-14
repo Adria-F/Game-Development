@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="552" height="444" tilewidth="1" tileheight="1" nextobjectid="19">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="552" height="720" tilewidth="1" tileheight="1" nextobjectid="19">
  <imagelayer name="spritesheet">
-  <image source="../textures/enemies/bat.png" width="552" height="444"/>
+  <image source="../textures/enemies/bat.png" width="552" height="720"/>
  </imagelayer>
  <objectgroup name="idle_left">
   <properties>
    <property name="speed" type="float" value="0.2"/>
   </properties>
-  <object id="1" x="0" y="0" width="184" height="148"/>
-  <object id="2" x="184" y="0" width="184" height="148"/>
-  <object id="3" x="368" y="0" width="184" height="148"/>
-  <object id="4" x="0" y="148" width="184" height="148"/>
+  <object id="1" x="0" y="0" width="184" height="240"/>
+  <object id="2" x="184" y="0" width="184" height="240"/>
+  <object id="3" x="368" y="0" width="184" height="240"/>
+  <object id="4" x="0" y="240" width="184" height="240"/>
  </objectgroup>
  <objectgroup name="left">
   <properties>
    <property name="speed" type="float" value="0.2"/>
   </properties>
-  <object id="9" x="0" y="0" width="184" height="148"/>
-  <object id="10" x="184" y="0" width="184" height="148"/>
-  <object id="11" x="368" y="0" width="184" height="148"/>
-  <object id="12" x="0" y="148" width="184" height="148"/>
+  <object id="9" x="0" y="0" width="184" height="240"/>
+  <object id="10" x="184" y="0" width="184" height="240"/>
+  <object id="11" x="368" y="0" width="184" height="240"/>
+  <object id="12" x="0" y="240" width="184" height="240"/>
  </objectgroup>
  <objectgroup name="idle_right">
   <properties>
    <property name="speed" type="float" value="0.2"/>
   </properties>
-  <object id="5" x="368" y="148" width="184" height="148"/>
-  <object id="6" x="0" y="296" width="184" height="148"/>
-  <object id="7" x="184" y="296" width="184" height="148"/>
-  <object id="8" x="368" y="296" width="184" height="148"/>
+  <object id="5" x="368" y="240" width="184" height="240"/>
+  <object id="6" x="0" y="480" width="184" height="240"/>
+  <object id="7" x="184" y="480" width="184" height="240"/>
+  <object id="8" x="368" y="480" width="184" height="240"/>
  </objectgroup>
  <objectgroup name="right">
   <properties>
    <property name="speed" type="float" value="0.2"/>
   </properties>
-  <object id="13" x="368" y="148" width="184" height="148"/>
-  <object id="14" x="0" y="296" width="184" height="148"/>
-  <object id="15" x="184" y="296" width="184" height="148"/>
-  <object id="16" x="368" y="296" width="184" height="148"/>
+  <object id="13" x="368" y="240" width="184" height="240"/>
+  <object id="14" x="0" y="480" width="184" height="240"/>
+  <object id="15" x="184" y="480" width="184" height="240"/>
+  <object id="16" x="368" y="480" width="184" height="240"/>
  </objectgroup>
  <objectgroup color="#ff0000" name="Logic">
   <properties>
    <property name="jump_force" type="float" value="6"/>
    <property name="speed" type="float" value="2"/>
   </properties>
-  <object id="17" name="sprite" x="0" y="-4" width="184" height="148"/>
-  <object id="18" name="collider" x="6" y="3" width="151" height="120"/>
+  <object id="17" name="sprite" x="0" y="0" width="184" height="240"/>
+  <object id="18" name="collider" x="25" y="50" width="113" height="110"/>
  </objectgroup>
 </map>
