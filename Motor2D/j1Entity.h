@@ -68,6 +68,7 @@ public:
 	bool going_left = false;
 	bool jumping = false;
 	bool going_down = false;
+	bool dead = false;
 
 	SDL_Texture* graphics = nullptr;
 	

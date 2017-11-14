@@ -26,6 +26,7 @@ Entity::Entity(const char* name)
 	jumping_left = LoadAnimation(path.GetString(), "jumping_left");
 	falling_right = LoadAnimation(path.GetString(), "falling_right");
 	falling_left = LoadAnimation(path.GetString(), "falling_left");
+	death = LoadAnimation(path.GetString(), "death");
 }
 
 Entity::~Entity()
@@ -153,6 +154,10 @@ void Entity::setAnimation()
 {
 	if (specificAnimation())
 	{ }
+	else if (dead && death != nullptr)
+	{
+		animation = death;
+	}
 	else if (v.x > 0)
 	{
 		if (state == JUMPING && jumping_right != nullptr)

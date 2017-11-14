@@ -123,74 +123,78 @@ bool j1Player::Update(float dt)
 {
 	Entity_Update(dt);
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		dead = !dead;
+	if (!dead)
 	{
-		v.x = -speed;
-		if (state != JUMPING && state != DEAD)
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
 		{
-			state = LEFT;
-		}
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
-	{
-		if (state == LEFT)
-		{
-			v.x = 0;
-			state = IDLE;
-		}
-	}
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
-	{
-		v.x = speed;
-		if (state != JUMPING && state != DEAD)
-		{
-			state = RIGHT;
-		}
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
-	{
-		if (state == RIGHT)
-		{
-			v.x = 0;
-			state = IDLE;
-		}
-	}
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-		if (!double_jump)
-		{
-			if (state == JUMPING || state == FALLING)
+			v.x = -speed;
+			if (state != JUMPING && state != DEAD)
 			{
-				double_jump = true;
-				cloud_pos.x = position.x + cloud_offset.x;
-				cloud_pos.y = position.y + cloud_offset.y;
-				v.y = (jump_force * 2 / 3);
-				if (state == FALLING)
+				state = LEFT;
+			}
+		}
+		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
+		{
+			if (state == LEFT)
+			{
+				v.x = 0;
+				state = IDLE;
+			}
+		}
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
+		{
+			v.x = speed;
+			if (state != JUMPING && state != DEAD)
+			{
+				state = RIGHT;
+			}
+		}
+		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
+		{
+			if (state == RIGHT)
+			{
+				v.x = 0;
+				state = IDLE;
+			}
+		}
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			if (!double_jump)
+			{
+				if (state == JUMPING || state == FALLING)
 				{
-					state = JUMPING;
+					double_jump = true;
+					cloud_pos.x = position.x + cloud_offset.x;
+					cloud_pos.y = position.y + cloud_offset.y;
+					v.y = (jump_force * 2 / 3);
+					if (state == FALLING)
+					{
+						state = JUMPING;
+					}
+					//Double jumping sound
+					App->audio->PlayFx(double_jump_fx, 0);
 				}
-				//Double jumping sound
-				App->audio->PlayFx(double_jump_fx, 0);
-			}
-			else
-			{
-				v.y = jump_force;
-				state = JUMPING;
-				//Jumping sound
-				App->audio->PlayFx(jump_fx, 0);
+				else
+				{
+					v.y = jump_force;
+					state = JUMPING;
+					//Jumping sound
+					App->audio->PlayFx(jump_fx, 0);
 
+				}
+			}
+		}
+		else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+		{
+			// If player release space in mid jump, the character won't reach max height
+			if (!double_jump && v.y > (jump_force * 2 / 3) / 2)
+			{
+				v.y = (jump_force * 2 / 3) / 2;
 			}
 		}
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
-	{
-		// If player release space in mid jump, the character won't reach max height
-		if (!double_jump && v.y > (jump_force * 2 / 3) / 2)
-		{
-			v.y = (jump_force * 2 / 3) / 2;
-		}
-	}
-	
 	//Running sound
 	if (v.x != 0 && colliding_bottom && SDL_GetTicks() > step_time)
 	{
@@ -203,13 +207,16 @@ bool j1Player::Update(float dt)
 
 bool j1Player::PostUpdate(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !colliding_right && v.x == 0)
+	if (!dead)
 	{
-		v.x = speed;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !colliding_left && v.x == 0)
-	{
-		v.x = -speed;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !colliding_right && v.x == 0)
+		{
+			v.x = speed;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !colliding_left && v.x == 0)
+		{
+			v.x = -speed;
+		}
 	}
 
 	int win_scale = App->win->GetScale();
