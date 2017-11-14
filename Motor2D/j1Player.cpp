@@ -89,9 +89,8 @@ bool j1Player::Start()
 		SSJ_off = App->audio->LoadFx("audio/fx/SSJ_off.wav");
 
 	//temp
-	/*max_jump_value = 6;
-	path = App->pathfinding->getPath(this, { 288, 320 });
-	path_marker = App->tex->Load("assets/maps/non-walkable-tile.png");*/
+	path = App->pathfinding->getPath(this, { 100, 345 });
+	path_marker = App->tex->Load("assets/maps/non_walkable_tile.png");
 
 	return true;
 }
@@ -231,13 +230,13 @@ bool j1Player::PostUpdate(float dt)
 		App->render->Blit(graphics, cloud_pos.x, cloud_pos.y, &jump_cloud.GetCurrentFrame(dt));
 	}
 
-	/*int i = 0;
+	int i = 0;
 	while(path.Count() > 0)
 	{
 		iPoint coords = App->map->MapToWorld(path.At(i)->x, path.At(i)->y);
 		App->render->Blit(path_marker, coords.x, coords.y);
 		i++;
-	}*/
+	}
 
 	return true;
 }

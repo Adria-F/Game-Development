@@ -13,26 +13,23 @@ PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), F(node.F), coor
 
 uint PathNode::FindWalkableAdjacents(p2List<PathNode>& list_to_fill) const
 {
-	iPoint cell;
+	PathNode up(-1, -1, { coords.x, coords.y - 1 }, this);
+	PathNode down(-1, -1, { coords.x, coords.y + 1 }, this); 
+	PathNode left(-1, -1, { coords.x - 1, coords.y }, this);
+	PathNode right(-1, -1, { coords.x + 1, coords.y }, this);
+	
+	if (App->pathfinding->isWalkable(up.coords))
+		list_to_fill.add(up);
 
-	//Cell up
-	cell.create(coords.x, coords.y - 1);
-	if (App->pathfinding->isWalkable(cell))
-		list_to_fill.add(PathNode(-1, -1, cell, this));
-	//Cel down
-	cell.create(coords.x, coords.y + 1);
-	if (App->pathfinding->isWalkable(cell))
-		list_to_fill.add(PathNode(-1, -1, cell, this));
+	if (App->pathfinding->isWalkable(down.coords))
+		list_to_fill.add(down);
 
-	//Cell right
-	cell.create(coords.x + 1, coords.y);
-	if (App->pathfinding->isWalkable(cell))
-		list_to_fill.add(PathNode(-1, -1, cell, this));
-	//Cell left
-	cell.create(coords.x - 1, coords.y);
-	if (App->pathfinding->isWalkable(cell))
-		list_to_fill.add(PathNode(-1, -1, cell, this));
+	if (App->pathfinding->isWalkable(left.coords))
+		list_to_fill.add(left);
 
+	if (App->pathfinding->isWalkable(right.coords))
+		list_to_fill.add(right);
+	
 	return list_to_fill.count();
 }
 
@@ -110,20 +107,25 @@ p2DynArray<iPoint> j1PathFinding::getPath(Entity* entity, const iPoint& destinat
 
 	PathList open, close;
 	iPoint origin_coords = App->map->WorldToMap(entity->position.x, entity->position.y);
+	iPoint destination_coords = App->map->WorldToMap(destination.x, destination.y);
 	PathNode origin;
 	origin.coords = origin_coords;
+	open.list.add(origin);
 
 	while (open.list.count() > 0)
 	{
 		p2List_item<PathNode>* lowestPathNode = open.FindLowestValue();
 		close.list.add(lowestPathNode->data);
 		
-		if (lowestPathNode->data.coords == destination)
+		if (lowestPathNode->data.coords == destination_coords)
 		{
-			/*for (const PathNode* curr = close.list.end; curr; curr = curr->data.parent)
+			const PathNode* curr = &close.list.end->data;
+			while (curr != NULL)
 			{
-
-			}*/
+				path.PushBack(curr->coords);
+				curr = curr->parent;
+			}
+			break;
 		}
 
 		p2List<PathNode> neighbors;
@@ -134,7 +136,7 @@ p2DynArray<iPoint> j1PathFinding::getPath(Entity* entity, const iPoint& destinat
 			if (close.Find(curr_neighbor->data.coords) == NULL)
 			{
 				p2List_item<PathNode>* old_instance = open.Find(curr_neighbor->data.coords);
-				curr_neighbor->data.calculateF(destination);
+				curr_neighbor->data.F = curr_neighbor->data.calculateF(destination_coords);
 				if (old_instance != NULL && curr_neighbor->data.g < old_instance->data.g)
 				{
 					*old_instance = *curr_neighbor;
@@ -147,8 +149,6 @@ p2DynArray<iPoint> j1PathFinding::getPath(Entity* entity, const iPoint& destinat
 		}
 		open.list.del(lowestPathNode);
 	}
-
-
 
 	return path;
 }
