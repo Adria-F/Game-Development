@@ -37,7 +37,11 @@ Entity::~Entity()
 
 bool Entity::Entity_Update(float dt)
 {
+	float oldVy = v.y;
 	v.y += (gravity * ((colliding_bottom || flying) ? 0 : 1)); //*dt
+	if (oldVy > 0 && v.y <= 0)
+		state = FALLING;
+
 	if (v.y < -jump_force)
 		v.y = -jump_force;
 	virtualPosition.y -= v.y; //*dt
@@ -201,6 +205,17 @@ void Entity::setAnimation()
 			else if (animation == idle_right && jumping_right != nullptr)
 			{
 				animation = jumping_right;
+			}
+		}
+		else if (state == FALLING)
+		{
+			if (animation == jumping_left && falling_left != nullptr)
+			{
+				animation = falling_left;
+			}
+			else if (animation == jumping_right && falling_right != nullptr)
+			{
+				animation = falling_right;
 			}
 		}
 		else if (state == LEFT && left != nullptr)

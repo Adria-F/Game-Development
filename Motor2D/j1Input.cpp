@@ -132,6 +132,14 @@ bool j1Input::PreUpdate()
 	return true;
 }
 
+bool j1Input::Update(float dt)
+{
+	
+	
+	
+	return true;
+}
+
 // Called before quitting
 bool j1Input::CleanUp()
 {
