@@ -89,8 +89,12 @@ bool j1Player::Start()
 		SSJ_off = App->audio->LoadFx("audio/fx/SSJ_off.wav");
 
 	//temp
-	path = App->pathfinding->getPath(this, { 100, 345 });
-	path_marker = App->tex->Load("assets/maps/non_walkable_tile.png");
+	/*path = App->pathfinding->getPath(this, { 100, 345 });*/
+	path_marker = App->tex->Load("maps/non_walkable_tile.png");
+	path.PushBack({ 0, 10 });
+	path.PushBack({ 1, 10 });
+	path.PushBack({ 2, 10 });
+	path.PushBack({ 3, 10 });
 
 	return true;
 }
@@ -231,7 +235,7 @@ bool j1Player::PostUpdate(float dt)
 	}
 
 	int i = 0;
-	while(path.Count() > 0)
+	while( i < path.Count())
 	{
 		iPoint coords = App->map->MapToWorld(path.At(i)->x, path.At(i)->y);
 		App->render->Blit(path_marker, coords.x, coords.y);
