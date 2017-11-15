@@ -343,34 +343,22 @@ void Entity::LoadLogic(const char* animationPath)
 
 bool Entity::Collision_from_right(Collider* c1, Collider* c2) const
 {
-	if ((c2->rect.x + 4) > (c1->rect.x + (c1->rect.w)))
-		return true;
-	else
-		return false;
+	return ((c2->rect.x + 4) > (c1->rect.x + (c1->rect.w)));
 }
 
 bool Entity::Collision_from_bottom(Collider* c1, Collider* c2) const
 {
-	if ((c2->rect.y - (v.y*prev_dt) + 1) > (c1->rect.y + (c1->rect.h)))
-		return true;
-	else
-		return false;
+	return ((c2->rect.y - (v.y*prev_dt) + 1) > (c1->rect.y + (c1->rect.h)));
 }
 
 bool Entity::Collision_from_left(Collider* c1, Collider* c2) const
 {
-	if ((c2->rect.x + (c2->rect.w)) < (c1->rect.x + 5))
-		return true;
-	else
-		return false;
+	return ((c2->rect.x + (c2->rect.w)) < (c1->rect.x + 5));
 }
 
 bool Entity::Collision_from_top(Collider* c1, Collider* c2) const
 {
-	if ((c2->rect.y + (c2->rect.h)) < (c1->rect.y + 10))
-		return true;
-	else
-		return false;
+	return ((c2->rect.y + (c2->rect.h)) < (c1->rect.y + 10));
 }
 
 
