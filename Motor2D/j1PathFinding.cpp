@@ -43,59 +43,62 @@ void j1PathFinding::getPath(Entity* entity, const iPoint& destination)
 	visited.add(origin_coords);
 	breadcrumbs.add(origin_coords);
 	iPoint destination_coords = App->map->WorldToMap(destination.x, destination.y);
-
-	while (visited.find(destination_coords) == -1)
-	{
-		iPoint curr;
-		if (frontier.Pop(curr))
+	
+	if (isWalkable(destination_coords) && isWalkable(origin_coords))
+	{	
+		while (visited.find(destination_coords) == -1)
 		{
-			iPoint neighbors[4];
-			neighbors[0].create(curr.x + 1, curr.y + 0);
-			neighbors[1].create(curr.x + 0, curr.y + 1);
-			neighbors[2].create(curr.x - 1, curr.y + 0);
-			neighbors[3].create(curr.x + 0, curr.y - 1);
-
-			for (uint i = 0; i < 4; ++i)
+			iPoint curr;
+			if (frontier.Pop(curr))
 			{
-				int distance = neighbors[i].DistanceNoSqrt(destination_coords);
-				int d2 = pow(neighbors[i].x - destination_coords.x, 2.0) + pow(neighbors[i].y - destination_coords.y, 2.0);
+				iPoint neighbors[4];
+				neighbors[0].create(curr.x + 1, curr.y + 0);
+				neighbors[1].create(curr.x + 0, curr.y + 1);
+				neighbors[2].create(curr.x - 1, curr.y + 0);
+				neighbors[3].create(curr.x + 0, curr.y - 1);
 
-				int newCost = cost_so_far[curr.x][curr.y] + 1;
-				if (cost_so_far[neighbors[i].x][neighbors[i].y] == NULL || newCost < cost_so_far[neighbors[i].x][neighbors[i].y])
+				for (uint i = 0; i < 4; ++i)
 				{
-					if (isWalkable(neighbors[i]))
-					{
-						cost_so_far[neighbors[i].x][neighbors[i].y] = newCost;
+					int distance = neighbors[i].DistanceNoSqrt(destination_coords);
+					int d2 = pow(neighbors[i].x - destination_coords.x, 2.0) + pow(neighbors[i].y - destination_coords.y, 2.0);
 
-						if (visited.find(neighbors[i]) == -1)
+					int newCost = cost_so_far[curr.x][curr.y] + 1;
+					if (cost_so_far[neighbors[i].x][neighbors[i].y] == NULL || newCost < cost_so_far[neighbors[i].x][neighbors[i].y])
+					{
+						if (isWalkable(neighbors[i]))
 						{
-							breadcrumbs.add(curr);
-							visited.add(neighbors[i]);
-							if (neighbors[i] != destination_coords)
+							cost_so_far[neighbors[i].x][neighbors[i].y] = newCost;
+
+							if (visited.find(neighbors[i]) == -1)
 							{
-								frontier.Push(neighbors[i], newCost + (distance * 10));
+								breadcrumbs.add(curr);
+								visited.add(neighbors[i]);
+								if (neighbors[i] != destination_coords)
+								{
+									frontier.Push(neighbors[i], newCost + (distance * 10));
+								}
 							}
-						}
-						else
-						{
-							breadcrumbs.At(visited.find(neighbors[i]))->data = curr;
+							else
+							{
+								breadcrumbs.At(visited.find(neighbors[i]))->data = curr;
+							}
 						}
 					}
 				}
 			}
 		}
-	}
 
-	path.PushBack(destination_coords);
-	if (visited.find(destination_coords) != -1)
-	{
-		iPoint cameFrom = breadcrumbs.At(visited.find(destination_coords))->data;
-		path.PushBack(cameFrom);
-		while (cameFrom != visited.start->data)
+		if (visited.find(destination_coords) != -1)
 		{
-			cameFrom = breadcrumbs.At(visited.find(cameFrom))->data;
+			path.PushBack(destination_coords);
+			iPoint cameFrom = breadcrumbs.At(visited.find(destination_coords))->data;
 			path.PushBack(cameFrom);
+			while (cameFrom != visited.start->data)
+			{
+				cameFrom = breadcrumbs.At(visited.find(cameFrom))->data;
+				path.PushBack(cameFrom);
+			}
 		}
+		path.Flip();
 	}
-	path.Flip();
 }

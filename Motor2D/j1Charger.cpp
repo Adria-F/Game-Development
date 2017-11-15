@@ -39,7 +39,7 @@ bool Charger::Start()
 }
 bool Charger::Update(float dt)
 {
-	App->pathfinding->getPath(this, App->player->position);
+	/*App->pathfinding->getPath(this, App->player->position);
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		v.x = -speed;
@@ -79,13 +79,13 @@ bool Charger::Update(float dt)
 			v.y = jump_force;
 			state = JUMPING;
 		}
-	}
+	}*/
 
 	return true;
 }
 bool Charger::PostUpdate(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && !colliding_left && v.x == 0)
+	/*if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && !colliding_left && v.x == 0)
 	{
 		v.x = -speed;
 		state = LEFT;
@@ -94,7 +94,7 @@ bool Charger::PostUpdate(float dt)
 	{
 		v.x = speed;
 		state = RIGHT;
-	}
+	}*/
 
 	return true;
 }
