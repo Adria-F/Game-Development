@@ -267,7 +267,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	if (c2->type == COLLIDER_ENEMY && god_mode == false)
 	{
 		p2SString c2_name = c2->callback->name.GetString();
-		if (c2_name == "charger")
+		if (c2_name == "charger" || (c2_name == "bat" && (Collision_from_top(c1, c2) || Collision_from_left(c1, c2) || Collision_from_right(c1, c2))))
 		{
 			v.x = 0;
 			dead = true;
@@ -280,12 +280,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 		else if (c2_name == "bat" && Collision_from_bottom(c1, c2))
 		{
-			
+			v.y = (jump_force * 2 / 3);
 		}
-	
 	}
-
-	
 
 	Entity_OnCollision(c1, c2);
 }

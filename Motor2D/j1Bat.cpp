@@ -18,6 +18,9 @@ Bat::Bat() : Entity("bat")
 	collider = App->collision->AddCollider({ 0, 0, (int)(collider_size.x*scale), (int)(collider_size.y*scale) }, COLLIDER_ENEMY, this);
 	collider_offset.x *= scale;
 	collider_offset.y *= scale;
+
+	if (die_fx == 0)
+		die_fx = App->audio->LoadFx("audio/fx/bat_die.wav");
 }
 
 Bat::~Bat()
@@ -31,17 +34,13 @@ bool Bat::Awake(pugi::xml_node&)
 
 bool Bat::Update(float dt)
 {
-	/*Do_Path();
+	Do_Path();
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		v.x = -speed;
 		state = LEFT;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
-	{
-		App->entityManager->DeleteEntity(this);
-	}
 	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
 	{
 		if (state == LEFT)
@@ -78,24 +77,18 @@ bool Bat::Update(float dt)
 	else if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
 	{
 		v.y = 0;
-	}*/
+	}
 	
+	if (death->Finished())
+		App->entityManager->DeleteEntity(this);
+
 	return true;
 }
 
 bool Bat::PostUpdate(float dt)
 {
-	/*if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && !colliding_left && v.x == 0)
-	{
-		v.x = -speed;
-		state = LEFT;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT && !colliding_right && v.x == 0)
-	{
-		v.x = speed;
-		state = RIGHT;
-	}*/
-	
+
+
 	return true;
 }
 
@@ -106,6 +99,12 @@ bool Bat::CleanUp()
 
 void Bat::OnCollision(Collider* c1, Collider* c2)
 {
+	if (c2->type == COLLIDER_PLAYER && Collision_from_top(c1, c2))
+	{
+		App->audio->PlayFx(die_fx, 0);
+		dead = true;
+		
+	}
 
 }
 
