@@ -34,7 +34,7 @@ bool Bat::Awake(pugi::xml_node&)
 
 bool Bat::Update(float dt)
 {
-	App->pathfinding->getPath(this, App->player->position);
+	App->pathfinding->getPath(this, App->player);
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		v.x = -speed;

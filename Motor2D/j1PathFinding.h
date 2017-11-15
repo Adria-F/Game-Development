@@ -17,7 +17,7 @@ public:
 	~j1PathFinding()
 	{}
 	
-	void getPath(Entity* entity, const iPoint& destination);
+	void getPath(Entity* entity, Entity* objective);
 	void SetMap(uint width, uint height, uchar* data);
 	bool isWalkable(const iPoint& coords) const;
 	void ResetPath();
