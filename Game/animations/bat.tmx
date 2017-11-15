@@ -5,7 +5,7 @@
  </imagelayer>
  <objectgroup name="idle_left">
   <properties>
-   <property name="speed" type="float" value="0.2"/>
+   <property name="speed" type="float" value="9"/>
   </properties>
   <object id="1" x="0" y="0" width="184" height="240"/>
   <object id="2" x="184" y="0" width="184" height="240"/>
@@ -14,7 +14,7 @@
  </objectgroup>
  <objectgroup name="left">
   <properties>
-   <property name="speed" type="float" value="0.2"/>
+   <property name="speed" type="float" value="9"/>
   </properties>
   <object id="9" x="0" y="0" width="184" height="240"/>
   <object id="10" x="184" y="0" width="184" height="240"/>
@@ -23,7 +23,7 @@
  </objectgroup>
  <objectgroup name="idle_right">
   <properties>
-   <property name="speed" type="float" value="0.2"/>
+   <property name="speed" type="float" value="9"/>
   </properties>
   <object id="5" x="368" y="240" width="184" height="240"/>
   <object id="6" x="0" y="480" width="184" height="240"/>
@@ -32,7 +32,7 @@
  </objectgroup>
  <objectgroup name="right">
   <properties>
-   <property name="speed" type="float" value="0.2"/>
+   <property name="speed" type="float" value="9"/>
   </properties>
   <object id="13" x="368" y="240" width="184" height="240"/>
   <object id="14" x="0" y="480" width="184" height="240"/>
@@ -41,8 +41,8 @@
  </objectgroup>
  <objectgroup color="#ff0000" name="Logic">
   <properties>
-   <property name="jump_force" type="float" value="6"/>
-   <property name="speed" type="float" value="2"/>
+   <property name="jump_force" type="float" value="300"/>
+   <property name="speed" type="float" value="115"/>
   </properties>
   <object id="17" name="sprite" x="0" y="0" width="184" height="240"/>
   <object id="18" name="collider" x="25" y="50" width="113" height="110"/>

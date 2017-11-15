@@ -7,7 +7,7 @@
 #include "p2DynArray.h"
 #include "PugiXml/src/pugixml.hpp"
 
-#define gravity -0.25
+#define gravity -625 // -0.25
 
 struct SDL_Texture;
 
@@ -100,6 +100,7 @@ public:
 	float jump_force;
 	uint max_jump_value = 0;
 	bool flying = false;
+	float prev_dt = 0;
 
 	entity_type type;
 	float scale = 1;

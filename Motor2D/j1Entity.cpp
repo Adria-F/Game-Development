@@ -41,16 +41,16 @@ Entity::~Entity()
 bool Entity::Entity_Update(float dt)
 {
 	float oldVy = v.y;
-	v.y += (gravity * ((colliding_bottom || flying) ? 0 : 1)); //*dt
+	v.y += (gravity * ((colliding_bottom || flying) ? 0 : 1)) * dt; //*dt
 	if (oldVy > 0 && v.y <= 0)
 		state = FALLING;
 
 	if (v.y < -jump_force)
 		v.y = -jump_force;
-	virtualPosition.y -= v.y; //*dt
+	virtualPosition.y -= v.y * dt; //*dt
 
 	if (pos_relCam > 2 || v.x > 0)
-		virtualPosition.x += v.x; //*dt
+		virtualPosition.x += v.x * dt; //*dt
 
 	colliding_right = false;
 	colliding_left = false;
@@ -66,6 +66,8 @@ bool Entity::Entity_Update(float dt)
 
 	setAnimation();
 
+	prev_dt = dt;
+
 	return true;
 }
 
@@ -78,7 +80,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 {
 	if (c2->type == COLLIDER_FLOOR)
 	{
-		if ((c2->rect.y - v.y + 1) > (c1->rect.y + (c1->rect.h))) //The collision is from bottom
+		if ((c2->rect.y - (v.y*prev_dt) + 1) > (c1->rect.y + (c1->rect.h))) //The collision is from bottom
 		{
 			virtualPosition.y = c2->rect.y - collider->rect.h - collider_offset.y + 1;
 			if (colliding_bottom == false)
@@ -119,7 +121,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 			}
 			colliding_left = true;
 		}
-		if ((c2->rect.y + (c2->rect.h)) < (c1->rect.y + 5)) // Collision is from top
+		if ((c2->rect.y + (c2->rect.h)) < (c1->rect.y + 10)) // Collision is from top
 		{
 			if (v.y > 0)
 			{
@@ -129,7 +131,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 	}
 	else if (c2->type == COLLIDER_JUMPABLE)
 	{
-		if (((c2->rect.y - v.y + 1) > (c1->rect.y + (c1->rect.h)))) //The collision is from bottom
+		if (((c2->rect.y - (v.y*prev_dt) + 1) > (c1->rect.y + (c1->rect.h)))) //The collision is from bottom
 		{
 			virtualPosition.y = c2->rect.y - collider->rect.h - collider_offset.y + 1;
 			if (colliding_bottom == false)

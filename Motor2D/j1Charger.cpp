@@ -16,8 +16,6 @@
 Charger::Charger() : Entity("charger")
 {
 	graphics = App->tex->Load("textures/enemies/charger.png");
-	speed = 2;
-	jump_force = 6;
 	scale = 0.5f;
 	collider = App->collision->AddCollider({ 0, 0, (int)(collider_size.x*scale), (int)(collider_size.y*scale) }, COLLIDER_ENEMY, this);
 	collider_offset.x *= scale;
@@ -40,7 +38,7 @@ bool Charger::Start()
 bool Charger::Update(float dt)
 {
 	Do_Path();
-	/*App->pathfinding->getPath(this, App->player->position);
+
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		v.x = -speed;
@@ -80,13 +78,13 @@ bool Charger::Update(float dt)
 			v.y = jump_force;
 			state = JUMPING;
 		}
-	}*/
+	}
 
 	return true;
 }
 bool Charger::PostUpdate(float dt)
 {
-	/*if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && !colliding_left && v.x == 0)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && !colliding_left && v.x == 0)
 	{
 		v.x = -speed;
 		state = LEFT;
@@ -95,7 +93,7 @@ bool Charger::PostUpdate(float dt)
 	{
 		v.x = speed;
 		state = RIGHT;
-	}*/
+	}
 
 	return true;
 }

@@ -119,7 +119,7 @@ bool j1Scene::Update(float dt)
 	max_camera_pos *= -1;
 	if ((App->player->pos_relCam > (win_width / App->win->GetScale() / 2) ) && (App->render->virtualCamPos > max_camera_pos))
 	{
-		App->render->virtualCamPos -= App->player->speed * 2;
+		App->render->virtualCamPos -= App->player->speed * 2 * dt; //*dt
 	}
 	// ------------------------------------------------
 
@@ -155,11 +155,11 @@ bool j1Scene::Update(float dt)
 		{
 			if (image->data->constant_movement)
 			{
-				image->data->position.x -= image->data->speed;
+				image->data->position.x -= image->data->speed * dt; //*dt
 			}
 			else if (App->player->v.x > 0 && (App->player->pos_relCam > (win_width / App->win->GetScale() / 2)) && (App->render->virtualCamPos > max_camera_pos))
 			{
-				image->data->position.x -= image->data->speed;
+				image->data->position.x -= image->data->speed * dt; //*dt
 			}
 		}
 	}

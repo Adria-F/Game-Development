@@ -25,7 +25,7 @@ j1Player::j1Player() : Entity("player")
 	jump_cloud.PushBack({ 108, 20, 52, 20 });
 	jump_cloud.PushBack({ 108, 0, 52, 20 });
 	jump_cloud.PushBack({ 108, 0, 0, 0 });
-	jump_cloud.speed = 0.17f;
+	jump_cloud.speed = 9.0f;
 	jump_cloud.loop = false;
 
 	cloud_offset.x = -16;
@@ -34,7 +34,7 @@ j1Player::j1Player() : Entity("player")
 	SSJ_aura.PushBack({ 163, 1, 36, 45 });
 	SSJ_aura.PushBack({ 163, 47, 36, 45 });
 	SSJ_aura.PushBack({ 163, 94, 36, 45 });
-	SSJ_aura.speed = 0.1f;
+	SSJ_aura.speed = 4.0f;
 
 	aura_offset.x = -7;
 	aura_offset.y = -12;
@@ -198,7 +198,7 @@ bool j1Player::Update(float dt)
 }
 
 bool j1Player::PostUpdate(float dt)
-{
+{	
 	if (!dead)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !colliding_right && v.x == 0)
