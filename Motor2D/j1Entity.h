@@ -50,6 +50,11 @@ public:
 	Animation* LoadAnimation(const char* animationPath, const char* animationName);
 	void LoadLogic(const char* animationPath);
 
+	bool Collision_from_bottom	(Collider* c1, Collider* c2) const;
+	bool Collision_from_left	(Collider* c1, Collider* c2) const;
+	bool Collision_from_right	(Collider* c1, Collider* c2) const;
+	bool Collision_from_top		(Collider* c1, Collider* c2) const;
+
 private:
 
 	void setAnimation();

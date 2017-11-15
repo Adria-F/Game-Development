@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Audio.h"
+#include "j1entityManager.h"
 #include "j1PathFinding.h"
 
 #include<stdio.h>
@@ -277,7 +278,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 				sound_one_time = true;
 			}
 		}
-		else
+		else if (c2_name == "bat" && Collision_from_bottom(c1, c2))
 		{
 			
 		}

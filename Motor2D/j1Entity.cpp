@@ -78,7 +78,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 {
 	if (c2->type == COLLIDER_FLOOR)
 	{
-		if ((c2->rect.y - v.y + 1) > (c1->rect.y + (c1->rect.h))) //The collision is from bottom
+		if (Collision_from_bottom(c1, c2))
 		{
 			virtualPosition.y = c2->rect.y - collider->rect.h - collider_offset.y + 1;
 			if (colliding_bottom == false)
@@ -99,11 +99,10 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 				}
 				colliding_bottom = true;
 				App->audio->PlayFx(landing_fx, 0);
-				//Touching ground sound
 			}
 			collidingFloor = c2;
 		}
-		if ((c2->rect.x + 4) >(c1->rect.x + (c1->rect.w))) // Collision is from right
+		if (Collision_from_right(c1, c2))
 		{
 			if (v.x > 0)
 			{
@@ -111,7 +110,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 			}
 			colliding_right = true;
 		}
-		else if ((c2->rect.x + (c2->rect.w)) < (c1->rect.x + 5)) // Collision is from left
+		else if (Collision_from_left(c1, c2))
 		{
 			if (v.x < 0)
 			{
@@ -119,7 +118,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 			}
 			colliding_left = true;
 		}
-		if ((c2->rect.y + (c2->rect.h)) < (c1->rect.y + 5)) // Collision is from top
+		if (Collision_from_top(c1, c2))
 		{
 			if (v.y > 0)
 			{
@@ -129,7 +128,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 	}
 	else if (c2->type == COLLIDER_JUMPABLE)
 	{
-		if (((c2->rect.y - v.y + 1) > (c1->rect.y + (c1->rect.h)))) //The collision is from bottom
+		if (Collision_from_bottom(c1, c2))
 		{
 			virtualPosition.y = c2->rect.y - collider->rect.h - collider_offset.y + 1;
 			if (colliding_bottom == false)
@@ -150,7 +149,6 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 				}
 				colliding_bottom = true;
 				App->audio->PlayFx(landing_fx, 0);
-				//Touching ground sound
 			}
 			collidingFloor = c2;
 		}
@@ -340,3 +338,38 @@ void Entity::LoadLogic(const char* animationPath)
 		}
 	}
 }
+
+bool Entity::Collision_from_right(Collider* c1, Collider* c2) const
+{
+	if ((c2->rect.x + 4) > (c1->rect.x + (c1->rect.w)))
+		return true;
+	else
+		return false;
+}
+
+bool Entity::Collision_from_bottom(Collider* c1, Collider* c2) const
+{
+	if ((c2->rect.y - v.y + 1) > (c1->rect.y + (c1->rect.h)))
+		return true;
+	else
+		return false;
+}
+
+bool Entity::Collision_from_left(Collider* c1, Collider* c2) const
+{
+	if ((c2->rect.x + (c2->rect.w)) < (c1->rect.x + 5))
+		return true;
+	else
+		return false;
+}
+
+bool Entity::Collision_from_top(Collider* c1, Collider* c2) const
+{
+	if ((c2->rect.y + (c2->rect.h)) < (c1->rect.y + 5))
+		return true;
+	else
+		return false;
+}
+
+
+

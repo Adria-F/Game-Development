@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Audio.h"
+#include "j1entityManager.h"
 #include "j1Textures.h"
 
 Bat::Bat() : Entity("bat")
@@ -37,6 +38,11 @@ bool Bat::Update(float dt)
 	{
 		v.x = -speed;
 		state = LEFT;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
+	{
+		App->entityManager->DeleteEntity(this);
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
 	{
