@@ -37,7 +37,7 @@ bool Charger::Start()
 }
 bool Charger::Update(float dt)
 {
-	//Do_Path();
+	//Calculate_Path();
 
 	/*if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{

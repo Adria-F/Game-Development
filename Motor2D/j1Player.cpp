@@ -121,8 +121,6 @@ bool j1Player::Update(float dt)
 {
 	Entity_Update(dt);
 
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-		dead = !dead;
 	if (!dead)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)

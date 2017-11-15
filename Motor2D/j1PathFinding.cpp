@@ -34,8 +34,10 @@ void j1PathFinding::ResetPath(p2DynArray<iPoint>& path_to_reset)
 	memset(cost_so_far, 0, sizeof(uint) * 65 * 13);
 }
 
-void j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint>& path_to_fill)
+bool j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint>& path_to_fill)
 {
+	bool ret = false;
+	
 	ResetPath(path_to_fill);
 
 	iPoint origin_coords = App->map->WorldToMap(entity->position.x + entity->collider_offset.x + entity->collider->rect.w/2, entity->position.y + entity->collider_offset.y + entity->collider->rect.h/2);
@@ -90,6 +92,7 @@ void j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint
 
 		if (visited.find(destination_coords) != -1)
 		{
+			ret = true;
 			path_to_fill.PushBack(destination_coords);
 			iPoint cameFrom = breadcrumbs.At(visited.find(destination_coords))->data;
 			path_to_fill.PushBack(cameFrom);
@@ -101,4 +104,6 @@ void j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint
 		}
 		path_to_fill.Flip();
 	}
+
+	return ret;
 }

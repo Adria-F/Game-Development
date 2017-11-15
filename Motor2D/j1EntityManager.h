@@ -28,6 +28,7 @@ public:
 	p2List<Entity*> entities;
 	pugi::xml_node config;
 	SDL_Texture* path_marker;
+	bool draw_path = false;
 };
 
 #endif // !__ENTITY_MANAGER_H__

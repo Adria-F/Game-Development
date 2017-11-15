@@ -71,9 +71,16 @@ bool Entity::Entity_Update(float dt)
 	return true;
 }
 
-void Entity::Do_Path()
+bool Entity::Calculate_Path()
 {
-	App->pathfinding->getPath(this, App->player, path_to_player);
+	if (position.DistanceTo(App->player->position) < 300)
+		return App->pathfinding->getPath(this, App->player, path_to_player);
+	else
+	{
+		App->pathfinding->ResetPath(path_to_player);
+		v = { 0, 0 };
+		return false;
+	}
 }
 
 void Entity::Entity_OnCollision(Collider* c1, Collider* c2)

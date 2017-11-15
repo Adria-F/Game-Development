@@ -6,6 +6,7 @@
 #include "j1Map.h"
 #include "j1App.h"
 #include "j1Collision.h"
+#include "j1Input.h"
 
 j1EntityManager::j1EntityManager()
 {
@@ -41,6 +42,9 @@ bool j1EntityManager::Update(float dt)
 		entity->data->Update(dt);
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		draw_path = !draw_path;
+
 	return true;
 }
 
@@ -50,11 +54,14 @@ bool j1EntityManager::PostUpdate(float dt)
 	{
 		entity->data->PostUpdate(dt);
 		int i = 0;
-		while (i < entity->data->path_to_player.Count())
+		if (draw_path)
 		{
-			iPoint coords = App->map->MapToWorld(entity->data->path_to_player.At(i)->x, entity->data->path_to_player.At(i)->y);
-			App->render->Blit(path_marker, coords.x, coords.y);
-			i++;
+			while (i < entity->data->path_to_player.Count())
+			{
+				iPoint coords = App->map->MapToWorld(entity->data->path_to_player.At(i)->x, entity->data->path_to_player.At(i)->y);
+				App->render->Blit(path_marker, coords.x, coords.y);
+				i++;
+			}
 		}
 		App->render->Blit(entity->data->graphics, entity->data->position.x, entity->data->position.y, &entity->data->animation->GetCurrentFrame(dt), entity->data->scale);
 	}
