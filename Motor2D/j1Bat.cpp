@@ -31,7 +31,7 @@ bool Bat::Awake(pugi::xml_node&)
 
 bool Bat::Update(float dt)
 {
-	/*Do_Path();
+	Do_Path();
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		v.x = -speed;
@@ -78,14 +78,14 @@ bool Bat::Update(float dt)
 	else if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
 	{
 		v.y = 0;
-	}*/
+	}
 	
 	return true;
 }
 
 bool Bat::PostUpdate(float dt)
 {
-	/*if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && !colliding_left && v.x == 0)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && !colliding_left && v.x == 0)
 	{
 		v.x = -speed;
 		state = LEFT;
@@ -94,7 +94,7 @@ bool Bat::PostUpdate(float dt)
 	{
 		v.x = speed;
 		state = RIGHT;
-	}*/
+	}
 	
 	return true;
 }
