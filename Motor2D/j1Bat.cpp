@@ -34,51 +34,37 @@ bool Bat::Awake(pugi::xml_node&)
 
 bool Bat::Update(float dt)
 {
-	Do_Path();
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+	if (!dead && Calculate_Path())
 	{
-		v.x = -speed;
-		state = LEFT;
-	}
+		iPoint next_cell;
+		next_cell = *path_to_player.At(1);
+		//next_cell = App->map->MapToWorld(next_cell.x, next_cell.y);
+		iPoint map_pos = App->map->WorldToMap(position.x + collider_offset.x + collider->rect.w / 2, position.y + collider_offset.y + collider->rect.h / 2);
 
-	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
-	{
-		if (state == LEFT)
+		if (next_cell.x > map_pos.x)
 		{
-			v.x = 0;
-			state = IDLE;
+			v.x = speed;
+			state = RIGHT;
 		}
-	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
-	{
-		v.x = speed;
-		state = RIGHT;
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
-	{
-		if (state == RIGHT)
+		else if (next_cell.x < map_pos.x)
 		{
-			v.x = 0;
-			state = IDLE;
+			v.x = -speed;
+			state = LEFT;
 		}
+		else
+			v.x = 0;
+
+		if (next_cell.y > map_pos.y)
+		{
+			v.y = -speed;
+		}
+		else if (next_cell.y < map_pos.y)
+		{
+			v.y = speed;
+		}
+		else
+			v.y = 0;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
-	{
-		v.y = speed;
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_UP)
-	{
-		v.y = 0;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
-	{
-		v.y = -speed;
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
-	{
-		v.y = 0;
-	}
-	
 	if (death->Finished())
 		App->entityManager->DeleteEntity(this);
 
@@ -102,8 +88,9 @@ void Bat::OnCollision(Collider* c1, Collider* c2)
 	if (c2->type == COLLIDER_PLAYER && Collision_from_top(c1, c2))
 	{
 		App->audio->PlayFx(die_fx, 0);
-		dead = true;
-		
+		v = { 0,0 };
+		c1->type = COLLIDER_NONE;
+		dead = true;		
 	}
 
 }

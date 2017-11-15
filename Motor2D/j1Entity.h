@@ -38,7 +38,7 @@ public:
 
 	bool Entity_Update(float dt);
 
-	void Do_Path();
+	bool Calculate_Path();
 
 	void Entity_OnCollision(Collider* c1, Collider* c2);
 

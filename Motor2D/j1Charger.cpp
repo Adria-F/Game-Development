@@ -37,9 +37,9 @@ bool Charger::Start()
 }
 bool Charger::Update(float dt)
 {
-	/*Do_Path();
+	//Calculate_Path();
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+	/*if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		v.x = -speed;
 		if (state != JUMPING && state != DEAD)
@@ -97,6 +97,7 @@ bool Charger::PostUpdate(float dt)
 */
 	return true;
 }
+
 bool Charger::CleanUp()
 {
 	return true;
