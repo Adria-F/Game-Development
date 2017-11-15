@@ -25,7 +25,7 @@ public:
 private:
 
 	uint width, height;
-	uchar* map;
+	uchar* map = nullptr;
 
 	p2PQueue<iPoint>	frontier;
 	p2List<iPoint>		visited;
