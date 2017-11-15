@@ -37,63 +37,45 @@ bool Charger::Start()
 }
 bool Charger::Update(float dt)
 {
-	//Calculate_Path();
+	if (Calculate_Path())
+	{
+		iPoint next_cell;
+		next_cell = *path_to_player.At(1);
+		iPoint map_pos = App->map->WorldToMap(position.x + collider_offset.x + collider->rect.w / 2, position.y + collider_offset.y + collider->rect.h / 2);
 
-	/*if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
-	{
-		v.x = -speed;
-		if (state != JUMPING && state != DEAD)
+		if (next_cell.x > map_pos.x)
 		{
-			state = LEFT;
-		}
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
-	{
-		if (state == LEFT)
-		{
-			v.x = 0;
-			state = IDLE;
-		}
-	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
-	{
-		v.x = speed;
-		if (state != JUMPING && state != DEAD)
-		{
+			v.x = speed;
 			state = RIGHT;
+			going_right = true;
+			going_left = false;
 		}
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
-	{
-		if (state == RIGHT)
+		else if (next_cell.x < map_pos.x)
+		{
+			v.x = -speed;
+			state = LEFT;
+			going_left = true;
+			going_right = false;
+		}
+		else
 		{
 			v.x = 0;
-			state = IDLE;
+			going_right = false;
+			going_left = false;
+		}
+
+		if (next_cell.y > map_pos.y)
+		{
+			v.y = -speed;
+			state = FALLING;
+			going_down = true;
 		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
-	{
-		if (state != JUMPING && state != FALLING)
-		{
-			v.y = jump_force;
-			state = JUMPING;
-		}
-	}*/
 
 	return true;
 }
 bool Charger::PostUpdate(float dt)
 {
-	/*if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && !colliding_left && v.x == 0)
-	{
-		v.x = -speed;
-		state = LEFT;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT && !colliding_right && v.x == 0)
-	{
-		v.x = speed;
-		state = RIGHT;
-	}*/
 
 	return true;
 }

@@ -19,7 +19,7 @@ bool j1PathFinding::isWalkable(const iPoint& coords) const
 	bool ret = false;
 
 	int position = (coords.y * width) + coords.x;
-	if (coords.x < width && map[position] == 1 && coords.x >= 0 && coords.y >= 0)
+	if (coords.x < width && map[position] == 1 && coords.x >= 0 && coords.y >= 0 && coords.y < height)
 		ret = true;
 
 	return ret;
@@ -46,20 +46,23 @@ bool j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint
 	breadcrumbs.add(origin_coords);
 	iPoint destination_coords = App->map->WorldToMap(objective->position.x + objective->collider_offset.x + objective->collider->rect.w / 2, objective->position.y + objective->collider_offset.y + objective->collider->rect.h / 2);
 	
-	if (isWalkable(destination_coords) && isWalkable(origin_coords))
+	if (isWalkable(destination_coords) && isWalkable(origin_coords) && (entity->flying || (origin_coords.y <= destination_coords.y)))
 	{	
 		while (visited.find(destination_coords) == -1)
 		{
 			iPoint curr;
 			if (frontier.Pop(curr))
 			{
+
 				iPoint neighbors[4];
 				neighbors[0].create(curr.x + 1, curr.y + 0);
 				neighbors[1].create(curr.x + 0, curr.y + 1);
 				neighbors[2].create(curr.x - 1, curr.y + 0);
 				neighbors[3].create(curr.x + 0, curr.y - 1);
 
-				for (uint i = 0; i < 4; ++i)
+				int max_neighbors = (entity->flying) ? 4 : 3;
+
+				for (uint i = 0; i < max_neighbors; ++i)
 				{
 					int distance = neighbors[i].DistanceNoSqrt(destination_coords);
 					int d2 = pow(neighbors[i].x - destination_coords.x, 2.0) + pow(neighbors[i].y - destination_coords.y, 2.0);

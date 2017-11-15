@@ -43,7 +43,11 @@ bool Entity::Entity_Update(float dt)
 	float oldVy = v.y;
 	v.y += (gravity * ((colliding_bottom || flying) ? 0 : 1)) * dt; //*dt
 	if (oldVy > 0 && v.y <= 0)
+	{
 		state = FALLING;
+		jumping = false;
+		going_down = true;
+	}
 
 	if (v.y < -jump_force)
 		v.y = -jump_force;
@@ -73,14 +77,22 @@ bool Entity::Entity_Update(float dt)
 
 bool Entity::Calculate_Path()
 {
+	bool ret = false;
 	if (position.DistanceTo(App->player->position) < 300)
-		return App->pathfinding->getPath(this, App->player, path_to_player);
+		ret = App->pathfinding->getPath(this, App->player, path_to_player);
 	else
 	{
 		App->pathfinding->ResetPath(path_to_player);
-		v = { 0, 0 };
-		return false;
 	}
+
+	if (!ret)
+	{
+		v = { 0, 0 };
+		going_right = false;
+		going_left = false;
+		going_down = false;
+	}
+	return ret;
 }
 
 void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
@@ -93,7 +105,8 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 			if (colliding_bottom == false)
 			{
 				v.y = 0;
-				if (App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT || v.x == 0)
+				going_down = false;
+				if (!going_left && !going_right || v.x == 0)
 				{
 					v.x = 0;
 					state = IDLE;
@@ -106,9 +119,9 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 				{
 					state = LEFT;
 				}
-				colliding_bottom = true;
 				App->audio->PlayFx(landing_fx, 0);
 			}
+			colliding_bottom = true;
 			collidingFloor = c2;
 		}
 		if (Collision_from_right(c1, c2))
@@ -143,7 +156,8 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 			if (colliding_bottom == false)
 			{
 				v.y = 0;
-				if (App->input->GetKey(SDL_SCANCODE_A) != KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_D) != KEY_REPEAT || v.x == 0)
+				going_down = false;
+				if (!going_left && !going_right || v.x == 0)
 				{
 					v.x = 0;
 					state = IDLE;
@@ -156,9 +170,9 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 				{
 					state = LEFT;
 				}
-				colliding_bottom = true;
 				App->audio->PlayFx(landing_fx, 0);
 			}
+			colliding_bottom = true;
 			collidingFloor = c2;
 		}
 	}
@@ -172,7 +186,46 @@ void Entity::setAnimation()
 	{
 		animation = death;
 	}
-	else if (v.x > 0)
+	else if (jumping) //tmp
+	{
+		if (going_right)
+			animation = jumping_right;
+		else if (going_left)
+			animation = jumping_left;
+		else if (animation == right || animation == idle_right || animation == falling_right)
+			animation = jumping_right;
+		else if (animation == left || animation == idle_left || animation == falling_left)
+			animation = jumping_left;
+	}
+	else if (going_down)
+	{
+		if (going_right)
+			animation = falling_right;
+		else if (going_left)
+			animation = falling_left;
+		else if (animation == right || animation == idle_right || animation == jumping_right)
+			animation = falling_right;
+		else if (animation == left || animation == idle_left || animation == jumping_left)
+			animation = falling_left;
+	}
+	else if (going_right)
+	{
+		animation = right;
+	}
+	else if (going_left)
+	{
+		animation = left;
+	}
+	else if (animation == left || animation == falling_left || animation == jumping_left)
+	{
+		animation = idle_left;
+	}
+	else if (animation == right || animation == falling_right || animation == jumping_right)
+	{
+		animation = idle_right;
+	}
+
+	/*else if (v.x > 0)
 	{
 		if (state == JUMPING && jumping_right != nullptr)
 		{
@@ -245,7 +298,7 @@ void Entity::setAnimation()
 		{
 			animation = right;
 		}
-	}
+	}*/
 }
 
 Animation* Entity::LoadAnimation(const char* animationPath, const char* animationName)
@@ -270,6 +323,7 @@ Animation* Entity::LoadAnimation(const char* animationPath, const char* animatio
 			animationFound = true;
 			int x, y, h, w;
 			float speed;
+			bool loop;
 
 			for (pugi::xml_node property = objectGroup.child("properties").child("property"); property; property = property.next_sibling("property"))
 			{
@@ -278,7 +332,11 @@ Animation* Entity::LoadAnimation(const char* animationPath, const char* animatio
 				{
 					speed = property.attribute("value").as_float();
 					ret->speed = speed;
-					break;
+				}
+				if (name == "loop")
+				{
+					loop = property.attribute("value").as_bool();
+					ret->loop = loop;
 				}
 			}
 

@@ -31,11 +31,10 @@ bool Bat::Awake(pugi::xml_node&)
 
 bool Bat::Update(float dt)
 {
-	if (Calculate_Path())
+	/*if (Calculate_Path())
 	{
 		iPoint next_cell;
 		next_cell = *path_to_player.At(1);
-		//next_cell = App->map->MapToWorld(next_cell.x, next_cell.y);
 		iPoint map_pos = App->map->WorldToMap(position.x + collider_offset.x + collider->rect.w / 2, position.y + collider_offset.y + collider->rect.h / 2);
 
 		if (next_cell.x > map_pos.x)
@@ -61,53 +60,6 @@ bool Bat::Update(float dt)
 		}
 		else
 			v.y = 0;
-	}
-	/*if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
-	{
-		v.x = -speed;
-		state = LEFT;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
-	{
-		App->entityManager->DeleteEntity(this);
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
-	{
-		if (state == LEFT)
-		{
-			v.x = 0;
-			state = IDLE;
-		}
-	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
-	{
-		v.x = speed;
-		state = RIGHT;
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
-	{
-		if (state == RIGHT)
-		{
-			v.x = 0;
-			state = IDLE;
-		}
-	}
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
-	{
-		v.y = speed;
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_UP)
-	{
-		v.y = 0;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
-	{
-		v.y = -speed;
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
-	{
-		v.y = 0;
 	}*/
 	
 	return true;
@@ -115,17 +67,7 @@ bool Bat::Update(float dt)
 
 bool Bat::PostUpdate(float dt)
 {
-	/*if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && !colliding_left && v.x == 0)
-	{
-		v.x = -speed;
-		state = LEFT;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT && !colliding_right && v.x == 0)
-	{
-		v.x = speed;
-		state = RIGHT;
-	}*/
-	
+
 	return true;
 }
 

@@ -3479,7 +3479,7 @@
   </properties>
   <object id="40" name="player_start_pos" x="19" y="345" width="21" height="33"/>
   <object id="49" name="end" x="2071.75" y="0" width="9.75" height="95.5"/>
-  <object id="50" name="charger" type="enemy" x="223.333" y="304.166" width="64" height="42.3333"/>
+  <object id="50" name="charger" type="enemy" x="224" y="300" width="64" height="42.3333"/>
   <object id="52" name="bat" type="enemy" x="199.5" y="154" width="36.8" height="29.6"/>
  </objectgroup>
  <layer name="Walkability" width="65" height="13">

@@ -21,27 +21,13 @@ j1Player::j1Player() : Entity("player")
 	name.create("player");
 
 	// Animations
-	jump_cloud.PushBack({ 108, 60, 52, 20 });
-	jump_cloud.PushBack({ 108, 40, 52, 20 });
-	jump_cloud.PushBack({ 108, 20, 52, 20 });
-	jump_cloud.PushBack({ 108, 0, 52, 20 });
-	jump_cloud.PushBack({ 108, 0, 0, 0 });
-	jump_cloud.speed = 9.0f;
-	jump_cloud.loop = false;
-
+	jump_cloud = LoadAnimation("animations/player.tmx", "jump_cloud");
 	cloud_offset.x = -16;
 	cloud_offset.y = 17;
 
-	SSJ_aura.PushBack({ 163, 1, 36, 45 });
-	SSJ_aura.PushBack({ 163, 47, 36, 45 });
-	SSJ_aura.PushBack({ 163, 94, 36, 45 });
-	SSJ_aura.speed = 4.0f;
-
+	SSJ_aura = LoadAnimation("animations/player.tmx", "SSJ_aura");
 	aura_offset.x = -7;
 	aura_offset.y = -12;
-
-	/*collider_offset.x = 2;
-	collider_offset.y = 0;*/
 }
 
 j1Player::~j1Player()
@@ -126,6 +112,7 @@ bool j1Player::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
 		{
 			v.x = -speed;
+			going_left = true;
 			if (state != JUMPING && state != DEAD)
 			{
 				state = LEFT;
@@ -133,6 +120,7 @@ bool j1Player::Update(float dt)
 		}
 		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
 		{
+			going_left = false;
 			if (state == LEFT)
 			{
 				v.x = 0;
@@ -142,6 +130,7 @@ bool j1Player::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
 		{
 			v.x = speed;
+			going_right = true;
 			if (state != JUMPING && state != DEAD)
 			{
 				state = RIGHT;
@@ -149,6 +138,7 @@ bool j1Player::Update(float dt)
 		}
 		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
 		{
+			going_right = false;
 			if (state == RIGHT)
 			{
 				v.x = 0;
@@ -157,6 +147,7 @@ bool j1Player::Update(float dt)
 		}
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 		{
+			jumping = true;
 			if (!double_jump)
 			{
 				if (state == JUMPING || state == FALLING)
@@ -233,9 +224,9 @@ bool j1Player::PostUpdate(float dt)
 	//When f10 is clicked he converts into super sayan (god mode)
 	if (god_mode)
 	{
-		App->render->Blit(graphics_god, position.x + aura_offset.x, position.y + aura_offset.y, &SSJ_aura.GetCurrentFrame(dt));
+		App->render->Blit(graphics_god, position.x + aura_offset.x, position.y + aura_offset.y, &SSJ_aura->GetCurrentFrame(dt));
 		App->render->Blit(graphics_god, position.x, position.y, &animation->GetCurrentFrame(dt));
-		App->render->Blit(graphics_god, position.x + aura_offset.x, position.y + aura_offset.y, &SSJ_aura.GetCurrentFrame(dt));
+		App->render->Blit(graphics_god, position.x + aura_offset.x, position.y + aura_offset.y, &SSJ_aura->GetCurrentFrame(dt));
 	}
 	else if (god_mode == false)
 	{
@@ -244,7 +235,7 @@ bool j1Player::PostUpdate(float dt)
 
 	if (double_jump)
 	{
-		App->render->Blit(graphics, cloud_pos.x, cloud_pos.y, &jump_cloud.GetCurrentFrame(dt));
+		App->render->Blit(graphics, cloud_pos.x, cloud_pos.y, &jump_cloud->GetCurrentFrame(dt));
 	}
 
 	return true;
@@ -257,7 +248,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		if (((c2->rect.y - v.y + 1) > (c1->rect.y + (c1->rect.h)))) //The collision is from bottom
 		{
 			double_jump = false;
-			jump_cloud.Reset();
+			jump_cloud->Reset();
 		}
 	}
 

@@ -27,7 +27,6 @@ public:
 
 public:
 
-	bool jumping = false;
 	bool falling = false;
 	bool god_mode = false;
 
@@ -35,12 +34,12 @@ public:
 	float step_time = 0;
 	float killed_finished = 0;
 
-	Animation jump_cloud;
+	Animation* jump_cloud = nullptr;
 	iPoint cloud_offset;
 	iPoint cloud_pos;
 
 	SDL_Texture* graphics_god = nullptr;
-	Animation SSJ_aura;
+	Animation* SSJ_aura = nullptr;
 	iPoint aura_offset;
 
 	bool double_jump = false;
