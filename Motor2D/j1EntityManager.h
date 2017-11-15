@@ -5,6 +5,8 @@
 #include "p2List.h"
 #include "j1Entity.h"
 
+struct SDL_Texture;
+
 class j1EntityManager : public j1Module
 {
 public:
@@ -24,6 +26,7 @@ public:
 
 	p2List<Entity*> entities;
 	pugi::xml_node config;
+	SDL_Texture* path_marker;
 };
 
 #endif // !__ENTITY_MANAGER_H__

@@ -2,6 +2,7 @@
 #include "j1Map.h"
 #include "j1App.h"
 #include "p2Defs.h"
+#include "j1Collision.h"
 
 void j1PathFinding::SetMap(uint width, uint height, uchar* data)
 {
@@ -24,25 +25,24 @@ bool j1PathFinding::isWalkable(const iPoint& coords) const
 	return ret;
 }
 
-void j1PathFinding::ResetPath()
+void j1PathFinding::ResetPath(p2DynArray<iPoint>& path_to_reset)
 {
-	path.Clear();
+	path_to_reset.Clear();
 	frontier.Clear();
 	visited.clear();
 	breadcrumbs.clear();
 	memset(cost_so_far, 0, sizeof(uint) * 65 * 13);
 }
 
-void j1PathFinding::getPath(Entity* entity, const iPoint& destination)
+void j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint>& path_to_fill)
 {
-	//p2DynArray<iPoint> path;
-	ResetPath();
+	ResetPath(path_to_fill);
 
-	iPoint origin_coords = App->map->WorldToMap(entity->position.x, entity->position.y);
+	iPoint origin_coords = App->map->WorldToMap(entity->position.x + entity->collider_offset.x + entity->collider->rect.w/2, entity->position.y + entity->collider_offset.y + entity->collider->rect.h/2);
 	frontier.Push(origin_coords, 0);
 	visited.add(origin_coords);
 	breadcrumbs.add(origin_coords);
-	iPoint destination_coords = App->map->WorldToMap(destination.x, destination.y);
+	iPoint destination_coords = App->map->WorldToMap(objective->position.x + objective->collider_offset.x + objective->collider->rect.w / 2, objective->position.y + objective->collider_offset.y + objective->collider->rect.h / 2);
 	
 	if (isWalkable(destination_coords) && isWalkable(origin_coords))
 	{	
@@ -90,15 +90,15 @@ void j1PathFinding::getPath(Entity* entity, const iPoint& destination)
 
 		if (visited.find(destination_coords) != -1)
 		{
-			path.PushBack(destination_coords);
+			path_to_fill.PushBack(destination_coords);
 			iPoint cameFrom = breadcrumbs.At(visited.find(destination_coords))->data;
-			path.PushBack(cameFrom);
+			path_to_fill.PushBack(cameFrom);
 			while (cameFrom != visited.start->data)
 			{
 				cameFrom = breadcrumbs.At(visited.find(cameFrom))->data;
-				path.PushBack(cameFrom);
+				path_to_fill.PushBack(cameFrom);
 			}
 		}
-		path.Flip();
+		path_to_fill.Flip();
 	}
 }

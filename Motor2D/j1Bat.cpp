@@ -9,8 +9,6 @@
 #include "j1Map.h"
 #include "j1Audio.h"
 #include "j1Textures.h"
-#include "j1PathFinding.h"
-#include "j1Player.h"
 
 Bat::Bat() : Entity("bat")
 {
@@ -34,7 +32,7 @@ bool Bat::Awake(pugi::xml_node&)
 
 bool Bat::Update(float dt)
 {
-	App->pathfinding->getPath(this, App->player->position);
+	Do_Path();
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		v.x = -speed;

@@ -96,14 +96,6 @@ bool j1Player::Start()
 	if (killed_fx == 0)
 		killed_fx = App->audio->LoadFx("audio/fx/killed_by_enemy.wav");
 
-	//temp
-	/*path = App->pathfinding->getPath(this, { 100, 345 });*/
-	path_marker = App->tex->Load("maps/non_walkable_tile.png");
-	
-	/*path.PushBack({ 0, 10 });
-	path.PushBack({ 1, 10 });
-	path.PushBack({ 2, 10 });
-	path.PushBack({ 3, 10 });*/
 	return true;
 }
 
@@ -127,8 +119,6 @@ bool j1Player::CleanUp()
 bool j1Player::Update(float dt)
 {
 	Entity_Update(dt);
-
-	//App->pathfinding->getPath(this, { 100, 345 });
 
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		dead = !dead;
@@ -258,14 +248,6 @@ bool j1Player::PostUpdate(float dt)
 		App->render->Blit(graphics, cloud_pos.x, cloud_pos.y, &jump_cloud.GetCurrentFrame(dt));
 	}
 
-	int i = 0;
-	while( i < App->pathfinding->path.Count())
-	{
-		iPoint coords = App->map->MapToWorld(App->pathfinding->path.At(i)->x, App->pathfinding->path.At(i)->y);
-		App->render->Blit(path_marker, coords.x, coords.y);
-		i++;
-	}
-
 	return true;
 }
 
@@ -295,8 +277,14 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 				sound_one_time = true;
 			}
 		}
+		else
+		{
+			
+		}
 	
 	}
+
+	
 
 	Entity_OnCollision(c1, c2);
 }
