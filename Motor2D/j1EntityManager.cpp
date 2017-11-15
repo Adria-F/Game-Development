@@ -73,8 +73,22 @@ bool j1EntityManager::CleanUp()
 		item = item->next;
 	}
 	entities.clear();
-
 	return true;
+}
+
+void j1EntityManager::DeleteEntity(Entity* entity_to_delete)
+{
+	p2List_item<Entity*>* entity_finder = entities.start; 
+	while (entity_finder != NULL)
+	{
+		if (entity_finder->data == entity_to_delete)
+		{
+			entities.del(entity_finder);
+			RELEASE(entity_finder->data);
+			break;
+		}
+		entity_finder = entity_finder->next;
+	}
 }
 
 Entity* j1EntityManager::createEntity(entity_type type, int x, int y)

@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Audio.h"
+#include "j1entityManager.h"
 #include "j1PathFinding.h"
 
 #include<stdio.h>
@@ -68,6 +69,9 @@ bool j1Player::Start()
 	colliding_left = false;
 	colliding_right = false;
 
+	dead = false;
+	sound_one_time = false;
+
 	v.x = 0;
 	v.y = 0;
 
@@ -90,6 +94,8 @@ bool j1Player::Start()
 		SSJ_transformation = App->audio->LoadFx("audio/fx/SSJ_transformation.wav");
 	if (SSJ_off == 0)
 		SSJ_off = App->audio->LoadFx("audio/fx/SSJ_off.wav");
+	if (killed_fx == 0)
+		killed_fx = App->audio->LoadFx("audio/fx/killed_by_enemy.wav");
 
 	return true;
 }
@@ -210,6 +216,13 @@ bool j1Player::PostUpdate(float dt)
 			v.x = -speed;
 		}
 	}
+	if (dead && SDL_GetTicks() > killed_finished + 1500)
+	{
+		killed_finished = 0;
+		App->scene->load_lvl = true;
+		App->scene->newLvl = App->scene->current_lvl->data->lvl;
+		dead = false;
+	}
 
 	int win_scale = App->win->GetScale();
 	if (position.y > App->win->screen_surface->h / win_scale + 50 && !won)
@@ -250,9 +263,26 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
-	if (c2->type == COLLIDER_ENEMY)
+	//If player touches the charger he must die, if the player hits the bat from the top the bat must die
+	if (c2->type == COLLIDER_ENEMY && god_mode == false)
 	{
-		
+		p2SString c2_name = c2->callback->name.GetString();
+		if (c2_name == "charger")
+		{
+			v.x = 0;
+			dead = true;
+			if (sound_one_time == false && killed_finished == 0)
+			{
+   				killed_finished = SDL_GetTicks();
+				App->audio->PlayFx(killed_fx, 0);
+				sound_one_time = true;
+			}
+		}
+		else if (c2_name == "bat" && Collision_from_bottom(c1, c2))
+		{
+			
+		}
+	
 	}
 
 	

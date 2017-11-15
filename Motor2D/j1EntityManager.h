@@ -19,6 +19,7 @@ public:
 	bool Update(float dt);
 	bool PostUpdate(float dt);
 	bool CleanUp();
+	void DeleteEntity(Entity* entity_to_delete);
 
 	Entity* createEntity(entity_type type, int x, int y);
 
