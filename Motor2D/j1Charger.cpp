@@ -79,6 +79,7 @@ bool Charger::PostUpdate(float dt)
 
 	return true;
 }
+
 bool Charger::CleanUp()
 {
 	return true;

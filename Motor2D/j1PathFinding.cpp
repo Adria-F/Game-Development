@@ -19,7 +19,7 @@ bool j1PathFinding::isWalkable(const iPoint& coords) const
 	bool ret = false;
 
 	int position = (coords.y * width) + coords.x;
-	if (coords.x < width && map[position] == 1 && coords.x >= 0 && coords.y >= 0 && coords.y < height)
+	if (coords.x < width && map[position] == 1 && coords.x >= 0 && coords.y >= 0 && coords.y < height-1)
 		ret = true;
 
 	return ret;

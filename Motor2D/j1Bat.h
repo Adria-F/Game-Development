@@ -21,6 +21,8 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+public:
+	uint die_fx;
 };
 
 #endif // !__ModuleBat__

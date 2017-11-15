@@ -87,7 +87,9 @@ bool Entity::Calculate_Path()
 
 	if (!ret)
 	{
-		v = { 0, 0 };
+		v.x = 0;
+		if (this->type == BAT)
+			v.y = 0;
 		going_right = false;
 		going_left = false;
 		going_down = false;

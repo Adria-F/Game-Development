@@ -18,6 +18,9 @@ Bat::Bat() : Entity("bat")
 	collider = App->collision->AddCollider({ 0, 0, (int)(collider_size.x*scale), (int)(collider_size.y*scale) }, COLLIDER_ENEMY, this);
 	collider_offset.x *= scale;
 	collider_offset.y *= scale;
+
+	if (die_fx == 0)
+		die_fx = App->audio->LoadFx("audio/fx/bat_die.wav");
 }
 
 Bat::~Bat()
@@ -31,7 +34,7 @@ bool Bat::Awake(pugi::xml_node&)
 
 bool Bat::Update(float dt)
 {
-	/*if (Calculate_Path())
+	if (!dead && Calculate_Path())
 	{
 		iPoint next_cell;
 		next_cell = *path_to_player.At(1);
@@ -60,8 +63,11 @@ bool Bat::Update(float dt)
 		}
 		else
 			v.y = 0;
-	}*/
+	}
 	
+	if (death->Finished())
+		App->entityManager->DeleteEntity(this);
+
 	return true;
 }
 
@@ -78,6 +84,13 @@ bool Bat::CleanUp()
 
 void Bat::OnCollision(Collider* c1, Collider* c2)
 {
+	if (c2->type == COLLIDER_PLAYER && Collision_from_top(c1, c2))
+	{
+		App->audio->PlayFx(die_fx, 0);
+		v = { 0,0 };
+		c1->to_delete;
+		dead = true;
+	}
 
 }
 
