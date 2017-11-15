@@ -31,8 +31,9 @@ public:
 	bool falling = false;
 	bool god_mode = false;
 
-	uint double_jump_fx, jump_fx, step_fx, die_fx, SSJ_transformation, SSJ_off;
+	uint double_jump_fx, jump_fx, step_fx, die_fx, SSJ_transformation, SSJ_off, killed_fx;
 	float step_time = 0;
+	float killed_finished = 0;
 
 	Animation jump_cloud;
 	iPoint cloud_offset;
