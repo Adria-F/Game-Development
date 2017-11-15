@@ -276,7 +276,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 				sound_one_time = true;
 			}
 		}
-		else if (c2_name == "bat" && Collision_from_bottom(c1, c2))
+		if (c2_name == "bat" && Collision_from_bottom(c1, c2))
 		{
 			v.y = (jump_force * 2 / 3);
 		}

@@ -67,7 +67,6 @@ bool Bat::Update(float dt)
 	}
 	if (death->Finished())
 		App->entityManager->DeleteEntity(this);
-
 	return true;
 }
 
@@ -89,8 +88,8 @@ void Bat::OnCollision(Collider* c1, Collider* c2)
 	{
 		App->audio->PlayFx(die_fx, 0);
 		v = { 0,0 };
-		c1->type = COLLIDER_NONE;
-		dead = true;		
+		c1->to_delete;
+		dead = true;
 	}
 
 }
