@@ -8,6 +8,8 @@
 #include "j1EntityManager.h"
 #include "j1Window.h"
 #include "j1Textures.h"
+#include "j1PathFinding.h"
+#include "j1Player.h"
 
 Entity::Entity(const char* name)
 {
@@ -65,6 +67,11 @@ bool Entity::Entity_Update(float dt)
 	setAnimation();
 
 	return true;
+}
+
+void Entity::Do_Path()
+{
+	App->pathfinding->getPath(this, App->player, path_to_player);
 }
 
 void Entity::Entity_OnCollision(Collider* c1, Collider* c2)

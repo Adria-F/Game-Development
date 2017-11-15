@@ -39,6 +39,7 @@ bool Charger::Start()
 }
 bool Charger::Update(float dt)
 {
+	Do_Path();
 	/*App->pathfinding->getPath(this, App->player->position);
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{

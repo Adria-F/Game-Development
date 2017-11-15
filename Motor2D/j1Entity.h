@@ -4,6 +4,7 @@
 #include "j1Module.h"
 #include "Animation.h"
 #include "p2Point.h"
+#include "p2DynArray.h"
 #include "PugiXml/src/pugixml.hpp"
 
 #define gravity -0.25
@@ -37,6 +38,8 @@ public:
 
 	bool Entity_Update(float dt);
 
+	void Do_Path();
+
 	void Entity_OnCollision(Collider* c1, Collider* c2);
 
 	virtual bool specificAnimation()
@@ -57,6 +60,8 @@ public:
 	fPoint virtualPosition; //To move
 	int pos_relCam; //Position on screen
 	fPoint v; //Current velocity
+
+	p2DynArray<iPoint> path_to_player;
 	
 	//Keep orientation of collision
 	bool colliding_bottom = false;

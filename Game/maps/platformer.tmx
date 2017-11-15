@@ -3455,9 +3455,9 @@
  <objectgroup color="#ff0000" name="Collision">
   <object id="15" type="floor" x="1" y="379.727" width="114" height="5.27273"/>
   <object id="16" type="floor" x="137" y="347.084" width="171" height="36.9166"/>
-  <object id="17" type="floor" x="335" y="283.515" width="97" height="99.4849"/>
+  <object id="17" type="jumpable" x="335" y="283.515" width="97" height="99.4849"/>
   <object id="18" type="floor" x="461" y="346.667" width="193" height="36.3333"/>
-  <object id="19" type="jumpable" x="559.333" y="284.083" width="86.6667" height="65.9167"/>
+  <object id="19" type="jumpable" x="559.333" y="284.083" width="91.5758" height="65.9167"/>
   <object id="20" type="jumpable" x="656" y="219.667" width="131" height="31.3333"/>
   <object id="21" type="floor" x="845" y="283" width="170.333" height="101"/>
   <object id="22" type="floor" x="876.417" y="188" width="82.5833" height="22.3333"/>
@@ -3477,9 +3477,9 @@
   <properties>
    <property name="map_length" type="int" value="2112"/>
   </properties>
-  <object id="40" name="player_start_pos" x="15" y="345" width="21" height="33"/>
-  <object id="49" name="end" x="2071.75" y="30.5" width="9.75" height="65"/>
-  <object id="50" name="charger" type="enemy" x="224.333" y="298.5" width="64" height="46"/>
+  <object id="40" name="player_start_pos" x="19" y="345" width="21" height="33"/>
+  <object id="49" name="end" x="2071.75" y="0" width="9.75" height="95.5"/>
+  <object id="50" name="charger" type="enemy" x="223.333" y="304.166" width="64" height="42.3333"/>
   <object id="52" name="bat" type="enemy" x="199.5" y="154" width="36.8" height="29.6"/>
  </objectgroup>
  <layer name="Walkability" width="65" height="13">
@@ -3904,8 +3904,8 @@
    <tile gid="233"/>
    <tile gid="233"/>
    <tile gid="233"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="233"/>
+   <tile gid="233"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4089,7 +4089,7 @@
    <tile gid="233"/>
    <tile gid="233"/>
    <tile gid="233"/>
-   <tile gid="0"/>
+   <tile gid="233"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4267,7 +4267,7 @@
    <tile gid="233"/>
    <tile gid="233"/>
    <tile gid="233"/>
-   <tile gid="0"/>
+   <tile gid="233"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>

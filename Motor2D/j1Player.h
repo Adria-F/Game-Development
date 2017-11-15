@@ -44,9 +44,6 @@ public:
 
 	bool double_jump = false;
 	bool won = false;
-
-	p2DynArray<iPoint> path;
-	SDL_Texture* path_marker;
 };
 
 #endif
