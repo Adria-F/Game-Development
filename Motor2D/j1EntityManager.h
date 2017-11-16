@@ -23,6 +23,9 @@ public:
 
 	Entity* createEntity(entity_type type, int x, int y);
 
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 public:
 
 	p2List<Entity*> entities;
