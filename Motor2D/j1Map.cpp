@@ -244,7 +244,7 @@ bool j1Map::Load(const char* file_name, int& map_length, SDL_Rect& end)
 			if (LoadWalkabilityMap(layer, w, h, &data))
 				App->pathfinding->SetMap(w, h, data);
 		}
-		
+		else
 		{
 			MapLayer* set = new MapLayer();
 

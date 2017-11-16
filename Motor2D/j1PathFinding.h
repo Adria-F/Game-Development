@@ -21,6 +21,7 @@ public:
 	void SetMap(uint width, uint height, uchar* data);
 	bool isWalkable(const iPoint& coords) const;
 	void ResetPath(p2DynArray<iPoint>& path_to_reset);
+	bool isTouchingGround(iPoint coords) const;
 
 private:
 
@@ -31,6 +32,7 @@ private:
 	p2List<iPoint>		visited;
 	p2List<iPoint>		breadcrumbs;
 	uint				cost_so_far[65][13];
+	uint				falling_value[65][13];
 
 };
 

@@ -15,6 +15,11 @@ void j1PathFinding::SetMap(uint width, uint height, uchar* data)
 	memcpy(map, data, width*height);
 }
 
+bool j1PathFinding::isTouchingGround(iPoint coords) const
+{
+	return !isWalkable({ coords.x, coords.y + 1 });
+}
+
 bool j1PathFinding::isWalkable(const iPoint& coords) const
 {
 	bool ret = false;
@@ -33,6 +38,7 @@ void j1PathFinding::ResetPath(p2DynArray<iPoint>& path_to_reset)
 	visited.clear();
 	breadcrumbs.clear();
 	memset(cost_so_far, 0, sizeof(uint) * 65 * 13);
+	memset(falling_value, 0, sizeof(uint) * 65 * 13);
 }
 
 bool j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint>& path_to_fill)
@@ -57,12 +63,20 @@ bool j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint
 			{
 
 				iPoint neighbors[4];
-				neighbors[0].create(curr.x + 1, curr.y + 0);
-				neighbors[1].create(curr.x + 0, curr.y + 1);
-				neighbors[2].create(curr.x - 1, curr.y + 0);
+				neighbors[0].create(curr.x + 0, curr.y + 1);
+				neighbors[1].create(curr.x - 1, curr.y + 0);
+				neighbors[2].create(curr.x + 1, curr.y + 0);
 				neighbors[3].create(curr.x + 0, curr.y - 1);
 
-				int max_neighbors = (entity->flying) ? 4 : 3;
+				int max_neighbors = 4;
+				if (!entity->flying)
+				{
+					max_neighbors = 3;
+					if (!isTouchingGround(curr) && (falling_value[curr.x][curr.y] == 0 || falling_value[curr.x][curr.y] % 2 != 0))
+					{
+						max_neighbors = 1;
+					}
+				}
 
 				for (uint i = 0; i < max_neighbors; ++i)
 				{
@@ -75,6 +89,12 @@ bool j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint
 						if (isWalkable(neighbors[i]))
 						{
 							cost_so_far[neighbors[i].x][neighbors[i].y] = newCost;
+							if (curr.x == neighbors[i].x)
+								falling_value[neighbors[i].x][neighbors[i].y] = falling_value[curr.x][curr.y] + (falling_value[curr.x][curr.y] % 2 == 0) ? 2 : 1;
+							else if (curr.y == neighbors[i].y)
+								falling_value[neighbors[i].x][neighbors[i].y] = falling_value[curr.x][curr.y] + 1;
+							if (isTouchingGround({ neighbors[i].x , neighbors[i].y }))
+								falling_value[neighbors[i].x][neighbors[i].y] = 0;
 
 							if (visited.find(neighbors[i]) == -1)
 							{

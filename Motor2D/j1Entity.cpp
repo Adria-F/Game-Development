@@ -80,6 +80,7 @@ bool Entity::Entity_Update(float dt)
 bool Entity::Calculate_Path()
 {
 	bool ret = false;
+
 	if (!App->player->dead && position.DistanceTo(App->player->position) < 300)
 	{
 		ret = App->pathfinding->getPath(this, App->player, path_to_player);
@@ -99,6 +100,7 @@ bool Entity::Calculate_Path()
 		going_down = false;
 		state = IDLE;
 	}
+
 	return ret;
 }
 

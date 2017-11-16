@@ -86,20 +86,20 @@ bool j1Scene::Update(float dt)
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && !App->player->dead)
 		App->SaveGame();
 
-	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !App->player->dead)
 		App->LoadGame();
 
-	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN && !App->player->dead)
 	{
 		if (App->player->god_mode)
 		{
 			App->player->god_mode = false;
 			App->audio->PlayFx(App->player->SSJ_off, 0);
 		}
-		else if (App->player->dead == false)
+		else 
 		{
 			App->player->god_mode = true;
 			App->audio->PlayFx(App->player->SSJ_transformation, 0);

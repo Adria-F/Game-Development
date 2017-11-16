@@ -41,7 +41,8 @@ bool Charger::Update(float dt)
 	{
 		iPoint next_cell;
 		next_cell = *path_to_player.At(1);
-		iPoint map_pos = App->map->WorldToMap(position.x + collider_offset.x + collider->rect.w / 2, position.y + collider_offset.y + collider->rect.h / 2);
+		next_cell = App->map->MapToWorld(next_cell.x, next_cell.y);
+		iPoint map_pos(position.x + collider_offset.x + collider->rect.w / 2, position.y + collider_offset.y + collider->rect.h / 2);
 
 		if (next_cell.x > map_pos.x)
 		{
@@ -66,7 +67,7 @@ bool Charger::Update(float dt)
 
 		if (next_cell.y > map_pos.y)
 		{
-			v.y = -speed;
+			//v.y = -speed;
 			state = FALLING;
 			going_down = true;
 		}
