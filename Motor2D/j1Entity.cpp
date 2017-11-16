@@ -95,6 +95,7 @@ bool Entity::Calculate_Path()
 		going_right = false;
 		going_left = false;
 		going_down = false;
+		state = IDLE;
 	}
 	return ret;
 }
@@ -190,7 +191,7 @@ void Entity::setAnimation()
 	{
 		animation = death;
 	}
-	else if (jumping) //tmp
+	/*else if (jumping) //tmp
 	{
 		if (going_right)
 			animation = jumping_right;
@@ -227,9 +228,9 @@ void Entity::setAnimation()
 	else if (animation == right || animation == falling_right || animation == jumping_right)
 	{
 		animation = idle_right;
-	}
+	}*/
 
-	/*else if (v.x > 0)
+	else if (v.x > 0)
 	{
 		if (state == JUMPING && jumping_right != nullptr)
 		{
@@ -302,7 +303,7 @@ void Entity::setAnimation()
 		{
 			animation = right;
 		}
-	}*/
+	}
 }
 
 Animation* Entity::LoadAnimation(const char* animationPath, const char* animationName)

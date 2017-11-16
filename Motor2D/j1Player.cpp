@@ -55,6 +55,11 @@ bool j1Player::Start()
 	colliding_left = false;
 	colliding_right = false;
 
+	going_right = false;
+	going_left = false;
+	going_down = false;
+	jumping = false;
+
 	dead = false;
 	sound_one_time = false;
 
