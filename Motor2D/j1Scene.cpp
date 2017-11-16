@@ -46,7 +46,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load(levels.start->data->mapPath.GetString(), current_lvl->data->length); //hello2.tmx
+	App->map->Load(levels.start->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end); //hello2.tmx
 	//Background music
 	App->audio->PlayMusic("audio/music/bg_music.ogg");
 	complete_level_fx = App->audio->LoadFx("audio/fx/level_complete.wav");
@@ -123,7 +123,7 @@ bool j1Scene::Update(float dt)
 	// ------------------------------------------------
 
 	// Win condition
-	if (App->player->position.x > current_lvl->data->length - 32 - App->player->animation->GetCurrentFrame(dt).w)
+	if (((App->player->collider->rect.x + App->player->collider->rect.w) > current_lvl->data->end.x) && (App->player->position.y + App->player->collider->rect.h) < (current_lvl->data->end.y + current_lvl->data->end.h))
 	{
 		if (end_reached == 0)
 		{
@@ -222,7 +222,7 @@ void j1Scene::LoadLvl(int num)
 
 	if (current_lvl != nullptr)
 	{
-		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length);
+		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end);
 		
 		// Restart player data
 		App->player->collider->to_delete = true;

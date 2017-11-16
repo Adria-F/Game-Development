@@ -3478,7 +3478,7 @@
    <property name="map_length" type="int" value="2112"/>
   </properties>
   <object id="40" name="player_start_pos" x="19" y="345" width="21" height="33"/>
-  <object id="49" name="end" x="2071.75" y="0" width="9.75" height="95.5"/>
+  <object id="49" name="end" x="2066.25" y="0" width="13.25" height="121.5"/>
   <object id="50" name="charger" type="enemy" x="360" y="234.667" width="64" height="42.3333"/>
   <object id="52" name="bat" type="enemy" x="199.5" y="154" width="36.8" height="29.6"/>
  </objectgroup>
