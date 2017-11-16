@@ -128,3 +128,30 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 
 	return ret;
 }
+
+bool j1EntityManager::Load(pugi::xml_node& data)
+{
+	for (pugi::xml_node charger = data.child("charger"); charger; charger = charger.next_sibling("charger"))
+	{
+		createEntity(CHARGER, charger.attribute("position_x").as_int(), charger.attribute("position_y").as_int());
+	}
+
+	for (pugi::xml_node bat = data.child("bat"); bat; bat = bat.next_sibling("bat"))
+	{
+		createEntity(BAT, bat.attribute("position_x").as_int(), bat.attribute("position_y").as_int());
+	}
+	
+	return true;
+}
+
+bool j1EntityManager::Save(pugi::xml_node& data) const
+{
+	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
+	{
+		pugi::xml_node child = data.append_child(entity->data->name.GetString());
+		child.append_attribute("position_x") = entity->data->position.x;
+		child.append_attribute("position_y") = entity->data->position.y;
+	}
+
+	return true;
+}
