@@ -109,6 +109,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 		if (Collision_from_bottom(c1, c2))
 		{
 			virtualPosition.y = c2->rect.y - collider->rect.h - collider_offset.y + 1;
+			collidingFloor = c2;
 			if (colliding_bottom == false)
 			{
 				v.y = 0;
@@ -127,9 +128,18 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 					state = LEFT;
 				}
 				App->audio->PlayFx(landing_fx, 0);
+				if (c1->type == COLLIDER_PLAYER && App->player->god_mode)
+				{
+					if (App->player->old_savedCol != nullptr && App->player->old_savedCol->rect.x + App->player->old_savedCol->rect.w < c2->rect.x + c2->rect.w)
+					{
+						App->player->old_savedCol = c2;
+						App->SaveGame(true);
+					}
+					else if (App->player->old_savedCol == nullptr)
+						App->player->old_savedCol = c2;
+				}
 			}
 			colliding_bottom = true;
-			collidingFloor = c2;
 		}
 		if (Collision_from_right(c1, c2))
 		{
@@ -160,6 +170,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 		if (Collision_from_bottom(c1, c2))
 		{
 			virtualPosition.y = c2->rect.y - collider->rect.h - collider_offset.y + 1;
+			collidingFloor = c2;
 			if (colliding_bottom == false)
 			{
 				v.y = 0;
@@ -178,9 +189,18 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 					state = LEFT;
 				}
 				App->audio->PlayFx(landing_fx, 0);
+				if (c1->type == COLLIDER_PLAYER && App->player->god_mode)
+				{
+					if (App->player->old_savedCol != nullptr && App->player->old_savedCol->rect.x + App->player->old_savedCol->rect.w < c2->rect.x + c2->rect.w)
+					{
+						App->player->old_savedCol = c2;
+						App->SaveGame(true);
+					}
+					else if (App->player->old_savedCol == nullptr)
+						App->player->old_savedCol = c2;
+				}
 			}
 			colliding_bottom = true;
-			collidingFloor = c2;
 		}
 	}
 }
@@ -193,44 +213,6 @@ void Entity::setAnimation()
 	{
 		animation = death;
 	}
-	/*else if (jumping) //tmp
-	{
-		if (going_right)
-			animation = jumping_right;
-		else if (going_left)
-			animation = jumping_left;
-		else if (animation == right || animation == idle_right || animation == falling_right)
-			animation = jumping_right;
-		else if (animation == left || animation == idle_left || animation == falling_left)
-			animation = jumping_left;
-	}
-	else if (going_down)
-	{
-		if (going_right)
-			animation = falling_right;
-		else if (going_left)
-			animation = falling_left;
-		else if (animation == right || animation == idle_right || animation == jumping_right)
-			animation = falling_right;
-		else if (animation == left || animation == idle_left || animation == jumping_left)
-			animation = falling_left;
-	}
-	else if (going_right)
-	{
-		animation = right;
-	}
-	else if (going_left)
-	{
-		animation = left;
-	}
-	else if (animation == left || animation == falling_left || animation == jumping_left)
-	{
-		animation = idle_left;
-	}
-	else if (animation == right || animation == falling_right || animation == jumping_right)
-	{
-		animation = idle_right;
-	}*/
 
 	else if (v.x > 0)
 	{
