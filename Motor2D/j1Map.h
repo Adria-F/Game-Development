@@ -146,7 +146,7 @@ public:
 	bool CleanUp();
 
 	// Load new map
-	bool Load(const char* path, int& map_length);
+	bool Load(const char* path, int& map_length, SDL_Rect& end);
 
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
@@ -159,7 +159,7 @@ private:
 	bool LoadImageLayer(pugi::xml_node& node, ImageLayer* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadColliders(pugi::xml_node& node);
-	bool LoadLogic(pugi::xml_node& node, int& map_length);
+	bool LoadLogic(pugi::xml_node& node, int& map_length, SDL_Rect& end);
 	bool LoadWalkabilityMap(pugi::xml_node& node, int& width, int& height, uchar** buffer) const;
 
 public:

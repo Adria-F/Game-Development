@@ -3479,7 +3479,7 @@
    <property name="map_length" type="int" value="2112"/>
   </properties>
   <object id="45" name="player_start_pos" x="13.977" y="216.227" width="21" height="33"/>
-  <object id="47" name="end" x="2072.33" y="231.667" width="8.66667" height="54"/>
+  <object id="47" name="end" x="2065.08" y="231.667" width="14.9167" height="69"/>
  </objectgroup>
  <layer name="Walkability" width="65" height="13">
   <data>

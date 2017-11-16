@@ -174,7 +174,7 @@ bool j1Map::CleanUp()
 }
 
 // Load new map
-bool j1Map::Load(const char* file_name, int& map_length)
+bool j1Map::Load(const char* file_name, int& map_length, SDL_Rect& end)
 {
 	bool ret = true;
 	BROFILER_CATEGORY("Load Map", Profiler::Color::Pink);
@@ -268,7 +268,7 @@ bool j1Map::Load(const char* file_name, int& map_length)
 		}
 		else if (object_name == "Logic")
 		{
-			LoadLogic(object, map_length);
+			LoadLogic(object, map_length, end);
 		}
 	}
 
@@ -526,7 +526,7 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 	return ret;
 }
 
-bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length)
+bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length, SDL_Rect& end)
 {
 	bool ret = true;
 
@@ -547,6 +547,13 @@ bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length)
 			{
 				App->render->virtualCamPos = 0;
 			}
+		}
+		if (name == "end")
+		{
+			end.x = object.attribute("x").as_int();
+			end.y = object.attribute("y").as_int();
+			end.w = object.attribute("width").as_int();
+			end.h = object.attribute("height").as_int();
 		}
 		if (type == "enemy")
 		{

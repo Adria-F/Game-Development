@@ -18,7 +18,7 @@ struct level
 	int lvl;
 	int length;
 	iPoint player_start_pos;
-	iPoint end;
+	SDL_Rect end;
 };
 
 class j1Scene : public j1Module

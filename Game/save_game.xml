@@ -8,9 +8,9 @@
 	<map />
 	<scene />
 	<entityManager />
-	<player position_x="1163" position_y="156" level="2" />
+	<player position_x="204" position_y="313" level="2" />
 	<:anonymous />
 	<renderer>
-		<camera x="-1864" y="0" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>
