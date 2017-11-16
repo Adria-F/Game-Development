@@ -39,21 +39,21 @@
   <image source="Layer 1 clound anim1.png" width="1500" height="207"/>
   <properties>
    <property name="constant_movement" type="bool" value="true"/>
-   <property name="speed" type="float" value="0.7"/>
+   <property name="speed" type="float" value="28"/>
   </properties>
  </imagelayer>
  <imagelayer name="Mountains (Back)" offsetx="0" offsety="-20">
   <image source="Layer 1 anim1.png" width="1500" height="404"/>
   <properties>
    <property name="constant_movement" type="bool" value="false"/>
-   <property name="speed" type="float" value="0.2"/>
+   <property name="speed" type="float" value="8"/>
   </properties>
  </imagelayer>
  <imagelayer name="Mountains (Front)" offsetx="0" offsety="-20">
   <image source="Layer 3 anim2.png" width="1500" height="404"/>
   <properties>
    <property name="constant_movement" type="bool" value="false"/>
-   <property name="speed" type="float" value="0.4"/>
+   <property name="speed" type="float" value="16"/>
   </properties>
  </imagelayer>
  <layer name="Copiar desde Bushes and trees" width="65" height="13">
@@ -4234,7 +4234,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="233"/>
-   <tile gid="0"/>
+   <tile gid="233"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>

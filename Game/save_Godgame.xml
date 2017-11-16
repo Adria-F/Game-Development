@@ -8,13 +8,11 @@
 	<map />
 	<scene />
 	<entityManager>
-		<charger position_x="1507" position_y="16" />
-		<bat position_x="1810" position_y="23" />
-		<charger position_x="701" position_y="175" />
+		<charger position_x="1118" position_y="20" />
 	</entityManager>
-	<player position_x="19" position_y="340" level="1" />
+	<player position_x="1177" position_y="280" level="2" />
 	<:anonymous />
 	<renderer>
-		<camera x="-2998" y="0" />
+		<camera x="-1906" y="0" />
 	</renderer>
 </game_state>
