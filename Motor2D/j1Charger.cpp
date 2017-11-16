@@ -37,7 +37,7 @@ bool Charger::Start()
 }
 bool Charger::Update(float dt)
 {
-	if (Calculate_Path())
+	if (!dead && Calculate_Path())
 	{
 		iPoint next_cell;
 		next_cell = *path_to_player.At(1);

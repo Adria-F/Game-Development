@@ -41,7 +41,7 @@ Entity::~Entity()
 
 bool Entity::Entity_Update(float dt)
 {
-	BROFILER_CATEGORY("Entity Entity_Update", Profiler::Color::Red);
+	BROFILER_CATEGORY("Entity Update", Profiler::Color::Red);
 	float oldVy = v.y;
 	v.y += (gravity * ((colliding_bottom || flying) ? 0 : 1)) * dt; //*dt
 	if (oldVy > 0 && v.y <= 0)
@@ -80,8 +80,10 @@ bool Entity::Entity_Update(float dt)
 bool Entity::Calculate_Path()
 {
 	bool ret = false;
-	if (position.DistanceTo(App->player->position) < 300)
+	if (!App->player->dead && position.DistanceTo(App->player->position) < 300)
+	{
 		ret = App->pathfinding->getPath(this, App->player, path_to_player);
+	}
 	else
 	{
 		App->pathfinding->ResetPath(path_to_player);

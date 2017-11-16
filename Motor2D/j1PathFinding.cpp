@@ -93,6 +93,8 @@ bool j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint
 					}
 				}
 			}
+			else
+				break;
 		}
 
 		if (visited.find(destination_coords) != -1)
