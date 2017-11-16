@@ -51,8 +51,8 @@ public:
 	const char* GetTitle() const;
 	const char* GetOrganization() const;
 
-	void LoadGame();
-	void SaveGame() const;
+	void LoadGame(bool specialGod = false);
+	void SaveGame(bool specialGod = false) const;
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
 private:
@@ -111,6 +111,9 @@ private:
 	bool				want_to_load;
 	p2SString			load_game;
 	mutable p2SString	save_game;
+	p2SString			load_Godgame;
+	mutable p2SString	save_Godgame;
+	mutable bool				specialGod_LoadSave;
 
 	j1PerfTimer			ptimer;
 	uint64				frame_count = 0;

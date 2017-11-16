@@ -44,6 +44,8 @@ public:
 
 	bool double_jump = false;
 	bool won = false;
+
+	Collider* old_savedCol = nullptr;
 };
 
 #endif

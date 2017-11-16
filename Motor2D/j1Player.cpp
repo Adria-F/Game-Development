@@ -63,6 +63,9 @@ bool j1Player::Start()
 	dead = false;
 	sound_one_time = false;
 
+	old_savedCol = nullptr;
+	App->SaveGame(true);
+
 	v.x = 0;
 	v.y = 0;
 
@@ -221,9 +224,16 @@ bool j1Player::PostUpdate(float dt)
 	int win_scale = App->win->GetScale();
 	if (position.y > App->win->screen_surface->h / win_scale + 50 && !won)
 	{
-		App->audio->PlayFx(die_fx, 0);
-		App->scene->load_lvl = true;
-		App->scene->newLvl = App->scene->current_lvl->data->lvl;
+		if (god_mode)
+		{ 
+			App->LoadGame(true);
+		}
+		else
+		{
+			App->audio->PlayFx(die_fx, 0);
+			App->scene->load_lvl = true;
+			App->scene->newLvl = App->scene->current_lvl->data->lvl;
+		}
 	}
 
 	//When f10 is clicked he converts into super sayan (god mode)

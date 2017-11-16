@@ -52,6 +52,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(render);
 
 	save_game = load_game = "save_game.xml";
+	save_Godgame = load_Godgame = "save_Godgame.xml";
 	PERF_PEEK(ptimer);
 }
 
@@ -327,19 +328,20 @@ const char* j1App::GetOrganization() const
 }
 
 // Load / Save
-void j1App::LoadGame()
+void j1App::LoadGame(bool specialGod)
 {
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list
+	specialGod_LoadSave = specialGod;
 	want_to_load = true;
 }
 
 // ---------------------------------------
-void j1App::SaveGame() const
+void j1App::SaveGame(bool specialGod) const
 {
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list ... should we overwrite ?
-
+	specialGod_LoadSave = specialGod;
 	want_to_save = true;
 }
 
@@ -356,11 +358,17 @@ bool j1App::LoadGameNow()
 	pugi::xml_document data;
 	pugi::xml_node root;
 
-	pugi::xml_parse_result result = data.load_file(load_game.GetString());
+	p2SString file;
+	if (specialGod_LoadSave)
+		file = load_Godgame;
+	else
+		file = load_game;
+
+	pugi::xml_parse_result result = data.load_file(file.GetString());
 
 	if(result != NULL)
 	{
-		LOG("Loading new Game State from %s...", load_game.GetString());
+		LOG("Loading new Game State from %s...", file.GetString());
 
 		root = data.child("game_state");
 
@@ -380,7 +388,7 @@ bool j1App::LoadGameNow()
 			LOG("...loading process interrupted with error on module %s", (item != NULL) ? item->data->name.GetString() : "unknown");
 	}
 	else
-		LOG("Could not parse game state xml file %s. pugi error: %s", load_game.GetString(), result.description());
+		LOG("Could not parse game state xml file %s. pugi error: %s", file.GetString(), result.description());
 
 	want_to_load = false;
 	return ret;
@@ -396,6 +404,12 @@ bool j1App::SavegameNow() const
 	pugi::xml_document data;
 	pugi::xml_node root;
 	
+	p2SString file;
+	if (specialGod_LoadSave)
+		file = save_Godgame;
+	else
+		file = save_game;
+
 	root = data.append_child("game_state");
 
 	p2List_item<j1Module*>* item = modules.start;
@@ -408,7 +422,7 @@ bool j1App::SavegameNow() const
 
 	if(ret == true)
 	{
-		data.save_file(save_game.GetString());
+		data.save_file(file.GetString());
 		LOG("... finished saving", );
 	}
 	else
