@@ -142,8 +142,6 @@ bool j1Map::CleanUp()
 	}
 	data.image_layers.clear();
 
-	// TODO 2: clean up all layer data
-	// Remove all layers
 	p2List_item<MapLayer*>* item_layer;
 	item_layer = data.layers.start;
 
@@ -231,7 +229,6 @@ bool j1Map::Load(const char* file_name, int& map_length, SDL_Rect& end)
 		data.image_layers.add(set2);
 	}
 
-	// TODO 4: Iterate all layers and load each of them
 	// Load layer info ----------------------------------------------
 	pugi::xml_node layer;
 	for (layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
@@ -290,9 +287,6 @@ bool j1Map::Load(const char* file_name, int& map_length, SDL_Rect& end)
 			item = item->next;
 		}
 
-		// TODO 4: Add info here about your loaded layers
-		// Adapt this vcode with your own variables
-		
 		p2List_item<MapLayer*>* item_layer = data.layers.start;
 		while(item_layer != NULL)
 		{
@@ -466,7 +460,6 @@ bool j1Map::LoadImageLayer(pugi::xml_node& node, ImageLayer* set)
 	return ret;
 }
 
-// TODO 3: Create the definition for a function that loads a single layer
 bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 {
 	bool ret = true;
@@ -597,7 +590,7 @@ bool j1Map::LoadWalkabilityMap(pugi::xml_node& node, int & width, int & height, 
 	for (pugi::xml_node tile = node.child("data").child("tile"); tile; tile = tile.next_sibling("tile"))
 	{
 		int tile_value = tile.attribute("gid").as_int();
-		map[i] = (tile_value > 0) ? 0 : 1; //1 if it is walkable
+		map[i] = (tile_value > 0) ? 0 : 1;
 		i++;
 	}
 	

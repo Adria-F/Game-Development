@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="65" height="13" tilewidth="32" tileheight="32" nextobjectid="54">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="65" height="13" tilewidth="32" tileheight="32" nextobjectid="57">
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" tilecount="232" columns="29">
   <image source="tileset.png" width="950" height="256"/>
   <terraintypes>
@@ -87,7 +87,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="174"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2635,26 +2635,26 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="86"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="174"/>
+   <tile gid="174"/>
+   <tile gid="174"/>
+   <tile gid="174"/>
+   <tile gid="174"/>
+   <tile gid="174"/>
+   <tile gid="174"/>
+   <tile gid="174"/>
+   <tile gid="174"/>
+   <tile gid="174"/>
+   <tile gid="174"/>
+   <tile gid="174"/>
+   <tile gid="174"/>
+   <tile gid="174"/>
+   <tile gid="174"/>
+   <tile gid="174"/>
+   <tile gid="174"/>
+   <tile gid="174"/>
+   <tile gid="174"/>
+   <tile gid="145"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3467,11 +3467,12 @@
   <object id="26" type="floor" x="1070.67" y="91.6667" width="69.3333" height="24.3333"/>
   <object id="29" type="floor" x="1192.67" y="59.3333" width="109.667" height="324.667"/>
   <object id="30" type="floor" x="1329.67" y="124.833" width="94.3333" height="259.167"/>
-  <object id="31" type="floor" x="1456" y="60.1667" width="121" height="321.833"/>
+  <object id="31" type="floor" x="1451.33" y="61.1667" width="125.667" height="320.833"/>
   <object id="32" type="floor" x="1620" y="155.667" width="92.6667" height="57"/>
   <object id="33" type="floor" x="1786" y="155.667" width="43.3333" height="56"/>
   <object id="34" type="floor" x="1903.67" y="154.667" width="68.3333" height="56.3333"/>
   <object id="35" type="floor" x="2001.67" y="90" width="80.6667" height="58.3333"/>
+  <object id="54" type="floor" x="958.583" y="-0.749983" width="626.083" height="4.49997"/>
  </objectgroup>
  <objectgroup color="#0000ff" name="Logic">
   <properties>
@@ -3482,6 +3483,8 @@
   <object id="50" name="charger" type="enemy" x="1507" y="16.667" width="64" height="42.3333"/>
   <object id="52" name="bat" type="enemy" x="1810" y="23" width="36.8" height="29.6"/>
   <object id="53" name="charger" type="enemy" x="701.5" y="175.833" width="64" height="42.3333"/>
+  <object id="55" name="bat" type="enemy" x="361.6" y="185.2" width="36.8" height="29.6"/>
+  <object id="56" name="bat" type="enemy" x="964.267" y="9.2" width="36.8" height="29.6"/>
  </objectgroup>
  <layer name="Walkability" width="65" height="13">
   <data>
