@@ -22,7 +22,7 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 public:
-	uint die_fx;
+	uint die_fx = 0;
 };
 
 #endif // !__ModuleBat__

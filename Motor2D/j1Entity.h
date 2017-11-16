@@ -86,16 +86,11 @@ public:
 	
 	entity_state state;
 	//Basic animations
-	Animation* animation = nullptr;
-	Animation* idle_right = nullptr;
-	Animation* idle_left = nullptr;
-	Animation* right = nullptr;
-	Animation* left = nullptr;
-	Animation* jumping_left = nullptr;
-	Animation* jumping_right = nullptr;
-	Animation* falling_left = nullptr;
-	Animation* falling_right = nullptr;
-	Animation* death = nullptr;
+	Animation* animation = nullptr;			Animation* idle_right = nullptr;
+	Animation* idle_left = nullptr;			Animation* right = nullptr;
+	Animation* left = nullptr;				Animation* jumping_left = nullptr;
+	Animation* jumping_right = nullptr;		Animation* falling_left = nullptr;
+	Animation* falling_right = nullptr;		Animation* death = nullptr;
 	
 	uint landing_fx = 0;
 

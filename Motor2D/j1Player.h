@@ -30,7 +30,7 @@ public:
 	bool falling = false;
 	bool god_mode = false;
 
-	uint double_jump_fx, jump_fx, step_fx, die_fx, SSJ_transformation, SSJ_off, killed_fx;
+	uint double_jump_fx = 0, jump_fx = 0, step_fx = 0, die_fx = 0, SSJ_transformation = 0, SSJ_off = 0, killed_fx = 0;
 	float step_time = 0;
 	float killed_finished = 0;
 
