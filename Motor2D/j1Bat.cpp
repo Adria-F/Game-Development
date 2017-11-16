@@ -36,16 +36,19 @@ bool Bat::Update(float dt)
 {
 	if (!dead && Calculate_Path())
 	{
-		iPoint next_cell;
-		next_cell = *path_to_player.At(1);
+		iPoint curr_cell;
+		iPoint* next_cell = nullptr;
+		curr_cell = *path_to_player.At(1);
+		if (path_to_player.Count() > 1)
+			next_cell = path_to_player.At(2);
 		iPoint map_pos = App->map->WorldToMap(position.x + collider_offset.x + collider->rect.w / 2, position.y + collider_offset.y + collider->rect.h / 2);
 
-		if (next_cell.x > map_pos.x)
+		if (curr_cell.x > map_pos.x)
 		{
 			v.x = speed;
 			state = RIGHT;
 		}
-		else if (next_cell.x < map_pos.x)
+		else if (curr_cell.x < map_pos.x)
 		{
 			v.x = -speed;
 			state = LEFT;
@@ -53,11 +56,11 @@ bool Bat::Update(float dt)
 		else
 			v.x = 0;
 
-		if (next_cell.y > map_pos.y)
+		if (curr_cell.y > map_pos.y || (next_cell != nullptr && next_cell->y > map_pos.y))
 		{
 			v.y = -speed;
 		}
-		else if (next_cell.y < map_pos.y)
+		else if (curr_cell.y < map_pos.y || (next_cell != nullptr && next_cell->y < map_pos.y))
 		{
 			v.y = speed;
 		}

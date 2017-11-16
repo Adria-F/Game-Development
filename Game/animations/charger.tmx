@@ -55,6 +55,6 @@
    <property name="speed" type="float" value="115"/>
   </properties>
   <object id="30" name="sprite" x="0" y="0" width="128" height="100"/>
-  <object id="31" name="collider" x="18.6667" y="29.1667" width="88" height="55"/>
+  <object id="31" name="collider" x="22.4167" y="35.6667" width="76.5" height="48.5"/>
  </objectgroup>
 </map>
