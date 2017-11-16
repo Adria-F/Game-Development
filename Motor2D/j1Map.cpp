@@ -10,6 +10,7 @@
 #include "j1PathFinding.h"
 #include "j1EntityManager.h"
 #include <math.h>
+#include "Brofiler\Brofiler.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -176,9 +177,7 @@ bool j1Map::CleanUp()
 bool j1Map::Load(const char* file_name, int& map_length)
 {
 	bool ret = true;
-
-	
-
+	BROFILER_CATEGORY("Load Map", Profiler::Color::Pink);
 	//Clean previous map before loading another one
 	CleanUp();
 

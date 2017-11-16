@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Window.h"
 #include "j1Render.h"
+#include "Brofiler\Brofiler.h"
 
 #define VSYNC true
 
@@ -64,12 +65,14 @@ bool j1Render::Start()
 // Called each loop iteration
 bool j1Render::PreUpdate()
 {
+	BROFILER_CATEGORY("Render PreUpdate", Profiler::Color::Blue);
 	SDL_RenderClear(renderer);
 	return true;
 }
 
 bool j1Render::Update(float dt)
 {
+	BROFILER_CATEGORY("Render Update", Profiler::Color::Blue);
 	camera.x = virtualCamPos;
 	
 	return true;
@@ -77,6 +80,7 @@ bool j1Render::Update(float dt)
 
 bool j1Render::PostUpdate(float dt)
 {
+	BROFILER_CATEGORY("Render PostUpdate", Profiler::Color::Blue);
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;

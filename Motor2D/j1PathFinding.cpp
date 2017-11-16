@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "p2Defs.h"
 #include "j1Collision.h"
+#include "Brofiler\Brofiler.h"
 
 void j1PathFinding::SetMap(uint width, uint height, uchar* data)
 {
@@ -36,6 +37,7 @@ void j1PathFinding::ResetPath(p2DynArray<iPoint>& path_to_reset)
 
 bool j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint>& path_to_fill)
 {
+	BROFILER_CATEGORY("PathFinding getPath", Profiler::Color::Black);
 	bool ret = false;
 	
 	ResetPath(path_to_fill);

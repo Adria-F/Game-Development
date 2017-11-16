@@ -6,6 +6,7 @@
 #include "j1Map.h"
 #include "j1App.h"
 #include "j1Collision.h"
+#include "Brofiler\Brofiler.h"
 #include "j1Input.h"
 
 j1EntityManager::j1EntityManager()
@@ -36,6 +37,7 @@ bool j1EntityManager::Start()
 
 bool j1EntityManager::Update(float dt)
 {
+	BROFILER_CATEGORY("EntityManager Update", Profiler::Color::Yellow);
 	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
 	{
 		entity->data->Entity_Update(dt);
@@ -50,6 +52,7 @@ bool j1EntityManager::Update(float dt)
 
 bool j1EntityManager::PostUpdate(float dt)
 {
+	BROFILER_CATEGORY("EntityManager PostUpdate", Profiler::Color::Yellow);
 	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
 	{
 		entity->data->PostUpdate(dt);
