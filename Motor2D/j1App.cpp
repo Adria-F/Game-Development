@@ -15,6 +15,7 @@
 #include "j1Player.h"
 #include "j1EntityManager.h"
 #include "j1PathFinding.h"
+#include "Brofiler\Brofiler.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -51,6 +52,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(render);
 
 	save_game = load_game = "save_game.xml";
+	PERF_PEEK(ptimer);
 }
 
 // Destructor

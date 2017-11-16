@@ -12,6 +12,7 @@
 #include "j1Player.h"
 #include "j1PathFinding.h"
 #include "j1EntityManager.h"
+#include "Brofiler\Brofiler.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -35,6 +36,7 @@ j1Scene::~j1Scene()
 // Called before render is available
 bool j1Scene::Awake()
 {
+
 	LOG("Loading Scene");
 	bool ret = true;
 
@@ -56,12 +58,14 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
+	BROFILER_CATEGORY("Scene PreUpdate", Profiler::Color::White);
 	return true;
 }
 
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	BROFILER_CATEGORY("Scene Update", Profiler::Color::White);
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		load_lvl = true;
@@ -95,7 +99,7 @@ bool j1Scene::Update(float dt)
 			App->player->god_mode = false;
 			App->audio->PlayFx(App->player->SSJ_off, 0);
 		}
-		else
+		else if (App->player->dead == false)
 		{
 			App->player->god_mode = true;
 			App->audio->PlayFx(App->player->SSJ_transformation, 0);
@@ -167,6 +171,7 @@ bool j1Scene::Update(float dt)
 // Called each loop iteration
 bool j1Scene::PostUpdate(float dt)
 {
+	BROFILER_CATEGORY("Scene PostUpdate", Profiler::Color::White);
 	bool ret = true;
 
 	if (load_lvl)

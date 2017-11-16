@@ -10,6 +10,7 @@
 #include "j1Textures.h"
 #include "j1PathFinding.h"
 #include "j1Player.h"
+#include "Brofiler\Brofiler.h"
 
 Entity::Entity(const char* name)
 {
@@ -40,6 +41,7 @@ Entity::~Entity()
 
 bool Entity::Entity_Update(float dt)
 {
+	BROFILER_CATEGORY("Entity Entity_Update", Profiler::Color::Red);
 	float oldVy = v.y;
 	v.y += (gravity * ((colliding_bottom || flying) ? 0 : 1)) * dt; //*dt
 	if (oldVy > 0 && v.y <= 0)
@@ -305,6 +307,7 @@ void Entity::setAnimation()
 
 Animation* Entity::LoadAnimation(const char* animationPath, const char* animationName)
 {
+	BROFILER_CATEGORY("Entity LoadAnimation", Profiler::Color::Red);
 	Animation* ret = new Animation();
 
 	bool animationFound = false;
