@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="65" height="13" tilewidth="32" tileheight="32" nextobjectid="53">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="65" height="13" tilewidth="32" tileheight="32" nextobjectid="54">
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" tilecount="232" columns="29">
   <image source="tileset.png" width="950" height="256"/>
   <terraintypes>
@@ -3479,8 +3479,9 @@
   </properties>
   <object id="40" name="player_start_pos" x="19" y="345" width="21" height="33"/>
   <object id="49" name="end" x="2066.25" y="0" width="13.25" height="121.5"/>
-  <object id="50" name="charger" type="enemy" x="360" y="234.667" width="64" height="42.3333"/>
-  <object id="52" name="bat" type="enemy" x="199.5" y="154" width="36.8" height="29.6"/>
+  <object id="50" name="charger" type="enemy" x="1507" y="16.667" width="64" height="42.3333"/>
+  <object id="52" name="bat" type="enemy" x="1810" y="23" width="36.8" height="29.6"/>
+  <object id="53" name="charger" type="enemy" x="701.5" y="175.833" width="64" height="42.3333"/>
  </objectgroup>
  <layer name="Walkability" width="65" height="13">
   <data>
