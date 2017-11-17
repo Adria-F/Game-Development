@@ -258,7 +258,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c2->type == COLLIDER_FLOOR || c2->type == COLLIDER_JUMPABLE)
 	{
-		if (Collision_from_bottom(c1, c2)
+		if (Collision_from_bottom(c1, c2))
 		{
 			double_jump = false;
 			jump_cloud->Reset();
@@ -292,7 +292,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 bool j1Player::Load(pugi::xml_node& data)
 {
-	App->scene->LoadLvl(data.attribute("level").as_int());
+	App->scene->LoadLvl(data.attribute("level").as_int(), true);
 	virtualPosition.x = data.attribute("position_x").as_int();
 	virtualPosition.y = data.attribute("position_y").as_int();
 	App->render->virtualCamPos = -(virtualPosition.x * (int)App->win->GetScale() - 300);

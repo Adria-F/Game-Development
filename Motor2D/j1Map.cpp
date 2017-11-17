@@ -163,8 +163,6 @@ bool j1Map::CleanUp()
 	}
 	data.colliders.clear();
 
-	App->entityManager->CleanUp(); //Clean entities;
-
 	// Clean up the pugui tree
 	map_file.reset();
 
@@ -172,12 +170,14 @@ bool j1Map::CleanUp()
 }
 
 // Load new map
-bool j1Map::Load(const char* file_name, int& map_length, SDL_Rect& end)
+bool j1Map::Load(const char* file_name, int& map_length, SDL_Rect& end, bool fromSaveData)
 {
 	bool ret = true;
 	BROFILER_CATEGORY("Load Map", Profiler::Color::Pink);
 	//Clean previous map before loading another one
 	CleanUp();
+	if (!fromSaveData)
+		App->entityManager->CleanUp(); //Clean entities;
 
 	p2SString tmp("%s%s", folder.GetString(), file_name);
 
@@ -241,7 +241,7 @@ bool j1Map::Load(const char* file_name, int& map_length, SDL_Rect& end)
 			if (LoadWalkabilityMap(layer, w, h, &data))
 				App->pathfinding->SetMap(w, h, data);
 		}
-		else
+		
 		{
 			MapLayer* set = new MapLayer();
 
@@ -265,7 +265,7 @@ bool j1Map::Load(const char* file_name, int& map_length, SDL_Rect& end)
 		}
 		else if (object_name == "Logic")
 		{
-			LoadLogic(object, map_length, end);
+			LoadLogic(object, map_length, end, fromSaveData);
 		}
 	}
 
@@ -519,7 +519,7 @@ bool j1Map::LoadColliders(pugi::xml_node& node)
 	return ret;
 }
 
-bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length, SDL_Rect& end)
+bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length, SDL_Rect& end, bool fromSaveData)
 {
 	bool ret = true;
 
@@ -548,7 +548,7 @@ bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length, SDL_Rect& end)
 			end.w = object.attribute("width").as_int();
 			end.h = object.attribute("height").as_int();
 		}
-		if (type == "enemy")
+		if (type == "enemy" && !fromSaveData)
 		{
 			int x, y;
 			x = object.attribute("x").as_int();

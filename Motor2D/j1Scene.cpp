@@ -195,8 +195,8 @@ bool j1Scene::CleanUp()
 	return true;
 }
 
-void j1Scene::LoadLvl(int num)
-{
+void j1Scene::LoadLvl(int num, bool fromSaveData)
+{	
 	if (num == 0)
 	{
 		current_lvl = current_lvl->next;
@@ -222,7 +222,7 @@ void j1Scene::LoadLvl(int num)
 
 	if (current_lvl != nullptr)
 	{
-		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end);
+		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end, fromSaveData);
 		
 		// Restart player data
 		App->player->collider->to_delete = true;

@@ -49,7 +49,7 @@ public:
 	bool CleanUp();
 
 	// If num is 0 it will load the next level or the first one if there is no next level
-	void LoadLvl(int num = 0);
+	void LoadLvl(int num = 0, bool fromSaveData = false);
 
 public:
 

@@ -11,6 +11,7 @@
 #include "j1entityManager.h"
 #include "j1Textures.h"
 #include "j1Player.h"
+#include "j1PathFinding.h"
 
 Bat::Bat() : Entity("bat")
 {
@@ -57,11 +58,11 @@ bool Bat::Update(float dt)
 		else
 			v.x = 0;
 
-		if (curr_cell.y > map_pos.y || (next_cell != nullptr && next_cell->y > map_pos.y))
+		if (curr_cell.y > map_pos.y || (next_cell != nullptr && next_cell->y > map_pos.y && !App->pathfinding->isTouchingGround({map_pos.x, map_pos.y + 1})))
 		{
 			v.y = -speed;
 		}
-		else if (curr_cell.y < map_pos.y || (next_cell != nullptr && next_cell->y < map_pos.y))
+		else if (curr_cell.y < map_pos.y || (next_cell != nullptr && next_cell->y < map_pos.y && !App->pathfinding->isTouchingGround({ map_pos.x, map_pos.y - 2 })))
 		{
 			v.y = speed;
 		}

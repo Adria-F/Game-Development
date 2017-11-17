@@ -131,6 +131,7 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 
 bool j1EntityManager::Load(pugi::xml_node& data)
 {
+	CleanUp();
 	for (pugi::xml_node charger = data.child("charger"); charger; charger = charger.next_sibling("charger"))
 	{
 		createEntity(CHARGER, charger.attribute("position_x").as_int(), charger.attribute("position_y").as_int());
