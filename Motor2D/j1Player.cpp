@@ -280,7 +280,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 				sound_one_time = true;
 			}
 		}
-		if (c2_name == "bat" && Collision_from_bottom(c1, c2) && !c2->to_delete)
+		if (c2_name == "bat" && Collision_from_bottom(c1, c2) && !c2->to_delete && v.y < 0)
 		{
 			v.y = (jump_force * 2 / 3);
 			c2->entity->dead = true;

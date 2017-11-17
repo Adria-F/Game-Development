@@ -11,12 +11,12 @@
 		<charger position_x="1507" position_y="20" />
 		<charger position_x="701" position_y="178" />
 		<bat position_x="1810" position_y="23" />
-		<bat position_x="150" position_y="279" />
+		<bat position_x="303" position_y="265" />
 		<bat position_x="964" position_y="9" />
 	</entityManager>
-	<player position_x="142" position_y="239" level="1" />
+	<player position_x="275" position_y="312" level="1" />
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-38" y="0" />
 	</renderer>
 </game_state>
