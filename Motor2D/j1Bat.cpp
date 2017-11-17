@@ -10,6 +10,7 @@
 #include "j1Audio.h"
 #include "j1entityManager.h"
 #include "j1Textures.h"
+#include "j1Player.h"
 
 Bat::Bat() : Entity("bat")
 {
@@ -87,7 +88,7 @@ bool Bat::CleanUp()
 
 void Bat::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c2->type == COLLIDER_PLAYER && Collision_from_top(c1, c2))
+	if (c2->type == COLLIDER_PLAYER && !App->player->dead && Collision_from_top(c1, c2))
 	{
 		App->audio->PlayFx(die_fx, 0);
 		v = { 0,0 };
