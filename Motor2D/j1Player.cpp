@@ -168,14 +168,13 @@ bool j1Player::Update(float dt)
 					{
 						state = JUMPING;
 					}
-					//Double jumping sound
 					App->audio->PlayFx(double_jump_fx, 0);
 				}
 				else
 				{
 					v.y = jump_force;
 					state = JUMPING;
-					//Jumping sound
+
 					App->audio->PlayFx(jump_fx, 0);
 
 				}
@@ -190,7 +189,6 @@ bool j1Player::Update(float dt)
 			}
 		}
 	}
-	//Running sound
 	if (v.x != 0 && colliding_bottom && SDL_GetTicks() > step_time)
 	{
 		App->audio->PlayFx(step_fx, 0);
@@ -260,7 +258,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c2->type == COLLIDER_FLOOR || c2->type == COLLIDER_JUMPABLE)
 	{
-		if (((c2->rect.y - v.y + 1) > (c1->rect.y + (c1->rect.h)))) //The collision is from bottom
+		if (Collision_from_bottom(c1, c2)
 		{
 			double_jump = false;
 			jump_cloud->Reset();

@@ -18,7 +18,6 @@ Entity::Entity(const char* name)
 	v.y = 0;
 	this->name.create(name);
 
-	//We need attack for the charger?
 	p2SString path("animations/%s.tmx", name);
 	LoadLogic(path.GetString());
 	idle_right = LoadAnimation(path.GetString(), "idle_right");
@@ -53,10 +52,11 @@ bool Entity::Entity_Update(float dt)
 
 	if (v.y < -jump_force)
 		v.y = -jump_force;
-	virtualPosition.y -= v.y * dt; //*dt
+
+	virtualPosition.y -= v.y * dt; 
 
 	if (pos_relCam > 2 || v.x > 0)
-		virtualPosition.x += v.x * dt; //*dt
+		virtualPosition.x += v.x * dt;
 
 	colliding_right = false;
 	colliding_left = false;

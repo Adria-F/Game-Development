@@ -8,8 +8,6 @@
 #include "j1App.h"
 #include "j1Textures.h"
 
-// TODO 1: Create a struct for the map layer
-// ----------------------------------------------------
 struct MapLayer
 {
 	p2SString name;
@@ -32,7 +30,6 @@ struct MapLayer
 	}
 
 };
-	// TODO 6: Short function to get the value of x,y
 
 struct ImageLayer
 {
@@ -73,10 +70,8 @@ struct ImageLayer
 
 };
 
-// ----------------------------------------------------
 struct TileSet
 {
-	// TODO 7: Create a method that receives a tile id and returns it's Rectfind the Rect associated with a specific tile id
 	SDL_Rect GetTileRect(int id) const;
 
 	p2SString			name;
@@ -126,7 +121,6 @@ struct MapData
 	p2List<Collider*>	colliders;
 };
 
-// ----------------------------------------------------
 class j1Map : public j1Module
 {
 public:
