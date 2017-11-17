@@ -273,16 +273,17 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		{
 			v.x = 0;
 			dead = true;
-			if (sound_one_time == false && killed_finished == 0)
+			if (!sound_one_time && killed_finished == 0)
 			{
    				killed_finished = SDL_GetTicks();
 				App->audio->PlayFx(killed_fx, 0);
 				sound_one_time = true;
 			}
 		}
-		if (c2_name == "bat" && Collision_from_bottom(c1, c2))
+		if (c2_name == "bat" && Collision_from_bottom(c1, c2) && !c2->to_delete)
 		{
 			v.y = (jump_force * 2 / 3);
+			c2->entity->dead = true;
 			c2->to_delete = true;
 		}
 	}

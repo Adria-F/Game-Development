@@ -8,18 +8,15 @@
 	<map />
 	<scene />
 	<entityManager>
-		<charger position_x="1177" position_y="11" />
-		<bat position_x="242" position_y="14" />
-		<bat position_x="442" position_y="58" />
-		<bat position_x="704" position_y="221" />
-		<bat position_x="1931" position_y="110" />
-		<charger position_x="1931" position_y="238" />
-		<bat position_x="1574" position_y="84" />
-		<bat position_x="878" position_y="3" />
+		<charger position_x="1507" position_y="20" />
+		<charger position_x="701" position_y="178" />
+		<bat position_x="1810" position_y="23" />
+		<bat position_x="150" position_y="279" />
+		<bat position_x="964" position_y="9" />
 	</entityManager>
-	<player position_x="13" position_y="211" level="2" />
+	<player position_x="142" position_y="234" level="1" />
 	<:anonymous />
 	<renderer>
-		<camera x="-3136" y="0" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>
