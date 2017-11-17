@@ -9,14 +9,12 @@
 	<scene />
 	<entityManager>
 		<charger position_x="1507" position_y="20" />
-		<charger position_x="701" position_y="178" />
 		<bat position_x="1810" position_y="23" />
-		<bat position_x="303" position_y="265" />
-		<bat position_x="964" position_y="9" />
+		<charger position_x="476" position_y="305" />
 	</entityManager>
-	<player position_x="275" position_y="312" level="1" />
+	<player position_x="967" position_y="121" level="1" />
 	<:anonymous />
 	<renderer>
-		<camera x="-38" y="0" />
+		<camera x="-1704" y="0" />
 	</renderer>
 </game_state>

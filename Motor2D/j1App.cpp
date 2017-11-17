@@ -213,6 +213,8 @@ void j1App::FinishUpdate()
 	// TODO 2: Use SDL_Delay to make sure you get your capped framerate
 	// TODO3: Measure accurately the amount of time it SDL_Delay actually waits compared to what was expected
 	float waiting_time = (1000 / framerate_cap) - last_frame_ms;
+	if (waiting_time > (1000 / framerate_cap))
+		waiting_time = (1000 / framerate_cap);
 	PERF_START(ptimer);
 	if (cap_frames)
 		SDL_Delay(waiting_time);
