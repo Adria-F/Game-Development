@@ -12,6 +12,7 @@
 #include "j1Textures.h"
 #include "j1Player.h"
 #include "j1PathFinding.h"
+#include "j1Player.h"
 #include <time.h>
 
 Bat::Bat() : Entity("bat")
@@ -103,32 +104,40 @@ bool Bat::Save(pugi::xml_node&) const
 void Bat::followPath()
 {
 	iPoint curr_cell;
-	iPoint* next_cell = nullptr;
+	iPoint next_cell;
 	curr_cell = *entityPath.At(1);
-	if (entityPath.Count() > 1)
-		next_cell = entityPath.At(2);
-	iPoint map_pos = App->map->WorldToMap(position.x + collider_offset.x + collider->rect.w / 2, position.y + collider_offset.y + collider->rect.h / 2);
+	if (entityPath.Count() > 2)
+		next_cell = *entityPath.At(2);
+	iPoint map_pos(position.x + collider_offset.x + collider->rect.w / 2, position.y + collider_offset.y + collider->rect.h / 2);
+	iPoint map_cell = App->map->WorldToMap(map_pos.x, map_pos.y);
+
+	iPoint curr_pos = App->map->MapToWorld(curr_cell.x, curr_cell.y);
+	curr_pos = { curr_pos.x + App->map->data.tile_width / 2, curr_pos.y + App->map->data.tile_height / 2 };
+	iPoint next_pos = App->map->MapToWorld(next_cell.x, next_cell.y);
+	next_pos = { next_pos.x + App->map->data.tile_width / 2, next_pos.y + App->map->data.tile_height / 2 };
 
 	float usingSpeed = (slowerPath) ? (speed / 2) : speed;
 
-	if (curr_cell.x > map_pos.x)
+	if (curr_pos.x > map_pos.x)
 	{
 		v.x = usingSpeed;
-		state = RIGHT;
+		if (curr_cell.x > map_cell.x)
+			state = RIGHT;
 	}
-	else if (curr_cell.x < map_pos.x)
+	else if (curr_pos.x < map_pos.x)
 	{
 		v.x = -usingSpeed;
-		state = LEFT;
+		if (curr_cell.x < map_cell.x)
+			state = LEFT;
 	}
 	else
 		v.x = 0;
 
-	if (curr_cell.y > map_pos.y || (next_cell != nullptr && next_cell->y > map_pos.y && !App->pathfinding->isTouchingGround({ map_pos.x, map_pos.y + 1 })))
+	if (curr_pos.y > map_pos.y || (next_pos.y > map_pos.y && !App->pathfinding->isTouchingGround({ map_cell.x, map_cell.y + 1 })))
 	{
 		v.y = -usingSpeed;
 	}
-	else if (curr_cell.y < map_pos.y || (next_cell != nullptr && next_cell->y < map_pos.y && !App->pathfinding->isTouchingGround({ map_pos.x, map_pos.y - 2 })))
+	else if (curr_pos.y < map_pos.y || (next_pos.y < map_pos.y && !App->pathfinding->isTouchingGround({ map_cell.x, map_cell.y - 2 })))
 	{
 		v.y = usingSpeed;
 	}
