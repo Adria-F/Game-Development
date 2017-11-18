@@ -1,7 +1,7 @@
-# Assignment 1 - Platformer Game 
+# Game Development - Platformer Game 
 
 ## Not A Typical Platformer
-It is a platformer game done for the first assignment of the videogames development subject. 
+It is a platformer game done for the assignments of the videogames development subject. 
 
 ## Installation
 Decompress the .zip file in any directory and execute the executable inside the decompressed folder.
