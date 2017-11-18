@@ -32,13 +32,16 @@ Decompress the .zip file in any directory and execute the executable inside the 
 
 ### Innovation features:
 - Logic for entities(animations, speed, jump force and collider size and position) is defined in tiled.
+
 Their position on the map is also defined in tiled.
 
 - When god mode is activated and the player dies or falls out of the map, he will reappear in the further platform that he has reached.
 
 - When an enemy does not found a path to the player, after 1.5 seconds it will start flying/walking around.
-Boar: Will walk along all the platform in each directions.
-Bat: Will fly randomly across air.
+
+	Boar: Will walk along all the platform in each directions.
+
+	Bat: Will fly randomly across air.
 
 
 ### Link to the github repository: 
