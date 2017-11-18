@@ -27,7 +27,6 @@ public:
 
 public:
 
-	bool falling = false;
 	bool god_mode = false;
 
 	uint double_jump_fx = 0, jump_fx = 0, step_fx = 0, die_fx = 0, SSJ_transformation = 0, SSJ_off = 0, killed_fx = 0;

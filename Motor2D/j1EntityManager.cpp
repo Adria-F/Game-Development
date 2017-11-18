@@ -120,10 +120,6 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 	ret->virtualPosition.y = ret->position.y = y;
 	ret->animation = ret->idle_left;
 
-	float time = ret->jump_force / -gravity;
-	int max_height = (ret->jump_force * time) + ((gravity / 2) * time * time);
-	ret->max_jump_value = (max_height / App->map->data.tile_height) * 2;
-
 	entities.add(ret);
 
 	return ret;
