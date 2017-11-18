@@ -12,6 +12,7 @@
 #include "j1Textures.h"
 #include "j1Player.h"
 #include "j1PathFinding.h"
+#include <time.h>
 
 Bat::Bat() : Entity("bat")
 {
@@ -36,38 +37,10 @@ bool Bat::Awake(pugi::xml_node&)
 
 bool Bat::Update(float dt)
 {
-	if (!dead && Calculate_Path())
+	if (!dead)
 	{
-		iPoint curr_cell;
-		iPoint* next_cell = nullptr;
-		curr_cell = *path_to_player.At(1);
-		if (path_to_player.Count() > 1)
-			next_cell = path_to_player.At(2);
-		iPoint map_pos = App->map->WorldToMap(position.x + collider_offset.x + collider->rect.w / 2, position.y + collider_offset.y + collider->rect.h / 2);
-
-		if (curr_cell.x > map_pos.x)
-		{
-			v.x = speed;
-			state = RIGHT;
-		}
-		else if (curr_cell.x < map_pos.x)
-		{
-			v.x = -speed;
-			state = LEFT;
-		}
-		else
-			v.x = 0;
-
-		if (curr_cell.y > map_pos.y || (next_cell != nullptr && next_cell->y > map_pos.y && !App->pathfinding->isTouchingGround({map_pos.x, map_pos.y + 1})))
-		{
-			v.y = -speed;
-		}
-		else if (curr_cell.y < map_pos.y || (next_cell != nullptr && next_cell->y < map_pos.y && !App->pathfinding->isTouchingGround({ map_pos.x, map_pos.y - 2 })))
-		{
-			v.y = speed;
-		}
-		else
-			v.y = 0;
+		if (Calculate_Path())
+			followPath();
 	}
 	
 	if (death->Finished())
@@ -106,4 +79,123 @@ bool Bat::Load(pugi::xml_node&)
 bool Bat::Save(pugi::xml_node&) const
 {
 	return true;
+}
+
+void Bat::followPath()
+{
+	iPoint curr_cell;
+	iPoint* next_cell = nullptr;
+	curr_cell = *entityPath.At(1);
+	if (entityPath.Count() > 1)
+		next_cell = entityPath.At(2);
+	iPoint map_pos = App->map->WorldToMap(position.x + collider_offset.x + collider->rect.w / 2, position.y + collider_offset.y + collider->rect.h / 2);
+
+	if (curr_cell.x > map_pos.x)
+	{
+		v.x = speed;
+		state = RIGHT;
+	}
+	else if (curr_cell.x < map_pos.x)
+	{
+		v.x = -speed;
+		state = LEFT;
+	}
+	else
+		v.x = 0;
+
+	if (curr_cell.y > map_pos.y || (next_cell != nullptr && next_cell->y > map_pos.y && !App->pathfinding->isTouchingGround({ map_pos.x, map_pos.y + 1 })))
+	{
+		v.y = -speed;
+	}
+	else if (curr_cell.y < map_pos.y || (next_cell != nullptr && next_cell->y < map_pos.y && !App->pathfinding->isTouchingGround({ map_pos.x, map_pos.y - 2 })))
+	{
+		v.y = speed;
+	}
+	else
+		v.y = 0;
+}
+
+void Bat::standardPath()
+{
+	App->pathfinding->ResetPath(entityPath);
+	srand(time(NULL));
+
+	int newPosX = rand() % 10;
+	newPosX = (newPosX < 5) ? 1 : -1;
+	int newPosY = rand() % 10;
+	newPosY = (newPosY < 5) ? 1 : -1;
+
+	iPoint curr_pos = App->map->WorldToMap(position.x + collider_offset.x + collider->rect.w / 2, position.y + collider_offset.y + collider->rect.h / 2);
+
+	curr_pos = { curr_pos.x + newPosX, curr_pos.y + newPosY }; // 1
+	if (App->pathfinding->isWalkable(curr_pos))
+		entityPath.PushBack(curr_pos);
+
+	curr_pos = { curr_pos.x + newPosX, curr_pos.y + newPosY }; // 2
+	if (App->pathfinding->isWalkable(curr_pos))
+		entityPath.PushBack(curr_pos);
+
+	/*curr_pos = { curr_pos.x - 1, curr_pos.y - 1 }; // 1
+	if (App->pathfinding->isWalkable(curr_pos))
+		entityPath.PushBack(curr_pos);
+
+	curr_pos = { curr_pos.x - 1, curr_pos.y - 1 }; // 2
+	if (App->pathfinding->isWalkable(curr_pos))
+		entityPath.PushBack(curr_pos);
+
+	curr_pos = { curr_pos.x - 1, curr_pos.y + 1 }; // 3
+	if (App->pathfinding->isWalkable(curr_pos))
+		entityPath.PushBack(curr_pos);
+
+	curr_pos = { curr_pos.x, curr_pos.y + 1 }; // 4
+	if (App->pathfinding->isWalkable(curr_pos))
+		entityPath.PushBack(curr_pos);
+
+	curr_pos = { curr_pos.x, curr_pos.y + 1 }; // 5
+	if (App->pathfinding->isWalkable(curr_pos))
+		entityPath.PushBack(curr_pos);
+
+	curr_pos = { curr_pos.x + 1, curr_pos.y + 1 }; // 6
+	if (App->pathfinding->isWalkable(curr_pos))
+		entityPath.PushBack(curr_pos);
+
+	curr_pos = { curr_pos.x + 1, curr_pos.y - 1 }; // 7
+	if (App->pathfinding->isWalkable(curr_pos))
+		entityPath.PushBack(curr_pos);
+	
+	curr_pos = { curr_pos.x + 1, curr_pos.y - 1 }; // 8
+	if (App->pathfinding->isWalkable(curr_pos))
+		entityPath.PushBack(curr_pos);
+	
+	curr_pos = { curr_pos.x + 1, curr_pos.y - 1 }; // 9
+	if (App->pathfinding->isWalkable(curr_pos))
+		entityPath.PushBack(curr_pos);
+	
+	curr_pos = { curr_pos.x + 1, curr_pos.y - 1 }; // 10
+	if (App->pathfinding->isWalkable(curr_pos))
+		entityPath.PushBack(curr_pos);
+
+	curr_pos = { curr_pos.x + 1, curr_pos.y + 1 }; // 11
+	if (App->pathfinding->isWalkable(curr_pos))
+		entityPath.PushBack(curr_pos);
+
+	curr_pos = { curr_pos.x, curr_pos.y + 1 }; // 12
+	if (App->pathfinding->isWalkable(curr_pos))
+		entityPath.PushBack(curr_pos);
+
+	curr_pos = { curr_pos.x, curr_pos.y + 1 }; // 13
+	if (App->pathfinding->isWalkable(curr_pos))
+		entityPath.PushBack(curr_pos);
+
+	curr_pos = { curr_pos.x - 1, curr_pos.y + 1 }; // 14
+	if (App->pathfinding->isWalkable(curr_pos))
+		entityPath.PushBack(curr_pos);
+
+	curr_pos = { curr_pos.x - 1, curr_pos.y + 1 }; // 15
+	if (App->pathfinding->isWalkable(curr_pos))
+		entityPath.PushBack(curr_pos);
+
+	curr_pos = { curr_pos.x - 1, curr_pos.y + 1 }; // 16
+	if (App->pathfinding->isWalkable(curr_pos))
+		entityPath.PushBack(curr_pos);*/
 }

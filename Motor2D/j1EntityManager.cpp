@@ -59,9 +59,9 @@ bool j1EntityManager::PostUpdate(float dt)
 		int i = 0;
 		if (draw_path)
 		{
-			while (i < entity->data->path_to_player.Count())
+			while (i < entity->data->entityPath.Count())
 			{
-				iPoint coords = App->map->MapToWorld(entity->data->path_to_player.At(i)->x, entity->data->path_to_player.At(i)->y);
+				iPoint coords = App->map->MapToWorld(entity->data->entityPath.At(i)->x, entity->data->entityPath.At(i)->y);
 				App->render->Blit(path_marker, coords.x, coords.y);
 				i++;
 			}

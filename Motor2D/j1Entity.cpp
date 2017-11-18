@@ -55,7 +55,7 @@ bool Entity::Entity_Update(float dt)
 
 	virtualPosition.y -= v.y * dt; 
 
-	if (pos_relCam > 2 || v.x > 0)
+	if (pos_relCam > 2 || v.x > 0 || type != PLAYER)
 		virtualPosition.x += v.x * dt;
 
 	colliding_right = false;
@@ -83,11 +83,11 @@ bool Entity::Calculate_Path()
 
 	if (!App->player->dead && position.DistanceTo(App->player->position) < 300)
 	{
-		ret = App->pathfinding->getPath(this, App->player, path_to_player);
+		ret = App->pathfinding->getPath(this, App->player, entityPath);
 	}
 	else
 	{
-		App->pathfinding->ResetPath(path_to_player);
+		App->pathfinding->ResetPath(entityPath);
 	}
 
 	if (!ret)
