@@ -17,6 +17,6 @@
 	<player position_x="19" position_y="340" level="1" />
 	<:anonymous />
 	<renderer>
-		<camera x="-1320" y="0" />
+		<camera x="-1052" y="0" />
 	</renderer>
 </game_state>
