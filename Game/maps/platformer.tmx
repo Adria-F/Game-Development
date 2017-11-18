@@ -3457,7 +3457,7 @@
   <object id="16" type="floor" x="137" y="347.084" width="171" height="36.9166"/>
   <object id="17" type="jumpable" x="335" y="283.515" width="97" height="99.4849"/>
   <object id="18" type="floor" x="461" y="346.667" width="193" height="36.3333"/>
-  <object id="19" type="jumpable" x="559.333" y="284.083" width="91.5758" height="65.9167"/>
+  <object id="19" type="jumpable" x="559.333" y="284.083" width="97.9508" height="65.9167"/>
   <object id="20" type="jumpable" x="656" y="219.667" width="131" height="31.3333"/>
   <object id="21" type="floor" x="845" y="283" width="170.333" height="101"/>
   <object id="22" type="floor" x="876.417" y="188" width="82.5833" height="22.3333"/>
@@ -4159,7 +4159,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="233"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4224,7 +4224,7 @@
    <tile gid="233"/>
    <tile gid="233"/>
    <tile gid="233"/>
-   <tile gid="0"/>
+   <tile gid="233"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
