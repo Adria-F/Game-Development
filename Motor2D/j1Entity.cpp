@@ -143,7 +143,7 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 			}
 			colliding_bottom = true;
 		}
-		if (Collision_from_right(c1, c2))
+		else if (Collision_from_right(c1, c2))
 		{
 			if (v.x > 0)
 			{
@@ -405,7 +405,7 @@ bool Entity::Collision_from_right(Collider* c1, Collider* c2) const
 
 bool Entity::Collision_from_bottom(Collider* c1, Collider* c2) const
 {
-	return ((c2->rect.y - (v.y*prev_dt) + 1) > (c1->rect.y + (c1->rect.h)));
+	return ((c2->rect.y - (v.y*prev_dt) + 1) >= (c1->rect.y + (c1->rect.h)));
 }
 
 bool Entity::Collision_from_left(Collider* c1, Collider* c2) const
