@@ -89,7 +89,6 @@ void Bat::OnCollision(Collider* c1, Collider* c2)
 		App->audio->PlayFx(die_fx, 0);
 		v = { 0,0 };
 	}
-
 }
 
 bool Bat::Load(pugi::xml_node&)

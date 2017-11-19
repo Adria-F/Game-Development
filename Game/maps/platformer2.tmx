@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="65" height="13" tilewidth="32" tileheight="32" nextobjectid="58">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="65" height="13" tilewidth="32" tileheight="32" nextobjectid="59">
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" tilecount="232" columns="29">
   <image source="tileset.png" width="950" height="256"/>
   <terraintypes>
@@ -3473,13 +3473,14 @@
   <object id="43" type="floor" x="292" y="2" width="27" height="253"/>
   <object id="44" type="jumpable" x="746" y="315" width="74" height="64"/>
   <object id="46" type="jumpable" x="1900.67" y="283.333" width="189.333" height="95.6667"/>
+  <object id="58" type="floor" x="2078.05" y="12.6667" width="7.39333" height="353.667"/>
  </objectgroup>
  <objectgroup color="#0000ff" name="Logic">
   <properties>
    <property name="map_length" type="int" value="2112"/>
   </properties>
   <object id="45" name="player_start_pos" x="13.977" y="216.227" width="21" height="33"/>
-  <object id="47" name="end" x="2065.08" y="231.667" width="14.9167" height="69"/>
+  <object id="47" name="end" x="2061.08" y="-0.333" width="18.9167" height="301"/>
   <object id="48" name="charger" type="enemy" x="275.853" y="300.773" width="64" height="42.3333"/>
   <object id="51" name="bat" type="enemy" x="766.933" y="169.533" width="36.8" height="29.6"/>
   <object id="52" name="bat" type="enemy" x="1001.27" y="99.867" width="36.8" height="29.6"/>

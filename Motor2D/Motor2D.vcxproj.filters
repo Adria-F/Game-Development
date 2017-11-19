@@ -34,9 +34,6 @@
     <ClCompile Include="j1Map.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="j1Player.cpp">
-      <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="j1Collision.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
@@ -47,10 +44,10 @@
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
     <ClCompile Include="j1Bat.cpp">
-      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClCompile>
     <ClCompile Include="j1Charger.cpp">
-      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClCompile>
     <ClCompile Include="j1PathFinding.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
@@ -60,6 +57,9 @@
     </ClCompile>
     <ClCompile Include="j1Timer.cpp">
       <Filter>Desenvolupament  ========\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Player.cpp">
+      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -117,9 +117,6 @@
     <ClInclude Include="j1Entity.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="j1Player.h">
-      <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Desenvolupament  ========\Tools</Filter>
     </ClInclude>
@@ -130,10 +127,10 @@
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="j1Charger.h">
-      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClInclude>
     <ClInclude Include="j1Bat.h">
-      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClInclude>
     <ClInclude Include="j1PathFinding.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
@@ -146,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="p2PQueue.h">
       <Filter>Programacio 2 ===========</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Player.h">
+      <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -167,7 +167,7 @@
     <Filter Include="Desenvolupament  ========\Tools\PuguiXML">
       <UniqueIdentifier>{7cb78d67-17cc-45eb-af97-e2106becce7b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Desenvolupament  ========\Modules\Enemies">
+    <Filter Include="Desenvolupament  ========\Modules\Entities">
       <UniqueIdentifier>{ee1e42ca-4f27-4ebd-8cc0-0a550ccfea77}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

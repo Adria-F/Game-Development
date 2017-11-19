@@ -41,7 +41,6 @@ Entity::~Entity()
 
 bool Entity::Entity_Update(float dt)
 {
-	//BROFILER_CATEGORY("Entity Update", Profiler::Color::Red);
 	float oldVy = v.y;
 	v.y += (gravity * ((colliding_bottom || flying) ? 0 : 1)) * dt; //*dt
 	if (oldVy > 0 && v.y <= 0)

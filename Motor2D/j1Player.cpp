@@ -191,9 +191,7 @@ bool j1Player::Update(float dt)
 				{
 					v.y = jump_force;
 					state = JUMPING;
-
 					App->audio->PlayFx(jump_fx, 0);
-
 				}
 			}
 		}
@@ -321,7 +319,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			c2->entity->dead = true;
 			c2->to_delete = true;
 		}
-		else if (!App->entityManager->player_god_mode && (c2_name == "charger" || (c2_name == "bat" && !c2->entity->dead && (Collision_from_top(c1, c2) || Collision_from_left(c1, c2) || Collision_from_right(c1, c2)))))
+		else if (!App->entityManager->player_god_mode && (c2_name == "charger" || (c2_name == "bat" && !c2->entity->dead && !Collision_from_bottom(c1, c2, 3))))
 		{
 			v.x = 0;
 			dead = true;
