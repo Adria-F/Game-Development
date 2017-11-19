@@ -3525,7 +3525,7 @@
   <object id="34" type="floor" x="1903.67" y="154.667" width="68.3333" height="56.3333"/>
   <object id="35" type="floor" x="2001.67" y="90" width="80.6667" height="58.3333"/>
   <object id="54" type="floor" x="958.583" y="-0.749983" width="626.083" height="4.49997"/>
-  <object id="57" type="floor" x="2079.67" y="-7.16665" width="5.1667" height="99.3333"/>
+  <object id="57" type="floor" x="2079.67" y="-7.16665" width="5.1667" height="502"/>
  </objectgroup>
  <objectgroup color="#0000ff" name="Logic">
   <properties>
