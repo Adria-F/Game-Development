@@ -34,7 +34,7 @@ struct MapLayer
 struct ImageLayer
 {
 	p2SString name;
-	SDL_Texture* texture;
+	SDL_Texture* texture = nullptr;
 	int offset_x;
 	int offset_y;
 	int width;
@@ -46,17 +46,17 @@ struct ImageLayer
 	ImageLayer()
 	{}
 
-	ImageLayer(ImageLayer* copy)
+	ImageLayer(const ImageLayer& copy)
 	{
-		name = copy->name;
-		texture = copy->texture;
-		offset_x = copy->offset_x;
-		offset_y = copy->offset_y;
-		width = copy->width;
-		height = copy->height;
-		position = copy->position;
-		speed = copy->speed;
-		constant_movement = copy->constant_movement;
+		name = copy.name;
+		texture = copy.texture;
+		offset_x = copy.offset_x;
+		offset_y = copy.offset_y;
+		width = copy.width;
+		height = copy.height;
+		position = copy.position;
+		speed = copy.speed;
+		constant_movement = copy.constant_movement;
 	}
 
 	~ImageLayer()
@@ -80,7 +80,7 @@ struct TileSet
 	int					spacing;
 	int					tile_width;
 	int					tile_height;
-	SDL_Texture*		texture;
+	SDL_Texture*		texture = nullptr;
 	int					tex_width;
 	int					tex_height;
 	int					num_tiles_width;

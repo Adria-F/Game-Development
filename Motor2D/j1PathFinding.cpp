@@ -43,11 +43,12 @@ void j1PathFinding::ResetPath(p2DynArray<iPoint>& path_to_reset)
 
 bool j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint>& path_to_fill)
 {
-	BROFILER_CATEGORY("PathFinding getPath", Profiler::Color::Black);
+	BROFILER_CATEGORY("PathFinding algorithm", Profiler::Color::Black);
 	bool ret = false;
 	
 	ResetPath(path_to_fill);
 
+	//Define origin and destination coords
 	iPoint origin_coords = App->map->WorldToMap(entity->position.x + entity->collider_offset.x + entity->collider->rect.w/2, entity->position.y + entity->collider_offset.y + entity->collider->rect.h/2);
 	frontier.Push(origin_coords, 0);
 	visited.add(origin_coords);
@@ -63,52 +64,53 @@ bool j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint
 			{
 
 				iPoint neighbors[4];
-				neighbors[0].create(curr.x + 0, curr.y + 1);
-				neighbors[1].create(curr.x - 1, curr.y + 0);
-				neighbors[2].create(curr.x + 1, curr.y + 0);
-				neighbors[3].create(curr.x + 0, curr.y - 1);
+				neighbors[0].create(curr.x + 0, curr.y + 1); //Down
+				neighbors[1].create(curr.x - 1, curr.y + 0); //Left
+				neighbors[2].create(curr.x + 1, curr.y + 0); //Right
+				neighbors[3].create(curr.x + 0, curr.y - 1); //Up
 
+				//Define which neighbors to check
 				int max_neighbors = 4;
 				if (!entity->flying)
 				{
-					max_neighbors = 3;
+					max_neighbors = 3; //Don't check up
 					if (!isTouchingGround(curr) && (falling_value[curr.x][curr.y] == 0 || falling_value[curr.x][curr.y] % 2 != 0))
-					{
-						max_neighbors = 1;
-					}
+						max_neighbors = 1; //Just check down
 				}
 
 				for (uint i = 0; i < max_neighbors; ++i)
 				{
-					int distance = neighbors[i].DistanceNoSqrt(destination_coords);
-					int d2 = pow(neighbors[i].x - destination_coords.x, 2.0) + pow(neighbors[i].y - destination_coords.y, 2.0);
+					if (!isWalkable(neighbors[i])) //If not walkable ignore
+						continue;
 
-					int newCost = cost_so_far[curr.x][curr.y] + 1;
+					int distance = neighbors[i].DistanceNoSqrt(destination_coords); //h
+
+					int newCost = cost_so_far[curr.x][curr.y] + 1; //g
 					if (cost_so_far[neighbors[i].x][neighbors[i].y] == NULL || newCost < cost_so_far[neighbors[i].x][neighbors[i].y])
 					{
-						if (isWalkable(neighbors[i]))
-						{
-							cost_so_far[neighbors[i].x][neighbors[i].y] = newCost;
-							if (curr.x == neighbors[i].x)
-								falling_value[neighbors[i].x][neighbors[i].y] = falling_value[curr.x][curr.y] + (falling_value[curr.x][curr.y] % 2 == 0) ? 2 : 1;
-							else if (curr.y == neighbors[i].y)
-								falling_value[neighbors[i].x][neighbors[i].y] = falling_value[curr.x][curr.y] + 1;
-							if (isTouchingGround({ neighbors[i].x , neighbors[i].y }))
-								falling_value[neighbors[i].x][neighbors[i].y] = 0;
+						cost_so_far[neighbors[i].x][neighbors[i].y] = newCost;
+						
+						//Set falling value
+						if (curr.x == neighbors[i].x)
+							falling_value[neighbors[i].x][neighbors[i].y] = falling_value[curr.x][curr.y] + (falling_value[curr.x][curr.y] % 2 == 0) ? 2 : 1;
+						else if (curr.y == neighbors[i].y)
+							falling_value[neighbors[i].x][neighbors[i].y] = falling_value[curr.x][curr.y] + 1;
+						if (isTouchingGround({ neighbors[i].x , neighbors[i].y }))
+							falling_value[neighbors[i].x][neighbors[i].y] = 0;
 
-							if (visited.find(neighbors[i]) == -1)
+						//Add to visited or update breadcrumb
+						if (visited.find(neighbors[i]) == -1)
+						{
+							breadcrumbs.add(curr);
+							visited.add(neighbors[i]);
+							if (neighbors[i] != destination_coords)
 							{
-								breadcrumbs.add(curr);
-								visited.add(neighbors[i]);
-								if (neighbors[i] != destination_coords)
-								{
-									frontier.Push(neighbors[i], newCost + (distance * 10));
-								}
+								frontier.Push(neighbors[i], newCost + (distance * 10));
 							}
-							else
-							{
-								breadcrumbs.At(visited.find(neighbors[i]))->data = curr;
-							}
+						}
+						else
+						{
+							breadcrumbs.At(visited.find(neighbors[i]))->data = curr;
 						}
 					}
 				}
@@ -117,6 +119,7 @@ bool j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint
 				break;
 		}
 
+		//Calculate final path
 		if (visited.find(destination_coords) != -1)
 		{
 			ret = true;

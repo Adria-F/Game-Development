@@ -225,7 +225,7 @@ bool j1Map::Load(const char* file_name, int& map_length, SDL_Rect& end, bool fro
 		{
 			ret = LoadImageLayer(image_layer, set);
 		}
-		ImageLayer* set2 = new ImageLayer(set);
+		ImageLayer* set2 = new ImageLayer(*set);
 		data.image_layers.add(set);
 		set2->position.x += set2->width;
 		data.image_layers.add(set2);

@@ -82,7 +82,7 @@ bool Entity::Calculate_Path()
 {
 	bool ret = false;
 
-	if (!App->entityManager->getPlayer()->dead && position.DistanceTo(App->entityManager->getPlayer()->position) < 350)
+	if (!App->entityManager->getPlayer()->dead && position.DistanceTo(App->entityManager->getPlayer()->position) < DETECTION_MARGIN)
 	{
 		ret = App->pathfinding->getPath(this, App->entityManager->getPlayer(), entityPath);
 	}

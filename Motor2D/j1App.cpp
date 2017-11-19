@@ -202,21 +202,18 @@ void j1App::FinishUpdate()
 
 	static char title[256];
 	if (cap_frames)
-		sprintf_s(title, 256, "Not a typical platformer || Last sec frames: %i | Av.FPS: %.2f | Last Fram Ms: %02u | Framerate Cap: ON", frames_on_last_update, avg_fps, last_frame_ms);
+		sprintf_s(title, 256, "Not A Typical Platformer || Last sec frames: %i | Av.FPS: %.2f | Last Fram Ms: %02u | Framerate Cap: ON", frames_on_last_update, avg_fps, last_frame_ms);
 	else
-		sprintf_s(title, 256, "Not a typical platformer || Last sec frames: %i | Av.FPS: %.2f | Last Fram Ms: %02u | Framerate Cap: OFF", frames_on_last_update, avg_fps, last_frame_ms);
+		sprintf_s(title, 256, "Not A Typical Platformer || Last sec frames: %i | Av.FPS: %.2f | Last Fram Ms: %02u | Framerate Cap: OFF", frames_on_last_update, avg_fps, last_frame_ms);
 
 	App->win->SetTitle(title);
 
-	// TODO 2: Use SDL_Delay to make sure you get your capped framerate
-	// TODO3: Measure accurately the amount of time it SDL_Delay actually waits compared to what was expected
 	float waiting_time = (1000 / framerate_cap) - last_frame_ms;
 	if (waiting_time > (1000 / framerate_cap))
 		waiting_time = (1000 / framerate_cap);
-	PERF_START(ptimer);
+
 	if (cap_frames)
 		SDL_Delay(waiting_time);
-	LOG("Expected wait time: %f | Real wait time: %f", waiting_time, ptimer.ReadMs());
 }
 
 // Call modules before each loop iteration

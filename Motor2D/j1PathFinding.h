@@ -33,7 +33,6 @@ private:
 	p2List<iPoint>		breadcrumbs;
 	uint				cost_so_far[65][13];
 	uint				falling_value[65][13];
-
 };
 
 #endif // !__PATH_FINDING_H__

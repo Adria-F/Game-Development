@@ -33,7 +33,7 @@ public:
 
 	p2List<Entity*> entities;
 	pugi::xml_node config;
-	SDL_Texture* path_marker;
+	SDL_Texture* path_marker = nullptr;
 	bool draw_path = false;
 	bool player_god_mode = false;
 };

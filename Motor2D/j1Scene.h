@@ -54,7 +54,7 @@ public:
 public:
 
 	p2List<level*> levels;
-	p2List_item<level*>* current_lvl;
+	p2List_item<level*>* current_lvl = nullptr;
 	uint complete_level_fx = 0, win_fx = 0;
 	int max_camera_pos = 0;
 
