@@ -35,6 +35,7 @@ Entity::~Entity()
 {
 	App->tex->UnLoad(graphics);
 	graphics = nullptr;
+	if (collider != nullptr)
 	collider->to_delete = true;
 }
 
@@ -81,9 +82,9 @@ bool Entity::Calculate_Path()
 {
 	bool ret = false;
 
-	if (!App->player->dead && position.DistanceTo(App->player->position) < 350)
+	if (!App->entityManager->getPlayer()->dead && position.DistanceTo(App->entityManager->getPlayer()->position) < 350)
 	{
-		ret = App->pathfinding->getPath(this, App->player, entityPath);
+		ret = App->pathfinding->getPath(this, App->entityManager->getPlayer(), entityPath);
 	}
 	else
 	{
@@ -130,15 +131,15 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 					state = LEFT;
 				}
 				App->audio->PlayFx(landing_fx, 0);
-				if (c1->type == COLLIDER_PLAYER && App->player->god_mode)
+				if (c1->type == COLLIDER_PLAYER && App->entityManager->player_god_mode)
 				{
-					if (App->player->old_savedCol != nullptr && App->player->old_savedCol->rect.x + App->player->old_savedCol->rect.w < c2->rect.x + c2->rect.w)
+					if (App->entityManager->getPlayer()->old_savedCol != nullptr && App->entityManager->getPlayer()->old_savedCol->rect.x + App->entityManager->getPlayer()->old_savedCol->rect.w < c2->rect.x + c2->rect.w)
 					{
-						App->player->old_savedCol = c2;
+						App->entityManager->getPlayer()->old_savedCol = c2;
 						App->SaveGame(true);
 					}
-					else if (App->player->old_savedCol == nullptr)
-						App->player->old_savedCol = c2;
+					else if (App->entityManager->getPlayer()->old_savedCol == nullptr)
+						App->entityManager->getPlayer()->old_savedCol = c2;
 				}
 			}
 			colliding_bottom = true;
@@ -191,15 +192,15 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 					state = LEFT;
 				}
 				App->audio->PlayFx(landing_fx, 0);
-				if (c1->type == COLLIDER_PLAYER && App->player->god_mode)
+				if (c1->type == COLLIDER_PLAYER && App->entityManager->player_god_mode)
 				{
-					if (App->player->old_savedCol != nullptr && App->player->old_savedCol->rect.x + App->player->old_savedCol->rect.w < c2->rect.x + c2->rect.w)
+					if (App->entityManager->getPlayer()->old_savedCol != nullptr && App->entityManager->getPlayer()->old_savedCol->rect.x + App->entityManager->getPlayer()->old_savedCol->rect.w < c2->rect.x + c2->rect.w)
 					{
-						App->player->old_savedCol = c2;
+						App->entityManager->getPlayer()->old_savedCol = c2;
 						App->SaveGame(true);
 					}
-					else if (App->player->old_savedCol == nullptr)
-						App->player->old_savedCol = c2;
+					else if (App->entityManager->getPlayer()->old_savedCol == nullptr)
+						App->entityManager->getPlayer()->old_savedCol = c2;
 				}
 			}
 			colliding_bottom = true;
@@ -400,22 +401,22 @@ void Entity::LoadLogic(const char* animationPath)
 
 bool Entity::Collision_from_right(Collider* c1, Collider* c2) const
 {
-	return ((c2->rect.x + 4) > (c1->rect.x + (c1->rect.w)));
+	return ((c2->rect.x + (v.x*prev_dt) + 4) > (c1->rect.x + (c1->rect.w)));
 }
 
-bool Entity::Collision_from_bottom(Collider* c1, Collider* c2) const
+bool Entity::Collision_from_bottom(Collider* c1, Collider* c2, int margin) const
 {
-	return ((c2->rect.y - (v.y*prev_dt) + 1) >= (c1->rect.y + (c1->rect.h)));
+	return ((c2->rect.y - (v.y*prev_dt) + margin) >= (c1->rect.y + (c1->rect.h)));
 }
 
 bool Entity::Collision_from_left(Collider* c1, Collider* c2) const
 {
-	return ((c2->rect.x + (c2->rect.w)) < (c1->rect.x + 5));
+	return ((c2->rect.x + (c2->rect.w)) < (c1->rect.x - (v.x*prev_dt) + 5));
 }
 
 bool Entity::Collision_from_top(Collider* c1, Collider* c2) const
 {
-	return ((c2->rect.y + (c2->rect.h)) < (c1->rect.y + 10));
+	return ((c2->rect.y + (c2->rect.h)) < (c1->rect.y + (v.y*prev_dt) + 10));
 }
 
 

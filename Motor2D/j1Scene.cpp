@@ -86,25 +86,13 @@ bool j1Scene::Update(float dt)
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && !App->player->dead)
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN && !App->entityManager->getPlayer()->dead)
 		App->SaveGame();
 
-	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !App->player->dead)
+	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && !App->entityManager->getPlayer()->dead)
 		App->LoadGame();
 
-	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN && !App->player->dead)
-	{
-		if (App->player->god_mode)
-		{
-			App->player->god_mode = false;
-			App->audio->PlayFx(App->player->SSJ_off, 0);
-		}
-		else 
-		{
-			App->player->god_mode = true;
-			App->audio->PlayFx(App->player->SSJ_transformation, 0);
-		}
-	}
+	
 
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 	{
@@ -116,35 +104,13 @@ bool j1Scene::Update(float dt)
 	App->win->GetWindowSize(win_width, win_height);
 	max_camera_pos = current_lvl->data->length + (win_width);
 	max_camera_pos *= -1;
-	if ((App->player->pos_relCam > (win_width / App->win->GetScale() / 2) ) && (App->render->virtualCamPos > max_camera_pos))
+	if ((App->entityManager->getPlayer()->pos_relCam > (win_width / App->win->GetScale() / 2) ) && (App->render->virtualCamPos > max_camera_pos))
 	{
-		App->render->virtualCamPos -= App->player->speed * 2 * dt; //*dt
+		App->render->virtualCamPos -= App->entityManager->getPlayer()->speed * 2 * dt; //*dt
 	}
 	// ------------------------------------------------
 
-	// Win condition
-	if (((App->player->collider->rect.x + App->player->collider->rect.w) > current_lvl->data->end.x) && (App->player->position.y + App->player->collider->rect.h) < (current_lvl->data->end.y + current_lvl->data->end.h))
-	{
-		if (end_reached == 0)
-		{
-			App->player->won = true;
-			end_reached = SDL_GetTicks();
-			if (current_lvl == levels.end)
-			{
-				App->audio->PlayFx(win_fx, 0);
-			}
-			else
-			{
-				App->audio->PlayFx(complete_level_fx, 0);
-			}
-		}
-	}
-	if  (App->player->won && ((current_lvl == levels.end && SDL_GetTicks() > end_reached + 5000) || (current_lvl != levels.end && SDL_GetTicks() > end_reached + 500)))
-	{
-		end_reached = 0;
-		App->player->won = false;
-		load_lvl = true;
-	}
+	
 
 	// Parallax
 	p2List_item<ImageLayer*>* image = nullptr; // Parallax when player moves
@@ -156,7 +122,7 @@ bool j1Scene::Update(float dt)
 			{
 				image->data->position.x -= image->data->speed * dt; //*dt
 			}
-			else if (App->player->v.x > 0 && (App->player->pos_relCam > (win_width / App->win->GetScale() / 2)) && (App->render->virtualCamPos > max_camera_pos))
+			else if (App->entityManager->getPlayer()->v.x > 0 && (App->entityManager->getPlayer()->pos_relCam > (win_width / App->win->GetScale() / 2)) && (App->render->virtualCamPos > max_camera_pos))
 			{
 				image->data->position.x -= image->data->speed * dt; //*dt
 			}
@@ -223,10 +189,5 @@ void j1Scene::LoadLvl(int num, bool fromSaveData)
 	if (current_lvl != nullptr)
 	{
 		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end, fromSaveData);
-		
-		// Restart player data
-		App->player->collider->to_delete = true;
-		App->player->collider = nullptr; //Has to be null in order to be created
-		App->player->Start();
 	}
 }

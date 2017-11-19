@@ -27,8 +27,6 @@ public:
 
 public:
 
-	bool god_mode = false;
-
 	uint double_jump_fx = 0, jump_fx = 0, step_fx = 0, die_fx = 0, SSJ_transformation = 0, SSJ_off = 0, killed_fx = 0;
 	float step_time = 0;
 	float killed_finished = 0;
@@ -43,8 +41,9 @@ public:
 
 	bool double_jump = false;
 	bool won = false;
+	float end_reached = 0;
 
-	Collider* old_savedCol = nullptr;
+	
 };
 
 #endif

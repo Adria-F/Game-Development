@@ -22,6 +22,7 @@ public:
 	void DeleteEntity(Entity* entity_to_delete);
 
 	Entity* createEntity(entity_type type, int x, int y);
+	Entity* getPlayer() const;
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
@@ -32,6 +33,7 @@ public:
 	pugi::xml_node config;
 	SDL_Texture* path_marker;
 	bool draw_path = false;
+	bool player_god_mode = false;
 };
 
 #endif // !__ENTITY_MANAGER_H__

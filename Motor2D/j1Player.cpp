@@ -100,7 +100,10 @@ bool j1Player::CleanUp()
 	LOG("Unloading player");
 
 	App->tex->UnLoad(graphics);
+	graphics = nullptr;
 	App->tex->UnLoad(graphics_god);
+	graphics_god = nullptr;
+
 	if (collider != nullptr)
 	{
 		collider->to_delete = true;
@@ -113,10 +116,22 @@ bool j1Player::CleanUp()
 // Update: draw background
 bool j1Player::Update(float dt)
 {
-	Entity_Update(dt);
-
 	if (!dead)
 	{
+		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+		{
+			if (App->entityManager->player_god_mode)
+			{
+				App->entityManager->player_god_mode = false;
+				App->audio->PlayFx(SSJ_off, 0);
+			}
+			else
+			{
+				App->entityManager->player_god_mode = true;
+				App->audio->PlayFx(SSJ_transformation, 0);
+			}
+		}
+
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
 		{
 			v.x = -speed;
@@ -211,6 +226,33 @@ bool j1Player::PostUpdate(float dt)
 			v.x = -speed;
 		}
 	}
+	
+	// Win condition
+	if (((collider->rect.x + collider->rect.w) > App->scene->current_lvl->data->end.x) && (position.y + collider->rect.h) < (App->scene->current_lvl->data->end.y + App->scene->current_lvl->data->end.h))
+	{
+		if (end_reached == 0)
+		{
+			won = true;
+			end_reached = SDL_GetTicks();
+			if (App->scene->current_lvl == App->scene->levels.end)
+			{
+				App->audio->PlayFx(App->scene->win_fx, 0);
+			}
+			else
+			{
+				App->audio->PlayFx(App->scene->complete_level_fx, 0);
+			}
+		}
+	}
+	if (won && ((App->scene->current_lvl == App->scene->levels.end && SDL_GetTicks() > end_reached + 5000) || (App->scene->current_lvl != App->scene->levels.end && SDL_GetTicks() > end_reached + 500)))
+	{
+		end_reached = 0;
+		won = false;
+		App->scene->load_lvl = true;
+	}
+
+	// Lose condition
+	//By enemyy
 	if (dead && SDL_GetTicks() > killed_finished + 1500)
 	{
 		killed_finished = 0;
@@ -218,11 +260,11 @@ bool j1Player::PostUpdate(float dt)
 		App->scene->newLvl = App->scene->current_lvl->data->lvl;
 		dead = false;
 	}
-
+	//By falling
 	int win_scale = App->win->GetScale();
-	if (position.y > App->win->screen_surface->h / win_scale + 50 && !won)
+	if (position.y > App->win->screen_surface->h / win_scale + 50 && !won && !dead)
 	{
-		if (god_mode)
+		if (App->entityManager->player_god_mode)
 		{ 
 			App->LoadGame(true);
 		}
@@ -235,13 +277,13 @@ bool j1Player::PostUpdate(float dt)
 	}
 
 	//When f10 is clicked he converts into super sayan (god mode)
-	if (god_mode)
+	if (App->entityManager->player_god_mode)
 	{
 		App->render->Blit(graphics_god, position.x + aura_offset.x, position.y + aura_offset.y, &SSJ_aura->GetCurrentFrame(dt));
 		App->render->Blit(graphics_god, position.x, position.y, &animation->GetCurrentFrame(dt));
 		App->render->Blit(graphics_god, position.x + aura_offset.x, position.y + aura_offset.y, &SSJ_aura->GetCurrentFrame(dt));
 	}
-	else if (god_mode == false)
+	else if (App->entityManager->player_god_mode == false)
 	{
 		App->render->Blit(graphics, position.x, position.y, &animation->GetCurrentFrame(dt));
 	}
@@ -269,7 +311,13 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	if (!dead && c2->type == COLLIDER_ENEMY)
 	{
 		p2SString c2_name = c2->callback->name.GetString();
-		if (!god_mode && (c2_name == "charger" || (c2_name == "bat" && !c2->entity->dead && (Collision_from_top(c1, c2) || Collision_from_left(c1, c2) || Collision_from_right(c1, c2)))))
+		if (c2_name == "bat" && Collision_from_bottom(c1, c2, 3) && v.y < 0)
+		{
+			v.y = (jump_force * 2 / 3);
+			c2->entity->dead = true;
+			c2->to_delete = true;
+		}
+		else if (!App->entityManager->player_god_mode && (c2_name == "charger" || (c2_name == "bat" && !c2->entity->dead && (Collision_from_top(c1, c2) || Collision_from_left(c1, c2) || Collision_from_right(c1, c2)))))
 		{
 			v.x = 0;
 			dead = true;
@@ -279,12 +327,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 				App->audio->PlayFx(killed_fx, 0);
 				sound_one_time = true;
 			}
-		}
-		if (c2_name == "bat" && Collision_from_bottom(c1, c2) && !c2->to_delete && v.y < 0)
-		{
-			v.y = (jump_force * 2 / 3);
-			c2->entity->dead = true;
-			c2->to_delete = true;
 		}
 	}
 

@@ -56,7 +56,6 @@ public:
 	p2List<level*> levels;
 	p2List_item<level*>* current_lvl;
 	uint complete_level_fx = 0, win_fx = 0;
-	float end_reached = 0;
 	int max_camera_pos = 0;
 
 	bool load_lvl = false;

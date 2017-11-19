@@ -8,10 +8,14 @@
 #include "j1Collision.h"
 #include "Brofiler\Brofiler.h"
 #include "j1Input.h"
+#include "j1Player.h"
 
 j1EntityManager::j1EntityManager()
 {
 	name.create("entityManager");
+
+	Entity* player = new j1Player();
+	entities.add(player);
 }
 
 j1EntityManager::~j1EntityManager()
@@ -31,6 +35,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 bool j1EntityManager::Start()
 {
 	path_marker = App->tex->Load("maps/non_walkable_tile.png");
+	getPlayer()->Start();
 
 	return true;
 }
@@ -56,17 +61,25 @@ bool j1EntityManager::PostUpdate(float dt)
 	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
 	{
 		entity->data->PostUpdate(dt);
-		int i = 0;
-		if (draw_path)
+		if (entity->data->type != PLAYER)
 		{
-			while (i < entity->data->entityPath.Count())
+			if (entity->data->position.y > App->map->data.height*App->map->data.tile_height)
 			{
-				iPoint coords = App->map->MapToWorld(entity->data->entityPath.At(i)->x, entity->data->entityPath.At(i)->y);
-				App->render->Blit(path_marker, coords.x, coords.y);
-				i++;
+				DeleteEntity(entity->data);
+				continue;
 			}
+			int i = 0;
+			if (draw_path)
+			{
+				while (i < entity->data->entityPath.Count())
+				{
+					iPoint coords = App->map->MapToWorld(entity->data->entityPath.At(i)->x, entity->data->entityPath.At(i)->y);
+					App->render->Blit(path_marker, coords.x, coords.y);
+					i++;
+				}
+			}
+			App->render->Blit(entity->data->graphics, entity->data->position.x, entity->data->position.y, &entity->data->animation->GetCurrentFrame(dt), entity->data->scale);
 		}
-		App->render->Blit(entity->data->graphics, entity->data->position.x, entity->data->position.y, &entity->data->animation->GetCurrentFrame(dt), entity->data->scale);
 	}
 
 	return true;
@@ -74,8 +87,12 @@ bool j1EntityManager::PostUpdate(float dt)
 
 bool j1EntityManager::CleanUp()
 {
+	Entity* player = getPlayer();
+	if (player)
+		getPlayer()->CleanUp();
+	
 	p2List_item<Entity*>* item;
-	item = entities.start;
+	item = entities.start->next; //Skip first entity, player
 
 	while (item != NULL)
 	{
@@ -83,6 +100,8 @@ bool j1EntityManager::CleanUp()
 		item = item->next;
 	}
 	entities.clear();
+	entities.add(player);
+
 	return true;
 }
 
@@ -93,6 +112,8 @@ void j1EntityManager::DeleteEntity(Entity* entity_to_delete)
 	{
 		if (entity_finder->data == entity_to_delete)
 		{
+			if (entity_finder->data == getPlayer())
+				getPlayer()->CleanUp();
 			entities.del(entity_finder);
 			RELEASE(entity_finder->data);
 			break;
@@ -125,9 +146,25 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 	return ret;
 }
 
+Entity* j1EntityManager::getPlayer() const
+{
+	Entity* ret = nullptr;
+	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
+	{
+		if (entity->data->type == PLAYER)
+		{
+			ret = entity->data;
+			break;
+		}
+	}
+
+	return ret;
+}
+
 bool j1EntityManager::Load(pugi::xml_node& data)
 {
 	CleanUp();
+	getPlayer()->Load(data.child("player"));
 	for (pugi::xml_node charger = data.child("charger"); charger; charger = charger.next_sibling("charger"))
 	{
 		createEntity(CHARGER, charger.attribute("position_x").as_int(), charger.attribute("position_y").as_int());
@@ -143,6 +180,7 @@ bool j1EntityManager::Load(pugi::xml_node& data)
 
 bool j1EntityManager::Save(pugi::xml_node& data) const
 {
+	getPlayer()->Save(data.append_child("player"));
 	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
 	{
 		pugi::xml_node child = data.append_child(entity->data->name.GetString());

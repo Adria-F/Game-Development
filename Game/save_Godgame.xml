@@ -5,18 +5,19 @@
 	<textures />
 	<audio />
 	<:anonymous />
-	<map />
-	<scene />
 	<entityManager>
+		<player position_x="19" position_y="335" level="1" />
+		<player position_x="19" position_y="340" />
 		<charger position_x="1507" position_y="16" />
-		<bat position_x="1810" position_y="23" />
 		<charger position_x="701" position_y="175" />
+		<bat position_x="1810" position_y="23" />
 		<bat position_x="361" position_y="185" />
 		<bat position_x="964" position_y="9" />
 	</entityManager>
-	<player position_x="19" position_y="340" level="1" />
+	<map />
+	<scene />
 	<:anonymous />
 	<renderer>
-		<camera x="-1052" y="0" />
+		<camera x="-6" y="0" />
 	</renderer>
 </game_state>

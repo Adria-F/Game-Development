@@ -5,7 +5,6 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Collision.h"
-#include "j1Player.h"
 #include "j1Window.h"
 #include "j1PathFinding.h"
 #include "j1EntityManager.h"
@@ -176,8 +175,11 @@ bool j1Map::Load(const char* file_name, int& map_length, SDL_Rect& end, bool fro
 	BROFILER_CATEGORY("Load Map", Profiler::Color::Pink);
 	//Clean previous map before loading another one
 	CleanUp();
-	if (!fromSaveData)
-		App->entityManager->CleanUp(); //Clean entities;
+	if (!fromSaveData && App->entityManager->entities.start->next != nullptr)
+		App->entityManager->CleanUp(); //Clean entities
+
+	// Restart player data
+	App->entityManager->getPlayer()->Start();
 
 	p2SString tmp("%s%s", folder.GetString(), file_name);
 
@@ -532,10 +534,10 @@ bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length, SDL_Rect& end, bool
 		type = object.attribute("type").as_string();
 		if (name == "player_start_pos")
 		{
-			App->player->position.x = object.attribute("x").as_int();
-			App->player->position.y = object.attribute("y").as_int();
+			App->entityManager->getPlayer()->virtualPosition.x = App->entityManager->getPlayer()->position.x = object.attribute("x").as_int();
+			App->entityManager->getPlayer()->virtualPosition.y = App->entityManager->getPlayer()->position.y = object.attribute("y").as_int();
 
-			App->render->virtualCamPos = -(App->player->position.x * (int)App->win->GetScale() - 100);
+			App->render->virtualCamPos = -(App->entityManager->getPlayer()->position.x * (int)App->win->GetScale() - 100);
 			if (App->render->virtualCamPos > 0)
 			{
 				App->render->virtualCamPos = 0;
