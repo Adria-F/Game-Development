@@ -3467,8 +3467,8 @@
   <object id="26" type="floor" x="1070.67" y="91.6667" width="69.3333" height="24.3333"/>
   <object id="29" type="floor" x="1192.67" y="59.3333" width="109.667" height="324.667"/>
   <object id="30" type="floor" x="1329.67" y="124.833" width="94.3333" height="259.167"/>
-  <object id="31" type="floor" x="1451.33" y="61.1667" width="125.667" height="320.833"/>
-  <object id="32" type="floor" x="1620" y="155.667" width="92.6667" height="57"/>
+  <object id="31" type="floor" x="1451.33" y="61.1667" width="131.849" height="320.833"/>
+  <object id="32" type="floor" x="1615.27" y="155.667" width="97.394" height="57"/>
   <object id="33" type="floor" x="1786" y="155.667" width="43.3333" height="56"/>
   <object id="34" type="floor" x="1903.67" y="154.667" width="68.3333" height="56.3333"/>
   <object id="35" type="floor" x="2001.67" y="90" width="80.6667" height="58.3333"/>

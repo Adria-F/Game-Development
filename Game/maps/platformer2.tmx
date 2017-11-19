@@ -3460,12 +3460,12 @@
   <object id="19" type="floor" x="602" y="352.667" width="42" height="31.3333"/>
   <object id="20" type="floor" x="700" y="376" width="75" height="6"/>
   <object id="21" type="floor" x="954" y="379.333" width="44.333" height="4.66667"/>
-  <object id="22" type="floor" x="1168.67" y="61.6667" width="212.333" height="21.6666"/>
+  <object id="22" type="floor" x="1164.17" y="61.6667" width="216.833" height="21.6666"/>
   <object id="23" type="floor" x="1163.5" y="190" width="27.75" height="21"/>
-  <object id="24" type="floor" x="1084" y="252" width="47.8333" height="22.3333"/>
+  <object id="24" type="floor" x="1080.5" y="252" width="47.3333" height="22.3333"/>
   <object id="25" type="floor" x="1082" y="348" width="43.3333" height="34"/>
   <object id="26" type="floor" x="1081.67" y="124" width="46.3333" height="20"/>
-  <object id="29" type="floor" x="1170.34" y="315" width="60.0003" height="69"/>
+  <object id="29" type="floor" x="1163.84" y="315" width="71.0003" height="69"/>
   <object id="30" type="floor" x="1402.67" y="189.667" width="44.3333" height="52.3333"/>
   <object id="32" type="floor" x="1597" y="284" width="37.6667" height="52.6667"/>
   <object id="33" type="floor" x="1738" y="378.333" width="76.3333" height="6.33337"/>
