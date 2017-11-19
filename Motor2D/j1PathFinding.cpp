@@ -37,8 +37,8 @@ void j1PathFinding::ResetPath(p2DynArray<iPoint>& path_to_reset)
 	frontier.Clear();
 	visited.clear();
 	breadcrumbs.clear();
-	memset(cost_so_far, 0, sizeof(uint) * 65 * 13);
-	memset(falling_value, 0, sizeof(uint) * 65 * 13);
+	memset(cost_so_far, 0, sizeof(uint) * MAP_SIZE * MAP_SIZE);
+	memset(falling_value, 0, sizeof(uint) * MAP_SIZE * MAP_SIZE);
 }
 
 bool j1PathFinding::getPath(Entity* entity, Entity* objective, p2DynArray<iPoint>& path_to_fill)

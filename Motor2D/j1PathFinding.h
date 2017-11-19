@@ -8,6 +8,8 @@
 #include "p2DynArray.h"
 #include "p2PQueue.h"
 
+#define MAP_SIZE 100
+
 class j1PathFinding : public j1Module
 {
 public:
@@ -31,8 +33,8 @@ private:
 	p2PQueue<iPoint>	frontier;
 	p2List<iPoint>		visited;
 	p2List<iPoint>		breadcrumbs;
-	uint				cost_so_far[65][13];
-	uint				falling_value[65][13];
+	uint				cost_so_far[MAP_SIZE][MAP_SIZE];
+	uint				falling_value[MAP_SIZE][MAP_SIZE];
 };
 
 #endif // !__PATH_FINDING_H__
