@@ -39,7 +39,7 @@ Decompress the .zip file in any directory and execute the executable inside the 
 
 - When an enemy does not found a path to the player, after 1.5 seconds it will start flying/walking around.
 
-		Boar: Will walk along all the platform in each directions.
+		Charger(Boar): Will walk along all the platform in each directions.
 
 		Bat: Will fly randomly across air.
 
