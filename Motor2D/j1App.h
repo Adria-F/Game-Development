@@ -92,7 +92,7 @@ public:
 	j1EntityManager*	entityManager;
 	j1PathFinding*		pathfinding;
 
-	bool				cap_frames = false;
+	bool				cap_frames = true;
 
 private:
 

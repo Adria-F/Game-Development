@@ -6,18 +6,17 @@
 	<audio />
 	<:anonymous />
 	<entityManager>
-		<player position_x="602" position_y="317" level="2" />
-		<player position_x="602" position_y="322" />
-		<charger position_x="375" position_y="336" />
-		<bat position_x="800" position_y="73" />
-		<bat position_x="1012" position_y="48" />
-		<bat position_x="1931" position_y="110" />
-		<bat position_x="1574" position_y="84" />
+		<player position_x="19" position_y="340" level="1" />
+		<player position_x="19" position_y="345" />
+		<charger position_x="1507" position_y="16" />
+		<bat position_x="1946" position_y="12" />
+		<charger position_x="701" position_y="175" />
+		<bat position_x="361" position_y="185" />
 	</entityManager>
 	<map />
 	<scene />
 	<:anonymous />
 	<renderer>
-		<camera x="-690" y="0" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>

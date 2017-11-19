@@ -29,6 +29,8 @@ j1Player::j1Player() : Entity("player")
 	SSJ_aura = LoadAnimation("animations/player.tmx", "SSJ_aura");
 	aura_offset.x = -7;
 	aura_offset.y = -12;
+
+	type = PLAYER;
 }
 
 j1Player::~j1Player()

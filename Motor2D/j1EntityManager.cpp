@@ -165,6 +165,7 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 Entity* j1EntityManager::getPlayer() const
 {
 	Entity* ret = nullptr;
+
 	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
 	{
 		if (entity->data->type == PLAYER)

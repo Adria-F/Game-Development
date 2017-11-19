@@ -20,7 +20,7 @@ Bat::Bat() : Entity("bat")
 {
 	graphics = App->tex->Load("textures/enemies/bat.png");
 	scale = 0.2f;
-	collider = App->collision->AddCollider({ 0, 0, (int)(collider_size.x*scale), (int)(collider_size.y*scale) }, COLLIDER_ENEMY, this, this);
+	collider = App->collision->AddCollider({ position.x, position.y, (int)(collider_size.x*scale), (int)(collider_size.y*scale) }, COLLIDER_ENEMY, this, this);
 	collider_offset.x *= scale;
 	collider_offset.y *= scale;
 

@@ -15,7 +15,7 @@ struct SDL_Texture;
 
 enum entity_state
 {
-	IDLE,
+	IDLE = 0,
 	RIGHT,
 	LEFT,
 	JUMPING,
@@ -26,7 +26,7 @@ enum entity_state
 
 enum entity_type
 {
-	PLAYER,
+	PLAYER = 0,
 	CHARGER,
 	BAT
 };
