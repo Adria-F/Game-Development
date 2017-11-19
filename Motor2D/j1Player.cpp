@@ -220,10 +220,12 @@ bool j1Player::PostUpdate(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !colliding_right && v.x == 0)
 		{
 			v.x = speed;
+			state = RIGHT;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && !colliding_left && v.x == 0)
 		{
 			v.x = -speed;
+			state = LEFT;
 		}
 	}
 	
