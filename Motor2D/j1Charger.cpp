@@ -10,6 +10,7 @@
 #include "j1Scene.h"
 #include "j1Audio.h"
 #include "j1PathFinding.h"
+#include "Brofiler\Brofiler.h"
 
 Charger::Charger() : Entity("charger")
 {
@@ -35,6 +36,7 @@ bool Charger::Start()
 }
 bool Charger::Update(float dt)
 {
+	BROFILER_CATEGORY("Charger Update", Profiler::Color::Red);
 	if (!dead)
 	{
 		if (!Calculate_Path())

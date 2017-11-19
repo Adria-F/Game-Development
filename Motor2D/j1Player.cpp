@@ -11,6 +11,7 @@
 #include "j1Audio.h"
 #include "j1entityManager.h"
 #include "j1PathFinding.h"
+#include "Brofiler\Brofiler.h"
 
 #include<stdio.h>
 
@@ -116,6 +117,7 @@ bool j1Player::CleanUp()
 // Update: draw background
 bool j1Player::Update(float dt)
 {
+	BROFILER_CATEGORY("Player Update", Profiler::Color::Red);
 	if (!dead)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)

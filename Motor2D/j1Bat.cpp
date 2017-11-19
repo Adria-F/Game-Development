@@ -13,6 +13,7 @@
 #include "j1Player.h"
 #include "j1PathFinding.h"
 #include "j1Player.h"
+#include "Brofiler\Brofiler.h"
 #include <time.h>
 
 Bat::Bat() : Entity("bat")
@@ -38,6 +39,7 @@ bool Bat::Awake(pugi::xml_node&)
 
 bool Bat::Update(float dt)
 {
+	BROFILER_CATEGORY("Bat Update", Profiler::Color::Red);
 	if (!dead)
 	{
 		if (!Calculate_Path())
