@@ -9,7 +9,7 @@
 #include "Brofiler\Brofiler.h"
 #include "j1Input.h"
 #include "j1Player.h"
-
+#include "j1Window.h"
 j1EntityManager::j1EntityManager()
 {
 	name.create("entityManager");
@@ -43,10 +43,20 @@ bool j1EntityManager::Start()
 bool j1EntityManager::Update(float dt)
 {
 	BROFILER_CATEGORY("EntityManager Update", Profiler::Color::Yellow);
+
+	int win_scale = App->win->GetScale();
+	int win_width = App->win->screen_surface->w / win_scale;
 	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
-	{
-		entity->data->Entity_Update(dt);
-		entity->data->Update(dt);
+	{	
+		if (entity->data->pos_relCam >= (0 - SCREEN_MARGIN) && entity->data->pos_relCam <= (win_width + SCREEN_MARGIN))
+		{
+			entity->data->Entity_Update(dt);
+			entity->data->Update(dt);
+		}
+		else
+		{
+			entity->data->pos_relCam = entity->data->position.x + App->render->camera.x / win_scale;
+		}
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
@@ -58,27 +68,33 @@ bool j1EntityManager::Update(float dt)
 bool j1EntityManager::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("EntityManager PostUpdate", Profiler::Color::Yellow);
+
+	int win_scale = App->win->GetScale();
+	int win_width = App->win->screen_surface->w / win_scale;
 	for (p2List_item<Entity*>* entity = entities.start; entity; entity = entity->next)
 	{
-		entity->data->PostUpdate(dt);
-		if (entity->data->type != PLAYER)
+		if (entity->data->pos_relCam >= (0 - 50) && entity->data->pos_relCam <= (win_width))
 		{
-			if (entity->data->position.y > App->map->data.height*App->map->data.tile_height)
+			entity->data->PostUpdate(dt);
+			if (entity->data->type != PLAYER)
 			{
-				DeleteEntity(entity->data);
-				continue;
-			}
-			int i = 0;
-			if (draw_path)
-			{
-				while (i < entity->data->entityPath.Count())
+				if (entity->data->position.y > App->map->data.height*App->map->data.tile_height)
 				{
-					iPoint coords = App->map->MapToWorld(entity->data->entityPath.At(i)->x, entity->data->entityPath.At(i)->y);
-					App->render->Blit(path_marker, coords.x, coords.y);
-					i++;
+					DeleteEntity(entity->data);
+					continue;
 				}
+				int i = 0;
+				if (draw_path)
+				{
+					while (i < entity->data->entityPath.Count())
+					{
+						iPoint coords = App->map->MapToWorld(entity->data->entityPath.At(i)->x, entity->data->entityPath.At(i)->y);
+						App->render->Blit(path_marker, coords.x, coords.y);
+						i++;
+					}
+				}
+				App->render->Blit(entity->data->graphics, entity->data->position.x, entity->data->position.y, &entity->data->animation->GetCurrentFrame(dt), entity->data->scale);
 			}
-			App->render->Blit(entity->data->graphics, entity->data->position.x, entity->data->position.y, &entity->data->animation->GetCurrentFrame(dt), entity->data->scale);
 		}
 	}
 

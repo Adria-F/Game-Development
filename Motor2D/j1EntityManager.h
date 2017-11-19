@@ -5,6 +5,8 @@
 #include "p2List.h"
 #include "j1Entity.h"
 
+#define SCREEN_MARGIN 300
+
 struct SDL_Texture;
 
 class j1EntityManager : public j1Module
