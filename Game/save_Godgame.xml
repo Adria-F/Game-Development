@@ -16,7 +16,8 @@
 	<map />
 	<scene />
 	<:anonymous />
+	<:anonymous />
 	<renderer>
-		<camera x="-3139" y="0" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>
