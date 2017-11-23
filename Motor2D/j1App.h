@@ -95,6 +95,7 @@ public:
 	Slider*				slider;
 
 	bool				cap_frames = true;
+	bool				paused = false;
 
 private:
 

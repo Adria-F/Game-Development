@@ -5,6 +5,7 @@
 	<textures />
 	<audio />
 	<:anonymous />
+	<scene />
 	<entityManager>
 		<player position_x="19" position_y="340" level="1" />
 		<player position_x="19" position_y="345" />
@@ -14,7 +15,6 @@
 		<bat position_x="361" position_y="185" />
 	</entityManager>
 	<map />
-	<scene />
 	<:anonymous />
 	<:anonymous />
 	<renderer>

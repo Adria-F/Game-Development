@@ -43,9 +43,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(pathfinding);
+	AddModule(scene);
 	AddModule(entityManager);
 	AddModule(map);
-	AddModule(scene);
 	AddModule(collision);
 	AddModule(slider);
 
@@ -137,13 +137,16 @@ bool j1App::Update()
 	bool ret = true;
 	PrepareUpdate();
 
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+		paused = !paused;
+
 	if(input->GetWindowEvent(WE_QUIT) == true)
 		ret = false;
 
 	if(ret == true)
 		ret = PreUpdate();
 
-	if(ret == true)
+	if(ret == true && !paused)
 		ret = DoUpdate();
 
 	if(ret == true)
