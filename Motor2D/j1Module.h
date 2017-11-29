@@ -79,6 +79,7 @@ public:
 
 	p2SString	name;
 	bool		active = false;
+	bool		pausable = true;
 
 };
 

@@ -89,8 +89,6 @@ public:
 	bool going_down = false;
 	bool dead = false;
 
-	bool sound_one_time = false;
-
 	SDL_Texture* graphics = nullptr;
 	
 	entity_state state;

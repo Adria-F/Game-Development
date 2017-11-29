@@ -72,6 +72,9 @@ bool j1Player::Start()
 	v.x = 0;
 	v.y = 0;
 
+	if (lives <= 0)
+		lives = 3;
+
 	animation = idle_right;
 
 	virtualPosition.x = position.x;
@@ -259,6 +262,9 @@ bool j1Player::PostUpdate(float dt)
 	//By enemyy
 	if (dead && SDL_GetTicks() > killed_finished + 1500)
 	{
+		if (lives > 0)
+			App->scene->respawn_enemies = false;
+
 		killed_finished = 0;
 		App->scene->load_lvl = true;
 		App->scene->newLvl = App->scene->current_lvl->data->lvl;
@@ -274,7 +280,15 @@ bool j1Player::PostUpdate(float dt)
 		}
 		else
 		{
-			App->audio->PlayFx(die_fx, 0);
+			lives--;
+			if (lives > 0)
+			{
+				App->scene->respawn_enemies = false;
+				App->audio->PlayFx(killed_fx, 0);
+			}
+			else
+				App->audio->PlayFx(die_fx, 0);
+
 			App->scene->load_lvl = true;
 			App->scene->newLvl = App->scene->current_lvl->data->lvl;
 		}
@@ -327,9 +341,13 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			dead = true;
 			if (!sound_one_time && killed_finished == 0)
 			{
+				lives--;
    				killed_finished = SDL_GetTicks();
-				App->audio->PlayFx(killed_fx, 0);
 				sound_one_time = true;
+				if(lives > 0)
+					App->audio->PlayFx(killed_fx, 0);
+				else
+					App->audio->PlayFx(die_fx, 0);
 			}
 		}
 	}
@@ -339,7 +357,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 bool j1Player::Load(pugi::xml_node& data)
 {
-	App->scene->LoadLvl(data.attribute("level").as_int(), true);
+	App->scene->respawn_enemies = false;
+	App->scene->LoadLvl(data.attribute("level").as_int());
+	lives = data.attribute("lives").as_uint();
 	virtualPosition.x = data.attribute("position_x").as_int();
 	virtualPosition.y = data.attribute("position_y").as_int();
 	App->render->virtualCamPos = -(virtualPosition.x * (int)App->win->GetScale() - 300);
@@ -362,6 +382,8 @@ bool j1Player::Save(pugi::xml_node& data) const
 	data.append_attribute("position_y") = position.y - 5;
 
 	data.append_attribute("level") = App->scene->current_lvl->data->lvl;
+
+	data.append_attribute("lives") = lives;
 	
 	return true;
 }
