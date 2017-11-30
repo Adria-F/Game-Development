@@ -21,6 +21,7 @@ class j1PathFinding;
 class Slider;
 class j1Fonts;
 class j1Gui;
+class j1UIScene;
 
 class j1App
 {
@@ -97,6 +98,7 @@ public:
 	Slider*				slider;
 	j1Fonts*			font;
 	j1Gui*				gui;
+	j1UIScene*			uiScene;
 
 	bool				cap_frames = true;
 	bool				paused = false;

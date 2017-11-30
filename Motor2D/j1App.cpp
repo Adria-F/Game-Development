@@ -18,6 +18,7 @@
 #include "Slider.h"
 #include "j1Fonts.h"
 #include "j1Gui.h"
+#include "j1UIScene.h"
 #include "Brofiler\Brofiler.h"
 
 // Constructor
@@ -39,6 +40,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	slider = new Slider();
 	font = new j1Fonts();
 	gui = new j1Gui();
+	uiScene = new j1UIScene();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -54,6 +56,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	//AddModule(slider);
 	AddModule(font);
 	AddModule(gui);
+	AddModule(uiScene);
 
 	// render last to swap buffer
 	AddModule(render);
