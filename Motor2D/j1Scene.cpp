@@ -13,6 +13,9 @@
 #include "j1PathFinding.h"
 #include "j1EntityManager.h"
 #include "Brofiler\Brofiler.h"
+#include "j1Gui.h"
+#include "j1Fonts.h"
+#include "UI_element.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -72,6 +75,11 @@ bool j1Scene::Update(float dt)
 		load_lvl = true;
 		newLvl = 1;
 	}
+	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
+	{
+		App->gui->createButton(100, 100, NULL, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
+		App->gui->createText("Hello World", 200, 200, App->font->Load("fonts/open_sans/OpenSans-Regular.ttf", 25), { 255, 0, 0, 255 }, this);
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
@@ -130,6 +138,8 @@ bool j1Scene::Update(float dt)
 		}
 	}
 
+	App->map->Draw();
+
 	return true;
 }
 
@@ -138,8 +148,6 @@ bool j1Scene::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("Scene PostUpdate", Profiler::Color::White);
 	bool ret = true;
-
-	App->map->Draw();
 
 	if (load_lvl)
 	{
@@ -152,6 +160,30 @@ bool j1Scene::PostUpdate(float dt)
 		ret = false;
 
 	return ret;
+}
+
+bool j1Scene::OnUIEvent(UI_element* element, event_type event_type)
+{
+	if (event_type == MOUSE_ENTER || event_type == MOUSE_LEFT_RELEASE || event_type == MOUSE_RIGHT_RELEASE)
+	{
+		element->state = MOUSEOVER;
+
+	}
+	else if (event_type == MOUSE_LEAVE)
+	{
+		element->state = STANDBY;
+
+	}
+	else if (event_type == MOUSE_LEFT_CLICK)
+	{
+		element->state = CLICKED;
+
+	}
+	else if (event_type == MOUSE_RIGHT_CLICK)
+	{
+	}
+
+	return true;
 }
 
 // Called before quitting

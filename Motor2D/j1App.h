@@ -19,6 +19,8 @@ class j1Collision;
 class j1EntityManager;
 class j1PathFinding;
 class Slider;
+class j1Fonts;
+class j1Gui;
 
 class j1App
 {
@@ -93,6 +95,8 @@ public:
 	j1EntityManager*	entityManager;
 	j1PathFinding*		pathfinding;
 	Slider*				slider;
+	j1Fonts*			font;
+	j1Gui*				gui;
 
 	bool				cap_frames = true;
 	bool				paused = false;

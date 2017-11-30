@@ -11,6 +11,8 @@
 
 class j1App;
 class Collider;
+class UI_element;
+enum event_type;
 
 class j1Module
 {
@@ -66,6 +68,11 @@ public:
 	}
 
 	virtual bool Save(pugi::xml_node&) const
+	{
+		return true;
+	}
+
+	virtual bool OnUIEvent(UI_element* element, event_type event_type)
 	{
 		return true;
 	}

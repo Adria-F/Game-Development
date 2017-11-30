@@ -16,6 +16,8 @@
 #include "j1EntityManager.h"
 #include "j1PathFinding.h"
 #include "Slider.h"
+#include "j1Fonts.h"
+#include "j1Gui.h"
 #include "Brofiler\Brofiler.h"
 
 // Constructor
@@ -35,6 +37,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	entityManager = new j1EntityManager();
 	pathfinding = new j1PathFinding();
 	slider = new Slider();
+	font = new j1Fonts();
+	gui = new j1Gui();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -47,7 +51,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entityManager);
 	AddModule(map);
 	AddModule(collision);
-	AddModule(slider);
+	//AddModule(slider);
+	AddModule(font);
+	AddModule(gui);
 
 	// render last to swap buffer
 	AddModule(render);

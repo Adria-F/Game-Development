@@ -81,6 +81,8 @@
     <ClCompile Include="j1Collision.cpp" />
     <ClCompile Include="j1Entity.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
+    <ClCompile Include="j1Fonts.cpp" />
+    <ClCompile Include="j1Gui.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Audio.cpp" />
@@ -97,6 +99,11 @@
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="Slider.cpp" />
+    <ClCompile Include="UI_Button.cpp" />
+    <ClCompile Include="UI_Image.cpp" />
+    <ClCompile Include="UI_InputBox.cpp" />
+    <ClCompile Include="UI_Text.cpp" />
+    <ClCompile Include="UI_Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -105,6 +112,8 @@
     <ClInclude Include="j1Collision.h" />
     <ClInclude Include="j1Entity.h" />
     <ClInclude Include="j1EntityManager.h" />
+    <ClInclude Include="j1Fonts.h" />
+    <ClInclude Include="j1Gui.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1PathFinding.h" />
     <ClInclude Include="j1PerfTimer.h" />
@@ -128,6 +137,12 @@
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
     <ClInclude Include="Slider.h" />
+    <ClInclude Include="UI_Button.h" />
+    <ClInclude Include="UI_element.h" />
+    <ClInclude Include="UI_Image.h" />
+    <ClInclude Include="UI_InputBox.h" />
+    <ClInclude Include="UI_Text.h" />
+    <ClInclude Include="UI_Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -45,6 +45,8 @@ public:
 	// Called before all Updates
 	bool PostUpdate(float dt);
 
+	bool OnUIEvent(UI_element* element, event_type event_type);
+
 	// Called before quitting
 	bool CleanUp();
 
