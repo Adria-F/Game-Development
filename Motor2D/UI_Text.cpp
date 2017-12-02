@@ -43,7 +43,7 @@ void Text::createTexture()
 	if (outlined)
 	{
 		outline_offset.x = tex_width - outline_width;
-		outline_offset.x /= 4;
+		outline_offset.x /= 2/App->gui->UI_scale;
 		outline_offset.y = outline_offset.x;
 	}
 

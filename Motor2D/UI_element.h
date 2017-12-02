@@ -6,6 +6,7 @@
 #include "j1App.h"
 #include "j1Textures.h"
 #include "j1Gui.h"
+#include "j1Input.h"
 
 struct SDL_Texture;
 
@@ -33,7 +34,7 @@ public:
 	UI_element()
 	{}
 
-	UI_element(int x, int y, element_type type, SDL_Rect section, j1Module* callback, SDL_Texture* texture = nullptr): localPosition({x, y}), element_type(type), section(section), callback(callback), texture(texture)
+	UI_element(int x, int y, element_type type, SDL_Rect section, j1Module* callback, SDL_Texture* texture = nullptr) : localPosition({ x, y }), element_type(type), section(section), callback(callback), texture(texture)
 	{}
 
 	virtual ~UI_element()
@@ -65,6 +66,31 @@ public:
 	virtual void BlitElement()
 	{}
 
+	void Mouse_Drag()
+	{
+		iPoint Mouse_Movement;
+		App->input->GetMousePosition(Mouse_Movement.x, Mouse_Movement.y);
+		localPosition.x += (Mouse_Movement.x - Click_Pos.x);
+		localPosition.y += (Mouse_Movement.y - Click_Pos.y);
+
+		Click_Pos = Mouse_Movement;
+	}
+
+	void Start_Drag()
+	{
+		iPoint Mouse_Movement;
+		App->input->GetMousePosition(Mouse_Movement.x, Mouse_Movement.y);
+		Click_Pos = Mouse_Movement;
+
+		moving = true;
+	}
+
+	void End_Drag()
+	{
+		Click_Pos = { 0,0 };
+		moving = false;
+	}
+
 public:
 
 	SDL_Texture* texture = nullptr;
@@ -75,6 +101,12 @@ public:
 	j1Module* callback = nullptr;
 	UI_element* parent = nullptr;
 	bool hovering = false;
+	bool moving = false;
+	bool dragable = false;
+
+protected:
+	iPoint Click_Pos{ 0,0 };
+	iPoint Displace{ 0,0 };
 };
 
 #endif // !__UI_ELEMENT__

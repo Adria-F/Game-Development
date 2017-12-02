@@ -78,6 +78,7 @@ private:
 	SDL_Texture* atlas;
 	p2SString atlas_file_name;
 	p2List<UI_element*> UI_elements;
+	UI_element* draggingElement = nullptr;
 };
 
 #endif // __j1GUI_H__

@@ -17,9 +17,9 @@ void Button::appendChild(int x, int y, UI_element * child)
 
 void Button::appendChildAtCenter(UI_element * child)
 {
-	iPoint child_pos(section.w / 2, section.h / 2);
-	child_pos.x -= child->section.w / 2;
-	child_pos.y -= child->section.h / 2;
+	iPoint child_pos(section.w / (2 / App->gui->UI_scale), section.h / (2 / App->gui->UI_scale));
+	child_pos.x -= child->section.w / (2/App->gui->UI_scale);
+	child_pos.y -= child->section.h / (2 / App->gui->UI_scale);
 	child->localPosition = { child_pos.x, child_pos.y };
 	child->parent = this;
 	text = (Text*)child;
