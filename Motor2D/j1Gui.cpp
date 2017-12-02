@@ -38,6 +38,8 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 bool j1Gui::Start()
 {
 	atlas = App->tex->Load(atlas_file_name.GetString());
+	UI_scale = App->win->GetScale();
+	UI_scale = 1 / UI_scale;
 
 	return true;
 }
@@ -173,7 +175,9 @@ Text* j1Gui::createText(char* text, int x, int y, _TTF_Font* font, SDL_Color col
 
 Image* j1Gui::createImage(int x, int y, SDL_Texture* texture, j1Module* callback)
 {
-	Image* ret = new Image(texture, x, y, {0, 0, 0, 0}, callback);
+	uint tex_width, tex_height;
+	App->tex->GetSize(texture, tex_width, tex_height);
+	Image* ret = new Image(texture, x, y, {0, 0, (int)tex_width, (int)tex_height }, callback);
 	UI_elements.add(ret);
 	
 	return ret;

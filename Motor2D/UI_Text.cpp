@@ -43,7 +43,7 @@ void Text::createTexture()
 	if (outlined)
 	{
 		outline_offset.x = tex_width - outline_width;
-		outline_offset.x /= 2;
+		outline_offset.x /= 4;
 		outline_offset.y = outline_offset.x;
 	}
 
@@ -67,8 +67,8 @@ void Text::BlitElement()
 	iPoint globalPos = calculateAbsolutePosition();
 
 	if (outlined)
-		App->render->Blit(outline, globalPos.x + outline_offset.x, globalPos.y + outline_offset.y, NULL, false, 0.5f);
-	App->render->Blit(texture, globalPos.x, globalPos.y, NULL, false, 0.5f);
+		App->render->Blit(outline, globalPos.x + outline_offset.x, globalPos.y + outline_offset.y, NULL, false, App->gui->UI_scale);
+	App->render->Blit(texture, globalPos.x, globalPos.y, NULL, false, App->gui->UI_scale);
 }
 
 void Text::setOutlined(bool isOutlined)

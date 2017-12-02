@@ -53,7 +53,7 @@ void InputBox::setOutlined(bool isOutlined)
 void InputBox::BlitElement()
 {
 	iPoint globalPos = calculateAbsolutePosition();
-	App->render->Blit(texture, globalPos.x, globalPos.y, &section, false, 0.5f);
+	App->render->Blit(texture, globalPos.x, globalPos.y, &section, false, App->gui->UI_scale);
 
 	if (text != nullptr)
 	{		

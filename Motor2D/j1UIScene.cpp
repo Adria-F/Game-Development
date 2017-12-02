@@ -19,8 +19,10 @@ bool j1UIScene::Awake()
 
 bool j1UIScene::Start()
 {
-	pause = App->gui->createButton(100, 100, NULL, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
-	App->gui->createText("Hello World", 200, 200, App->font->Load("fonts/open_sans/OpenSans-Regular.ttf", 25), { 255, 0, 0, 255 }, this);
+	_TTF_Font* text_font = App->font->Load("fonts/BMYEONSUNG.ttf", 50);
+
+	pause = App->gui->createButton(100, 100, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+	App->gui->createText("NEW GAME", 110, 110, text_font, { 229, 168, 61, 255 }, this)->setOutlined(true);
 
 	return true;
 }

@@ -71,6 +71,7 @@ public:
 
 public:
 	bool UI_Debug = false;
+	float UI_scale;
 
 private:
 

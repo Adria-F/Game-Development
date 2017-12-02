@@ -27,7 +27,7 @@ void Window::appendChildAtCenter(UI_element * child)
 void Window::BlitElement()
 {
 	iPoint globalPos = calculateAbsolutePosition();
-	App->render->Blit(texture, globalPos.x, globalPos.y, &section, false, 0.5f);
+	App->render->Blit(texture, globalPos.x, globalPos.y, &section, false, App->gui->UI_scale);
 
 	for (p2List_item<UI_element*>* item = content.start; item; item = item->next)
 	{
