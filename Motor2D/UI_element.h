@@ -20,6 +20,19 @@ enum element_type
 	WINDOW
 };
 
+enum element_function
+{
+	NONE,
+
+	NEW_GAME,
+	CONTINUE,
+	SETTINGS,
+	CREDITS,
+	QUIT,
+	PAUSE,
+	RESTART
+};
+
 enum element_state
 {
 	STANDBY,
@@ -98,6 +111,7 @@ public:
 	SDL_Rect section;
 	element_type element_type;
 	element_state state = STANDBY;
+	element_function function = NONE;
 	j1Module* callback = nullptr;
 	UI_element* parent = nullptr;
 	bool hovering = false;

@@ -13,6 +13,7 @@
 #include "UI_InputBox.h"
 #include "UI_Window.h"
 #include "j1Window.h"
+#include "j1UIScene.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -47,6 +48,8 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate()
 {
+	bool ret = true;
+	
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	int scale = App->win->GetScale();
@@ -57,7 +60,7 @@ bool j1Gui::PreUpdate()
 		element = draggingElement;
 	else
 	{
-		for (p2List_item<UI_element*>* item = UI_elements.end; item; item = item->prev)
+		for (p2List_item<UI_element*>* item = App->uiScene->current_menu->elements.end; item; item = item->prev)
 		{
 			iPoint globalPos = item->data->calculateAbsolutePosition();
 			if (x > globalPos.x && x < globalPos.x + item->data->section.w / scale && y > globalPos.y && y < globalPos.y + item->data->section.h / scale && element == nullptr && item->data->dragable)
@@ -86,7 +89,7 @@ bool j1Gui::PreUpdate()
 		{
 			if (element->callback != nullptr)
 			{
-				element->callback->OnUIEvent(element, MOUSE_LEFT_CLICK);
+				ret = element->callback->OnUIEvent(element, MOUSE_LEFT_CLICK);
 			}
 			if (element->dragable)
 			{
@@ -109,7 +112,7 @@ bool j1Gui::PreUpdate()
 		else if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
 		{
 			if (element->callback != nullptr)
-				element->callback->OnUIEvent(element, MOUSE_RIGHT_CLICK);
+				ret = element->callback->OnUIEvent(element, MOUSE_RIGHT_CLICK);
 		}
 		else if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
 		{
@@ -118,7 +121,7 @@ bool j1Gui::PreUpdate()
 		}
 	}
 
-	return true;
+	return ret;
 }
 
 bool j1Gui::Update(float dt)
@@ -132,7 +135,7 @@ bool j1Gui::Update(float dt)
 // Called after all Updates
 bool j1Gui::PostUpdate(float dt)
 {
-	for (p2List_item<UI_element*>* item = UI_elements.start; item; item = item->next)
+	for (p2List_item<UI_element*>* item = App->uiScene->current_menu->elements.start; item; item = item->next)
 	{
 		if (item->data->moving)
 		{
@@ -177,7 +180,7 @@ bool j1Gui::CleanUp()
 
 void j1Gui::UIDebugDraw()
 {
-	for (p2List_item<UI_element*>* item = UI_elements.start; item; item = item->next)
+	for (p2List_item<UI_element*>* item = App->uiScene->current_menu->elements.start; item; item = item->next)
 	{
 		SDL_Rect box;
 		int scale = App->win->GetScale();
