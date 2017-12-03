@@ -8,6 +8,7 @@
 
 j1UIScene::j1UIScene()
 {
+	pausable = false;
 }
 
 j1UIScene::~j1UIScene()
@@ -22,26 +23,43 @@ bool j1UIScene::Awake()
 bool j1UIScene::Start()
 {
 	_TTF_Font* text_font = App->font->Load("fonts/BMYEONSUNG.ttf", 50);
+	SDL_Color text_color = { 229, 168, 61, 255 };
 
-	menu* mainMenu = new menu(MAIN_MENU);
-	UI_element* pause = App->gui->createButton(100, 100, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
-	pause->function = PAUSE;
-	pause->dragable = true;
-	UI_element* text = App->gui->createText("NEW GAME", 200, 200, text_font, { 229, 168, 61, 255 }, this);
-	text->setOutlined(true);
-	pause->appendChildAtCenter(text);
-	mainMenu->elements.add(pause);
-	menus.add(mainMenu);
+	menu* mainMenu = new menu(INGAME_MENU);
+	{
+		UI_element* pause = App->gui->createButton(100, 100, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+		pause->function = PAUSE;
+		pause->dragable = true;
 
-	menu* testMenu = new menu(SETTINGS_MENU);
-	UI_element* button = App->gui->createButton(300, 300, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
-	button->dragable = true;
-	button->function = QUIT;
-	UI_element* test = App->gui->createText("QUIT", 200, 200, text_font, { 229, 168, 61, 255 }, this);
-	test->setOutlined(true);
-	button->appendChildAtCenter(test);
-	testMenu->elements.add(button);
-	menus.add(testMenu);
+		UI_element* text = App->gui->createText("PAUSE", 200, 200, text_font, text_color);
+		text->setOutlined(true);
+		pause->appendChildAtCenter(text);
+
+		text = App->gui->createText("IN GAME", 0, 0, text_font, text_color);
+		text->setOutlined(true);
+
+		mainMenu->elements.add(pause);
+		mainMenu->elements.add(text);
+		menus.add(mainMenu);
+	}
+
+	menu* testMenu = new menu(PAUSE_MENU);
+	{
+		UI_element* button = App->gui->createButton(300, 300, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
+		button->dragable = true;
+		button->function = PAUSE;
+
+		UI_element* test = App->gui->createText("RESUME", 200, 200, text_font, { 229, 168, 61, 255 }, this);
+		test->setOutlined(true);
+		button->appendChildAtCenter(test);
+
+		test = App->gui->createText("PAUSE MENU", 0, 0, text_font, text_color);
+		test->setOutlined(true);
+
+		testMenu->elements.add(button);
+		testMenu->elements.add(test);
+		menus.add(testMenu);
+	}
 
 	current_menu = mainMenu;
 
@@ -56,7 +74,7 @@ bool j1UIScene::PreUpdate()
 bool j1UIScene::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
-		LoadMenu(SETTINGS_MENU);
+		LoadMenu(PAUSE_MENU);
 	
 	return true;
 }
@@ -100,7 +118,17 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			ret = false;
 			break;
 		case PAUSE:
-			App->paused = !App->paused;
+			if (App->paused)
+			{ 
+				App->paused = false;
+				LoadMenu(INGAME_MENU);
+			}
+			else
+			{
+				App->paused = true;
+				LoadMenu(PAUSE_MENU);
+			}
+			
 			break;
 		case RESTART:
 			break;
