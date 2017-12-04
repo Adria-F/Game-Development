@@ -260,6 +260,12 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 	{
 		element->state = CLICKED;
 
+		if (element->element_type == SWITCH)
+		{
+			Button* tmp = (Button*)element;
+			tmp->active = !tmp->active;
+		}
+
 		switch (element->function)
 		{
 		case NEW_GAME:
@@ -285,8 +291,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			{
 				App->paused = true;
 				LoadMenu(PAUSE_MENU);
-			}
-			
+			}		
 			break;
 		case RESTART:
 			break;

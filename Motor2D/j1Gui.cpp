@@ -225,11 +225,11 @@ Image* j1Gui::createImageFromAtlas(int x, int y, SDL_Rect section, j1Module* cal
 	return ret;
 }
 
-Button* j1Gui::createCheckBox(int x, int y, SDL_Texture* texture, SDL_Rect standby, SDL_Rect OnClick, SDL_Rect Tick, j1Module* callback)
+Button* j1Gui::createSwitch(int x, int y, SDL_Texture* texture, SDL_Rect standbyUnactive, SDL_Rect OnMouseUnactive, SDL_Rect standbyActive, SDL_Rect OnMouseActive, j1Module* callback)
 {
 	SDL_Texture* usingTexture = (texture) ? texture : atlas;
 
-	Button* ret = new Button(x, y, usingTexture, standby, OnClick, Tick, CHECKBOX, callback);
+	Button* ret = new Button(x, y, usingTexture, standbyUnactive, OnMouseUnactive, standbyActive, OnMouseActive, callback);
 	UI_elements.add(ret);
 
 	return ret;
@@ -279,7 +279,7 @@ Button* j1Gui::createButton(int x, int y, SDL_Texture* texture, SDL_Rect standby
 {
 	SDL_Texture* usingTexture = (texture) ? texture : atlas;
 
-	Button* ret = new Button(x, y, usingTexture, standby, OnMouse, OnClick, LINK, callback);
+	Button* ret = new Button(x, y, usingTexture, standby, OnMouse, OnClick, callback);
 	UI_elements.add(ret);
 
 	return ret;

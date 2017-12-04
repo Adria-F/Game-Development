@@ -3,12 +3,6 @@
 #include "UI_element.h"
 #include "UI_Text.h"
 
-enum button_type
-{
-	LINK,
-	CHECKBOX
-};
-
 class Button : public UI_element
 {
 public:
@@ -16,13 +10,17 @@ public:
 	Button()
 	{}
 
-	Button(int x, int y, SDL_Texture* texture, SDL_Rect standby, SDL_Rect OnMouse, SDL_Rect OnClick, button_type type, j1Module* callback) : UI_element(x, y, element_type::BUTTON, standby, callback, texture),
+	Button(int x, int y, SDL_Texture* texture, SDL_Rect standby, SDL_Rect OnMouse, SDL_Rect OnClick, j1Module* callback) : UI_element(x, y, element_type::BUTTON, standby, callback, texture),
 		OnMouse(OnMouse),
-		Tick(OnMouse),
-		OnClick(OnClick),
-		type(type)
-	{
-	}
+		OnClick(OnClick)
+	{}
+
+	Button(int x, int y, SDL_Texture* texture, SDL_Rect standby, SDL_Rect OnMouse, SDL_Rect standbyActive, SDL_Rect OnMouseActive, j1Module* callback) : UI_element(x, y, element_type::SWITCH, standby, callback, texture),
+		OnMouse(OnMouse),
+		OnClick(OnMouse),
+		sectionActive(standbyActive),
+		OnMouseActive(OnMouseActive)
+	{}
 
 	~Button()
 	{}
@@ -36,10 +34,10 @@ public:
 
 	Text* text = nullptr;
 	SDL_Rect OnMouse;
-	SDL_Rect Tick;
+	SDL_Rect sectionActive;
+	SDL_Rect OnMouseActive;
 	SDL_Rect OnClick;
-	button_type type = LINK;
-	bool tick = false;
+	bool active = false;
 	bool clicked = false;
 };
 

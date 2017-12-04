@@ -15,6 +15,7 @@ enum element_type
 	TEXT,
 	IMAGE,
 	BUTTON,
+	SWITCH,
 	SLIDER,
 	INPUTTEXT,
 	WINDOW
