@@ -15,7 +15,6 @@
 #include "j1Player.h"
 #include "j1EntityManager.h"
 #include "j1PathFinding.h"
-#include "Slider.h"
 #include "j1Fonts.h"
 #include "j1Gui.h"
 #include "j1UIScene.h"
@@ -37,7 +36,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	collision = new j1Collision();
 	entityManager = new j1EntityManager();
 	pathfinding = new j1PathFinding();
-	slider = new Slider();
 	font = new j1Fonts();
 	gui = new j1Gui();
 	uiScene = new j1UIScene();
@@ -53,7 +51,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entityManager);
 	AddModule(map);
 	AddModule(collision);
-	//AddModule(slider);
 	AddModule(font);
 	AddModule(gui);
 	AddModule(uiScene);

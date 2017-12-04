@@ -15,7 +15,7 @@ enum element_type
 	TEXT,
 	IMAGE,
 	BUTTON,
-	//SLIDER,
+	SLIDER,
 	INPUTTEXT,
 	WINDOW
 };
@@ -79,12 +79,25 @@ public:
 	virtual void BlitElement()
 	{}
 
+	void setDragable(bool horizontally, bool vertically)
+	{
+		if (horizontally || vertically)
+			dragable = true;
+		else
+			dragable = false;
+
+		horizontalMovement = horizontally;
+		verticalMovement = vertically;
+	}
+
 	void Mouse_Drag()
 	{
 		iPoint Mouse_Movement;
 		App->input->GetMousePosition(Mouse_Movement.x, Mouse_Movement.y);
-		localPosition.x += (Mouse_Movement.x - Click_Pos.x);
-		localPosition.y += (Mouse_Movement.y - Click_Pos.y);
+		if (horizontalMovement)
+			localPosition.x += (Mouse_Movement.x - Click_Pos.x);
+		if (verticalMovement)
+			localPosition.y += (Mouse_Movement.y - Click_Pos.y);
 
 		Click_Pos = Mouse_Movement;
 	}
@@ -121,6 +134,8 @@ public:
 protected:
 	iPoint Click_Pos{ 0,0 };
 	iPoint Displace{ 0,0 };
+	bool verticalMovement = false;
+	bool horizontalMovement = false;
 };
 
 #endif // !__UI_ELEMENT__

@@ -4,6 +4,7 @@
 #include "UI_element.h"
 #include "UI_Button.h"
 #include "UI_Image.h"
+#include "UI_Slider.h"
 #include "j1Input.h"
 #include "j1Render.h"
 
@@ -42,9 +43,13 @@ bool j1UIScene::Start()
 		new_text->setOutlined(true);
 		new_game->appendChildAtCenter(new_text);
 
+		//temp
+		/*Button* sliderButton = App->gui->createButton(0, 0, NULL, { 852, 189, 35, 42 }, { 852, 189, 35, 42 }, { 852, 189, 35, 42 }, this);
+		UI_element* slider = App->gui->createSlider(50, 200, NULL, { 0, 259, 638, 31 }, { 0, 290, 638, 31 }, sliderButton, big_buttons_font, big_buttons_color, 0, 168, 50);*/
+
 		//CONTINUE GAME
 		UI_element* continue_game = App->gui->createButton(372 * App->gui->UI_scale, 469 * App->gui->UI_scale, NULL, { 0,148,281,111 }, { 281,148,281,111 }, { 562,148,281,111 }, this);
-		continue_game->dragable = true;
+		continue_game->setDragable(true, true);
 
 		UI_element* continue_text = App->gui->createText("CONTINUE", 200, 200, big_buttons_font, big_buttons_color);
 		continue_text->setOutlined(true);
@@ -89,6 +94,8 @@ bool j1UIScene::Start()
 		mainMenu->elements.add(credits_text);
 		mainMenu->elements.add(settings);
 		mainMenu->elements.add(settings_text);
+		/*mainMenu->elements.add(slider);
+		mainMenu->elements.add(sliderButton);*/
 		menus.add(mainMenu);
 	}
 
@@ -96,32 +103,32 @@ bool j1UIScene::Start()
 	{
 		//PAUSE BUTTON
 		UI_element* pause_button = App->gui->createButton(947 * App->gui->UI_scale, 12 * App->gui->UI_scale, NULL, { 665,266,61,65 }, { 725,266,61,65 }, { 785,148,61,65 }, this);
-		pause_button->dragable = true;
+		pause_button->setDragable(true, true);
 		pause_button->function = PAUSE;
 		
 		//WINDOW
 		SDL_Texture* mid_window_tex = App->tex->Load("gui/medium_parchment.png");
 		UI_element* pause_window = App->gui->createImage(208 * App->gui->UI_scale, 182 * App->gui->UI_scale, mid_window_tex, this);
-		pause_window->dragable = true;
+		pause_window->setDragable(true, true);
 
 		//SETTING CIRCLE BUTTON
 		UI_element* settings_button = App->gui->createButton(275 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 876,341,120,123 }, { 876,465,120,123 }, { 876,589,120,123 }, this);
-		settings_button->dragable = true;
+		settings_button->setDragable(true, true);
 		pause_window->appendChild(275 * App->gui->UI_scale, 414 * App->gui->UI_scale, settings_button);
 		
 		//PLAY CIRCLE BUTTON
-		UI_element* play_button = App->gui->createButton(439 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 638,341,120,123 }, { 638,465,120,123 }, { 638,589,120,123 }, this);
-		play_button->dragable = true;
+		UI_element* play_button = App->gui->createButton(439 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 637,341,120,123 }, { 637,465,120,123 }, { 637,589,120,123 }, this);
+		play_button->setDragable(true, true);
 		pause_window->appendChild(439 * App->gui->UI_scale, 414 * App->gui->UI_scale, play_button);
 		
 		//RESTART CIRCLE BUTTON
-		UI_element* restart_button = App->gui->createButton(606 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 757,341,120,123 }, { 757,465,120,123 }, { 757,589,120,123 }, this);
-		restart_button->dragable = true;
+		UI_element* restart_button = App->gui->createButton(606 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 756,341,120,123 }, { 756,465,120,123 }, { 756,589,120,123 }, this);
+		restart_button->setDragable(true, true);
 		pause_window->appendChild(606 * App->gui->UI_scale, 414 * App->gui->UI_scale, restart_button);
 		
 		//SLIDER
 		UI_element* slider = App->gui->createImageFromAtlas(248 * App->gui->UI_scale, 310 * App->gui->UI_scale, { 0, 321, 504, 53 }, this);
-		slider->dragable = true;
+		slider->setDragable(true, true);
 		
 		//test = App->gui->createText("PAUSE MENU", 0, 0, big_buttons_font, big_buttons_color);
 		//test->setOutlined(true);

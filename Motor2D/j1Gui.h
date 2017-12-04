@@ -15,7 +15,7 @@ class Image;
 class Button;
 class InputBox;
 class Window;
-//class Slider;
+class Slider;
 
 enum event_type
 {
@@ -68,6 +68,8 @@ public:
 	InputBox* createInputBox(_TTF_Font* font, SDL_Color color, int x, int y, SDL_Texture* texture, SDL_Rect section, j1Module* callback = nullptr);
 	//NULL texture to use atlas
 	Window* createWindow(int x, int y, SDL_Texture* texture, SDL_Rect section, j1Module* callback = nullptr);
+	//NULL texture to use atlas
+	Slider* createSlider(int x, int y, SDL_Texture* texture, SDL_Rect empty, SDL_Rect full, Button* button, _TTF_Font* text_font, SDL_Color text_color, int min_value = 0, int max_value = 100, int default_progress = 50, j1Module* callback = nullptr, char* text = "");
 
 public:
 	bool UI_Debug = false;

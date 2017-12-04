@@ -14,6 +14,7 @@
 #include "UI_Window.h"
 #include "j1Window.h"
 #include "j1UIScene.h"
+#include "UI_Slider.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -249,6 +250,26 @@ Window* j1Gui::createWindow(int x, int y, SDL_Texture * texture, SDL_Rect sectio
 	SDL_Texture* usingTexture = (texture) ? texture : atlas;
 
 	Window* ret = new Window(usingTexture, x, y, section, callback);
+	UI_elements.add(ret);
+
+	return ret;
+}
+
+Slider * j1Gui::createSlider(int x, int y, SDL_Texture * texture, SDL_Rect empty, SDL_Rect full, Button* button, _TTF_Font* text_font, SDL_Color text_color, int min_value, int max_value, int default_progress, j1Module * callback, char* text)
+{
+	SDL_Texture* usingTexture = (texture) ? texture : atlas;
+
+	Slider* ret = new Slider(x, y, usingTexture, empty, full, min_value, max_value, default_progress, callback);
+
+	if (full.w > full.h)
+		button->setDragable(true, false);
+	else
+		button->setDragable(false, true);
+
+	ret->appendChild(((empty.w * UI_scale) - 5 - button->section.w / (2 / UI_scale)) * default_progress / 100, y, button);
+
+	ret->appendChild(x, y, createText(text, x, y, text_font, text_color));
+
 	UI_elements.add(ret);
 
 	return ret;
