@@ -1,4 +1,4 @@
-# Game Development - Platformer Game 
+﻿# Game Development - Platformer Game 
 
 ## Not A Typical Platformer
 It is a platformer game done for the assignments of the videogames development subject. 
