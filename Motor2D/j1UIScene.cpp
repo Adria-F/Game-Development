@@ -28,13 +28,15 @@ bool j1UIScene::Start()
 {
 	_TTF_Font* big_buttons_font = App->font->Load("fonts/BMYEONSUNG.ttf", 50);
 	_TTF_Font* mid_buttons_font = App->font->Load("fonts/BMYEONSUNG.ttf", 30);
-	SDL_Color yellow_color = { 229, 168, 61, 255 };
-	SDL_Color grey_color = { 190, 177, 158, 191 };
-	SDL_Color dark_yellow_color = { 146, 97, 45, 255 };
 	_TTF_Font* big_texts_font = App->font->Load("fonts/TCCEB.ttf", 55);
-	SDL_Color black_color = { 0, 0, 0, 255 };
 	_TTF_Font* mid_texts_font = App->font->Load("fonts/TCCEB.ttf", 36);
 	_TTF_Font* small_texts_font = App->font->Load("fonts/TCCEB.ttf", 19);
+	
+	SDL_Color yellow_color = { 229, 168, 61, 255 };
+	SDL_Color grey_color = { 190, 177, 158, 191 };
+	SDL_Color dark_yellow_color = { 146, 97, 45, 255 };	
+	SDL_Color black_color = { 0, 0, 0, 255 };
+	
 	SDL_Texture* big_window_tex = App->tex->Load("gui/big_parchment.png");
 	SDL_Texture* mid_window_tex = App->tex->Load("gui/medium_parchment.png");
 	SDL_Texture* credits_tex = App->tex->Load("gui/credits.png");
@@ -46,6 +48,7 @@ bool j1UIScene::Start()
 		creditsMenu->elements.add(credits_img);
 		menus.add(creditsMenu);
 	}
+
 	menu* startMenu = new menu(START_MENU);
 	{
 		App->paused = true;
@@ -110,6 +113,7 @@ bool j1UIScene::Start()
 		startMenu->elements.add(settings_text);
 		menus.add(startMenu);
 	}
+
 	menu* inGameMenu = new menu(INGAME_MENU);
 	{
 		//PAUSE BUTTON
@@ -119,6 +123,7 @@ bool j1UIScene::Start()
 		inGameMenu->elements.add(pause_button);
 		menus.add(inGameMenu);
 	}
+
 	menu* pauseMenu = new menu(PAUSE_MENU);
 	{
 		//WINDOW
@@ -150,6 +155,7 @@ bool j1UIScene::Start()
 		pauseMenu->elements.add(slider);
 		menus.add(pauseMenu);
 	}
+
 	menu* settingsMenu = new menu(SETTINGS_MENU);
 	{
 		//WINDOW
@@ -226,6 +232,7 @@ bool j1UIScene::Start()
 		settingsMenu->elements.add(switchB);
 		menus.add(settingsMenu);
 	}
+
 	current_menu = startMenu;
 
 	return true;
@@ -239,11 +246,11 @@ bool j1UIScene::PreUpdate()
 bool j1UIScene::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-		LoadMenu(START_MENU);
+		loadMenu(START_MENU);
 	else if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-		LoadMenu(PAUSE_MENU);
+		loadMenu(PAUSE_MENU);
 	else if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-		LoadMenu(SETTINGS_MENU);
+		loadMenu(SETTINGS_MENU);
 	
 	return true;
 }
@@ -286,21 +293,19 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->paused = false;
 			App->scene->load_lvl = true;
 			App->scene->newLvl = 1;
-			LoadMenu(INGAME_MENU);
 		}
 			break;
 		case CONTINUE:
 		{
 			App->paused = false;
 			App->LoadGame();
-			LoadMenu(INGAME_MENU);
 		}
 			break;
 		case SETTINGS:
-			LoadMenu(SETTINGS_MENU);
+			loadMenu(SETTINGS_MENU);
 			break;
 		case CREDITS:
-			LoadMenu(CREDITS_MENU);
+			loadMenu(CREDITS_MENU);
 			break;
 		case EXIT:
 			ret = false;
@@ -309,17 +314,17 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			if (!App->paused)
 			{
 				App->paused = true;
-				LoadMenu(PAUSE_MENU);				
+				loadMenu(PAUSE_MENU);
 			}
 			else
 			{
 				App->paused = false;
-				LoadMenu(INGAME_MENU);
+				loadMenu(INGAME_MENU);
 			}
 			break;
 		case APPLY: //Has to apply changes before
 		case BACK:
-			LoadMenu(current_menu->previous_menu);
+			loadMenu(current_menu->previous_menu);
 			break;
 		case RESTORE:
 			break;
@@ -357,7 +362,7 @@ bool j1UIScene::CleanUp()
 	return true;
 }
 
-bool j1UIScene::LoadMenu(menu_id id)
+bool j1UIScene::loadMenu(menu_id id)
 {
 	bool ret = false;
 	

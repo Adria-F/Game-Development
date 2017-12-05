@@ -3,16 +3,18 @@
 
 #include "j1Module.h"
 #include "p2Point.h"
+#include "j1UIScene.h"
 #include "SDL\include\SDL_rect.h"
 
 struct SDL_Texture;
 
 struct level
 {
-	level(int num, char* mapPath)
+	level(int num, char* mapPath, menu_id default_menu)
 	{
 		this->mapPath.create(mapPath);
 		lvl = num;
+		this->default_menu = default_menu;
 	}
 
 	p2SString mapPath;
@@ -20,6 +22,7 @@ struct level
 	int length;
 	iPoint player_start_pos;
 	SDL_Rect end_rect;
+	menu_id default_menu;
 };
 
 class j1Scene : public j1Module

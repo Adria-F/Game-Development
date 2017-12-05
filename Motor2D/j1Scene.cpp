@@ -22,8 +22,8 @@ j1Scene::j1Scene() : j1Module()
 	name.create("scene");
 	
 	// Add all levels to the list
-	level* lvl1 = new level(1, "platformer.tmx");
-	level* lvl2 = new level(2, "platformer2.tmx");
+	level* lvl1 = new level(1, "platformer.tmx", INGAME_MENU);
+	level* lvl2 = new level(2, "platformer2.tmx", INGAME_MENU);
 
 	levels.add(lvl1);
 	levels.add(lvl2);
@@ -193,6 +193,7 @@ void j1Scene::LoadLvl(int num)
 	if (current_lvl != nullptr)
 	{
 		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end_rect, !respawn_enemies);
+		App->uiScene->loadMenu(current_lvl->data->default_menu);
 		respawn_enemies = true;
 	}
 }

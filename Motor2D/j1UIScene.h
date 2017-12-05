@@ -53,7 +53,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	bool LoadMenu(menu_id id);
+	bool loadMenu(menu_id id);
 
 public:
 
