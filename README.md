@@ -48,4 +48,4 @@ Decompress the .zip file in any directory and execute the executable inside the 
 https://github.com/Adria-F/Game-Development
  
 ## Credits
-A game made by Norman Benet González & Adrià Ferrer Comas.
+A game made by Norman Benet Gonz?z & Adri?errer Comas.
