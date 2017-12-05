@@ -7,11 +7,10 @@
 	<:anonymous />
 	<scene />
 	<entityManager>
-		<player position_x="1095" position_y="184" level="1" lives="3" />
-		<player position_x="1095" position_y="189" />
-		<charger position_x="1444" position_y="20" />
+		<player position_x="974" position_y="121" level="1" lives="3" />
+		<player position_x="974" position_y="126" />
+		<charger position_x="1442" position_y="20" />
 		<bat position_x="1946" position_y="12" />
-		<charger position_x="550" position_y="305" />
 	</entityManager>
 	<map />
 	<:anonymous />
@@ -19,6 +18,6 @@
 	<gui />
 	<:anonymous />
 	<renderer>
-		<camera x="-1731" y="0" />
+		<camera x="-1625" y="0" />
 	</renderer>
 </game_state>

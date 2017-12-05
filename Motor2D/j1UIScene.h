@@ -23,6 +23,7 @@ struct menu
 
 	p2List<UI_element*> elements;
 	menu_id id;
+	menu_id previous_menu;
 };
 
 class j1UIScene : public j1Module

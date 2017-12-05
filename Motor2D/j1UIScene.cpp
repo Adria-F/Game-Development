@@ -29,7 +29,7 @@ bool j1UIScene::Start()
 	_TTF_Font* big_buttons_font = App->font->Load("fonts/BMYEONSUNG.ttf", 50);
 	_TTF_Font* mid_buttons_font = App->font->Load("fonts/BMYEONSUNG.ttf", 30);
 	SDL_Color yellow_color = { 229, 168, 61, 255 };
-	SDL_Color grey_color = { 170, 170, 170, 87 };
+	SDL_Color grey_color = { 190, 177, 158, 191 };
 	SDL_Color dark_yellow_color = { 146, 97, 45, 255 };
 	_TTF_Font* big_texts_font = App->font->Load("fonts/TCCEB.ttf", 55);
 	SDL_Color black_color = { 0, 0, 0, 255 };
@@ -114,7 +114,6 @@ bool j1UIScene::Start()
 	{
 		//PAUSE BUTTON
 		UI_element* pause_button = App->gui->createButton(947 * App->gui->UI_scale, 12 * App->gui->UI_scale, NULL, { 666,266,60,63 }, { 726,266,60,63 }, { 786,266,60,63 }, this);
-		pause_button->setDragable(true, true);
 		pause_button->function = PAUSE;
 
 		inGameMenu->elements.add(pause_button);
@@ -124,29 +123,24 @@ bool j1UIScene::Start()
 	{
 		//WINDOW
 		UI_element* pause_window = App->gui->createWindow(208 * App->gui->UI_scale, 182 * App->gui->UI_scale, mid_window_tex, { 0,0,588,404 }, this);
-		pause_window->setDragable(true, true);
 
 		//SETTING CIRCLE BUTTON
 		UI_element* settings_button = App->gui->createButton(275 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 876,341,119,124 }, { 876,465,119,124 }, { 876,589,119,124 }, this);
-		settings_button->setDragable(true, true);
 		settings_button->function = SETTINGS;
 		pause_window->appendChild(67 * App->gui->UI_scale, 233 * App->gui->UI_scale, settings_button);
 		
 		//PLAY CIRCLE BUTTON
 		UI_element* play_button = App->gui->createButton(439 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 638,341,119,124 }, { 638,465,119,124 }, { 638,589,119,124 }, this);
-		play_button->setDragable(true, true);
-		play_button->function = RESTART;
+		play_button->function = PAUSE;
 		pause_window->appendChild(231 * App->gui->UI_scale, 233 * App->gui->UI_scale, play_button);
 
 		//NEW GAME CIRCLE BUTTON
 		UI_element* newGame_pauseMenu = App->gui->createButton(606 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 757,341,119,124 }, { 757,465,119,124 }, { 757,589,119,124 }, this);
-		newGame_pauseMenu->setDragable(true, true);
 		newGame_pauseMenu->function = NEW_GAME;
 		pause_window->appendChild(398 * App->gui->UI_scale, 233 * App->gui->UI_scale, newGame_pauseMenu);
 		
 		//TEMP SLIDER (only img)
 		UI_element* slider = App->gui->createImageFromAtlas(248 * App->gui->UI_scale, 310 * App->gui->UI_scale, { 0, 321, 504, 53 }, this);
-		slider->setDragable(true, true);
 		pause_window->appendChild(40 * App->gui->UI_scale, 129 * App->gui->UI_scale, slider);
 
 		pauseMenu->elements.add(pause_window);
@@ -160,7 +154,6 @@ bool j1UIScene::Start()
 	{
 		//WINDOW
 		UI_element* settings_window = App->gui->createWindow(51 * App->gui->UI_scale, 93 * App->gui->UI_scale, big_window_tex, { 0,0,923,581 }, this);
-		settings_window->setDragable(true, true);
 
 		//SOUND TXT
 		UI_element* sound_txt = App->gui->createText("Sound", 0, 0, big_texts_font, black_color, this);
@@ -194,13 +187,12 @@ bool j1UIScene::Start()
 
 		//FULLSCREEN SWITCH
 		Button* switchB = App->gui->createSwitch(0, 0, NULL, { 507, 329, 58, 39 }, { 507, 368, 58, 39 }, { 571, 329, 58, 39 }, { 571, 368, 58, 39 }, this);
-		switchB->setDragable(true, true);
 		settings_window->appendChild(222 * App->gui->UI_scale, 372 * App->gui->UI_scale, switchB);
 
 		//APPLY
 		UI_element* apply_button = App->gui->createButton(439 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 666,0,168,66 }, { 666,67,168,66 }, { 835,0,168,66 }, this);
 		settings_window->appendChild(248 * App->gui->UI_scale, 457 * App->gui->UI_scale, apply_button);
-		apply_button->setDragable(true, true);
+		apply_button->function = APPLY;
 
 		UI_element* apply_text = App->gui->createText("APPLY", 200, 200, mid_texts_font, yellow_color);
 		apply_text->setOutlined(true);
@@ -209,7 +201,7 @@ bool j1UIScene::Start()
 		//CANCEL
 		UI_element* cancel_button = App->gui->createButton(0, 0, NULL, { 666,0,168,66 }, { 666,67,168,66 }, { 835,0,168,66 }, this);
 		settings_window->appendChild(473 * App->gui->UI_scale, 457 * App->gui->UI_scale, cancel_button);
-		cancel_button->setDragable(true, true);
+		cancel_button->function = BACK;
 
 		UI_element* cancel_text = App->gui->createText("CANCEL", 200, 200, mid_texts_font, yellow_color);
 		cancel_text->setOutlined(true);
@@ -218,7 +210,7 @@ bool j1UIScene::Start()
 		//RESTORE
 		UI_element* restore_button = App->gui->createButton(0, 0, NULL, { 849,69,133,36 }, { 849,106,133,36 }, { 849,143,133,36 }, this);
 		settings_window->appendChild(729 * App->gui->UI_scale, 478 * App->gui->UI_scale, restore_button);
-		restore_button->setDragable(true, true);
+		restore_button->function = RESTORE;
 
 		UI_element* restore_text = App->gui->createText("Restore default", 200, 200, small_texts_font, yellow_color);
 		restore_text->setOutlined(true);
@@ -284,9 +276,11 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			tmp->active = !tmp->active;
 		}
 
+		menu_id previous_menu = current_menu->id;
 		switch (element->function)
 		{
 		case NEW_GAME:
+		case RESTART:
 		{
 			App->paused = false;
 			App->scene->load_lvl = true;
@@ -296,6 +290,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			break;
 		case CONTINUE:
 		{
+			App->paused = false;
 			App->LoadGame();
 			LoadMenu(INGAME_MENU);
 		}
@@ -315,12 +310,21 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				App->paused = true;
 				LoadMenu(PAUSE_MENU);				
 			}
+			else
+			{
+				App->paused = false;
+				LoadMenu(INGAME_MENU);
+			}
 			break;
-		case RESTART:
-			App->paused = false;
-			LoadMenu(INGAME_MENU);
+		case APPLY: //Has to apply changes before
+		case BACK:
+			LoadMenu(current_menu->previous_menu);
+			break;
+		case RESTORE:
 			break;
 		}
+		if (current_menu->id != previous_menu)
+			current_menu->previous_menu = previous_menu;
 	}
 	else if (event_type == MOUSE_LEFT_RELEASE)
 	{

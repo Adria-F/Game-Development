@@ -31,7 +31,10 @@ enum element_function
 	CREDITS,
 	EXIT,
 	PAUSE,
-	RESTART
+	RESTART,
+	RESTORE,
+	BACK,
+	APPLY
 };
 
 enum element_state
@@ -131,6 +134,7 @@ public:
 	bool hovering = false;
 	bool moving = false;
 	bool dragable = false;
+	bool solid = true;
 
 protected:
 	iPoint Click_Pos{ 0,0 };

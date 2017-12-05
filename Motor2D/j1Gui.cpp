@@ -19,6 +19,7 @@
 j1Gui::j1Gui() : j1Module()
 {
 	name.create("gui");
+	pausable = false;
 }
 
 // Destructor
@@ -66,7 +67,7 @@ bool j1Gui::PreUpdate()
 			for (p2List_item<UI_element*>* item = App->uiScene->current_menu->elements.end; item; item = item->prev)
 			{
 				iPoint globalPos = item->data->calculateAbsolutePosition();
-				if (x > globalPos.x && x < globalPos.x + item->data->section.w / scale && y > globalPos.y && y < globalPos.y + item->data->section.h / scale && element == nullptr && item->data->dragable)
+				if (x > globalPos.x && x < globalPos.x + item->data->section.w / scale && y > globalPos.y && y < globalPos.y + item->data->section.h / scale && element == nullptr && item->data->solid)
 				{
 					element = item->data;
 				}
@@ -207,6 +208,7 @@ const SDL_Texture* j1Gui::GetAtlas() const
 Text* j1Gui::createText(char* text, int x, int y, _TTF_Font* font, SDL_Color color, j1Module* callback)
 {
 	Text* ret = new Text(text, x, y, font, color, callback);
+	ret->solid = false;
 	UI_elements.add(ret);
 
 	return ret;
