@@ -5,17 +5,20 @@
 	<textures />
 	<audio />
 	<:anonymous />
+	<scene />
 	<entityManager>
-		<player position_x="1230" position_y="26" level="2" />
-		<player position_x="1230" position_y="31" />
-		<charger position_x="426" position_y="336" />
-		<bat position_x="1931" position_y="110" />
-		<bat position_x="1659" position_y="102" />
+		<player position_x="98" position_y="344" level="1" lives="1" />
+		<player position_x="98" position_y="349" />
+		<charger position_x="1507" position_y="16" />
+		<bat position_x="1946" position_y="12" />
+		<charger position_x="728" position_y="178" />
 	</entityManager>
 	<map />
-	<scene />
+	<:anonymous />
+	<fonts />
+	<gui />
 	<:anonymous />
 	<renderer>
-		<camera x="-1953" y="0" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>

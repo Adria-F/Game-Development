@@ -61,18 +61,21 @@ bool j1Gui::PreUpdate()
 		element = draggingElement;
 	else
 	{
-		for (p2List_item<UI_element*>* item = App->uiScene->current_menu->elements.end; item; item = item->prev)
+		if (App->uiScene->current_menu != nullptr)
 		{
-			iPoint globalPos = item->data->calculateAbsolutePosition();
-			if (x > globalPos.x && x < globalPos.x + item->data->section.w / scale && y > globalPos.y && y < globalPos.y + item->data->section.h / scale && element == nullptr && item->data->dragable)
+			for (p2List_item<UI_element*>* item = App->uiScene->current_menu->elements.end; item; item = item->prev)
 			{
-				element = item->data;
-			}
-			else if (item->data->hovering)
-			{
-				item->data->hovering = false;
-				if (item->data->callback != nullptr)
-					item->data->callback->OnUIEvent(item->data, MOUSE_LEAVE);
+				iPoint globalPos = item->data->calculateAbsolutePosition();
+				if (x > globalPos.x && x < globalPos.x + item->data->section.w / scale && y > globalPos.y && y < globalPos.y + item->data->section.h / scale && element == nullptr && item->data->dragable)
+				{
+					element = item->data;
+				}
+				else if (item->data->hovering)
+				{
+					item->data->hovering = false;
+					if (item->data->callback != nullptr)
+						item->data->callback->OnUIEvent(item->data, MOUSE_LEAVE);
+				}
 			}
 		}
 	}
@@ -136,18 +139,20 @@ bool j1Gui::Update(float dt)
 // Called after all Updates
 bool j1Gui::PostUpdate(float dt)
 {
-	for (p2List_item<UI_element*>* item = App->uiScene->current_menu->elements.start; item; item = item->next)
+	if (App->uiScene->current_menu != nullptr)
 	{
-		if (item->data->moving)
+		for (p2List_item<UI_element*>* item = App->uiScene->current_menu->elements.start; item; item = item->next)
 		{
-			item->data->Mouse_Drag();
-			item->data->state = CLICKED;
+			if (item->data->moving)
+			{
+				item->data->Mouse_Drag();
+				item->data->state = CLICKED;
+			}
+
+			if (item->data->parent == nullptr)
+				item->data->BlitElement();
 		}
-
-		if (item->data->parent == nullptr)
-			item->data->BlitElement();
 	}
-
 	if (UI_Debug)
 		UIDebugDraw();
 	/*for (p2List_item<inputBox*>* item = inputTexts.start; item; item = item->next) //Input Text reading
