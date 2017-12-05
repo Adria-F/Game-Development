@@ -9,6 +9,7 @@
 void Window::appendChild(int x, int y, UI_element * child)
 {
 	child->localPosition = { x, y };
+	child->setOriginalPos(x, y);
 	child->parent = this;
 	content.add(child);
 	
@@ -20,6 +21,7 @@ void Window::appendChildAtCenter(UI_element * child)
 	child_pos.x -= child->section.w / (2 / App->gui->UI_scale);
 	child_pos.y -= child->section.h / (2 / App->gui->UI_scale);
 	child->localPosition = { child_pos.x, child_pos.y };
+	child->setOriginalPos(child_pos.x, child_pos.y);
 	child->parent = this;
 	content.add(child);
 }

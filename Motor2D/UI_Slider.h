@@ -13,11 +13,9 @@ public:
 	Slider()
 	{}
 
-	Slider(int x, int y, SDL_Texture* texture, SDL_Rect empty, SDL_Rect full, int min_value, int max_value, int default_progress, j1Module* callback) : UI_element(x, y, SLIDER, empty, callback, texture),
+	Slider(int x, int y, SDL_Texture* texture, SDL_Rect empty, SDL_Rect full, int default_progress, j1Module* callback) : UI_element(x, y, SLIDER, empty, callback, texture),
 		full(full),
 		bar_length(full.w),
-		min_value(min_value),
-		max_value(max_value),
 		progress(default_progress)
 	{	}
 
@@ -25,6 +23,7 @@ public:
 	{}
 
 	void appendChild(int x, int y, UI_element* child);
+	float getProgress() const;
 	void BlitElement();
 
 public:
@@ -32,11 +31,8 @@ public:
 	SDL_Rect full;
 	Button* button = nullptr;
 	Text* progress_num = nullptr;
-	int progress;
+	float progress;
 	int bar_length;
-
-	int max_value;
-	int min_value;
 };
 
 #endif // !__UI_SLIDER__
