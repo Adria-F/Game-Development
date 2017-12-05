@@ -121,7 +121,7 @@ bool j1UIScene::Start()
 		restart_button->setDragable(true, true);
 		pause_window->appendChild(398 * App->gui->UI_scale, 233 * App->gui->UI_scale, restart_button);
 		
-		//SLIDER
+		//TEMP SLIDER (only img)
 		UI_element* slider = App->gui->createImageFromAtlas(248 * App->gui->UI_scale, 310 * App->gui->UI_scale, { 0, 321, 504, 53 }, this);
 		slider->setDragable(true, true);
 		pause_window->appendChild(40 * App->gui->UI_scale, 129 * App->gui->UI_scale, slider);
