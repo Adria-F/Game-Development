@@ -240,7 +240,7 @@ bool j1Player::PostUpdate(float dt)
 	}
 	
 	// Win condition
-	if (((collider->rect.x + collider->rect.w) > App->scene->current_lvl->data->end.x) && (position.y + collider->rect.h) < (App->scene->current_lvl->data->end.y + App->scene->current_lvl->data->end.h))
+	if (((collider->rect.x + collider->rect.w) > App->scene->current_lvl->data->end_rect.x) && (position.y + collider->rect.h) < (App->scene->current_lvl->data->end_rect.y + App->scene->current_lvl->data->end_rect.h))
 	{
 		if (end_reached == 0)
 		{

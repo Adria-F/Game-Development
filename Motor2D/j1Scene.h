@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "p2Point.h"
+#include "SDL\include\SDL_rect.h"
 
 struct SDL_Texture;
 
@@ -18,7 +19,7 @@ struct level
 	int lvl;
 	int length;
 	iPoint player_start_pos;
-	SDL_Rect end;
+	SDL_Rect end_rect;
 };
 
 class j1Scene : public j1Module

@@ -49,7 +49,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load(levels.start->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end); //hello2.tmx
+	App->map->Load(levels.start->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end_rect); //hello2.tmx
 	//Background music
 	App->audio->PlayMusic("audio/music/bg_music.ogg");
 	complete_level_fx = App->audio->LoadFx("audio/fx/level_complete.wav");
@@ -192,7 +192,7 @@ void j1Scene::LoadLvl(int num)
 
 	if (current_lvl != nullptr)
 	{
-		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end, !respawn_enemies);
+		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end_rect, !respawn_enemies);
 		respawn_enemies = true;
 	}
 }
