@@ -48,6 +48,7 @@ bool j1UIScene::Start()
 	}
 	menu* startMenu = new menu(START_MENU);
 	{
+		App->paused = true;
 		//TITLE
 		UI_element* title_img = App->gui->createImageFromAtlas(179 * App->gui->UI_scale, 92 * App->gui->UI_scale, { 0, 0, 664,147 }, this);
 
@@ -109,14 +110,18 @@ bool j1UIScene::Start()
 		startMenu->elements.add(settings_text);
 		menus.add(startMenu);
 	}
-
-	menu* pauseMenu = new menu(PAUSE_MENU);
+	menu* inGameMenu = new menu(INGAME_MENU);
 	{
 		//PAUSE BUTTON
 		UI_element* pause_button = App->gui->createButton(947 * App->gui->UI_scale, 12 * App->gui->UI_scale, NULL, { 666,266,60,63 }, { 726,266,60,63 }, { 786,266,60,63 }, this);
 		pause_button->setDragable(true, true);
 		pause_button->function = PAUSE;
-		
+
+		inGameMenu->elements.add(pause_button);
+		menus.add(inGameMenu);
+	}
+	menu* pauseMenu = new menu(PAUSE_MENU);
+	{
 		//WINDOW
 		UI_element* pause_window = App->gui->createWindow(208 * App->gui->UI_scale, 182 * App->gui->UI_scale, mid_window_tex, { 0,0,588,404 }, this);
 		pause_window->setDragable(true, true);
@@ -144,7 +149,6 @@ bool j1UIScene::Start()
 		slider->setDragable(true, true);
 		pause_window->appendChild(40 * App->gui->UI_scale, 129 * App->gui->UI_scale, slider);
 
-		pauseMenu->elements.add(pause_button);
 		pauseMenu->elements.add(pause_window);
 		pauseMenu->elements.add(settings_button);
 		pauseMenu->elements.add(newGame_pauseMenu);
@@ -284,13 +288,17 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		{
 		case NEW_GAME:
 		{
+			App->paused = false;
 			App->scene->load_lvl = true;
 			App->scene->newLvl = 1;
-			LoadMenu(PAUSE_MENU);
+			LoadMenu(INGAME_MENU);
 		}
 			break;
 		case CONTINUE:
+		{
 			App->LoadGame();
+			LoadMenu(INGAME_MENU);
+		}
 			break;
 		case SETTINGS:
 			LoadMenu(SETTINGS_MENU);
@@ -305,11 +313,12 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			if (!App->paused)
 			{
 				App->paused = true;
-				
+				LoadMenu(PAUSE_MENU);				
 			}
 			break;
 		case RESTART:
 			App->paused = false;
+			LoadMenu(INGAME_MENU);
 			break;
 		}
 	}
