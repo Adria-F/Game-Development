@@ -1,16 +1,16 @@
-#ifndef __ModuleCharger__
-#define __ModuleCharger__
+#ifndef __j1Collectible__
+#define __j1Collectible__
 
 #include "j1Module.h"
 #include "j1Entity.h"
 #include "Animation.h"
 #include "p2Point.h"
 
-class Charger : public Entity
+class Collectible : Entity
 {
 public:
-	Charger();
-	~Charger();
+	Collectible();
+	~Collectible();
 
 	bool Awake(pugi::xml_node&);
 	bool Update(float dt);
@@ -21,14 +21,10 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-	void followPath();
-	void standardPath();
-
 public:
-
-	bool moving_right = false;
-	bool moving_left = false;
+	uint took_fx = 0;
 };
 
-#endif // !__ModuleCharger__
+
+#endif // !__j1Collectible__
 

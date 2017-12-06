@@ -30,10 +30,7 @@ bool Charger::Awake(pugi::xml_node&)
 {
 	return true;
 }
-bool Charger::Start()
-{
-	return true;
-}
+
 bool Charger::Update(float dt)
 {
 	BROFILER_CATEGORY("Charger Update", Profiler::Color::Red);
