@@ -1,5 +1,5 @@
 ﻿# **Not A Typical Platformer** (N.A.T.P)
-
+It is a platformer game done for the assignments of the videogames development subject. 
 
 ## Video
 
@@ -40,7 +40,7 @@ Coders: [Adrià Ferrer](https://github.com/Adria-F) and [Norman Benet](https://g
 ## Download the last version of N.A.T.P [here](https://github.com/Adria-F/Game-Development/releases/tag/2.0)
 
 
-## License
+### License
 This is free and unencumbered software released into the public domain.
 
 Anyone is free to copy, modify, publish, use, compile, sell, or
