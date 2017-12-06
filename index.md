@@ -1,4 +1,4 @@
-﻿# Not A Typical Platformer (N.A.T.P)
+﻿# **Not A Typical Platformer** (N.A.T.P)
 
 
 ## Video
@@ -6,7 +6,11 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/DXanwbnL47Q" frameborder="0" allowfullscreen></iframe>
 
 ### Game Controls
+**A** - Move player to the left.
 
+**D** - Move player to the right.
+
+**ESPACE** - jump/double jump (on air).
 
 #### Debug Keys
 **F1** - Start from the very first level.
