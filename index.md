@@ -1,4 +1,4 @@
-# Not A Typical Platformer (N.A.T.P)
+﻿# Not A Typical Platformer (N.A.T.P)
 
 
 ## Video
@@ -9,6 +9,21 @@
 
 
 #### Debug Keys
+**F1** - Start from the very first level.
+
+**F2** - Start from the beginning of the current level.
+
+**F3** - Activate/Deactivate path drawing.
+
+**F5** - Save the current state.
+
+**F6** - Load the previous state.
+
+**F9** - Activate/Deactivate collider drawing.
+
+**F10** - Activate/Deactivate god mode.
+
+**F11** - Activate/Deactivate Framecap.
 
 
 ### Roles
