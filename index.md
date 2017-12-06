@@ -19,6 +19,8 @@
 
 **F6** - Load the previous state.
 
+**F8** - Activate/Deactivate collider GUI drawing.
+
 **F9** - Activate/Deactivate collider drawing.
 
 **F10** - Activate/Deactivate god mode.
