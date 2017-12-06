@@ -33,6 +33,7 @@ bool j1UIScene::Start()
 	_TTF_Font* small_texts_font = App->font->Load("fonts/TCCEB.ttf", 19);
 	
 	SDL_Color yellow_color = { 229, 168, 61, 255 };
+	SDL_Color white_color = { 255, 255, 255, 0 };
 	SDL_Color grey_color = { 190, 177, 158, 191 };
 	SDL_Color dark_yellow_color = { 146, 97, 45, 255 };	
 	SDL_Color black_color = { 0, 0, 0, 255 };
@@ -44,8 +45,17 @@ bool j1UIScene::Start()
 	menu* creditsMenu = new menu(CREDITS_MENU);
 	{
 		UI_element* credits_img = App->gui->createImage(0, 0, credits_tex, this);
+		//BACK
+		UI_element* back_button = App->gui->createButton(10, 335, NULL, { 849,69,133,36 }, { 849,106,133,36 }, { 849,143,133,36 }, this);
+		back_button->function = BACK;
+
+		UI_element* back_text = App->gui->createText("BACK", 200, 200, small_texts_font, white_color);
+		back_text->setOutlined(true);
+		back_button->appendChildAtCenter(back_text);
 
 		creditsMenu->elements.add(credits_img);
+		creditsMenu->elements.add(back_button);
+		creditsMenu->elements.add(back_text);
 		menus.add(creditsMenu);
 	}
 

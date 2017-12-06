@@ -7,6 +7,7 @@
 #include "p2Log.h"
 #include "j1Window.h"
 #include "j1Map.h"
+#include "j1Gui.h"
 #include "j1Scene.h"
 #include "j1Audio.h"
 #include "j1entityManager.h"
@@ -73,7 +74,9 @@ bool j1Player::Start()
 	v.y = 0;
 
 	if (lives <= 0)
-		lives = 3;
+	{
+		App->uiScene->loadMenu(START_MENU);
+	}
 
 	animation = idle_right;
 
@@ -292,7 +295,10 @@ bool j1Player::PostUpdate(float dt)
 				App->audio->PlayFx(killed_fx, 0);
 			}
 			else
+			{
 				App->audio->PlayFx(die_fx, 0);
+				App->uiScene->loadMenu(START_MENU);
+			}
 
 			App->scene->load_lvl = true;
 			App->scene->newLvl = App->scene->current_lvl->data->lvl;
