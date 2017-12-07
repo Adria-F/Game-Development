@@ -13,7 +13,13 @@
 		<bat position_x="1946" position_y="12" />
 		<charger position_x="701" position_y="175" />
 		<bat position_x="361" position_y="185" />
-		<coin position_x="197" position_y="291" />
+		<coin position_x="146" position_y="320" />
+		<coin position_x="185" position_y="320" />
+		<coin position_x="226" position_y="320" />
+		<coin position_x="269" position_y="321" />
+		<coin position_x="372" position_y="256" />
+		<coin position_x="338" position_y="256" />
+		<coin position_x="404" position_y="257" />
 	</entityManager>
 	<map />
 	<:anonymous />
