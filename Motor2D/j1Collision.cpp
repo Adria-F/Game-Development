@@ -150,6 +150,9 @@ void j1Collision::DebugDraw()
 		case COLLIDER_FLOOR: // blue
 			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
+		case COLLIDER_COLLECTIBLE: // lightgrey
+			App->render->DrawQuad(colliders[i]->rect, 211, 211, 211, alpha);
+			break;
 		case COLLIDER_PLAYER: // green
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;

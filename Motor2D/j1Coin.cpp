@@ -4,6 +4,7 @@
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Collision.h"
+#include "j1EntityManager.h"
 #include "p2Log.h"
 #include "j1Window.h"
 #include "j1Map.h"
@@ -52,7 +53,11 @@ bool Coin::CleanUp()
 }
 void Coin::OnCollision(Collider* c1, Collider* c2)
 {
-	Entity_OnCollision(c1, c2);
+	if (c2->type == COLLIDER_PLAYER && !App->entityManager->getPlayer()->dead)
+	{
+		App->audio->PlayFx(earn_coin_fx, 0);
+		App->entityManager->DeleteEntity(this);
+	}
 }
 
 bool Coin::Load(pugi::xml_node&)

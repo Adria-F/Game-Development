@@ -4,12 +4,18 @@
   <image source="../textures/non-character-entities/coin.png" width="700" height="250"/>
  </imagelayer>
  <objectgroup name="idle_left">
+  <properties>
+   <property name="speed" type="float" value="3"/>
+  </properties>
   <object id="1" x="0" y="0" width="175" height="250"/>
   <object id="2" x="175" y="0" width="175" height="250"/>
   <object id="3" x="350" y="0" width="175" height="250"/>
   <object id="4" x="525" y="0" width="175" height="250"/>
  </objectgroup>
  <objectgroup name="idle_right">
+  <properties>
+   <property name="speed" type="float" value="3"/>
+  </properties>
   <object id="11" x="0" y="0" width="175" height="250"/>
   <object id="12" x="175" y="0" width="175" height="250"/>
   <object id="13" x="350" y="0" width="175" height="250"/>

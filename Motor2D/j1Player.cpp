@@ -361,6 +361,11 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 					App->audio->PlayFx(die_fx, 0);
 			}
 		}
+		if (c2_name == "coin")
+		{
+			c2->entity->dead = true;
+			c2->to_delete = true;
+		}
 	}
 
 	Entity_OnCollision(c1, c2);

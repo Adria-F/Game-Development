@@ -150,6 +150,7 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 		break;
 	case COIN:
 		ret = new Coin();
+		ret->flying = true;
 		break;
 	case BAT:
 		ret = new Bat();
