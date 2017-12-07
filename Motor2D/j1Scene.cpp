@@ -192,6 +192,7 @@ void j1Scene::LoadLvl(int num)
 
 	if (current_lvl != nullptr)
 	{
+		App->entityManager->cleanCoins();
 		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end_rect, !respawn_enemies);
 		App->uiScene->loadMenu(current_lvl->data->default_menu);
 		respawn_enemies = true;
