@@ -298,3 +298,12 @@ Button* j1Gui::createButton(int x, int y, SDL_Texture* texture, SDL_Rect standby
 
 	return ret;
 }
+
+Chrono* j1Gui::createChrono(int x, int y, _TTF_Font* font, SDL_Color color, j1Module* callback)
+{
+	Chrono* ret = new Chrono(x, y,font,color, callback);
+	ret->solid = false;
+	UI_elements.add(ret);
+
+	return ret;
+}
