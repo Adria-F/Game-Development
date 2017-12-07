@@ -38,6 +38,8 @@ public:
 	iPoint cloud_offset;
 	iPoint cloud_pos;
 
+	bool coin1, coin2, coin3 = false;
+
 	SDL_Texture* graphics_god = nullptr;
 	Animation* SSJ_aura = nullptr;
 	iPoint aura_offset;

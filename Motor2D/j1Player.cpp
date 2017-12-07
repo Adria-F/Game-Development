@@ -76,6 +76,7 @@ bool j1Player::Start()
 	if (lives <= 0)
 	{
 		lives = 3;
+		coin1 = coin2 = coin3 = false;
 	}
 
 	animation = idle_right;

@@ -22,8 +22,9 @@ public:
 	bool PostUpdate(float dt);
 	bool CleanUp();
 	void DeleteEntity(Entity* entity_to_delete);
+	void cleanCoins();
 
-	Entity* createEntity(entity_type type, int x, int y);
+	Entity* createEntity(entity_type type, int x, int y, int id = 0);
 	Entity* getPlayer() const;
 
 	bool Load(pugi::xml_node&);

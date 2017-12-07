@@ -139,7 +139,16 @@ void j1EntityManager::DeleteEntity(Entity* entity_to_delete)
 	}
 }
 
-Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
+void j1EntityManager::cleanCoins()
+{
+	for (p2List_item<Entity*>* item = entities.start; item; item = item->next)
+	{
+		if (item->data->type == COIN)
+			DeleteEntity(item->data);
+	}
+}
+
+Entity* j1EntityManager::createEntity(entity_type type, int x, int y, int id)
 {
 	Entity* ret = nullptr;
 	
@@ -149,7 +158,7 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 		ret = new Charger();
 		break;
 	case COIN:
-		ret = new Coin();
+		ret = new Coin(id);
 		ret->flying = true;
 		break;
 	case BAT:
