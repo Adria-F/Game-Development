@@ -15,6 +15,7 @@
 #include "j1Window.h"
 #include "j1UIScene.h"
 #include "UI_Slider.h"
+#include "UI_Chrono.h"
 
 j1Gui::j1Gui() : j1Module()
 {

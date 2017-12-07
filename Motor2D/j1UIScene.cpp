@@ -9,6 +9,7 @@
 #include "j1Input.h"
 #include "j1Render.h"
 #include "UI_Window.h"
+#include "UI_Chrono.h"
 
 j1UIScene::j1UIScene()
 {
@@ -137,6 +138,9 @@ bool j1UIScene::Start()
 		inGameMenu->elements.add(pause_button);
 		inGameMenu->elements.add(lives_txt);
 		menus.add(inGameMenu);
+
+		//CHRONO
+
 	}
 
 	menu* pauseMenu = new menu(PAUSE_MENU);

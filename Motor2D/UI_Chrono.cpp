@@ -5,10 +5,12 @@
 
 void Chrono::BlitElement()
 {
+	if (timer < time_changed)
+	{
+		timer++;
+		text->setText(p2SString("%d", timer));
+	}
 	time_changed = App->gui->chrono.ReadSec();
-	p2SString("%d", timer);
-
-	
-
+	text->BlitElement();
 }
 
