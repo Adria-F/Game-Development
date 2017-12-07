@@ -127,6 +127,8 @@ bool j1Player::CleanUp()
 bool j1Player::Update(float dt)
 {
 	BROFILER_CATEGORY("Player Update", Profiler::Color::Red);
+	
+	LOG("Lives: %d", lives);
 	if (!dead)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
