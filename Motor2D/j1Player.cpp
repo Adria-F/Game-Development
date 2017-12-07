@@ -75,7 +75,7 @@ bool j1Player::Start()
 
 	if (lives <= 0)
 	{
-		App->uiScene->loadMenu(START_MENU);
+		lives = 3;
 	}
 
 	animation = idle_right;
@@ -276,7 +276,6 @@ bool j1Player::PostUpdate(float dt)
 		killed_finished = 0;
 		App->scene->load_lvl = true;
 		App->scene->newLvl = App->scene->current_lvl->data->lvl;
-		dead = false;
 	}
 	//By falling
 	int win_scale = App->win->GetScale();
