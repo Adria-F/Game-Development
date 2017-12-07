@@ -22,7 +22,7 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 public:
-	uint took_fx = 0;
+	uint earn_coin_fx = 0;
 };
 
 

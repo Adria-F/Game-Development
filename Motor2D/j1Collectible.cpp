@@ -15,10 +15,13 @@
 Collectible::Collectible() : Entity ("collectible")
 {
 	graphics = App->tex->Load("textures/non-character-entities/coin.png");
-	scale = 0.2f;
+	scale = 0.2f;//Needs to be changed
 	collider = App->collision->AddCollider({ position.x, position.y, (int)(collider_size.x*scale), (int)(collider_size.y*scale) }, COLLIDER_COLLECTIBLE, this, this);
 	collider_offset.x *= scale;
 	collider_offset.y *= scale;
+
+	if (earn_coin_fx == 0)
+		earn_coin_fx = App->audio->LoadFx("audio/fx/earn_coin.wav");
 }
 
 
