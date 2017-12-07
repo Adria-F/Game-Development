@@ -1,5 +1,5 @@
 #ifndef __UI_IMAGE__
-
+#define __UI_IMAGE__
 #include "UI_element.h"
 
 struct SDL_Rect;

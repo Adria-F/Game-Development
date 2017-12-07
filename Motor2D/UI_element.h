@@ -18,7 +18,8 @@ enum element_type
 	SWITCH,
 	SLIDER,
 	INPUTTEXT,
-	WINDOW
+	WINDOW,
+	CHRONO
 };
 
 enum element_function

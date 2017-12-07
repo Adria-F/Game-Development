@@ -1,5 +1,5 @@
 #ifndef __UI_BUTTON__
-
+#define __UI_BUTTON__
 #include "UI_element.h"
 #include "UI_Text.h"
 
