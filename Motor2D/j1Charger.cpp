@@ -14,7 +14,7 @@
 
 Charger::Charger() : Entity("charger")
 {
-	graphics = App->tex->Load("textures/enemies/charger.png");
+	graphics = App->tex->Load("textures/non-character-entities/charger.png");
 	scale = 0.5f;
 	collider = App->collision->AddCollider({ position.x, position.y, (int)(collider_size.x*scale), (int)(collider_size.y*scale) }, COLLIDER_ENEMY, this, this);
 	collider_offset.x *= scale;
