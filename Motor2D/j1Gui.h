@@ -16,6 +16,7 @@ class Button;
 class InputBox;
 class Window;
 class Slider;
+class Chrono;
 
 enum event_type
 {

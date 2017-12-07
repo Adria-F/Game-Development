@@ -32,7 +32,7 @@ public:
 	float killed_finished = 0;
 	bool sound_one_time = false;
 
-	uint lives = 3;
+	uint lives = 0;
 
 	Animation* jump_cloud = nullptr;
 	iPoint cloud_offset;

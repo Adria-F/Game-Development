@@ -11,7 +11,8 @@
 		<player position_x="19" position_y="345" />
 		<charger position_x="1507" position_y="16" />
 		<bat position_x="1946" position_y="12" />
-		<charger position_x="664" position_y="178" />
+		<charger position_x="701" position_y="175" />
+		<bat position_x="361" position_y="185" />
 		<coin position_x="185" position_y="320" />
 		<coin position_x="269" position_y="321" />
 		<coin position_x="372" position_y="256" />
@@ -22,6 +23,6 @@
 	<gui />
 	<:anonymous />
 	<renderer>
-		<camera x="-407" y="0" />
+		<camera x="-3136" y="0" />
 	</renderer>
 </game_state>
