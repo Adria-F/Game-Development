@@ -130,7 +130,12 @@ bool j1UIScene::Start()
 		UI_element* pause_button = App->gui->createButton(947 * App->gui->UI_scale, 12 * App->gui->UI_scale, NULL, { 666,266,60,63 }, { 726,266,60,63 }, { 786,266,60,63 }, this);
 		pause_button->function = PAUSE;
 
+		//LIVES TXT
+		UI_element* lives_txt = App->gui->createText("LIVES: ", 25, 0, mid_texts_font, white_color, this);
+		lives_txt->setOutlined(true);
+
 		inGameMenu->elements.add(pause_button);
+		inGameMenu->elements.add(lives_txt);
 		menus.add(inGameMenu);
 	}
 
