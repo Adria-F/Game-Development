@@ -1,4 +1,4 @@
-#include "j1Collectible.h"
+#include "j1Coin.h"
 #include "j1App.h"
 #include "j1Textures.h"
 #include "j1Input.h"
@@ -12,7 +12,7 @@
 #include "j1Audio.h"
 #include "Brofiler\Brofiler.h"
 
-Collectible::Collectible() : Entity ("collectible")
+Coin::Coin() : Entity ("coin")
 {
 	graphics = App->tex->Load("textures/non-character-entities/coin.png");
 	scale = 0.2f;//Needs to be changed
@@ -25,41 +25,41 @@ Collectible::Collectible() : Entity ("collectible")
 }
 
 
-Collectible::~Collectible()
+Coin::~Coin()
 {
 }
 
-bool Collectible::Awake(pugi::xml_node&)
-{
-	return true;
-}
-
-bool Collectible::Update(float dt)
-{
-	BROFILER_CATEGORY("Collectible Update", Profiler::Color::Cyan);
-	return true;
-}
-
-bool Collectible::PostUpdate(float dt)
-{
-
-	return true;
-}
-
-bool Collectible::CleanUp()
+bool Coin::Awake(pugi::xml_node&)
 {
 	return true;
 }
-void Collectible::OnCollision(Collider* c1, Collider* c2)
+
+bool Coin::Update(float dt)
+{
+	BROFILER_CATEGORY("Coin Update", Profiler::Color::Cyan);
+	return true;
+}
+
+bool Coin::PostUpdate(float dt)
+{
+
+	return true;
+}
+
+bool Coin::CleanUp()
+{
+	return true;
+}
+void Coin::OnCollision(Collider* c1, Collider* c2)
 {
 	Entity_OnCollision(c1, c2);
 }
 
-bool Collectible::Load(pugi::xml_node&)
+bool Coin::Load(pugi::xml_node&)
 {
 	return true;
 }
-bool Collectible::Save(pugi::xml_node&) const
+bool Coin::Save(pugi::xml_node&) const
 {
 	return true;
 }

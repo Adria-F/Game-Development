@@ -28,7 +28,8 @@ enum entity_type
 {
 	PLAYER = 0,
 	CHARGER,
-	BAT
+	BAT,
+	COIN
 };
 
 class Entity : public j1Module

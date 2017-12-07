@@ -88,7 +88,7 @@
     <ClCompile Include="UI_Slider.cpp">
       <Filter>Desenvolupament  ========\Modules\UI elements</Filter>
     </ClCompile>
-    <ClCompile Include="j1Collectible.cpp">
+    <ClCompile Include="j1Coin.cpp">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -207,7 +207,7 @@
     <ClInclude Include="UI_Slider.h">
       <Filter>Desenvolupament  ========\Modules\UI elements</Filter>
     </ClInclude>
-    <ClInclude Include="j1Collectible.h">
+    <ClInclude Include="j1Coin.h">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClInclude>
   </ItemGroup>

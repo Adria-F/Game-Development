@@ -550,6 +550,16 @@ bool j1Map::LoadLogic(pugi::xml_node& node, int& map_length, SDL_Rect& end, bool
 			end.w = object.attribute("width").as_int();
 			end.h = object.attribute("height").as_int();
 		}
+		if (type == "collectible" && !fromSaveData)
+		{
+			int x, y;
+			x = object.attribute("x").as_int();
+			y = object.attribute("y").as_int();
+			if (name == "coin")
+			{
+				App->entityManager->createEntity(COIN, x, y);
+			}
+		}
 		if (type == "enemy" && !fromSaveData)
 		{
 			int x, y;

@@ -1,6 +1,7 @@
 #include "j1EntityManager.h"
 #include "j1Charger.h"
 #include "j1Bat.h"
+#include "j1Coin.h"
 #include "p2Log.h"
 #include "j1Render.h"
 #include "j1Map.h"
@@ -146,6 +147,9 @@ Entity* j1EntityManager::createEntity(entity_type type, int x, int y)
 	{
 	case CHARGER:
 		ret = new Charger();
+		break;
+	case COIN:
+		ret = new Coin();
 		break;
 	case BAT:
 		ret = new Bat();

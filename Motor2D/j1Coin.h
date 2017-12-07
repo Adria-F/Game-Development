@@ -1,16 +1,16 @@
-#ifndef __j1Collectible__
-#define __j1Collectible__
+#ifndef __j1Coin__
+#define __j1Coin__
 
 #include "j1Module.h"
 #include "j1Entity.h"
 #include "Animation.h"
 #include "p2Point.h"
 
-class Collectible : Entity
+class Coin : public Entity
 {
 public:
-	Collectible();
-	~Collectible();
+	Coin();
+	~Coin();
 
 	bool Awake(pugi::xml_node&);
 	bool Update(float dt);
@@ -26,5 +26,5 @@ public:
 };
 
 
-#endif // !__j1Collectible__
+#endif // !__j1Coin__
 
