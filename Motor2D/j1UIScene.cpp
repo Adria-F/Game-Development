@@ -10,6 +10,7 @@
 #include "j1Render.h"
 #include "UI_Window.h"
 #include "UI_Chrono.h"
+#include "j1EntityManager.h"
 
 j1UIScene::j1UIScene()
 {

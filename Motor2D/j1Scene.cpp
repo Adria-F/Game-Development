@@ -193,6 +193,12 @@ void j1Scene::LoadLvl(int num)
 	if (current_lvl != nullptr)
 	{
 		App->entityManager->cleanCoins();
+		if (respawn_enemies) //When reloading scene from 0 but player is not dead
+		{
+			j1Player* player = (j1Player*)App->entityManager->getPlayer();
+			player->coin1 = player->coin2 = player->coin3 = false;
+			player->lives = 3;
+		}
 		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end_rect, !respawn_enemies);
 		App->uiScene->loadMenu(current_lvl->data->default_menu);
 		respawn_enemies = true;
