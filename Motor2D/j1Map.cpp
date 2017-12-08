@@ -52,15 +52,22 @@ void j1Map::Draw()
 	p2List_item<MapLayer*>* item = nullptr;
 	MapLayer* layer = nullptr;
 	uint tile_id;
+	uint w, h;
+	App->win->GetWindowSize(w, h);
+	int scale = App->win->GetScale();
+	int camera_pos = -App->render->virtualCamPos;
+	w = WorldToMap(w, h).x / scale;
+	h = WorldToMap(w, h).y / scale;
+	camera_pos = WorldToMap(camera_pos, 0).x / scale;
 	p2List_item<TileSet*>* tileSet = nullptr;
 	for (item = data.layers.start; item; item = item->next)
 	{
 		layer = item->data;
 		
 		//Each layer
-		for (int j = 0; j < data.height; j++)
+		for (int j = 0; j < h; j++)
 		{
-			for (int i = 0; i < data.width; i++)
+			for (int i = camera_pos; i < camera_pos + w + 1; i++)
 			{
 				tile_id = layer->tiles[layer->Get(i, j)];
 				if (tile_id != 0)
