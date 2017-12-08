@@ -11,6 +11,7 @@
 #include "UI_Window.h"
 #include "UI_Chrono.h"
 #include "j1EntityManager.h"
+#include "j1IntroScene.h"
 
 j1UIScene::j1UIScene()
 {
@@ -137,25 +138,26 @@ bool j1UIScene::Start()
 		lives_txt->setOutlined(true);
 
 		//MISSING COIN
-		UI_element* missing_coin1_img = App->gui->createImageFromAtlas(300 * App->gui->UI_scale, 5 * App->gui->UI_scale, { 949,189,46,45 }, this);
-		UI_element* missing_coin2_img = App->gui->createImageFromAtlas(350 * App->gui->UI_scale, 5 * App->gui->UI_scale, { 949,189,46,45 }, this);
-		UI_element* missing_coin3_img = App->gui->createImageFromAtlas(400 * App->gui->UI_scale, 5 * App->gui->UI_scale, { 949,189,46,45 }, this);
-		//EARNED COIN
-		UI_element* earned_coin1_img = App->gui->createImageFromAtlas(302 * App->gui->UI_scale, 6 * App->gui->UI_scale, { 895,189,41,41 }, this);
-		UI_element* earned_coin2_img = App->gui->createImageFromAtlas(352 * App->gui->UI_scale, 6 * App->gui->UI_scale, { 895,189,41,41 }, this);
-		UI_element* earned_coin3_img = App->gui->createImageFromAtlas(402 * App->gui->UI_scale, 6 * App->gui->UI_scale, { 895,189,41,41 }, this);
+		//UI_element* missing_coin1_img = App->gui->createImageFromAtlas(300 * App->gui->UI_scale, 5 * App->gui->UI_scale, { 949,189,46,45 }, this);
+		//UI_element* missing_coin2_img = App->gui->createImageFromAtlas(350 * App->gui->UI_scale, 5 * App->gui->UI_scale, { 949,189,46,45 }, this);
+		//UI_element* missing_coin3_img = App->gui->createImageFromAtlas(400 * App->gui->UI_scale, 5 * App->gui->UI_scale, { 949,189,46,45 }, this);
+		////EARNED COIN
+		//UI_element* earned_coin1_img = App->gui->createImageFromAtlas(302 * App->gui->UI_scale, 6 * App->gui->UI_scale, { 895,189,41,41 }, this);
+		//UI_element* earned_coin2_img = App->gui->createImageFromAtlas(352 * App->gui->UI_scale, 6 * App->gui->UI_scale, { 895,189,41,41 }, this);
+		//UI_element* earned_coin3_img = App->gui->createImageFromAtlas(402 * App->gui->UI_scale, 6 * App->gui->UI_scale, { 895,189,41,41 }, this);
+		Button* switchC = App->gui->createSwitch(300 * App->gui->UI_scale, 5 * App->gui->UI_scale, NULL, { 949,189,46,45 }, { 949,189,46,45 }, { 895,189,41,41 }, { 895,189,41,41 }, this);
+		Button* switchC2 = App->gui->createSwitch(350 * App->gui->UI_scale, 5 * App->gui->UI_scale, NULL, { 949,189,46,45 }, { 949,189,46,45 }, { 895,189,41,41 }, { 895,189,41,41 }, this);
+		Button* switchC3 = App->gui->createSwitch(400 * App->gui->UI_scale, 5 * App->gui->UI_scale, NULL, { 949,189,46,45 }, { 949,189,46,45 }, { 895,189,41,41 }, { 895,189,41,41 }, this);
 		//CHRONO
 		UI_element* chrono = App->gui->createChrono(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font,white_color, this);
 
 		inGameMenu->elements.add(pause_button);
 		inGameMenu->elements.add(lives_txt);
 		inGameMenu->elements.add(chrono);
-		inGameMenu->elements.add(earned_coin1_img);
-		inGameMenu->elements.add(earned_coin2_img);
-		inGameMenu->elements.add(earned_coin3_img);
-		inGameMenu->elements.add(missing_coin1_img);
-		inGameMenu->elements.add(missing_coin2_img);
-		inGameMenu->elements.add(missing_coin3_img);
+		inGameMenu->elements.add(switchC);
+		inGameMenu->elements.add(switchC2);
+		inGameMenu->elements.add(switchC3);
+		
 		menus.add(inGameMenu);
 
 	}
@@ -319,7 +321,6 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			Button* tmp = (Button*)element;
 			tmp->active = !tmp->active;
 		}
-
 		menu_id previous_menu = current_menu->id;
 		switch (element->function)
 		{
