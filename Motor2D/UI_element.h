@@ -35,6 +35,7 @@ enum element_function
 	RESTART,
 	RESTORE,
 	BACK,
+	CANCEL,
 	APPLY
 };
 
@@ -132,7 +133,6 @@ public:
 			localPosition.y = Original_Pos.y - top_limit;
 		else if (bottom_limit >= 0 && localPosition.y > Original_Pos.y + bottom_limit)
 			localPosition.y = Original_Pos.y + bottom_limit;
-
 	}
 
 	void Start_Drag()

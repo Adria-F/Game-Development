@@ -71,7 +71,7 @@ public:
 	//NULL texture to use atlas
 	Window* createWindow(int x, int y, SDL_Texture* texture, SDL_Rect section, j1Module* callback = nullptr);
 	//NULL texture to use atlas
-	Slider* createSlider(int x, int y, SDL_Texture* texture, SDL_Rect empty, SDL_Rect full, Button* button, _TTF_Font* text_font, SDL_Color text_color, int default_progress = 50, j1Module* callback = nullptr, char* text = "");
+	Slider* createSlider(int x, int y, SDL_Texture* texture, SDL_Rect empty, SDL_Rect full, Button* button, _TTF_Font* text_font, SDL_Color text_color, float default_progress = 0.5f, j1Module* callback = nullptr, char* text = "");
 
 public:
 	bool UI_Debug = false;

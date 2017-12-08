@@ -148,6 +148,11 @@ bool j1Gui::PostUpdate(float dt)
 			if (item->data->moving)
 			{
 				item->data->Mouse_Drag();
+				if (item->data->parent != nullptr && item->data->parent->element_type == SLIDER)
+				{
+					Slider* parent = (Slider*)item->data->parent;
+					parent->setProgress((parent->button->localPosition.x + parent->button->section.w / (2 / App->gui->UI_scale)) / ((parent->bar_length) * App->gui->UI_scale));
+				}
 				item->data->state = CLICKED;
 			}
 
@@ -263,11 +268,12 @@ Window* j1Gui::createWindow(int x, int y, SDL_Texture * texture, SDL_Rect sectio
 	return ret;
 }
 
-Slider * j1Gui::createSlider(int x, int y, SDL_Texture * texture, SDL_Rect empty, SDL_Rect full, Button* button, _TTF_Font* text_font, SDL_Color text_color, int default_progress, j1Module * callback, char* text)
+Slider * j1Gui::createSlider(int x, int y, SDL_Texture * texture, SDL_Rect empty, SDL_Rect full, Button* button, _TTF_Font* text_font, SDL_Color text_color, float default_progress, j1Module * callback, char* text)
 {
 	SDL_Texture* usingTexture = (texture) ? texture : atlas;
 
 	Slider* ret = new Slider(x, y, usingTexture, empty, full,  default_progress, callback);
+	ret->solid = false;
 
 	if (full.w > full.h)
 	{
@@ -280,7 +286,8 @@ Slider * j1Gui::createSlider(int x, int y, SDL_Texture * texture, SDL_Rect empty
 		button->setLimits(-1, -1, empty.h / (2 / UI_scale), empty.h / (2 / UI_scale));
 	}
 
-	ret->appendChild(((empty.w * UI_scale) - 5 - button->section.w / (2 / UI_scale)) * default_progress / 100, y, button);
+	ret->appendChild(((empty.w * UI_scale) - 5 - button->section.w / (2 / UI_scale)) * default_progress, y, button);
+	button->setOriginalPos(((empty.w * UI_scale) - 7 - button->section.w / (2 / UI_scale)) * 0.5f, y);
 
 	ret->appendChild(x, y, createText(text, x, y, text_font, text_color));
 
