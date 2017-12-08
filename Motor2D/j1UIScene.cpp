@@ -133,15 +133,29 @@ bool j1UIScene::Start()
 		pause_button->function = PAUSE;
 
 		//LIVES TXT
-		UI_element* lives_txt = App->gui->createText("LIVES: ", 25, 0, mid_texts_font, white_color, this);
+		UI_element* lives_txt = App->gui->createText("LIVES: ", 25 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, white_color, this);
 		lives_txt->setOutlined(true);
 
+		//MISSING COIN
+		UI_element* missing_coin1_img = App->gui->createImageFromAtlas(300 * App->gui->UI_scale, 5 * App->gui->UI_scale, { 949,189,46,45 }, this);
+		UI_element* missing_coin2_img = App->gui->createImageFromAtlas(350 * App->gui->UI_scale, 5 * App->gui->UI_scale, { 949,189,46,45 }, this);
+		UI_element* missing_coin3_img = App->gui->createImageFromAtlas(400 * App->gui->UI_scale, 5 * App->gui->UI_scale, { 949,189,46,45 }, this);
+		//EARNED COIN
+		UI_element* earned_coin1_img = App->gui->createImageFromAtlas(302 * App->gui->UI_scale, 6 * App->gui->UI_scale, { 895,189,41,41 }, this);
+		UI_element* earned_coin2_img = App->gui->createImageFromAtlas(352 * App->gui->UI_scale, 6 * App->gui->UI_scale, { 895,189,41,41 }, this);
+		UI_element* earned_coin3_img = App->gui->createImageFromAtlas(402 * App->gui->UI_scale, 6 * App->gui->UI_scale, { 895,189,41,41 }, this);
 		//CHRONO
-		UI_element* chrono = App->gui->createChrono(250, 0, mid_texts_font,white_color, this);
+		UI_element* chrono = App->gui->createChrono(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font,white_color, this);
 
 		inGameMenu->elements.add(pause_button);
 		inGameMenu->elements.add(lives_txt);
 		inGameMenu->elements.add(chrono);
+		inGameMenu->elements.add(earned_coin1_img);
+		inGameMenu->elements.add(earned_coin2_img);
+		inGameMenu->elements.add(earned_coin3_img);
+		inGameMenu->elements.add(missing_coin1_img);
+		inGameMenu->elements.add(missing_coin2_img);
+		inGameMenu->elements.add(missing_coin3_img);
 		menus.add(inGameMenu);
 
 	}
