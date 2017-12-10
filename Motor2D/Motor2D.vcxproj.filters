@@ -94,9 +94,6 @@
     <ClCompile Include="UI_Chrono.cpp">
       <Filter>Desenvolupament  ========\Modules\UI elements</Filter>
     </ClCompile>
-    <ClCompile Include="j1IntroScene.cpp">
-      <Filter>Desenvolupament  ========\Scenes</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -218,9 +215,6 @@
     </ClInclude>
     <ClInclude Include="UI_Chrono.h">
       <Filter>Desenvolupament  ========\Modules\UI elements</Filter>
-    </ClInclude>
-    <ClInclude Include="j1IntroScene.h">
-      <Filter>Desenvolupament  ========\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

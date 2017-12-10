@@ -11,7 +11,6 @@
 #include "UI_Window.h"
 #include "UI_Chrono.h"
 #include "j1EntityManager.h"
-#include "j1IntroScene.h"
 #include "j1Audio.h"
 #include "j1Window.h"
 

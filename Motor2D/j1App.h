@@ -21,7 +21,6 @@ class j1PathFinding;
 class j1Fonts;
 class j1Gui;
 class j1UIScene;
-class j1IntroScene;
 
 class j1App
 {
@@ -98,7 +97,6 @@ public:
 	j1Fonts*			font;
 	j1Gui*				gui;
 	j1UIScene*			uiScene;
-	j1IntroScene*		introScene;
 
 	bool				cap_frames = true;
 	bool				paused = false;
