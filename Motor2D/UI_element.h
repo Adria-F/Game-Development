@@ -19,7 +19,8 @@ enum element_type
 	SLIDER,
 	INPUTTEXT,
 	WINDOW,
-	CHRONO
+	CHRONO,
+	PLAYERINFO
 };
 
 enum element_function

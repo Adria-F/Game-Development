@@ -16,6 +16,7 @@
 #include "j1UIScene.h"
 #include "UI_Slider.h"
 #include "UI_Chrono.h"
+#include "UI_PlayerInfo.h"
 
 
 j1Gui::j1Gui() : j1Module()
@@ -330,6 +331,14 @@ Chrono * j1Gui::createStopWatch(int x, int y, _TTF_Font * font, SDL_Color color,
 {
 	Chrono* ret = new Chrono(x, y, STOPWATCH, font, color, callback);
 	ret->solid = false;
+	UI_elements.add(ret);
+
+	return ret;
+}
+
+PlayerInfo * j1Gui::createPlayerInfo(int x, int y, j1Module* callback)
+{
+	PlayerInfo* ret = new PlayerInfo(x, y, callback);
 	UI_elements.add(ret);
 
 	return ret;

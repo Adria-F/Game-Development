@@ -76,7 +76,7 @@ bool j1Player::Start()
 	if (lives <= 0)
 	{
 		lives = 3;
-		coin1 = coin2 = coin3 = false;
+		coins[0] = coins[1] = coins[2] = false;
 	}
 
 	animation = idle_right;
@@ -128,7 +128,6 @@ bool j1Player::Update(float dt)
 {
 	BROFILER_CATEGORY("Player Update", Profiler::Color::Red);
 	
-	LOG("Lives: %d", lives);
 	if (!dead)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)

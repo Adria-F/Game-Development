@@ -14,7 +14,7 @@
 #include "j1Player.h"
 #include "Brofiler\Brofiler.h"
 
-Coin::Coin(int id) : Entity ("coin")
+Coin::Coin(int id) : Entity("coin")
 {
 	graphics = App->tex->Load("textures/non-character-entities/coin.png");
 	ghost_graphics = App->tex->Load("textures/non-character-entities/ghost_coin.png");
@@ -29,19 +29,7 @@ Coin::Coin(int id) : Entity ("coin")
 		earn_coin_fx = App->audio->LoadFx("audio/fx/earn_coin.wav");
 
 	j1Player* player = (j1Player*)App->entityManager->getPlayer();
-	if (id == 1 && player->coin1)
-	{
-		SDL_Texture* tmp = graphics;
-		graphics = ghost_graphics;
-		ghost_graphics = tmp;
-	}
-	else if (id == 2 && player->coin2)
-	{
-		SDL_Texture* tmp = graphics;
-		graphics = ghost_graphics;
-		ghost_graphics = tmp;
-	}
-	else if (id == 3 && player->coin3)
+	if (player->coins[id - 1])
 	{
 		SDL_Texture* tmp = graphics;
 		graphics = ghost_graphics;
@@ -84,22 +72,14 @@ bool Coin::CleanUp()
 void Coin::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c2->type == COLLIDER_PLAYER && !App->entityManager->getPlayer()->dead)
-	{	
+	{
 		App->audio->PlayFx(earn_coin_fx, 0);
 		App->entityManager->DeleteEntity(this);
 
 		j1Player* player = (j1Player*)App->entityManager->getPlayer();
-		if (id == 1 && !player->coin1)
+		if (!player->coins[id - 1])
 		{
-			player->coin1 = true;
-		}
-		else if (id == 2 && !player->coin2)
-		{
-			player->coin2 = true;
-		}
-		else if (id == 3 && !player->coin3)
-		{
-			player->coin3 = true;
+			player->coins[id - 1] = true;
 		}
 	}
 }

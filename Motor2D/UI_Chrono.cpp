@@ -39,6 +39,7 @@ void Chrono::BlitElement()
 			time++;
 			p2SString secs("%d", time);
 			text->setText(secs);
+			section = text->section;
 		}
 		break;
 	case TIMER:
@@ -51,6 +52,7 @@ void Chrono::BlitElement()
 			{
 				p2SString secs("%d", time);
 				text->setText(secs);
+				section = text->section;
 			}
 		}
 		break;

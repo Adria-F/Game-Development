@@ -6,6 +6,7 @@
 #include "UI_Button.h"
 #include "UI_Image.h"
 #include "UI_Slider.h"
+#include "UI_PlayerInfo.h"
 #include "j1Input.h"
 #include "j1Render.h"
 #include "UI_Window.h"
@@ -142,26 +143,16 @@ bool j1UIScene::Start()
 		UI_element* lives_txt = App->gui->createText("LIVES: ", 25 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font, white_color, this);
 		lives_txt->setOutlined(true);
 
-		//MISSING COIN
-		//UI_element* missing_coin1_img = App->gui->createImageFromAtlas(300 * App->gui->UI_scale, 5 * App->gui->UI_scale, { 949,189,46,45 }, this);
-		//UI_element* missing_coin2_img = App->gui->createImageFromAtlas(350 * App->gui->UI_scale, 5 * App->gui->UI_scale, { 949,189,46,45 }, this);
-		//UI_element* missing_coin3_img = App->gui->createImageFromAtlas(400 * App->gui->UI_scale, 5 * App->gui->UI_scale, { 949,189,46,45 }, this);
-		////EARNED COIN
-		//UI_element* earned_coin1_img = App->gui->createImageFromAtlas(302 * App->gui->UI_scale, 6 * App->gui->UI_scale, { 895,189,41,41 }, this);
-		//UI_element* earned_coin2_img = App->gui->createImageFromAtlas(352 * App->gui->UI_scale, 6 * App->gui->UI_scale, { 895,189,41,41 }, this);
-		//UI_element* earned_coin3_img = App->gui->createImageFromAtlas(402 * App->gui->UI_scale, 6 * App->gui->UI_scale, { 895,189,41,41 }, this);
-		Button* switchC = App->gui->createSwitch(300 * App->gui->UI_scale, 5 * App->gui->UI_scale, NULL, { 949,189,46,45 }, { 949,189,46,45 }, { 895,189,41,41 }, { 895,189,41,41 }, this);
-		Button* switchC2 = App->gui->createSwitch(350 * App->gui->UI_scale, 5 * App->gui->UI_scale, NULL, { 949,189,46,45 }, { 949,189,46,45 }, { 895,189,41,41 }, { 895,189,41,41 }, this);
-		Button* switchC3 = App->gui->createSwitch(400 * App->gui->UI_scale, 5 * App->gui->UI_scale, NULL, { 949,189,46,45 }, { 949,189,46,45 }, { 895,189,41,41 }, { 895,189,41,41 }, this);
+		//PLAYER INFO
+		UI_element* playerInfo = App->gui->createPlayerInfo(0, 0, this);
+
 		//CHRONO
 		UI_element* chrono = App->gui->createTimer(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, 50, mid_texts_font,white_color, this);
 
 		inGameMenu->elements.add(pause_button);
 		inGameMenu->elements.add(lives_txt);
 		inGameMenu->elements.add(chrono);
-		inGameMenu->elements.add(switchC);
-		inGameMenu->elements.add(switchC2);
-		inGameMenu->elements.add(switchC3);
+		inGameMenu->elements.add(playerInfo);
 		
 		menus.add(inGameMenu);
 
