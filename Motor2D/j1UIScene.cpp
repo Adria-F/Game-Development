@@ -147,7 +147,7 @@ bool j1UIScene::Start()
 		UI_element* playerInfo = App->gui->createPlayerInfo(0, 0, this);
 
 		//CHRONO
-		Chrono* chrono = App->gui->createTimer(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, 30, mid_texts_font, white_color, this);
+		Chrono* chrono = App->gui->createTimer(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, 35, mid_texts_font, white_color, this);
 		/*Chrono* chrono = App->gui->createStopWatch(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font,white_color, this);
 		chrono->setAlarm(5);
 		chrono->setAlarm(10);
