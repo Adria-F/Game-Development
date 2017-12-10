@@ -64,6 +64,9 @@ public:
 
 	void applySettings(settings_values values);
 
+	void pauseChronos();
+	void playChronos();
+
 public:
 
 	p2List<menu*> menus;

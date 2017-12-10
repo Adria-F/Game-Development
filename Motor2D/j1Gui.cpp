@@ -17,6 +17,7 @@
 #include "UI_Slider.h"
 #include "UI_Chrono.h"
 
+
 j1Gui::j1Gui() : j1Module()
 {
 	name.create("gui");
@@ -155,22 +156,31 @@ bool j1Gui::PostUpdate(float dt)
 				}
 				item->data->state = CLICKED;
 			}
-
+			if (item->data->callback != nullptr && item->data->element_type == CHRONO)
+			{
+				Chrono* chrono = (Chrono*)item->data;
+				switch (chrono->type)
+				{
+				case TIMER:
+					if (chrono->time == 0)
+						chrono->callback->OnUIEvent(item->data, TIMER_ZERO);
+					break;
+				case STOPWATCH:
+					for (int i = 0; i < chrono->alarms.Count(); i++)
+					{
+						if (chrono->time == (int)chrono->alarms.At(i))
+							chrono->callback->OnUIEvent(item->data, STOPWATCH_ALARM);
+					}
+					break;
+				}
+			}
 			if (item->data->parent == nullptr)
 				item->data->BlitElement();
 		}
 	}
 	if (UI_Debug)
 		UIDebugDraw();
-	/*for (p2List_item<inputBox*>* item = inputTexts.start; item; item = item->next) //Input Text reading
-	{
-	if (item->data->reading)
-	{
-	item->data->readInput();
-	break;
-	}
-	}*/
-
+	
 	return true;
 }
 
@@ -306,9 +316,19 @@ Button* j1Gui::createButton(int x, int y, SDL_Texture* texture, SDL_Rect standby
 	return ret;
 }
 
-Chrono* j1Gui::createChrono(int x, int y, _TTF_Font* font, SDL_Color color, j1Module* callback)
+Chrono * j1Gui::createTimer(int x, int y, int initial_value, _TTF_Font * font, SDL_Color color, j1Module * callback)
 {
-	Chrono* ret = new Chrono(x, y,font,color, callback);
+	Chrono* ret = new Chrono(x, y, TIMER, font, color, callback);
+	ret->setStartValue(initial_value);
+	ret->solid = false;
+	UI_elements.add(ret);
+
+	return ret;
+}
+
+Chrono * j1Gui::createStopWatch(int x, int y, _TTF_Font * font, SDL_Color color, j1Module * callback)
+{
+	Chrono* ret = new Chrono(x, y, STOPWATCH, font, color, callback);
 	ret->solid = false;
 	UI_elements.add(ret);
 

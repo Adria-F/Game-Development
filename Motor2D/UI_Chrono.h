@@ -3,8 +3,16 @@
 #include "UI_element.h"
 #include "UI_Text.h"
 #include "SDL/include/SDL_pixels.h"
+#include "p2DynArray.h"
+#include "j1Timer.h"
 
 struct _TTF_Font;
+
+enum chrono_type
+{
+	STOPWATCH,
+	TIMER
+};
 
 class Chrono : public UI_element
 {
@@ -12,10 +20,12 @@ public:
 	Chrono()
 	{}
 
-	Chrono(int x, int y, _TTF_Font* font, SDL_Color color, j1Module* callback): UI_element(x, y, element_type::CHRONO, {0, 0, 0, 0}, callback, nullptr)
+	Chrono(int x, int y, chrono_type type, _TTF_Font* font, SDL_Color color, j1Module* callback) : UI_element(x, y, element_type::CHRONO, { 0, 0, 0, 0 }, callback, nullptr),
+		type(type)
 	{
-		text = new Text("", x, y, font, color, nullptr);
+		text = new Text("0", x, y, font, color, nullptr);
 		text->setOutlined(true);
+		counter.Pause();
 	}
 
 	~Chrono()
@@ -24,11 +34,18 @@ public:
 	}
 
 	void BlitElement();
+	void setStartValue(int new_start_value);
+	void setAlarm(int alarm);
+	void restartChrono();
 
 public:
-	uint timer = 0;
-	uint time_changed = 0;
+	int time = 0;
+	uint time_elapsed = 0;
+	uint start_value = 0;
+	p2DynArray<uint> alarms;
+	j1Timer counter;
 	Text* text;
+	chrono_type type;
 };
 
 #endif // !__UI_CHRONO__

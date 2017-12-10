@@ -25,7 +25,9 @@ enum event_type
 	MOUSE_RIGHT_CLICK,
 	MOUSE_RIGHT_RELEASE,
 	MOUSE_LEFT_CLICK,
-	MOUSE_LEFT_RELEASE
+	MOUSE_LEFT_RELEASE,
+	TIMER_ZERO,
+	STOPWATCH_ALARM
 };
 
 // ---------------------------------------------------
@@ -59,7 +61,8 @@ public:
 	// Gui creation functions
 	const SDL_Texture* GetAtlas() const;
 	Text* createText(char* text, int x, int y, _TTF_Font* font, SDL_Color color = { 255, 255, 255, 255 }, j1Module* callback = nullptr);
-	Chrono* createChrono(int x, int y, _TTF_Font* font, SDL_Color color, j1Module* callback = nullptr);
+	Chrono* createTimer(int x, int y, int initial_value, _TTF_Font* font, SDL_Color color, j1Module* callback = nullptr);
+	Chrono* createStopWatch(int x, int y, _TTF_Font* font, SDL_Color color, j1Module* callback = nullptr);
 	Image* createImage(int x, int y, SDL_Texture* texture, j1Module* callback = nullptr);
 	Image* createImageFromAtlas(int x, int y, SDL_Rect section, j1Module* callback = nullptr);
 	//NULL texture to use atlas
@@ -76,7 +79,6 @@ public:
 public:
 	bool UI_Debug = false;
 	float UI_scale;
-	j1Timer chrono;
 
 private:
 

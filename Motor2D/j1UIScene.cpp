@@ -13,6 +13,7 @@
 #include "j1EntityManager.h"
 #include "j1Audio.h"
 #include "j1Window.h"
+#include "p2Log.h"
 
 j1UIScene::j1UIScene()
 {
@@ -153,7 +154,7 @@ bool j1UIScene::Start()
 		Button* switchC2 = App->gui->createSwitch(350 * App->gui->UI_scale, 5 * App->gui->UI_scale, NULL, { 949,189,46,45 }, { 949,189,46,45 }, { 895,189,41,41 }, { 895,189,41,41 }, this);
 		Button* switchC3 = App->gui->createSwitch(400 * App->gui->UI_scale, 5 * App->gui->UI_scale, NULL, { 949,189,46,45 }, { 949,189,46,45 }, { 895,189,41,41 }, { 895,189,41,41 }, this);
 		//CHRONO
-		UI_element* chrono = App->gui->createChrono(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font,white_color, this);
+		UI_element* chrono = App->gui->createTimer(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, 50, mid_texts_font,white_color, this);
 
 		inGameMenu->elements.add(pause_button);
 		inGameMenu->elements.add(lives_txt);
@@ -296,11 +297,20 @@ bool j1UIScene::PreUpdate()
 bool j1UIScene::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	{
+		App->paused = true;
 		loadMenu(START_MENU);
+	}
 	else if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+	{
+		App->paused = true;
 		loadMenu(PAUSE_MENU);
+	}
 	else if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+	{
+		App->paused = true;
 		loadMenu(SETTINGS_MENU);
+	}
 	
 	return true;
 }
@@ -416,6 +426,14 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 	else if (event_type == MOUSE_RIGHT_RELEASE)
 	{
 	}
+	else if (event_type == TIMER_ZERO)
+	{
+		LOG("Clock reached zero");
+	}
+	else if (event_type == STOPWATCH_ALARM)
+	{
+		LOG("Clock alarm");
+	}
 
 	return ret;
 }
@@ -438,38 +456,42 @@ bool j1UIScene::CleanUp()
 bool j1UIScene::loadMenu(menu_id id)
 {
 	bool ret = false;
-	
-	for (p2List_item<menu*>* item = menus.start; item; item = item->next)
+	if (current_menu->id != id)
 	{
-		if (item->data->id == id)
+		pauseChronos();
+		for (p2List_item<menu*>* item = menus.start; item; item = item->next)
 		{
-			current_menu = item->data;
-			ret = true;
-			if (id == SETTINGS_MENU)
+			if (item->data->id == id)
 			{
-				for (p2List_item<UI_element*>* item2 = current_menu->elements.start; item2; item2 = item2->next)
+				current_menu = item->data;
+				playChronos();
+				ret = true;
+				if (id == SETTINGS_MENU)
 				{
-					if (item2->data->element_type == SWITCH)
+					for (p2List_item<UI_element*>* item2 = current_menu->elements.start; item2; item2 = item2->next)
 					{
-						Button* switchB = (Button*)item2->data;
-						startValues.fullscreen = switchB->active;
-					}
-					if (item2->data->element_type == SLIDER)
-					{
-						Slider* slider = (Slider*)item2->data;
-						switch (slider->modify)
+						if (item2->data->element_type == SWITCH)
 						{
-						case MUSIC:
-							startValues.music = slider->getProgress();
-							break;
-						case FX:
-							startValues.fx = slider->getProgress();
-							break;
+							Button* switchB = (Button*)item2->data;
+							startValues.fullscreen = switchB->active;
+						}
+						if (item2->data->element_type == SLIDER)
+						{
+							Slider* slider = (Slider*)item2->data;
+							switch (slider->modify)
+							{
+							case MUSIC:
+								startValues.music = slider->getProgress();
+								break;
+							case FX:
+								startValues.fx = slider->getProgress();
+								break;
+							}
 						}
 					}
 				}
+				break;
 			}
-			break;
 		}
 	}
 
@@ -506,6 +528,32 @@ void j1UIScene::applySettings(settings_values values)
 				break;
 			}
 			slider->button->localPosition.x = ((slider->section.w * App->gui->UI_scale) - 5 - slider->button->section.w / (2 / App->gui->UI_scale)) * slider->progress;
+		}
+	}
+}
+
+void j1UIScene::pauseChronos()
+{
+	for (p2List_item<UI_element*>* item = current_menu->elements.start; item; item = item->next)
+	{
+		if (item->data->element_type == CHRONO)
+		{
+			Chrono* chrono = (Chrono*)item->data;
+			if (!chrono->counter.isPaused())
+				chrono->counter.Pause();
+		}
+	}
+}
+
+void j1UIScene::playChronos()
+{
+	for (p2List_item<UI_element*>* item = current_menu->elements.start; item; item = item->next)
+	{
+		if (item->data->element_type == CHRONO)
+		{
+			Chrono* chrono = (Chrono*)item->data;
+			if (chrono->counter.isPaused())
+				chrono->counter.Play();
 		}
 	}
 }
