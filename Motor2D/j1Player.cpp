@@ -75,6 +75,7 @@ bool j1Player::Start()
 
 	if (lives <= 0)
 	{
+		score = 0;
 		lives = 3;
 		coins[0] = coins[1] = coins[2] = false;
 	}
@@ -343,6 +344,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		p2SString c2_name = c2->callback->name.GetString();
 		if (c2_name == "bat" && Collision_from_bottom(c1, c2, 3) && v.y < 0)
 		{
+			score += 250;
 			v.y = (jump_force * 2 / 3);
 			c2->entity->dead = true;
 			c2->to_delete = true;
@@ -361,11 +363,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 				else
 					App->audio->PlayFx(die_fx, 0);
 			}
-		}
-		if (c2_name == "coin")
-		{
-			c2->entity->dead = true;
-			c2->to_delete = true;
 		}
 	}
 

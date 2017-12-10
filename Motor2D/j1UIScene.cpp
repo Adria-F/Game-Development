@@ -55,7 +55,7 @@ bool j1UIScene::Start()
 	{
 		UI_element* credits_img = App->gui->createImage(0, 0, credits_tex, this);
 		//BACK
-		UI_element* back_button = App->gui->createButton(10, 335, NULL, { 849,69,133,36 }, { 849,106,133,36 }, { 849,143,133,36 }, this);
+		UI_element* back_button = App->gui->createButton(34 * App->gui->UI_scale, 675 * App->gui->UI_scale, NULL, { 849,69,133,36 }, { 849,106,133,36 }, { 849,143,133,36 }, this);
 		back_button->function = BACK;
 
 		UI_element* back_text = App->gui->createText("BACK", 200, 200, small_texts_font, white_color);
@@ -344,17 +344,13 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		{
 		case NEW_GAME:
 		case RESTART:
-		{
 			App->paused = false;
 			App->scene->load_lvl = true;
 			App->scene->newLvl = 1;
-		}
 			break;
 		case CONTINUE:
-		{
 			App->paused = false;
 			App->LoadGame();
-		}
 			break;
 		case SETTINGS:
 			loadMenu(SETTINGS_MENU);

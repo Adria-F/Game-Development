@@ -19,6 +19,7 @@ public:
 	Image* coin_socket;
 	Image* coin;
 	Image* live;
+	Text* score;
 };
 
 #endif // !__UI_PLAYERINFO__

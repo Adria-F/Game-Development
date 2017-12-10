@@ -79,6 +79,7 @@ void Coin::OnCollision(Collider* c1, Collider* c2)
 		j1Player* player = (j1Player*)App->entityManager->getPlayer();
 		if (!player->coins[id - 1])
 		{
+			player->score += 500;
 			player->coins[id - 1] = true;
 		}
 	}
