@@ -157,24 +157,7 @@ bool j1Gui::PostUpdate(float dt)
 				}
 				item->data->state = CLICKED;
 			}
-			if (item->data->callback != nullptr && item->data->element_type == CHRONO)
-			{
-				Chrono* chrono = (Chrono*)item->data;
-				switch (chrono->type)
-				{
-				case TIMER:
-					if (chrono->time == 0)
-						chrono->callback->OnUIEvent(item->data, TIMER_ZERO);
-					break;
-				case STOPWATCH:
-					for (int i = 0; i < chrono->alarms.Count(); i++)
-					{
-						if (chrono->time == (int)chrono->alarms.At(i))
-							chrono->callback->OnUIEvent(item->data, STOPWATCH_ALARM);
-					}
-					break;
-				}
-			}
+
 			if (item->data->parent == nullptr)
 				item->data->BlitElement();
 		}
