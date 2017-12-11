@@ -16,10 +16,11 @@ public:
 
 public:
 
-	Image* coin_socket;
-	Image* coin;
-	Image* live;
-	Text* score;
+	Image* coin_socket = nullptr;
+	Image* coin = nullptr;
+	Image* live = nullptr;
+	Image* empty_live = nullptr;
+	Text* score = nullptr;
 };
 
 #endif // !__UI_PLAYERINFO__

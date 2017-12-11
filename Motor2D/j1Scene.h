@@ -10,11 +10,12 @@ struct SDL_Texture;
 
 struct level
 {
-	level(int num, char* mapPath, menu_id default_menu)
+	level(int num, char* mapPath, menu_id default_menu, bool default_paused = false)
 	{
 		this->mapPath.create(mapPath);
 		lvl = num;
 		this->default_menu = default_menu;
+		this->default_paused = default_paused;
 	}
 
 	p2SString mapPath;
@@ -23,6 +24,7 @@ struct level
 	iPoint player_start_pos;
 	SDL_Rect end_rect;
 	menu_id default_menu;
+	bool default_paused = false;
 };
 
 class j1Scene : public j1Module

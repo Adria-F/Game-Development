@@ -14,9 +14,10 @@ PlayerInfo::PlayerInfo(int x, int y, j1Module* callback): UI_element(x, y, PLAYE
 {
 	_TTF_Font* mid_texts_font = App->font->Load("fonts/TCCEB.ttf", 36);
 	SDL_Color white_color = { 255, 255, 255, 0 };
-	coin_socket = App->gui->createImageFromAtlas(x + 150, y + 2, { 948, 189, 48, 46 });
-	coin = App->gui->createImageFromAtlas(x + 152, y + 3, { 895, 189, 41, 41 });
-	live = App->gui->createImageFromAtlas(x + 60, y + 3, {900, 240, 19, 33});
+	coin_socket = App->gui->createImageFromAtlas(x + 160, y + 2, { 948, 189, 48, 46 });
+	coin = App->gui->createImageFromAtlas(x + 161, y + 3, { 895, 189, 41, 41 });
+	live = App->gui->createImageFromAtlas(x + 62, y + 3, {380, 449, 51, 48});
+	empty_live = App->gui->createImageFromAtlas(x + 62, y + 3, { 431, 449, 51, 48 });
 	score = App->gui->createText("0", x + 275, y + 3, mid_texts_font, white_color);
 }
 
@@ -37,8 +38,13 @@ void PlayerInfo::BlitElement()
 	score->setOutlined(true);
 	score->BlitElement();
 
-	for (int i = 0; i < player->lives; i++)
-		App->render->Blit(live->texture, livePos.x + (i * 20), livePos.y, &live->section, false, App->gui->UI_scale);
+	for (int i = 0; i < 3; i++)
+	{
+		if (i < player->lives)
+			App->render->Blit(live->texture, livePos.x + (i * 28), livePos.y, &live->section, false, App->gui->UI_scale);
+		else
+			App->render->Blit(empty_live->texture, livePos.x + (i * 28), livePos.y, &empty_live->section, false, App->gui->UI_scale);
+	}
 	
 	for (int i = 0; i < 3; i++)
 	{

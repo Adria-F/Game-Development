@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="32" tileheight="32" nextobjectid="9">
+ <properties>
+  <property name="speed" type="float" value="0"/>
+ </properties>
+ <imagelayer name="background">
+  <image source="main_menu.png" width="512" height="384"/>
+ </imagelayer>
+ <objectgroup name="Logic">
+  <object id="8" name="player_start_pos" x="197.5" y="185.5" width="21" height="33"/>
+ </objectgroup>
+</map>

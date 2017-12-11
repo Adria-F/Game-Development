@@ -273,12 +273,16 @@ bool j1Player::PostUpdate(float dt)
 	//By enemyy
 	if (dead && SDL_GetTicks() > killed_finished + 1500)
 	{
-		if (lives > 0)
-			App->scene->respawn_enemies = false;
-
-		killed_finished = 0;
 		App->scene->load_lvl = true;
-		App->scene->newLvl = App->scene->current_lvl->data->lvl;
+		if (lives > 0)
+		{
+			App->scene->newLvl = App->scene->current_lvl->data->lvl;
+			App->scene->respawn_enemies = false;
+		}
+		else
+			App->scene->newLvl = 1;
+
+		killed_finished = 0;		
 	}
 	//By falling
 	int win_scale = App->win->GetScale();
@@ -291,19 +295,19 @@ bool j1Player::PostUpdate(float dt)
 		else
 		{
 			lives--;
+			App->scene->load_lvl = true;
+
 			if (lives > 0)
 			{
+				App->scene->newLvl = App->scene->current_lvl->data->lvl;
 				App->scene->respawn_enemies = false;
 				App->audio->PlayFx(killed_fx, 0);
 			}
 			else
 			{
+				App->scene->newLvl = 1;
 				App->audio->PlayFx(die_fx, 0);
-				App->uiScene->loadMenu(START_MENU);
-			}
-
-			App->scene->load_lvl = true;
-			App->scene->newLvl = App->scene->current_lvl->data->lvl;
+			}		
 		}
 	}
 
@@ -347,7 +351,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			score += 250;
 			v.y = (jump_force * 2 / 3);
 			c2->entity->dead = true;
-			c2->to_delete = true;
+			c2->to_delete = true; //COLLIDER POSSIBLE BUG
 		}
 		else if (!App->entityManager->player_god_mode && (c2_name == "charger" || (c2_name == "bat" && !c2->entity->dead && !Collision_from_bottom(c1, c2, 3))))
 		{

@@ -22,9 +22,11 @@ j1Scene::j1Scene() : j1Module()
 	name.create("scene");
 	
 	// Add all levels to the list
-	level* lvl1 = new level(1, "platformer.tmx", INGAME_MENU);
-	level* lvl2 = new level(2, "platformer2.tmx", INGAME_MENU);
+	level* main_lvl = new level(1, "main_menu.tmx", START_MENU, true);
+	level* lvl1 = new level(2, "platformer.tmx", INGAME_MENU);
+	level* lvl2 = new level(3, "platformer2.tmx", INGAME_MENU);
 
+	levels.add(main_lvl);
 	levels.add(lvl1);
 	levels.add(lvl2);
 
@@ -62,6 +64,9 @@ bool j1Scene::Start()
 bool j1Scene::PreUpdate()
 {
 	BROFILER_CATEGORY("Scene PreUpdate", Profiler::Color::White);
+	if (current_lvl->data->default_paused)
+		App->render->virtualCamPos = 0;
+
 	return true;
 }
 
@@ -73,7 +78,7 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		load_lvl = true;
-		newLvl = 1;
+		newLvl = 2;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
@@ -81,12 +86,12 @@ bool j1Scene::Update(float dt)
 		if (current_lvl->data->lvl == 2)
 		{
 			load_lvl = true;
-			newLvl = 2;
+			newLvl = 3;
 		}
 		else
 		{
 			load_lvl = true;
-			newLvl = 1;
+			newLvl = 2;
 		}
 	}
 
@@ -202,5 +207,7 @@ void j1Scene::LoadLvl(int num)
 		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end_rect, !respawn_enemies);
 		App->uiScene->loadMenu(current_lvl->data->default_menu);
 		respawn_enemies = true;
+		if (current_lvl->data->default_paused)
+			App->paused = true;
 	}
 }
