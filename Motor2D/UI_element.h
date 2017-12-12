@@ -20,7 +20,8 @@ enum element_type
 	INPUTTEXT,
 	WINDOW,
 	CHRONO,
-	PLAYERINFO
+	PLAYERINFO,
+	PROGRESSBAR
 };
 
 enum element_function

@@ -17,6 +17,7 @@
 #include "UI_Slider.h"
 #include "UI_Chrono.h"
 #include "UI_PlayerInfo.h"
+#include "UI_ProgressBar.h"
 
 
 j1Gui::j1Gui() : j1Module()
@@ -322,6 +323,16 @@ Chrono * j1Gui::createStopWatch(int x, int y, _TTF_Font * font, SDL_Color color,
 PlayerInfo * j1Gui::createPlayerInfo(int x, int y, j1Module* callback)
 {
 	PlayerInfo* ret = new PlayerInfo(x, y, callback);
+	UI_elements.add(ret);
+
+	return ret;
+}
+
+ProgressBar* j1Gui::createProgressBar(int x, int y, SDL_Texture* texture, SDL_Rect empty, SDL_Rect full, Image* head, j1Module* callback)
+{
+	SDL_Texture* usingTexture = (texture) ? texture : atlas;
+
+	ProgressBar* ret = new ProgressBar(x, y, usingTexture, empty, full, head, callback);
 	UI_elements.add(ret);
 
 	return ret;

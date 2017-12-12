@@ -36,22 +36,22 @@ void PlayerInfo::BlitElement()
 	p2SString score_str("%d", player->score);
 	score->setText(score_str);//NEEDS TO CHANGE TO ONLY SET TEXT IF SCORE IS DIFFERENT
 	score->setOutlined(true);
-	score->BlitElement();
+	//score->BlitElement();
 
 	for (int i = 0; i < 3; i++)
 	{
-		if (i < player->lives)
+		/*if (i < player->lives)
 			App->render->Blit(live->texture, livePos.x + (i * 28), livePos.y, &live->section, false, App->gui->UI_scale);
 		else
-			App->render->Blit(empty_live->texture, livePos.x + (i * 28), livePos.y, &empty_live->section, false, App->gui->UI_scale);
+			App->render->Blit(empty_live->texture, livePos.x + (i * 28), livePos.y, &empty_live->section, false, App->gui->UI_scale);*/
 	}
 	
 	for (int i = 0; i < 3; i++)
 	{
-		if (player->coins[i])
+		/*if (player->coins[i])
 		{
 			App->render->Blit(coin->texture, coinPos.x + (i * 25), coinPos.y, &coin->section, false, App->gui->UI_scale);
 		}
-		App->render->Blit(coin_socket->texture, coin_socketPos.x + (i * 25), coin_socketPos.y, &coin_socket->section, false, App->gui->UI_scale);
+		App->render->Blit(coin_socket->texture, coin_socketPos.x + (i * 25), coin_socketPos.y, &coin_socket->section, false, App->gui->UI_scale);*/
 	}
 }

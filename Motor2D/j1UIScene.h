@@ -6,6 +6,8 @@
 
 class Button;
 class UI_element;
+class ProgressBar;
+class Chrono;
 
 enum menu_id
 {
@@ -76,6 +78,9 @@ public:
 	settings_values newValues;
 	settings_values startValues;
 	settings_values defaultValues;
+
+	ProgressBar* timeBar = nullptr;
+	Chrono* chrono = nullptr;
 };
 
 #endif // !__j1UISCENE_H__

@@ -97,6 +97,9 @@
     <ClCompile Include="UI_PlayerInfo.cpp">
       <Filter>Desenvolupament  ========\Modules\UI elements</Filter>
     </ClCompile>
+    <ClCompile Include="UI_ProgressBar.cpp">
+      <Filter>Desenvolupament  ========\Modules\UI elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -220,6 +223,9 @@
       <Filter>Desenvolupament  ========\Modules\UI elements</Filter>
     </ClInclude>
     <ClInclude Include="UI_PlayerInfo.h">
+      <Filter>Desenvolupament  ========\Modules\UI elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_ProgressBar.h">
       <Filter>Desenvolupament  ========\Modules\UI elements</Filter>
     </ClInclude>
   </ItemGroup>

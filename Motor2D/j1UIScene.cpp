@@ -7,6 +7,7 @@
 #include "UI_Image.h"
 #include "UI_Slider.h"
 #include "UI_PlayerInfo.h"
+#include "UI_ProgressBar.h"
 #include "j1Input.h"
 #include "j1Render.h"
 #include "UI_Window.h"
@@ -150,14 +151,33 @@ bool j1UIScene::Start()
 
 		//CHRONO
 		/*Chrono* chrono = App->gui->createTimer(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, 35, mid_texts_font, white_color, this);*/
-		/*Chrono* chrono = App->gui->createStopWatch(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font,white_color, this);
-		chrono->setAlarm(5);
+		chrono = App->gui->createStopWatch(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font,white_color, this);
+		/*chrono->setAlarm(5);
 		chrono->setAlarm(10);
 		chrono->setAlarm(15);*/
+
+		//TIME BAR
+		Image* barImg = App->gui->createImageFromAtlas(0, 0, { 38, 652, 19, 33 });
+		timeBar = App->gui->createProgressBar(610 * App->gui->UI_scale, 12 * App->gui->UI_scale, NULL, { 0, 581, 280, 33 }, { 0, 614, 280, 33 }, barImg, this);
+		timeBar->type = DECREASING;
+		timeBar->max_value = 50.0f;
+		Image* highlight1 = App->gui->createImageFromAtlas(100 * App->gui->UI_scale, 2 * App->gui->UI_scale, { 245, 652, 7, 41 });
+		Image* highlight2 = App->gui->createImageFromAtlas(169 * App->gui->UI_scale, 2 * App->gui->UI_scale, { 245, 652, 7, 41 });
+		Image* highlight3 = App->gui->createImageFromAtlas(229 * App->gui->UI_scale, 2 * App->gui->UI_scale, { 245, 652, 7, 41 });
+		highlight1->parent = timeBar;
+		highlight2->parent = timeBar;
+		highlight3->parent = timeBar;
+		timeBar->highlights.add(highlight1);
+		timeBar->highlights.add(highlight2);
+		timeBar->highlights.add(highlight3);
+		timeBar->addMarker(93 * App->gui->UI_scale, 45 * App->gui->UI_scale, App->gui->createImageFromAtlas(0, 0, { 80, 658, 22, 25 }), App->gui->createImageFromAtlas(0, 0, { 105, 658, 22, 25 }));
+		timeBar->addMarker(160 * App->gui->UI_scale, 45 * App->gui->UI_scale, App->gui->createImageFromAtlas(0, 0, { 130, 658, 22, 25 }), App->gui->createImageFromAtlas(0, 0, { 155, 658, 22, 25 }));
+		timeBar->addMarker(220 * App->gui->UI_scale, 45 * App->gui->UI_scale, App->gui->createImageFromAtlas(0, 0, { 180, 658, 23, 25 }), App->gui->createImageFromAtlas(0, 0, { 206, 658, 23, 25 }));
 
 		inGameMenu->elements.add(pause_button);
 		inGameMenu->elements.add(lives_txt);
 		inGameMenu->elements.add(time_txt);
+		inGameMenu->elements.add(timeBar);
 		//inGameMenu->elements.add(chrono);
 		inGameMenu->elements.add(playerInfo);
 		
@@ -321,6 +341,10 @@ bool j1UIScene::Start()
 
 bool j1UIScene::PreUpdate()
 {
+	if (chrono->counter.isPaused())
+		chrono->counter.Play();
+	timeBar->enterCurrentValue(chrono->counter.ReadSec());
+
 	return true;
 }
 

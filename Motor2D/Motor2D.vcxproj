@@ -99,6 +99,7 @@
     <ClCompile Include="j1Render.cpp" />
     <ClCompile Include="j1Textures.cpp" />
     <ClCompile Include="j1Window.cpp" />
+    <ClCompile Include="UI_ProgressBar.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="UI_Button.cpp" />
     <ClCompile Include="UI_Chrono.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="j1Window.h" />
     <ClInclude Include="p2PQueue.h" />
     <ClInclude Include="p2SString.h" />
+    <ClInclude Include="UI_ProgressBar.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
     <ClInclude Include="UI_Button.h" />
