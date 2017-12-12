@@ -201,6 +201,7 @@ void j1Scene::LoadLvl(int num)
 			j1Player* player = (j1Player*)App->entityManager->getPlayer();
 			player->coins[0] = player->coins[1] = player->coins[2] = false;
 			player->lives = 3;
+			player->score = 0;
 		}
 		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end_rect, !respawn_enemies);
 		App->uiScene->loadMenu(current_lvl->data->default_menu);
