@@ -88,6 +88,7 @@ void Bat::OnCollision(Collider* c1, Collider* c2)
 	{
 		App->audio->PlayFx(die_fx, 0);
 		v = { 0,0 };
+		collider->to_delete = true;
 		collider = nullptr;
 	}
 }
