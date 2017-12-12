@@ -13,7 +13,8 @@ enum menu_id
 	SETTINGS_MENU,
 	INGAME_MENU,
 	PAUSE_MENU,
-	CREDITS_MENU
+	CREDITS_MENU, 
+	END_MENU
 };
 
 struct menu
