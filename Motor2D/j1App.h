@@ -57,6 +57,8 @@ public:
 	void SaveGame(bool specialGod = false) const;
 	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
 
+	void RequestBrowser(const char * url) const;
+
 private:
 
 	// Load config file
