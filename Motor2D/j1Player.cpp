@@ -351,7 +351,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			score += 250;
 			v.y = (jump_force * 2 / 3);
 			c2->entity->dead = true;
-			c2->to_delete = true; //COLLIDER POSSIBLE BUG
 		}
 		else if (!App->entityManager->player_god_mode && (c2_name == "charger" || (c2_name == "bat" && !c2->entity->dead && !Collision_from_bottom(c1, c2, 3))))
 		{
