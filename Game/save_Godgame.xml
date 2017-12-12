@@ -7,7 +7,7 @@
 	<:anonymous />
 	<scene />
 	<entityManager>
-		<player position_x="197" position_y="180" level="1" lives="3" />
+		<player position_x="197" position_y="180" level="1" lives="3" coin1="false" coin2="false" coin3="false" />
 		<player position_x="197" position_y="185" />
 	</entityManager>
 	<map />
@@ -16,6 +16,6 @@
 	<gui />
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-351" y="0" />
 	</renderer>
 </game_state>

@@ -104,9 +104,7 @@ bool j1Scene::Update(float dt)
 	
 
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
-	{
 		App->cap_frames = !App->cap_frames;
-	}
 
 	// Move camera with player -----------------------
 	uint win_width, win_height;

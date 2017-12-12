@@ -162,7 +162,7 @@ bool j1UIScene::Start()
 	menu* pauseMenu = new menu(PAUSE_MENU);
 	{
 		//HOME BUTTON
-		UI_element* home_button = App->gui->createButton(947 * App->gui->UI_scale, 12 * App->gui->UI_scale, NULL, { 353,506,62,64 }, { 415,506,62,64 }, { 377,506,62,64 }, this);
+		UI_element* home_button = App->gui->createButton(947 * App->gui->UI_scale, 12 * App->gui->UI_scale, NULL, { 353,506,62,64 }, { 415,506,62,64 }, { 477,506,62,64 }, this);
 		home_button->function = HOME;
 		
 		//WINDOW
