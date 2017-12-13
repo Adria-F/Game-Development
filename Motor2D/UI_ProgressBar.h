@@ -12,7 +12,7 @@ struct marker
 
 enum bar_type
 {
-	GROWING,
+	INCREASING,
 	DECREASING
 };
 

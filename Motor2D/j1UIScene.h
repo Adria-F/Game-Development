@@ -80,6 +80,7 @@ public:
 	settings_values defaultValues;
 
 	ProgressBar* timeBar = nullptr;
+	ProgressBar* lvlBar = nullptr;
 	Chrono* chrono = nullptr;
 };
 

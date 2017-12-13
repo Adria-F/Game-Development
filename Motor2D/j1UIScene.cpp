@@ -214,6 +214,12 @@ bool j1UIScene::Start()
 		UI_element* slider = App->gui->createImageFromAtlas(248 * App->gui->UI_scale, 310 * App->gui->UI_scale, { 0, 321, 504, 53 }, this);
 		pause_window->appendChild(40 * App->gui->UI_scale, 129 * App->gui->UI_scale, slider);
 
+		//LVL BAR
+		/*Image* head_img = App->gui->createImageFromAtlas(0, 0, { 273, 450, 48, 105 });
+		lvlBar = App->gui->createProgressBar(248 * App->gui->UI_scale, 310 * App->gui->UI_scale, NULL, { 0, 581, 280, 33 }, { 0, 614, 280, 33 }, head_img, this);
+		lvlBar->type = INCREASING;
+		lvlBar->max_value = 50.0f;*/
+		
 		pauseMenu->elements.add(home_button);
 		pauseMenu->elements.add(pause_window);
 		pauseMenu->elements.add(settings_button);
@@ -336,7 +342,7 @@ bool j1UIScene::Start()
 	defaultValues.fx = fx_progress;
 	defaultValues.music = music_progress;
 	newValues = defaultValues;
-
+	
 	return true;
 }
 

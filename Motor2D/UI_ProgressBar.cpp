@@ -51,7 +51,7 @@ void ProgressBar::BlitElement()
 	float bar_end;
 	switch (type)
 	{
-	case GROWING:
+	case INCREASING:
 		full.w = section.w*progress;
 		bar_start = 0;
 		bar_end = full.w*App->gui->UI_scale;
