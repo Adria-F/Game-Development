@@ -56,7 +56,11 @@ void ProgressBar::BlitElement()
 		bar_start = 0;
 		bar_end = full.w*App->gui->UI_scale;
 		App->render->Blit(texture, globalPos.x, globalPos.y, &full, false, App->gui->UI_scale);
-		head->localPosition = { (int)(full.w*App->gui->UI_scale) - (int)(head->section.w*App->gui->UI_scale) / 2, 0 };
+		head->localPosition.x = (int)(full.w*App->gui->UI_scale) - (int)(head->section.w*App->gui->UI_scale) / 2;
+		if (head->localPosition.x < 1)
+			head->localPosition.x = 1;
+		if (head->localPosition.x + head->section.w*App->gui->UI_scale > section.w*App->gui->UI_scale)
+			head->localPosition.x = section.w*App->gui->UI_scale - head->section.w*App->gui->UI_scale - 2;
 		head->BlitElement();
 		break;
 	case DECREASING:
@@ -65,7 +69,7 @@ void ProgressBar::BlitElement()
 		bar_start = (section.w*App->gui->UI_scale) - (full.w*App->gui->UI_scale);
 		bar_end = section.w;
 		App->render->Blit(texture, globalPos.x + (section.w*App->gui->UI_scale) - (full.w*App->gui->UI_scale), globalPos.y, &full, false, App->gui->UI_scale);
-		head->localPosition = { (int)(section.w*App->gui->UI_scale) - (int)(full.w*App->gui->UI_scale) - 3, 0 };
+		head->localPosition.x = (int)(section.w*App->gui->UI_scale) - (int)(full.w*App->gui->UI_scale) - 3;
 		if (head->localPosition.x < (section.w*App->gui->UI_scale) - head->section.w/1.5f)
 			head->BlitElement();
 		break;
