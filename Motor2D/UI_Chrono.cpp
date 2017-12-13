@@ -46,7 +46,7 @@ void Chrono::BlitElement()
 				}
 			}
 			
-			p2SString secs("%d", time);
+			p2SString secs("%05d", time);
 			text->setText(secs);
 			section = text->section;
 		}

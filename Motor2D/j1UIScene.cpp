@@ -39,6 +39,7 @@ bool j1UIScene::Start()
 	_TTF_Font* big_texts_font = App->font->Load("fonts/TCCEB.ttf", 55);
 	_TTF_Font* mid_texts_font = App->font->Load("fonts/TCCEB.ttf", 36);
 	_TTF_Font* small_texts_font = App->font->Load("fonts/TCCEB.ttf", 19);
+	_TTF_Font* tiny_texts_font = App->font->Load("fonts/TCCEB.ttf", 15);
 	
 	SDL_Color yellow_color = { 229, 168, 61, 255 };
 	SDL_Color white_color = { 255, 255, 255, 0 };
@@ -151,14 +152,14 @@ bool j1UIScene::Start()
 
 		//CHRONO
 		/*Chrono* chrono = App->gui->createTimer(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, 35, mid_texts_font, white_color, this);*/
-		chrono = App->gui->createStopWatch(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, mid_texts_font,white_color, this);
+		chrono = App->gui->createStopWatch(620 * App->gui->UI_scale, -3 * App->gui->UI_scale, tiny_texts_font, white_color, this);
 		/*chrono->setAlarm(5);
 		chrono->setAlarm(10);
 		chrono->setAlarm(15);*/
 
 		//TIME BAR
 		Image* barImg = App->gui->createImageFromAtlas(0, 0, { 38, 652, 19, 33 });
-		timeBar = App->gui->createProgressBar(610 * App->gui->UI_scale, 12 * App->gui->UI_scale, NULL, { 0, 581, 280, 33 }, { 0, 614, 280, 33 }, barImg, this);
+		timeBar = App->gui->createProgressBar(610 * App->gui->UI_scale, 15 * App->gui->UI_scale, NULL, { 0, 581, 280, 33 }, { 0, 614, 280, 33 }, barImg, this);
 		timeBar->type = DECREASING;
 		timeBar->max_value = 50.0f;
 		Image* highlight1 = App->gui->createImageFromAtlas(100 * App->gui->UI_scale, 2 * App->gui->UI_scale, { 245, 652, 7, 41 });
@@ -178,7 +179,7 @@ bool j1UIScene::Start()
 		inGameMenu->elements.add(lives_txt);
 		inGameMenu->elements.add(time_txt);
 		inGameMenu->elements.add(timeBar);
-		//inGameMenu->elements.add(chrono);
+		inGameMenu->elements.add(chrono);
 		inGameMenu->elements.add(playerInfo);
 		
 		menus.add(inGameMenu);
@@ -341,8 +342,8 @@ bool j1UIScene::Start()
 
 bool j1UIScene::PreUpdate()
 {
-	if (chrono->counter.isPaused())
-		chrono->counter.Play();
+	/*if (chrono->counter.isPaused())
+		chrono->counter.Play();*/
 	timeBar->enterCurrentValue(chrono->counter.ReadSec());
 
 	return true;
