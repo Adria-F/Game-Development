@@ -17,6 +17,7 @@
 #include "j1Window.h"
 #include "j1Transitions.h"
 #include "p2Log.h"
+#include "j1Player.h"
 
 j1UIScene::j1UIScene()
 {
@@ -212,21 +213,21 @@ bool j1UIScene::Start()
 		pause_window->appendChild(398 * App->gui->UI_scale, 233 * App->gui->UI_scale, newGame_pauseMenu);
 		
 		//TEMP SLIDER (only img)
-		UI_element* slider = App->gui->createImageFromAtlas(248 * App->gui->UI_scale, 310 * App->gui->UI_scale, { 0, 321, 504, 53 }, this);
-		pause_window->appendChild(40 * App->gui->UI_scale, 129 * App->gui->UI_scale, slider);
+	/*	UI_element* slider = App->gui->createImageFromAtlas(248 * App->gui->UI_scale, 310 * App->gui->UI_scale, { 0, 321, 504, 53 }, this);
+		pause_window->appendChild(40 * App->gui->UI_scale, 129 * App->gui->UI_scale, slider);*/
 
 		//LVL BAR
-		/*Image* head_img = App->gui->createImageFromAtlas(0, 0, { 273, 450, 48, 105 });
-		lvlBar = App->gui->createProgressBar(248 * App->gui->UI_scale, 310 * App->gui->UI_scale, NULL, { 0, 581, 280, 33 }, { 0, 614, 280, 33 }, head_img, this);
+		Image* head_img = App->gui->createImageFromAtlas(0, 0, { 273, 450, 48, 105 });
+		lvlBar = App->gui->createProgressBar(248 * App->gui->UI_scale, 310 * App->gui->UI_scale, NULL, { 0, 321, 504, 53 }, { 0, 375, 504, 53 }, head_img, this);
 		lvlBar->type = INCREASING;
-		lvlBar->max_value = 50.0f;*/
+		lvlBar->max_value = 2080.0f; // Map width
 		
 		pauseMenu->elements.add(home_button);
 		pauseMenu->elements.add(pause_window);
 		pauseMenu->elements.add(settings_button);
 		pauseMenu->elements.add(newGame_pauseMenu);
 		pauseMenu->elements.add(play_button);
-		pauseMenu->elements.add(slider);
+		pauseMenu->elements.add(lvlBar);
 		menus.add(pauseMenu);
 	}
 
@@ -351,8 +352,9 @@ bool j1UIScene::PreUpdate()
 {
 	/*if (chrono->counter.isPaused())
 		chrono->counter.Play();*/
+	j1Player* player = (j1Player*)App->entityManager->getPlayer();
 	timeBar->enterCurrentValue(chrono->counter.ReadSec());
-
+	lvlBar->enterCurrentValue(player->position.x);
 	return true;
 }
 

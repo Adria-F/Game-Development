@@ -46,7 +46,7 @@ void ProgressBar::BlitElement()
 {
 	iPoint globalPos = calculateAbsolutePosition();
 	App->render->Blit(texture, globalPos.x, globalPos.y, &section, false, App->gui->UI_scale);
-
+	
 	float bar_start;
 	float bar_end;
 	switch (type)
