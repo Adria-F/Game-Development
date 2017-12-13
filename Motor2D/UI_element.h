@@ -21,7 +21,8 @@ enum element_type
 	WINDOW,
 	CHRONO,
 	PLAYERINFO,
-	PROGRESSBAR
+	PROGRESSBAR,
+	FINALINFO
 };
 
 enum element_function

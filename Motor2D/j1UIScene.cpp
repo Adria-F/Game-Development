@@ -211,17 +211,16 @@ bool j1UIScene::Start()
 		UI_element* newGame_pauseMenu = App->gui->createButton(606 * App->gui->UI_scale, 414 * App->gui->UI_scale, NULL, { 757,341,119,124 }, { 757,465,119,124 }, { 757,589,119,124 }, this);
 		newGame_pauseMenu->function = NEW_GAME;
 		pause_window->appendChild(398 * App->gui->UI_scale, 233 * App->gui->UI_scale, newGame_pauseMenu);
-		
-		//TEMP SLIDER (only img)
-	/*	UI_element* slider = App->gui->createImageFromAtlas(248 * App->gui->UI_scale, 310 * App->gui->UI_scale, { 0, 321, 504, 53 }, this);
-		pause_window->appendChild(40 * App->gui->UI_scale, 129 * App->gui->UI_scale, slider);*/
 
 		//LVL BAR
-		Image* head_img = App->gui->createImageFromAtlas(0, 0, { 273, 450, 48, 105 });
+		Image* head_img = App->gui->createImageFromAtlas(0, -30, { 273, 450, 48, 105 });
 		lvlBar = App->gui->createProgressBar(248 * App->gui->UI_scale, 310 * App->gui->UI_scale, NULL, { 0, 321, 504, 53 }, { 0, 375, 504, 53 }, head_img, this);
 		lvlBar->type = INCREASING;
 		lvlBar->max_value = 2080.0f; // Map width
-		
+		Image* arrow = App->gui->createImageFromAtlas(-1, 0, { 101, 450, 50, 58 });
+		arrow->parent = lvlBar;
+		lvlBar->highlights.add(arrow);
+
 		pauseMenu->elements.add(home_button);
 		pauseMenu->elements.add(pause_window);
 		pauseMenu->elements.add(settings_button);
@@ -311,7 +310,7 @@ bool j1UIScene::Start()
 		settingsMenu->elements.add(switchB);
 		menus.add(settingsMenu);
 	}
-
+	
 	menu* endMenu = new menu(END_MENU);
 	{
 		UI_element* lvl_end_window = App->gui->createWindow(50 * App->gui->UI_scale, 75 * App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 0,0,923,581 }, this);
