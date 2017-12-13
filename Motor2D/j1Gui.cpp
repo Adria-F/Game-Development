@@ -18,6 +18,7 @@
 #include "UI_Chrono.h"
 #include "UI_PlayerInfo.h"
 #include "UI_ProgressBar.h"
+#include "UI_FinalInfo.h"
 
 
 j1Gui::j1Gui() : j1Module()
@@ -335,6 +336,14 @@ ProgressBar* j1Gui::createProgressBar(int x, int y, SDL_Texture* texture, SDL_Re
 	SDL_Texture* usingTexture = (texture) ? texture : atlas;
 
 	ProgressBar* ret = new ProgressBar(x, y, usingTexture, empty, full, head, callback);
+	UI_elements.add(ret);
+
+	return ret;
+}
+
+FinalInfo* j1Gui::createFinalInfo(int x, int y, j1Module* callback)
+{
+	FinalInfo* ret = new FinalInfo(x, y, callback);
 	UI_elements.add(ret);
 
 	return ret;
