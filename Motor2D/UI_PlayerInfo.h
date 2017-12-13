@@ -20,7 +20,6 @@ public:
 	Image* coin = nullptr;
 	Image* live = nullptr;
 	Image* empty_live = nullptr;
-	Text* score = nullptr;
 };
 
 #endif // !__UI_PLAYERINFO__

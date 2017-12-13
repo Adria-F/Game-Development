@@ -15,7 +15,7 @@ j1Timer::j1Timer()
 // ---------------------------------------------
 void j1Timer::Start()
 {
-	started_at = SDL_GetTicks();
+	started_at = paused_at = SDL_GetTicks();
 }
 
 // ---------------------------------------------

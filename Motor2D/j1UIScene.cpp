@@ -417,6 +417,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->paused = false;
 			App->scene->load_lvl = true;
 			App->scene->newLvl = 2;
+			App->entityManager->player_god_mode = false;
 			break;
 		case CONTINUE:
 			App->paused = false;

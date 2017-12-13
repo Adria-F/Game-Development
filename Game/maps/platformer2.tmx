@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="66" height="13" tilewidth="32" tileheight="32" nextobjectid="59">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="66" height="13" tilewidth="32" tileheight="32" nextobjectid="60">
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" tilecount="232" columns="29">
   <image source="tileset.png" width="950" height="256"/>
   <terraintypes>
@@ -3538,6 +3538,11 @@
   <object id="52" name="bat" type="enemy" x="1001.27" y="99.867" width="36.8" height="29.6"/>
   <object id="53" name="bat" type="enemy" x="1931.6" y="110.533" width="36.8" height="29.6"/>
   <object id="56" name="bat" type="enemy" x="1574.27" y="84.5333" width="36.8" height="29.6"/>
+  <object id="59" name="coin" type="collectible" x="332.318" y="177.773" width="25" height="25">
+   <properties>
+    <property name="id" type="int" value="3"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Walkability" width="66" height="13">
   <data>
