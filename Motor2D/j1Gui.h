@@ -84,6 +84,7 @@ public:
 public:
 	bool UI_Debug = false;
 	float UI_scale;
+	int alpha_value = 255;
 
 private:
 

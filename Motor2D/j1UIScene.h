@@ -26,7 +26,6 @@ struct menu
 
 	p2List<UI_element*> elements;
 	menu_id id;
-	menu_id previous_menu;
 };
 
 struct settings_values
@@ -74,6 +73,7 @@ public:
 
 	p2List<menu*> menus;
 	menu* current_menu = nullptr;
+	menu_id previous_menu;
 
 	settings_values newValues;
 	settings_values startValues;

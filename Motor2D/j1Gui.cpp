@@ -56,6 +56,8 @@ bool j1Gui::PreUpdate()
 {
 	bool ret = true;
 	
+	SDL_SetTextureAlphaMod(atlas, alpha_value);
+
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	int scale = App->win->GetScale();

@@ -15,6 +15,7 @@
 #include "j1EntityManager.h"
 #include "j1Audio.h"
 #include "j1Window.h"
+#include "j1Transitions.h"
 #include "p2Log.h"
 
 j1UIScene::j1UIScene()
@@ -410,7 +411,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			tmp->active = !tmp->active;
 			newValues.fullscreen = tmp->active;
 		}
-		menu_id previous_menu = current_menu->id;
+
 		switch (element->function)
 		{
 		case NEW_GAME:
@@ -424,7 +425,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->LoadGame();
 			break;
 		case SETTINGS:
-			loadMenu(SETTINGS_MENU);
+			App->transitions->menuTransition(SETTINGS_MENU, FADE, 0.5);
 			break;
 		case CREDITS:
 			loadMenu(CREDITS_MENU);
@@ -436,37 +437,35 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			if (!App->paused)
 			{
 				App->paused = true;
-				loadMenu(PAUSE_MENU);
+				App->transitions->menuTransition(PAUSE_MENU, FADE, 0.5);
 			}
 			else
 			{
 				App->paused = false;
-				loadMenu(INGAME_MENU);
+				App->transitions->menuTransition(INGAME_MENU, FADE, 0.5);
 			}
 			break;
 		case APPLY:
 			applySettings(newValues);
-			loadMenu(current_menu->previous_menu);
+			App->transitions->menuTransition(previous_menu, FADE, 0.5);
 			break;
 		case CANCEL:
 			newValues = startValues;
 			applySettings(startValues);
-			loadMenu(current_menu->previous_menu);
+			App->transitions->menuTransition(previous_menu, FADE, 0.5);
 			break;
 		case BACK:
-			loadMenu(current_menu->previous_menu);
+			App->transitions->menuTransition(previous_menu, FADE, 0.5);
 			break;
 		case RESTORE:
 			applySettings(defaultValues);
-			loadMenu(current_menu->previous_menu);
+			App->transitions->menuTransition(previous_menu, FADE, 0.5);
 			break;
 		case HOME:
 			App->scene->load_lvl = true;
 			App->scene->newLvl = 1;
 			break;
 		}
-		if (current_menu->id != previous_menu)
-			current_menu->previous_menu = previous_menu;
 	}
 	else if (event_type == MOUSE_LEFT_RELEASE)
 	{
@@ -525,6 +524,7 @@ bool j1UIScene::loadMenu(menu_id id)
 	bool ret = false;
 	if (current_menu->id != id)
 	{
+		previous_menu = current_menu->id;
 		pauseChronos();
 		for (p2List_item<menu*>* item = menus.start; item; item = item->next)
 		{
