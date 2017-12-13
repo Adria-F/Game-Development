@@ -46,6 +46,7 @@ public:
 	j1Timer counter;
 	Text* text;
 	chrono_type type;
+	p2SString last_secs;
 };
 
 #endif // !__UI_CHRONO__
