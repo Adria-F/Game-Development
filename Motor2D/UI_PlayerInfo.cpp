@@ -4,7 +4,6 @@
 #include "p2DynArray.h"
 #include "j1Textures.h"
 #include "j1Fonts.h"
-#include "UI_element.h"
 #include "UI_Image.h"
 #include "UI_Text.h"
 #include "j1Player.h"
@@ -34,7 +33,7 @@ void PlayerInfo::BlitElement()
 
 	j1Player* player = (j1Player*)App->entityManager->getPlayer();
 	p2SString score_str("%d", player->score);
-	score->setText(score_str);//NEEDS TO CHANGE TO ONLY SET TEXT IF SCORE IS DIFFERENT
+	score->setText(score_str);
 	score->setOutlined(true);
 	//score->BlitElement();
 
