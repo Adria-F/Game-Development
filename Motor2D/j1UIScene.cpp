@@ -7,6 +7,7 @@
 #include "UI_Image.h"
 #include "UI_Slider.h"
 #include "UI_PlayerInfo.h"
+#include "UI_FinalInfo.h"
 #include "UI_ProgressBar.h"
 #include "j1Input.h"
 #include "j1Render.h"
@@ -314,11 +315,18 @@ bool j1UIScene::Start()
 	{
 		UI_element* lvl_end_window = App->gui->createWindow(50 * App->gui->UI_scale, 75 * App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 0,0,923,581 }, this);
 
+		//SUCCESS TXT
 		UI_element* succes_txt = App->gui->createText("SUCCESS!", 0, 0, huge_texts_font, white_color, this);
 		succes_txt->setOutlined(true);
 		lvl_end_window->appendChildAtCenter(succes_txt);
 		succes_txt->localPosition.y = 20;
 
+		//TOTAL SCORE
+		UI_element* total_score_txt = App->gui->createText("Total score:", 0, 0, big_texts_font, white_color, this);
+		total_score_txt->setOutlined(true);
+		lvl_end_window->appendChild(190 * App->gui->UI_scale, 300 * App->gui->UI_scale, total_score_txt);
+
+		UI_element* finalInfo = App->gui->createFinalInfo(0, 0, this);
 		//NEW GAME
 		UI_element* newGame_endMenu = App->gui->createButton(0, 0, NULL, { 757,341,119,124 }, { 757,465,119,124 }, { 757,589,119,124 }, this);
 		newGame_endMenu->function = NEW_GAME;
@@ -333,6 +341,7 @@ bool j1UIScene::Start()
 		lvl_end_window->appendChild(202 * App->gui->UI_scale, 400 * App->gui->UI_scale, home_button2);//NEEDS TO BE RESCALED THE IMG FROM ATLAS
 
 		endMenu->elements.add(lvl_end_window);
+		endMenu->elements.add(finalInfo);
 		endMenu->elements.add(newGame_endMenu);
 		endMenu->elements.add(home_button2);
 		menus.add(endMenu);

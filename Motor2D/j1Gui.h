@@ -19,6 +19,7 @@ class Slider;
 class Chrono;
 class PlayerInfo;
 class ProgressBar;
+class FinalInfo;
 
 enum event_type
 {
@@ -80,6 +81,7 @@ public:
 	PlayerInfo* createPlayerInfo(int x, int y, j1Module* callback = nullptr);
 	//NULL texture to use atlas
 	ProgressBar* createProgressBar(int x, int y, SDL_Texture* texture, SDL_Rect empty, SDL_Rect full, Image* head, j1Module* callback = nullptr);
+	FinalInfo* createFinalInfo(int x, int y, j1Module* callback = nullptr);
 
 public:
 	bool UI_Debug = false;
