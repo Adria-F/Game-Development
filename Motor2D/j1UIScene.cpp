@@ -153,7 +153,6 @@ bool j1UIScene::Start()
 		UI_element* playerInfo = App->gui->createPlayerInfo(0, 0, this);
 
 		//CHRONO
-		/*Chrono* chrono = App->gui->createTimer(750 * App->gui->UI_scale, 5 * App->gui->UI_scale, 35, mid_texts_font, white_color, this);*/
 		chrono = App->gui->createStopWatch(620 * App->gui->UI_scale, -3 * App->gui->UI_scale, tiny_texts_font, white_color, this);
 		/*chrono->setAlarm(5);
 		chrono->setAlarm(10);
@@ -349,8 +348,6 @@ bool j1UIScene::Start()
 
 bool j1UIScene::PreUpdate()
 {
-	/*if (chrono->counter.isPaused())
-		chrono->counter.Play();*/
 	j1Player* player = (j1Player*)App->entityManager->getPlayer();
 	timeBar->enterCurrentValue(chrono->counter.ReadSec());
 	lvlBar->enterCurrentValue(player->position.x);
