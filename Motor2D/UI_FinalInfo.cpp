@@ -14,6 +14,7 @@ FinalInfo::FinalInfo(int x, int y, j1Module* callback) : UI_element(x, y, FINALI
 	big_coin_socket = App->gui->createImageFromAtlas(x + 457 * App->gui->UI_scale, y + 237 * App->gui->UI_scale, { 160, 457, 101, 98 });
 	big_coin = App->gui->createImageFromAtlas(x + 465 * App->gui->UI_scale, y + 242 * App->gui->UI_scale, { 11, 457, 82, 82 });
 	final_score = App->gui->createText("0", x + 515 * App->gui->UI_scale, y + 377 * App->gui->UI_scale, big_texts_font, white_color);
+	trophy =  App->gui->createImageFromAtlas(x + 265 * App->gui->UI_scale, y + 226 * App->gui->UI_scale, { 336, 701, 110, 120 });
 }
 
 
@@ -24,6 +25,7 @@ void FinalInfo::BlitElement()
 {
 	iPoint big_coin_socketPos = big_coin_socket->calculateAbsolutePosition();
 	iPoint big_coinPos = big_coin->calculateAbsolutePosition();
+	iPoint trophyPos = trophy->calculateAbsolutePosition();
 
 	j1Player* player = (j1Player*)App->entityManager->getPlayer();
 	p2SString score_str("%d", player->score);
@@ -31,6 +33,8 @@ void FinalInfo::BlitElement()
 	final_score->setOutlined(true);
 	final_score->BlitElement();
 
+	//NEEDS TO CHOOSE THE TROPHY:
+	App->render->Blit(trophy->texture, trophyPos.x, trophyPos.y, &trophy->section, false, App->gui->UI_scale);
 	for (int i = 0; i < 3; i++)
 	{
 		if (player->coins[i])

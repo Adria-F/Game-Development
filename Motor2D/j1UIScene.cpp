@@ -329,15 +329,16 @@ bool j1UIScene::Start()
 		lvl_end_window->appendChild(190 * App->gui->UI_scale, 300 * App->gui->UI_scale, total_score_txt);
 
 		UI_element* finalInfo = App->gui->createFinalInfo(0, 0, this);
+
 		//NEW GAME
 		UI_element* newGame_endMenu = App->gui->createButton(0, 0, NULL, { 757,341,119,124 }, { 757,465,119,124 }, { 757,589,119,124 }, this);
 		newGame_endMenu->function = NEW_GAME;
-		lvl_end_window->appendChild(602 * App->gui->UI_scale, 400 * App->gui->UI_scale, newGame_endMenu);//X = 402 FOR CENTRE
+		lvl_end_window->appendChild(500 * App->gui->UI_scale, 400 * App->gui->UI_scale, newGame_endMenu);//X = 402 FOR CENTRE
 
 		//HOME BUTTON
-		UI_element* home_button2 = App->gui->createButton(947 * App->gui->UI_scale, 12 * App->gui->UI_scale, NULL, { 353,506,62,64 }, { 415,506,62,64 }, { 477,506,62,64 }, this);
+		UI_element* home_button2 = App->gui->createButton(0 * App->gui->UI_scale, 0 * App->gui->UI_scale, NULL, { 638,341,119,124 }, { 638,465,119,124 }, { 638,589,119,124 }, this);
 		home_button2->function = HOME;
-		lvl_end_window->appendChild(202 * App->gui->UI_scale, 400 * App->gui->UI_scale, home_button2);//NEEDS TO BE RESCALED THE IMG FROM ATLAS
+		lvl_end_window->appendChild(300 * App->gui->UI_scale, 400 * App->gui->UI_scale, home_button2);//NEEDS TO BE RESCALED THE IMG FROM ATLAS
 
 		endMenu->elements.add(lvl_end_window);
 		endMenu->elements.add(finalInfo);
