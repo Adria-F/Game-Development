@@ -6,6 +6,8 @@
 #include "p2List.h"
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
+#define DEFAULT_MUSIC_VOLUME 38
+#define DEFAULT_FX_VOLUME 128
 
 struct _Mix_Music;
 struct Mix_Chunk;
@@ -49,8 +51,8 @@ private:
 	_Mix_Music*			music = nullptr;
 	_Mix_Music*			newMusic = nullptr;
 	p2List<Mix_Chunk*>	fx;
-	int fx_volume = 128;
-	int music_volume = 20;
+	int fx_volume = DEFAULT_FX_VOLUME;
+	int music_volume = DEFAULT_MUSIC_VOLUME;
 	bool fading = false;
 	float fade_time = 0.0f;
 	float Dvolume = 0.0f;

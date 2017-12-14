@@ -86,6 +86,7 @@ public:
 	ProgressBar* timeBar = nullptr;
 	ProgressBar* lvlBar = nullptr;
 	Chrono* chrono = nullptr;
+	Button* continueButton = nullptr;
 };
 
 #endif // !__j1UISCENE_H__

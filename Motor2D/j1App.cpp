@@ -443,8 +443,34 @@ bool j1App::SavegameNow() const
 		LOG("Save process halted from an error in module %s", (item != NULL) ? item->data->name.GetString() : "unknown");
 
 	data.reset();
+	setSaveFileLoadable(true);
 	want_to_save = false;
 	return ret;
+}
+
+void j1App::setSaveFileLoadable(bool loadable) const
+{
+ 	pugi::xml_document data;
+	pugi::xml_node root;
+	data.load_file(load_game.GetString());
+	root = data.child("game_state");
+	pugi::xml_attribute attribute = root.attribute("loadable");
+	if (attribute == NULL)
+		root.append_attribute("loadable") = loadable;
+	else
+		root.attribute("loadable").set_value(loadable);
+
+	data.save_file(load_game.GetString());
+}
+
+bool j1App::getSaveFileLoadability() const
+{
+	pugi::xml_document data;
+	pugi::xml_node root;
+	data.load_file(load_game.GetString());
+	root = data.child("game_state");
+
+	return root.attribute("loadable").as_bool();
 }
 
 void j1App::RequestBrowser(const char * url) const

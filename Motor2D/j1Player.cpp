@@ -76,7 +76,7 @@ bool j1Player::Start()
 	sound_one_time = false;
 
 	old_savedCol = nullptr;
-	App->SaveGame(true);
+	//App->SaveGame(true);
 
 	v.x = 0;
 	v.y = 0;

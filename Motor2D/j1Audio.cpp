@@ -51,9 +51,9 @@ bool j1Audio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
-	Mix_VolumeMusic(20);
-	fx_volume = 128;
-	music_volume = 20;
+	Mix_VolumeMusic(DEFAULT_MUSIC_VOLUME);
+	fx_volume = DEFAULT_FX_VOLUME;
+	music_volume = DEFAULT_MUSIC_VOLUME;
 
 	return ret;
 }
