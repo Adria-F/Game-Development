@@ -87,6 +87,7 @@ public:
 	bool UI_Debug = false;
 	float UI_scale;
 	int alpha_value = 255;
+	uint button_click_fx = 0;
 
 private:
 
