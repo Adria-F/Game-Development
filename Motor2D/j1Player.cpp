@@ -35,7 +35,12 @@ j1Player::j1Player() : Entity("player")
 }
 
 j1Player::~j1Player()
-{}
+{
+	App->tex->UnLoad(graphics);
+	graphics = nullptr;
+	App->tex->UnLoad(graphics_god);
+	graphics_god = nullptr;
+}
 
 // Load assets
 bool j1Player::Start()
@@ -50,6 +55,8 @@ bool j1Player::Start()
 
 	if (collider == nullptr)
 		collider = App->collision->AddCollider({ 0, 0, 15, 29 }, COLLIDER_PLAYER, this);
+	else
+		collider->SetPos(0, 0);
 
 	collider_offset.x = 3;
 	collider_offset.y = 2;
@@ -101,25 +108,6 @@ bool j1Player::Start()
 		SSJ_off = App->audio->LoadFx("audio/fx/SSJ_off.wav");
 	if (killed_fx == 0)
 		killed_fx = App->audio->LoadFx("audio/fx/killed_by_enemy.wav");
-
-	return true;
-}
-
-// Unload assets
-bool j1Player::CleanUp()
-{
-	LOG("Unloading player");
-
-	App->tex->UnLoad(graphics);
-	graphics = nullptr;
-	App->tex->UnLoad(graphics_god);
-	graphics_god = nullptr;
-
-	if (collider != nullptr)
-	{
-		collider->to_delete = true;
-		collider = nullptr;
-	}
 
 	return true;
 }
@@ -246,11 +234,12 @@ bool j1Player::PostUpdate(float dt)
 	}
 	
 	// Win condition
-	if (((collider->rect.x + collider->rect.w) > App->scene->current_lvl->data->end_rect.x) && (position.y + collider->rect.h) < (App->scene->current_lvl->data->end_rect.y + App->scene->current_lvl->data->end_rect.h))
+	if ((((collider->rect.x + collider->rect.w) > App->scene->current_lvl->data->end_rect.x) && (position.y + collider->rect.h) < (App->scene->current_lvl->data->end_rect.y + App->scene->current_lvl->data->end_rect.h)) && !won)
 	{
 		if (end_reached == 0)
 		{
 			won = true;
+			App->uiScene->pauseChronos();
 			end_reached = SDL_GetTicks();
 			if (App->scene->current_lvl == App->scene->levels.end)
 			{
@@ -266,6 +255,7 @@ bool j1Player::PostUpdate(float dt)
 	{
 		end_reached = 0;
 		won = false;
+		dead = false;
 		App->scene->load_lvl = true;
 	}
 

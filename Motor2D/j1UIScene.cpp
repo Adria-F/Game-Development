@@ -530,7 +530,7 @@ bool j1UIScene::CleanUp()
 bool j1UIScene::loadMenu(menu_id id)
 {
 	bool ret = false;
-	if (current_menu->id != id)
+	if (true)
 	{
 		previous_menu = current_menu->id;
 		pauseChronos();

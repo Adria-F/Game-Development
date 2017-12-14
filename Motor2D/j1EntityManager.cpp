@@ -105,8 +105,6 @@ bool j1EntityManager::PostUpdate(float dt)
 bool j1EntityManager::CleanUp()
 {
 	Entity* player = getPlayer();
-	if (player)
-		getPlayer()->CleanUp();
 	
 	p2List_item<Entity*>* item;
 	item = entities.start->next; //Skip first entity, player
