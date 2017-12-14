@@ -7,18 +7,16 @@
 	<:anonymous />
 	<scene />
 	<entityManager>
-		<player position_x="2046" position_y="243" level="3" lives="3" coin1="false" coin2="true" coin3="false" />
-		<player position_x="2046" position_y="248" />
-		<coin position_x="332" position_y="177" />
-		<charger position_x="473" position_y="336" />
+		<player position_x="514" position_y="380" level="1" lives="3" coin1="false" coin2="false" coin3="false" />
+		<player position_x="514" position_y="385" />
 	</entityManager>
 	<map />
 	<:anonymous />
 	<fonts />
 	<gui />
-	<UIScene chrono="58163" />
+	<UIScene chrono="12051" />
 	<:anonymous />
 	<renderer>
-		<camera x="-3136" y="0" />
+		<camera x="-928" y="0" />
 	</renderer>
 </game_state>

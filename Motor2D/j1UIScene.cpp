@@ -314,6 +314,7 @@ bool j1UIScene::Start()
 	
 	menu* endMenu = new menu(END_MENU);
 	{
+		
 		UI_element* lvl_end_window = App->gui->createWindow(50 * App->gui->UI_scale, 75 * App->gui->UI_scale, App->tex->Load("gui/big_parchment.png"), { 0,0,923,581 }, this);
 
 		//SUCCESS TXT
@@ -416,7 +417,6 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			tmp->active = !tmp->active;
 			newValues.fullscreen = tmp->active;
 		}
-
 		switch (element->function)
 		{
 		case NEW_GAME:

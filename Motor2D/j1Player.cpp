@@ -242,11 +242,10 @@ bool j1Player::PostUpdate(float dt)
 			won = true;
 			App->uiScene->pauseChronos();
 			end_reached = SDL_GetTicks();
-			if (App->scene->current_lvl == App->scene->levels.end)
+			if (App->scene->current_lvl == (App->scene->levels.end - 1))
 			{
 				App->audio->PlayFx(App->scene->win_fx, 0);
-				App->paused = true;
-				App->transitions->menuTransition(END_MENU, FADE, 0.3);
+				App->scene->load_lvl = 4;
 			}
 			else
 			{

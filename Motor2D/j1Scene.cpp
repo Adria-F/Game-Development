@@ -27,10 +27,12 @@ j1Scene::j1Scene() : j1Module()
 	level* main_lvl = new level(1, "main_menu.tmx", START_MENU, "audio/music/menu_music.ogg", true);
 	level* lvl1 = new level(2, "platformer.tmx", INGAME_MENU, "audio/music/bg_music.ogg");
 	level* lvl2 = new level(3, "platformer2.tmx", INGAME_MENU, "audio/music/bg_music.ogg");
+	level* endGame_lvl = new level(4, "main_menu.tmx", END_MENU, "audio/music/menu_music.ogg", true);
 
 	levels.add(main_lvl);
 	levels.add(lvl1);
 	levels.add(lvl2);
+	levels.add(endGame_lvl);
 
 	current_lvl = levels.start;
 
@@ -58,7 +60,7 @@ bool j1Scene::Start()
 	App->audio->PlayMusic(current_lvl->data->music.GetString(), 1.0f);
 	complete_level_fx = App->audio->LoadFx("audio/fx/level_complete.wav");
 	win_fx = App->audio->LoadFx("audio/fx/win.wav");
-
+	
 	return true;
 }
 
