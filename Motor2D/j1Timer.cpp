@@ -58,3 +58,8 @@ bool j1Timer::isPaused() const
 {
 	return paused;
 }
+
+void j1Timer::setAt(float miliseconds)
+{
+	started_at = paused_at = SDL_GetTicks() - miliseconds;
+}

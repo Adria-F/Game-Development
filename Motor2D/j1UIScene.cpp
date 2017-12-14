@@ -22,6 +22,7 @@
 
 j1UIScene::j1UIScene()
 {
+	name.create("UIScene");
 	pausable = false;
 }
 
@@ -433,7 +434,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->LoadGame();
 			break;
 		case SETTINGS:
-			App->transitions->menuTransition(SETTINGS_MENU, FADE, 0.5);
+			App->transitions->menuTransition(SETTINGS_MENU, FADE, 0.3);
 			break;
 		case CREDITS:
 			loadMenu(CREDITS_MENU);
@@ -445,33 +446,34 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			if (!App->paused)
 			{
 				App->paused = true;
-				App->transitions->menuTransition(PAUSE_MENU, FADE, 0.5);
+				App->transitions->menuTransition(PAUSE_MENU, FADE, 0.3);
 			}
 			else
 			{
 				App->paused = false;
-				App->transitions->menuTransition(INGAME_MENU, FADE, 0.5);
+				App->transitions->menuTransition(INGAME_MENU, FADE, 0.3);
 			}
 			break;
 		case APPLY:
 			applySettings(newValues);
-			App->transitions->menuTransition(previous_menu, FADE, 0.5);
+			App->transitions->menuTransition(previous_menu, FADE, 0.3);
 			break;
 		case CANCEL:
 			newValues = startValues;
 			applySettings(startValues);
-			App->transitions->menuTransition(previous_menu, FADE, 0.5);
+			App->transitions->menuTransition(previous_menu, FADE, 0.3);
 			break;
 		case BACK:
-			App->transitions->menuTransition(previous_menu, FADE, 0.5);
+			App->transitions->menuTransition(previous_menu, FADE, 0.3);
 			break;
 		case RESTORE:
 			applySettings(defaultValues);
-			App->transitions->menuTransition(previous_menu, FADE, 0.5);
+			App->transitions->menuTransition(previous_menu, FADE, 0.3);
 			break;
 		case HOME:
+			App->SaveGame();
 			App->scene->load_lvl = true;
-			App->scene->newLvl = 1;
+			App->scene->newLvl = 1;		
 			break;
 		}
 	}
@@ -527,6 +529,34 @@ bool j1UIScene::CleanUp()
 	return true;
 }
 
+bool j1UIScene::Load(pugi::xml_node& data)
+{
+	for (p2List_item<UI_element*>* item = getMenu(INGAME_MENU)->elements.start; item; item = item->next)
+	{
+		if (item->data->element_type == CHRONO)
+		{
+			Chrono* chrono = (Chrono*)item->data;
+			chrono->counter.setAt(data.attribute("chrono").as_float());
+		}
+	}
+
+	return true;
+}
+
+bool j1UIScene::Save(pugi::xml_node& data) const
+{
+	for (p2List_item<UI_element*>* item = getMenu(INGAME_MENU)->elements.start; item; item = item->next)
+	{
+		if (item->data->element_type == CHRONO)
+		{
+			Chrono* chrono = (Chrono*)item->data;
+			data.append_attribute("chrono") = chrono->counter.Read();
+		}
+	}
+
+	return true;
+}
+
 bool j1UIScene::loadMenu(menu_id id)
 {
 	bool ret = false;
@@ -571,6 +601,18 @@ bool j1UIScene::loadMenu(menu_id id)
 	}
 
 	return ret;
+}
+
+menu* j1UIScene::getMenu(menu_id id) const
+{
+	for (p2List_item<menu*>* item = menus.start; item; item = item->next)
+	{
+		if (item->data->id == id)
+			return item->data;
+	}
+	
+	LOG("Menu with given id not found");
+	return nullptr;
 }
 
 void j1UIScene::applySettings(settings_values values)

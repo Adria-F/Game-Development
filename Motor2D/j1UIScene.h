@@ -63,11 +63,15 @@ public:
 	bool CleanUp();
 
 	bool loadMenu(menu_id id);
+	menu* getMenu(menu_id id) const;
 
 	void applySettings(settings_values values);
 
 	void pauseChronos();
 	void playChronos();
+
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
 
 public:
 

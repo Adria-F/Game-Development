@@ -16,6 +16,7 @@ public:
 	void Pause();
 	void Play();
 	bool isPaused() const;
+	void setAt(float miliseconds);
 
 private:
 	uint32	started_at;

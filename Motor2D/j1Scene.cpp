@@ -17,6 +17,7 @@
 #include "j1Fonts.h"
 #include "UI_element.h"
 #include "UI_Chrono.h"
+#include "j1Transitions.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -68,6 +69,13 @@ bool j1Scene::PreUpdate()
 	if (current_lvl->data->default_paused)
 		App->render->virtualCamPos = 0;
 
+	if (load_lvl)
+	{
+		LoadLvl(newLvl);
+		load_lvl = false;
+		newLvl = 0;
+	}
+
 	return true;
 }
 
@@ -110,15 +118,11 @@ bool j1Scene::Update(float dt)
 	// Move camera with player -----------------------
 	uint win_width, win_height;
 	App->win->GetWindowSize(win_width, win_height);
-	max_camera_pos = current_lvl->data->length + (win_width);
-	max_camera_pos *= -1;
 	if ((App->entityManager->getPlayer()->pos_relCam > (win_width / App->win->GetScale() / 2) ) && (App->render->virtualCamPos > max_camera_pos))
 	{
 		App->render->virtualCamPos -= App->entityManager->getPlayer()->speed * 2 * dt; //*dt
 	}
 	// ------------------------------------------------
-
-	
 
 	// Parallax
 	p2List_item<ImageLayer*>* image = nullptr; // Parallax when player moves
@@ -148,15 +152,24 @@ bool j1Scene::PostUpdate(float dt)
 
 	App->map->Draw();
 
-	if (load_lvl)
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
-		LoadLvl(newLvl);
-		load_lvl = false;
-		newLvl = 0;
+		if (current_lvl->data->default_paused)
+			ret = false;
+		else
+		{
+			if (!App->paused)
+			{
+				App->paused = true;
+				App->transitions->menuTransition(PAUSE_MENU, FADE, 0.3);
+			}
+			else
+			{
+				App->paused = false;
+				App->transitions->menuTransition(INGAME_MENU, FADE, 0.3);
+			}
+		}
 	}
-
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
 
 	return ret;
 }
@@ -212,5 +225,10 @@ void j1Scene::LoadLvl(int num)
 		if (current_lvl->data->default_paused)
 			App->paused = true;
 		App->audio->PlayMusic(current_lvl->data->music.GetString(), 1.0f);
+		
+		uint win_width, win_height;
+		App->win->GetWindowSize(win_width, win_height);
+		max_camera_pos = current_lvl->data->length + (win_width); //Recalculate max_camera_pos when a new scene is loaded
+		max_camera_pos *= -1;
 	}
 }
