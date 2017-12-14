@@ -11,7 +11,6 @@
 #include "UI_Image.h"
 #include "UI_Text.h"
 #include "UI_Button.h"
-#include "UI_InputBox.h"
 #include "UI_Window.h"
 #include "j1Window.h"
 #include "j1UIScene.h"
@@ -247,16 +246,6 @@ Button* j1Gui::createSwitch(int x, int y, SDL_Texture* texture, SDL_Rect standby
 	SDL_Texture* usingTexture = (texture) ? texture : atlas;
 
 	Button* ret = new Button(x, y, usingTexture, standbyUnactive, OnMouseUnactive, standbyActive, OnMouseActive, callback);
-	UI_elements.add(ret);
-
-	return ret;
-}
-
-InputBox* j1Gui::createInputBox(_TTF_Font* font, SDL_Color color, int x, int y, SDL_Texture * texture, SDL_Rect section, j1Module* callback)
-{
-	SDL_Texture* usingTexture = (texture) ? texture : atlas;
-
-	InputBox* ret = new InputBox(font, color, x, y, usingTexture, section, callback);
 	UI_elements.add(ret);
 
 	return ret;

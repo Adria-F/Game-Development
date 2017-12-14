@@ -17,7 +17,6 @@ enum element_type
 	BUTTON,
 	SWITCH,
 	SLIDER,
-	INPUTTEXT,
 	WINDOW,
 	CHRONO,
 	PLAYERINFO,

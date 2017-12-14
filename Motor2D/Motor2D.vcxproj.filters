@@ -73,9 +73,6 @@
     <ClCompile Include="UI_Image.cpp">
       <Filter>Desenvolupament  ========\Modules\UI elements</Filter>
     </ClCompile>
-    <ClCompile Include="UI_InputBox.cpp">
-      <Filter>Desenvolupament  ========\Modules\UI elements</Filter>
-    </ClCompile>
     <ClCompile Include="UI_Text.cpp">
       <Filter>Desenvolupament  ========\Modules\UI elements</Filter>
     </ClCompile>
@@ -205,9 +202,6 @@
       <Filter>Desenvolupament  ========\Modules\UI elements</Filter>
     </ClInclude>
     <ClInclude Include="UI_Image.h">
-      <Filter>Desenvolupament  ========\Modules\UI elements</Filter>
-    </ClInclude>
-    <ClInclude Include="UI_InputBox.h">
       <Filter>Desenvolupament  ========\Modules\UI elements</Filter>
     </ClInclude>
     <ClInclude Include="UI_Text.h">

@@ -5,15 +5,12 @@
 #include "p2Point.h"
 #include "SDL/include/SDL_rect.h"
 
-#define CURSOR_WIDTH 2
-
 struct _TTF_Font;
 struct SDL_Texture;
 class UI_element;
 class Text;
 class Image;
 class Button;
-class InputBox;
 class Window;
 class Slider;
 class Chrono;
@@ -72,8 +69,6 @@ public:
 	Button* createButton(int x, int y, SDL_Texture* texture, SDL_Rect standby, SDL_Rect OnMouse, SDL_Rect OnClick, j1Module* callback = nullptr);
 	//NULL texture to use atlas
 	Button* createSwitch(int x, int y, SDL_Texture* texture, SDL_Rect standbyUnactive, SDL_Rect OnMouseUnactive, SDL_Rect standbyActive, SDL_Rect OnMouseActive, j1Module* callback = nullptr);
-	//NULL texture to use atlas
-	InputBox* createInputBox(_TTF_Font* font, SDL_Color color, int x, int y, SDL_Texture* texture, SDL_Rect section, j1Module* callback = nullptr);
 	//NULL texture to use atlas
 	Window* createWindow(int x, int y, SDL_Texture* texture, SDL_Rect section, j1Module* callback = nullptr);
 	//NULL texture to use atlas
