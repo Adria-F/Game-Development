@@ -89,6 +89,8 @@ bool j1Audio::Update(float dt)
 	if (fading)
 	{
 		Dvolume = music_volume /(fade_time / dt);
+		if (Dvolume < 1)
+			Dvolume = 1;
 		if (newMusic != nullptr) //It means we are still fading out the initial music
 		{
 			fadingOut();

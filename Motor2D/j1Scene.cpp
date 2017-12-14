@@ -184,6 +184,8 @@ bool j1Scene::CleanUp()
 
 void j1Scene::LoadLvl(int num)
 {	
+	p2SString previous_music = current_lvl->data->music;
+	
 	if (num == 0)
 	{
 		current_lvl = current_lvl->next;
@@ -224,7 +226,8 @@ void j1Scene::LoadLvl(int num)
 		respawn_enemies = true;
 		if (current_lvl->data->default_paused)
 			App->paused = true;
-		App->audio->PlayMusic(current_lvl->data->music.GetString(), 1.0f);
+		if (previous_music != current_lvl->data->music)
+			App->audio->PlayMusic(current_lvl->data->music.GetString(), 1.0f);
 		
 		uint win_width, win_height;
 		App->win->GetWindowSize(win_width, win_height);
