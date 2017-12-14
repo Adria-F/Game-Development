@@ -14,9 +14,9 @@
 	<:anonymous />
 	<fonts />
 	<gui />
-	<UIScene chrono="12051" />
+	<UIScene chrono="0" />
 	<:anonymous />
 	<renderer>
-		<camera x="-928" y="0" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>
