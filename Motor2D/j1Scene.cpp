@@ -23,9 +23,9 @@ j1Scene::j1Scene() : j1Module()
 	name.create("scene");
 	
 	// Add all levels to the list
-	level* main_lvl = new level(1, "main_menu.tmx", START_MENU, true);
-	level* lvl1 = new level(2, "platformer.tmx", INGAME_MENU);
-	level* lvl2 = new level(3, "platformer2.tmx", INGAME_MENU);
+	level* main_lvl = new level(1, "main_menu.tmx", START_MENU, "audio/music/menu_music.ogg", true);
+	level* lvl1 = new level(2, "platformer.tmx", INGAME_MENU, "audio/music/bg_music.ogg");
+	level* lvl2 = new level(3, "platformer2.tmx", INGAME_MENU, "audio/music/bg_music.ogg");
 
 	levels.add(main_lvl);
 	levels.add(lvl1);
@@ -52,9 +52,9 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load(levels.start->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end_rect); //hello2.tmx
+	App->map->Load(levels.start->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end_rect);
 	//Background music
-	App->audio->PlayMusic("audio/music/bg_music.ogg");
+	App->audio->PlayMusic(current_lvl->data->music.GetString(), 1.0f);
 	complete_level_fx = App->audio->LoadFx("audio/fx/level_complete.wav");
 	win_fx = App->audio->LoadFx("audio/fx/win.wav");
 
@@ -206,10 +206,11 @@ void j1Scene::LoadLvl(int num)
 			App->uiScene->chrono->counter.Play();
 			App->uiScene->chrono->counter.Start();
 		}
-		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end_rect, !respawn_enemies);
+		App->map->Load(current_lvl->data->mapPath.GetString(), current_lvl->data->length, current_lvl->data->end_rect, !respawn_enemies);	
 		App->uiScene->loadMenu(current_lvl->data->default_menu);
 		respawn_enemies = true;
 		if (current_lvl->data->default_paused)
 			App->paused = true;
+		App->audio->PlayMusic(current_lvl->data->music.GetString(), 1.0f);
 	}
 }

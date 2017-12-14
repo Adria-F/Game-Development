@@ -271,7 +271,7 @@ bool j1Player::PostUpdate(float dt)
 
 	// Lose condition
 	//By enemyy
-	if (dead && SDL_GetTicks() > killed_finished + 1500)
+	if (dead && SDL_GetTicks() > killed_finished + 1500 && !won)
 	{
 		App->scene->load_lvl = true;
 		if (lives > 0)

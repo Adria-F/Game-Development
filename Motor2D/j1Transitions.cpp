@@ -56,7 +56,6 @@ void Transitions::menuTransition(menu_id newMenuID, transition_effect effect, fl
 	type = MENU;
 	this->newMenuID = newMenuID;
 	currentEffect = effect;
-	timer.Start();
 	total_time = time * 0.5f;
 	doingTransition = true;
 	state = GIN;
@@ -67,7 +66,6 @@ void Transitions::sceneTransition(int newLvl, transition_effect effect, float ti
 	type = SCENE;
 	this->newLvl = newLvl;
 	currentEffect = effect;
-	timer.Start();
 	total_time = time * 0.5f;
 	doingTransition = true;
 	state = GIN;

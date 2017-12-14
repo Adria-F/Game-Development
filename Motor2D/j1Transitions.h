@@ -4,7 +4,6 @@
 #include "j1Module.h"
 #include "j1UIScene.h"
 #include "j1Scene.h"
-#include "j1Timer.h"
 
 enum transition_effect
 {
@@ -45,7 +44,6 @@ private:
 	int newLvl;
 	transition_effect currentEffect;
 	transition_type type;
-	j1Timer timer;
 	float total_time = 0.0f;
 };
 

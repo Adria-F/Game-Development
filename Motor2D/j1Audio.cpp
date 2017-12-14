@@ -11,6 +11,7 @@ j1Audio::j1Audio() : j1Module()
 {
 	music = NULL;
 	name.create("audio");
+	pausable = false;
 }
 
 // Destructor
@@ -51,6 +52,8 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	}
 
 	Mix_VolumeMusic(20);
+	fx_volume = 128;
+	music_volume = 20;
 
 	return ret;
 }
@@ -81,6 +84,24 @@ bool j1Audio::CleanUp()
 	return true;
 }
 
+bool j1Audio::Update(float dt)
+{
+	if (fading)
+	{
+		Dvolume = music_volume /(fade_time / dt);
+		if (newMusic != nullptr) //It means we are still fading out the initial music
+		{
+			fadingOut();
+		}
+		else
+		{
+			fadingIn();
+		}
+	}
+
+	return true;
+}
+
 // Play a music file
 bool j1Audio::PlayMusic(const char* path, float fade_time)
 {
@@ -89,49 +110,30 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 	if(!active)
 		return false;
 
-	if(music != NULL)
+	if (music == NULL)
 	{
-		if(fade_time > 0.0f)
-		{
-			Mix_FadeOutMusic(int(fade_time * 1000.0f));
-		}
-		else
-		{
-			Mix_HaltMusic();
-		}
-
-		// this call blocks until fade out is done
-		Mix_FreeMusic(music);
+		music = Mix_LoadMUS(path);
+		Mix_PlayMusic(music, -1);
 	}
+	else
+		newMusic = Mix_LoadMUS(path);
 
-	music = Mix_LoadMUS(path);
-
-	if(music == NULL)
+	if (fade_time > 0)
 	{
-		LOG("Cannot load music %s. Mix_GetError(): %s\n", path, Mix_GetError());
-		ret = false;
+		fading = true;
+		this->fade_time = fade_time * 0.5f;
+		LOG("Started Fading %s", path);
 	}
 	else
 	{
-		if(fade_time > 0.0f)
-		{
-			if(Mix_FadeInMusic(music, -1, (int) (fade_time * 1000.0f)) < 0)
-			{
-				LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
-				ret = false;
-			}
-		}
-		else
-		{
-			if(Mix_PlayMusic(music, -1) < 0)
-			{
-				LOG("Cannot play in music %s. Mix_GetError(): %s", path, Mix_GetError());
-				ret = false;
-			}
-		}
+		Mix_HaltMusic();
+		Mix_FreeMusic(music);
+		music = newMusic;
+		Mix_PlayMusic(music, -1);
+		newMusic = nullptr;
+		LOG("Successfully playing %s", path);
 	}
 
-	LOG("Successfully playing %s", path);
 	return ret;
 }
 
@@ -175,6 +177,39 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	return ret;
 }
 
+void j1Audio::fadingIn()
+{
+	if (music != NULL)
+	{
+		int newVolume = getMusicVolume() + Dvolume;
+		if (newVolume > music_volume)
+			newVolume = music_volume;
+		Mix_VolumeMusic(newVolume);
+		if (newVolume == music_volume)
+		{
+			fading = false;
+		}
+	}
+}
+
+void j1Audio::fadingOut()
+{
+	if (music != NULL)
+	{
+		int newVolume = getMusicVolume() - Dvolume;
+		if (newVolume < 0)
+			newVolume = 0;
+		Mix_VolumeMusic(newVolume);
+		if (newVolume == 0)
+		{
+			Mix_FreeMusic(music);
+			music = newMusic;
+			newMusic = nullptr;
+			Mix_PlayMusic(music, -1);
+		}
+	}
+}
+
 int j1Audio::getMusicVolume() const
 {
 	return Mix_VolumeMusic(-1);
@@ -188,6 +223,7 @@ int j1Audio::getFxVolume() const
 void j1Audio::setMusicVolume(float volume)
 {
 	Mix_VolumeMusic(MIX_MAX_VOLUME*volume);
+	music_volume = MIX_MAX_VOLUME*volume; //Save it for fading;
 }
 
 void j1Audio::setFxVolume(float volume)

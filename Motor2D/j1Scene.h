@@ -10,15 +10,17 @@ struct SDL_Texture;
 
 struct level
 {
-	level(int num, char* mapPath, menu_id default_menu, bool default_paused = false)
+	level(int num, char* mapPath, menu_id default_menu, const char* background_music, bool default_paused = false)
 	{
 		this->mapPath.create(mapPath);
+		music.create(background_music);
 		lvl = num;
 		this->default_menu = default_menu;
 		this->default_paused = default_paused;
 	}
 
 	p2SString mapPath;
+	p2SString music;
 	int lvl;
 	int length;
 	iPoint player_start_pos;

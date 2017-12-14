@@ -25,6 +25,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool Update(float dt);
+
 	// Play a music file
 	bool PlayMusic(const char* path, float fade_time = DEFAULT_MUSIC_FADE_TIME);
 
@@ -34,6 +36,9 @@ public:
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
+	void fadingIn();
+	void fadingOut();
+
 	int getMusicVolume() const;
 	int getFxVolume() const;
 	void setMusicVolume(float volume);
@@ -42,8 +47,13 @@ public:
 private:
 
 	_Mix_Music*			music = nullptr;
+	_Mix_Music*			newMusic = nullptr;
 	p2List<Mix_Chunk*>	fx;
 	int fx_volume = 128;
+	int music_volume = 20;
+	bool fading = false;
+	float fade_time = 0.0f;
+	float Dvolume = 0.0f;
 };
 
 #endif // __j1AUDIO_H__
