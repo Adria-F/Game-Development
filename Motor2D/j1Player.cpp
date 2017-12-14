@@ -11,6 +11,7 @@
 #include "j1Scene.h"
 #include "j1Audio.h"
 #include "j1entityManager.h"
+#include "j1Transitions.h"
 #include "j1PathFinding.h"
 #include "Brofiler\Brofiler.h"
 
@@ -244,6 +245,8 @@ bool j1Player::PostUpdate(float dt)
 			if (App->scene->current_lvl == App->scene->levels.end)
 			{
 				App->audio->PlayFx(App->scene->win_fx, 0);
+				App->paused = true;
+				App->transitions->menuTransition(END_MENU, FADE, 0.3);
 			}
 			else
 			{
@@ -251,7 +254,7 @@ bool j1Player::PostUpdate(float dt)
 			}
 		}
 	}
-	if (won && ((App->scene->current_lvl == App->scene->levels.end && SDL_GetTicks() > end_reached + 5000) || (App->scene->current_lvl != App->scene->levels.end && SDL_GetTicks() > end_reached + 500)))
+	if (won && (/*(App->scene->current_lvl == App->scene->levels.end && SDL_GetTicks() > end_reached + 5000) || */(App->scene->current_lvl != App->scene->levels.end && SDL_GetTicks() > end_reached + 500)))
 	{
 		end_reached = 0;
 		won = false;

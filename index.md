@@ -12,6 +12,8 @@ It is a platformer game done for the assignments of the videogames development s
 
 **ESPACE** - jump/double jump (on air).
 
+**MOUSE LEFT** - interact with UI elements that allows to click.
+
 #### Debug Keys
 **F1** - Start from the very first level.
 
