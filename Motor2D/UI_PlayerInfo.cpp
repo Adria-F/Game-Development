@@ -14,6 +14,10 @@ PlayerInfo::PlayerInfo(int x, int y, j1Module* callback): UI_element(x, y, PLAYE
 	_TTF_Font* mid_texts_font = App->font->Load("fonts/TCCEB.ttf", 36);
 	SDL_Color white_color = { 255, 255, 255, 0 };
 	coin_socket = App->gui->createImageFromAtlas(x + 160, y + 2, { 948, 189, 48, 46 });
+	j1Player* player = (j1Player*)App->entityManager->getPlayer();
+	player->coins_pos[0] = { x + 160, y + 2 };
+	player->coins_pos[1] = { x + 185, y + 2 };
+	player->coins_pos[2] = { x + 210, y + 2 };
 	coin = App->gui->createImageFromAtlas(x + 161, y + 3, { 895, 189, 41, 41 });
 	live = App->gui->createImageFromAtlas(x + 62, y + 3, {380, 449, 51, 48});
 	empty_live = App->gui->createImageFromAtlas(x + 62, y + 3, { 431, 449, 51, 48 });

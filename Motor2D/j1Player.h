@@ -39,6 +39,7 @@ public:
 	iPoint cloud_pos;
 
 	bool coins[3];
+	iPoint coins_pos[3];
 
 	SDL_Texture* graphics_god = nullptr;
 	Animation* SSJ_aura = nullptr;
