@@ -1,10 +1,13 @@
 #include "j1Transitions.h"
 #include "j1App.h"
 #include "j1Gui.h"
+#include "j1Render.h"
+#include "j1Window.h"
 
 Transitions::Transitions()
 {
 	pausable = false;
+	alpha_value = 0;
 }
 
 Transitions::~Transitions()
@@ -17,9 +20,9 @@ bool Transitions::Update(float dt)
 	{
 		switch (currentEffect)
 		{
-		case FADE:
+		case FADE:		
 			if (type == MENU)
-			{
+			{		
 				float Dalpha = 255 / (total_time / dt);
 				if (state == GIN)
 				{
@@ -42,12 +45,45 @@ bool Transitions::Update(float dt)
 					}
 				}
 			}
+			if (type == SCENE)
+			{
+				float Dalpha = 255 / (total_time / dt);
+				if (state == GOUT)
+				{
+					alpha_value -= Dalpha;
+					if (alpha_value <= 0)
+					{
+						alpha_value = 0;
+						state = UNACTIVE;
+						doingTransition = false;
+					}
+				}
+				else if (state == GIN)
+				{
+					alpha_value += Dalpha;
+					if (alpha_value >= 255)
+					{
+						alpha_value = 255;
+						state = GOUT;
+						App->scene->newLvl = newLvl;
+						App->scene->load_lvl = true;
+					}
+				}			
+			}
 			break;
 		case DRAG:		
 			break;
 		}
 	}
 	
+	return true;
+}
+
+bool Transitions::PostUpdate(float dt)
+{
+	if (doingTransition && currentEffect == FADE && type == SCENE)
+		App->render->DrawQuad({ 0, 0, App->win->screen_surface->w, App->win->screen_surface->h }, 0, 0, 0, alpha_value, true, false);
+
 	return true;
 }
 

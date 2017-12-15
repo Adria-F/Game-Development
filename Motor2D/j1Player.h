@@ -40,6 +40,7 @@ public:
 
 	bool coins[3];
 	iPoint coins_pos[3];
+	int trophy = 3; //3 - gold|2 - silver|1 - bronze|0 - none
 
 	SDL_Texture* graphics_god = nullptr;
 	Animation* SSJ_aura = nullptr;
@@ -47,6 +48,7 @@ public:
 
 	bool double_jump = false;
 	bool won = false;
+	bool loading = false;
 	float end_reached = 0;	
 };
 

@@ -7,18 +7,21 @@
 	<:anonymous />
 	<scene />
 	<entityManager>
-		<player position_x="1944" position_y="249" level="3" lives="1" coin1="true" coin2="true" coin3="false" />
-		<player position_x="1944" position_y="254" />
-		<charger position_x="454" position_y="336" />
+		<player position_x="1923" position_y="248" level="3" lives="2" coin1="false" coin2="true" coin3="false" />
+		<player position_x="1923" position_y="253" />
+		<charger position_x="376" position_y="336" />
+		<bat position_x="1621" position_y="155" />
+		<bat position_x="1888" position_y="195" />
+		<bat position_x="1706" position_y="155" />
 		<coin position_x="332" position_y="177" />
 	</entityManager>
 	<map />
 	<:anonymous />
 	<fonts />
 	<gui />
-	<UIScene chrono="140103" />
+	<UIScene chrono="63887" />
 	<:anonymous />
 	<renderer>
-		<camera x="-3139" y="0" />
+		<camera x="-3136" y="0" />
 	</renderer>
 </game_state>

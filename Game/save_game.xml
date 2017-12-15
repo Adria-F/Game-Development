@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<game_state loadable="false">
+<game_state loadable="true">
 	<input />
 	<window />
 	<textures />
@@ -7,22 +7,19 @@
 	<:anonymous />
 	<scene />
 	<entityManager>
-		<player position_x="19" position_y="344" level="2" lives="3" coin1="false" coin2="false" coin3="false" />
-		<player position_x="19" position_y="349" />
-		<charger position_x="1507" position_y="16" />
-		<bat position_x="1946" position_y="12" />
-		<charger position_x="713" position_y="178" />
-		<bat position_x="1" position_y="344" />
-		<coin position_x="1404" position_y="96" />
+		<player position_x="1789" position_y="120" level="2" lives="3" coin1="false" coin2="true" coin3="false" />
+		<player position_x="1789" position_y="125" />
+		<charger position_x="1366" position_y="83" />
+		<bat position_x="1148" position_y="168" />
 		<coin position_x="904" position_y="160" />
 	</entityManager>
 	<map />
 	<:anonymous />
 	<fonts />
 	<gui />
-	<UIScene chrono="80619" />
+	<UIScene chrono="22747" />
 	<:anonymous />
 	<renderer>
-		<camera x="-6" y="0" />
+		<camera x="-3136" y="0" />
 	</renderer>
 </game_state>

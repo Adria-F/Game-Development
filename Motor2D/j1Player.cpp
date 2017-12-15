@@ -235,7 +235,7 @@ bool j1Player::PostUpdate(float dt)
 	}
 	
 	// Win condition
-	if ((((collider->rect.x + collider->rect.w) > App->scene->current_lvl->data->end_rect.x) && (position.y + collider->rect.h) < (App->scene->current_lvl->data->end_rect.y + App->scene->current_lvl->data->end_rect.h)) && !won)
+	if ((((collider->rect.x + collider->rect.w) > App->scene->current_lvl->data->end_rect.x) && (position.y + collider->rect.h) < (App->scene->current_lvl->data->end_rect.y + App->scene->current_lvl->data->end_rect.h)) && !won && !loading)
 	{
 		if (end_reached == 0)
 		{
@@ -245,7 +245,6 @@ bool j1Player::PostUpdate(float dt)
 			if (App->scene->current_lvl == (App->scene->levels.end - 1))
 			{
 				App->audio->PlayFx(App->scene->win_fx, 0);
-				App->scene->load_lvl = 4;
 			}
 			else
 			{
@@ -253,26 +252,29 @@ bool j1Player::PostUpdate(float dt)
 			}
 		}
 	}
-	if (won && (/*(App->scene->current_lvl == App->scene->levels.end && SDL_GetTicks() > end_reached + 5000) || */(App->scene->current_lvl != App->scene->levels.end && SDL_GetTicks() > end_reached + 500)))
+	if (won && !loading && (/*(App->scene->current_lvl == App->scene->levels.end && SDL_GetTicks() > end_reached + 5000) || */(App->scene->current_lvl != App->scene->levels.end && SDL_GetTicks() > end_reached + 500)))
 	{
 		end_reached = 0;
 		won = false;
+		loading = true;
 		dead = false;
-		App->scene->load_lvl = true;
+		App->transitions->sceneTransition(0, FADE);
 	}
 
 	// Lose condition
 	//By enemyy
-	if (dead && SDL_GetTicks() > killed_finished + 1500 && !won)
+	if (dead && SDL_GetTicks() > killed_finished + 1500 && !won && loading)
 	{
-		App->scene->load_lvl = true;
+		loading = false;
+		//App->scene->load_lvl = true;
 		if (lives > 0)
 		{
-			App->scene->newLvl = App->scene->current_lvl->data->lvl;
+			App->transitions->sceneTransition(App->scene->current_lvl->data->lvl, FADE);
+			//App->scene->newLvl = App->scene->current_lvl->data->lvl;
 			App->scene->respawn_enemies = false;
 		}
 		else
-			App->scene->newLvl = 1;
+			App->transitions->sceneTransition(1, FADE);
 
 		killed_finished = 0;		
 	}
@@ -287,17 +289,19 @@ bool j1Player::PostUpdate(float dt)
 		else
 		{
 			lives--;
-			App->scene->load_lvl = true;
+			dead = true;
+			//App->scene->load_lvl = true;
 
 			if (lives > 0)
 			{
-				App->scene->newLvl = App->scene->current_lvl->data->lvl;
+				App->transitions->sceneTransition(App->scene->current_lvl->data->lvl, FADE);
+				//App->scene->newLvl = App->scene->current_lvl->data->lvl;
 				App->scene->respawn_enemies = false;
 				App->audio->PlayFx(killed_fx, 0);
 			}
 			else
 			{
-				App->scene->newLvl = 1;
+				App->transitions->sceneTransition(1, FADE);
 				App->audio->PlayFx(die_fx, 0);
 			}		
 		}
@@ -348,6 +352,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		{
 			v.x = 0;
 			dead = true;
+			loading = true;
 			if (!sound_one_time && killed_finished == 0)
 			{
 				lives--;

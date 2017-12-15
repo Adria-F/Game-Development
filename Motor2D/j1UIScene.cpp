@@ -417,8 +417,9 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		case NEW_GAME:
 		case RESTART:
 			App->paused = false;
-			App->scene->load_lvl = true;
-			App->scene->newLvl = 2;
+			App->transitions->sceneTransition(2, FADE);
+			//App->scene->load_lvl = true;
+			//App->scene->newLvl = 2;
 			App->entityManager->player_god_mode = false;
 			App->setSaveFileLoadable(false);
 			break;
@@ -433,7 +434,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->transitions->menuTransition(SETTINGS_MENU, FADE, 0.3);
 			break;
 		case CREDITS:
-			loadMenu(CREDITS_MENU);
+			App->transitions->menuTransition(CREDITS_MENU, FADE, 0.5);
 			break;
 		case EXIT:
 			ret = false;
@@ -471,8 +472,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				App->SaveGame();
 			else
 				App->setSaveFileLoadable(false);
-			App->scene->load_lvl = true;
-			App->scene->newLvl = 1;		
+			App->transitions->sceneTransition(1, FADE);
 			break;
 		}
 	}
