@@ -159,7 +159,7 @@ bool j1UIScene::Start()
 		Image* barImg = App->gui->createImageFromAtlas(0, 0, { 38, 652, 19, 33 });
 		timeBar = App->gui->createProgressBar(610 * App->gui->UI_scale, 15 * App->gui->UI_scale, NULL, { 0, 581, 280, 33 }, { 0, 614, 280, 33 }, barImg, this);
 		timeBar->type = DECREASING;
-		timeBar->max_value = 100.0f;
+		timeBar->max_value = 205.0f;
 		Image* highlight1 = App->gui->createImageFromAtlas(100 * App->gui->UI_scale, 2 * App->gui->UI_scale, { 245, 652, 7, 41 });
 		Image* highlight2 = App->gui->createImageFromAtlas(169 * App->gui->UI_scale, 2 * App->gui->UI_scale, { 245, 652, 7, 41 });
 		Image* highlight3 = App->gui->createImageFromAtlas(229 * App->gui->UI_scale, 2 * App->gui->UI_scale, { 245, 652, 7, 41 });
@@ -172,7 +172,7 @@ bool j1UIScene::Start()
 		timeBar->addMarker(93 * App->gui->UI_scale, 45 * App->gui->UI_scale, App->gui->createImageFromAtlas(0, 0, { 80, 658, 22, 25 }), App->gui->createImageFromAtlas(0, 0, { 105, 658, 22, 25 }));
 		timeBar->addMarker(160 * App->gui->UI_scale, 45 * App->gui->UI_scale, App->gui->createImageFromAtlas(0, 0, { 130, 658, 22, 25 }), App->gui->createImageFromAtlas(0, 0, { 155, 658, 22, 25 }));
 		timeBar->addMarker(220 * App->gui->UI_scale, 45 * App->gui->UI_scale, App->gui->createImageFromAtlas(0, 0, { 180, 658, 23, 25 }), App->gui->createImageFromAtlas(0, 0, { 206, 658, 23, 25 }));
-
+		
 		inGameMenu->elements.add(pause_button);
 		inGameMenu->elements.add(lives_txt);
 		inGameMenu->elements.add(time_txt);

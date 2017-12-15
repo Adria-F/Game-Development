@@ -17,7 +17,10 @@ public:
 
 	Image* big_coin_socket = nullptr;
 	Image* big_coin = nullptr;
-	Image* trophy = nullptr;
+	Image* no_trophy = nullptr;
+	Image* brown_trophy = nullptr;
+	Image* silver_trophy = nullptr;
+	Image* gold_trophy = nullptr;
 	Text* final_score = nullptr;
 };
 
