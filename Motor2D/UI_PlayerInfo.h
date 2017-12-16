@@ -21,6 +21,7 @@ public:
 	Image* live = nullptr;
 	Image* god_live = nullptr;
 	Image* empty_live = nullptr;
+	Text* score = nullptr;
 };
 
 #endif // !__UI_PLAYERINFO__

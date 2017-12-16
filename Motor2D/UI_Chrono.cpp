@@ -48,7 +48,7 @@ void Chrono::BlitElement()
 			
 			p2SString secs("%05d", time);
 			if (last_secs != secs)
-			text->setText(secs);
+				text->setText(secs);
 
 			section = text->section;
 			last_secs = ("%05d", time);

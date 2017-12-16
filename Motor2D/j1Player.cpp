@@ -74,9 +74,10 @@ bool j1Player::Start()
 
 	dead = false;
 	sound_one_time = false;
+	loading = false;
+	won = false;
 
 	old_savedCol = nullptr;
-	//App->SaveGame(true);
 
 	v.x = 0;
 	v.y = 0;
@@ -117,7 +118,7 @@ bool j1Player::Start()
 bool j1Player::Update(float dt)
 {
 	BROFILER_CATEGORY("Player Update", Profiler::Color::Red);
-	
+
 	if (!dead)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -214,7 +215,7 @@ bool j1Player::Update(float dt)
 }
 
 bool j1Player::PostUpdate(float dt)
-{	
+{
 	if (!dead)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && !colliding_right && v.x == 0)
@@ -233,16 +234,17 @@ bool j1Player::PostUpdate(float dt)
 		v.x = 0;
 		state = IDLE;
 	}
-	
+
 	// Win condition
 	if ((((collider->rect.x + collider->rect.w) > App->scene->current_lvl->data->end_rect.x) && (position.y + collider->rect.h) < (App->scene->current_lvl->data->end_rect.y + App->scene->current_lvl->data->end_rect.h)) && !won && !loading)
 	{
 		if (end_reached == 0)
 		{
 			won = true;
+			loading = true;
 			App->uiScene->pauseChronos();
 			end_reached = SDL_GetTicks();
-			if (App->scene->current_lvl == (App->scene->levels.end - 1))
+			if (App->scene->current_lvl == (App->scene->levels.end->prev))
 			{
 				App->audio->PlayFx(App->scene->win_fx, 0);
 			}
@@ -255,11 +257,10 @@ bool j1Player::PostUpdate(float dt)
 
 	if (!App->paused)
 	{
-		if (won && !loading && (/*(App->scene->current_lvl == App->scene->levels.end && SDL_GetTicks() > end_reached + 5000) || */(App->scene->current_lvl != App->scene->levels.end && SDL_GetTicks() > end_reached + 500)))
+		if (won && loading && ((App->scene->current_lvl != App->scene->levels.end && SDL_GetTicks() > end_reached + 500)))
 		{
 			end_reached = 0;
 			won = false;
-			loading = true;
 			dead = false;
 			App->transitions->sceneTransition(0);
 		}
@@ -269,11 +270,9 @@ bool j1Player::PostUpdate(float dt)
 		if (dead && SDL_GetTicks() > killed_finished + 1500 && !won && loading)
 		{
 			loading = false;
-			//App->scene->load_lvl = true;
 			if (lives > 0)
 			{
 				App->transitions->sceneTransition(App->scene->current_lvl->data->lvl);
-				//App->scene->newLvl = App->scene->current_lvl->data->lvl;
 				App->scene->respawn_enemies = false;
 			}
 			else
@@ -296,12 +295,10 @@ bool j1Player::PostUpdate(float dt)
 			{
 				lives--;
 				dead = true;
-				//App->scene->load_lvl = true;
 
 				if (lives > 0)
 				{
 					App->transitions->sceneTransition(App->scene->current_lvl->data->lvl);
-					//App->scene->newLvl = App->scene->current_lvl->data->lvl;
 					App->scene->respawn_enemies = false;
 					App->audio->PlayFx(killed_fx, 0);
 				}
@@ -316,7 +313,7 @@ bool j1Player::PostUpdate(float dt)
 	}
 	else if (dead)
 	{
-		killed_finished += dt*1000;
+		killed_finished += dt * 1000;
 	}
 
 	//When f10 is clicked he converts into super sayan (god mode)
@@ -368,9 +365,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			if (!sound_one_time && killed_finished == 0)
 			{
 				lives--;
-   				killed_finished = SDL_GetTicks();
+				killed_finished = SDL_GetTicks();
 				sound_one_time = true;
-				if(lives > 0)
+				if (lives > 0)
 					App->audio->PlayFx(killed_fx, 0);
 				else
 					App->audio->PlayFx(die_fx, 0);
@@ -400,7 +397,7 @@ bool j1Player::Load(pugi::xml_node& data)
 	{
 		App->render->virtualCamPos = App->scene->max_camera_pos;
 	}
-	
+
 	return true;
 }
 
@@ -413,12 +410,12 @@ bool j1Player::Save(pugi::xml_node& data) const
 	data.append_attribute("level") = App->scene->current_lvl->data->lvl;
 
 	data.append_attribute("lives") = lives;
-	
+
 	data.append_attribute("coin1") = coins[0];
 
 	data.append_attribute("coin2") = coins[1];
 
 	data.append_attribute("coin3") = coins[2];
-	
+
 	return true;
 }
