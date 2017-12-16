@@ -149,8 +149,11 @@ bool j1App::Update()
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 		paused = !paused;
 
-	if(input->GetWindowEvent(WE_QUIT) == true)
+	if (input->GetWindowEvent(WE_QUIT) == true)
+	{
+		App->scene->LoadLvl(1);
 		ret = false;
+	}
 
 	if(ret == true)
 		ret = PreUpdate();
