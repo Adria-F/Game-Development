@@ -252,59 +252,71 @@ bool j1Player::PostUpdate(float dt)
 			}
 		}
 	}
-	if (won && !loading && (/*(App->scene->current_lvl == App->scene->levels.end && SDL_GetTicks() > end_reached + 5000) || */(App->scene->current_lvl != App->scene->levels.end && SDL_GetTicks() > end_reached + 500)))
-	{
-		end_reached = 0;
-		won = false;
-		loading = true;
-		dead = false;
-		App->transitions->sceneTransition(0, FADE);
-	}
 
-	// Lose condition
-	//By enemyy
-	if (dead && SDL_GetTicks() > killed_finished + 1500 && !won && loading)
+	if (!App->paused)
 	{
-		loading = false;
-		//App->scene->load_lvl = true;
-		if (lives > 0)
+		if (won && !loading && (/*(App->scene->current_lvl == App->scene->levels.end && SDL_GetTicks() > end_reached + 5000) || */(App->scene->current_lvl != App->scene->levels.end && SDL_GetTicks() > end_reached + 500)))
 		{
-			App->transitions->sceneTransition(App->scene->current_lvl->data->lvl, FADE);
-			//App->scene->newLvl = App->scene->current_lvl->data->lvl;
-			App->scene->respawn_enemies = false;
+			end_reached = 0;
+			won = false;
+			loading = true;
+			dead = false;
+			App->transitions->sceneTransition(0);
 		}
-		else
-			App->transitions->sceneTransition(1, FADE);
 
-		killed_finished = 0;		
-	}
-	//By falling
-	int win_scale = App->win->GetScale();
-	if (position.y > App->win->screen_surface->h / win_scale + 50 && !won && !dead)
-	{
-		if (App->entityManager->player_god_mode)
-		{ 
-			App->LoadGame(true);
-		}
-		else
+		// Lose condition
+		//By enemyy
+		if (dead && SDL_GetTicks() > killed_finished + 1500 && !won && loading)
 		{
-			lives--;
-			dead = true;
+			loading = false;
 			//App->scene->load_lvl = true;
-
 			if (lives > 0)
 			{
-				App->transitions->sceneTransition(App->scene->current_lvl->data->lvl, FADE);
+				App->transitions->sceneTransition(App->scene->current_lvl->data->lvl);
 				//App->scene->newLvl = App->scene->current_lvl->data->lvl;
 				App->scene->respawn_enemies = false;
-				App->audio->PlayFx(killed_fx, 0);
 			}
 			else
 			{
-				App->transitions->sceneTransition(1, FADE);
-				App->audio->PlayFx(die_fx, 0);
-			}		
+				App->setSaveFileLoadable(false);
+				App->transitions->sceneTransition(1);
+			}
+
+			killed_finished = 0;
 		}
+		//By falling
+		int win_scale = App->win->GetScale();
+		if (position.y > App->win->screen_surface->h / win_scale + 50 && !won && !dead)
+		{
+			if (App->entityManager->player_god_mode)
+			{
+				App->LoadGame(true);
+			}
+			else
+			{
+				lives--;
+				dead = true;
+				//App->scene->load_lvl = true;
+
+				if (lives > 0)
+				{
+					App->transitions->sceneTransition(App->scene->current_lvl->data->lvl);
+					//App->scene->newLvl = App->scene->current_lvl->data->lvl;
+					App->scene->respawn_enemies = false;
+					App->audio->PlayFx(killed_fx, 0);
+				}
+				else
+				{
+					App->setSaveFileLoadable(false);
+					App->transitions->sceneTransition(1);
+					App->audio->PlayFx(die_fx, 0);
+				}
+			}
+		}
+	}
+	else if (dead)
+	{
+		killed_finished += dt*1000;
 	}
 
 	//When f10 is clicked he converts into super sayan (god mode)

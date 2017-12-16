@@ -163,12 +163,12 @@ bool j1Scene::PostUpdate(float dt)
 			if (!App->paused)
 			{
 				App->paused = true;
-				App->transitions->menuTransition(PAUSE_MENU, FADE, 0.3);
+				App->transitions->menuTransition(PAUSE_MENU, 0.3);
 			}
 			else
 			{
 				App->paused = false;
-				App->transitions->menuTransition(INGAME_MENU, FADE, 0.3);
+				App->transitions->menuTransition(INGAME_MENU, 0.3);
 			}
 		}
 	}

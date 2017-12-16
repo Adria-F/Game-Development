@@ -5,18 +5,6 @@
 #include "j1UIScene.h"
 #include "j1Scene.h"
 
-enum transition_effect
-{
-	FADE,
-	DRAG
-};
-
-enum transition_type
-{
-	MENU,
-	SCENE
-};
-
 enum transition_state
 {
 	UNACTIVE,
@@ -34,17 +22,17 @@ public:
 	bool Update(float dt);
 	bool PostUpdate(float dt);
 
-	void menuTransition(menu_id newMenuID, transition_effect effect, float time = 0.5f);
-	void sceneTransition(int newLvl, transition_effect effect, float time = 0.5f);
+	void menuTransition(menu_id newMenuID, float time = 0.5f);
+	void sceneTransition(int newLvl, float time = 0.5f);
 
 private:
 
-	transition_state state = UNACTIVE;
-	bool doingTransition = false;
+	transition_state sceneState = UNACTIVE;
+	transition_state menuState = UNACTIVE;
+	bool doingMenuTransition = false;
+	bool doingSceneTransition = false;
 	menu_id newMenuID;
 	int newLvl;
-	transition_effect currentEffect;
-	transition_type type;
 	float total_time = 0.0f;
 	float alpha_value = 0;
 };

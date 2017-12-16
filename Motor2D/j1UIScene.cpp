@@ -417,7 +417,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 		case NEW_GAME:
 		case RESTART:
 			App->paused = false;
-			App->transitions->sceneTransition(2, FADE);
+			App->transitions->sceneTransition(2);
 			//App->scene->load_lvl = true;
 			//App->scene->newLvl = 2;
 			App->entityManager->player_god_mode = false;
@@ -431,10 +431,10 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			}
 			break;
 		case SETTINGS:
-			App->transitions->menuTransition(SETTINGS_MENU, FADE, 0.3);
+			App->transitions->menuTransition(SETTINGS_MENU, 0.3);
 			break;
 		case CREDITS:
-			App->transitions->menuTransition(CREDITS_MENU, FADE, 0.5);
+			App->transitions->menuTransition(CREDITS_MENU, 0.5);
 			break;
 		case EXIT:
 			ret = false;
@@ -443,36 +443,36 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			if (!App->paused)
 			{
 				App->paused = true;
-				App->transitions->menuTransition(PAUSE_MENU, FADE, 0.3);
+				App->transitions->menuTransition(PAUSE_MENU, 0.3);
 			}
 			else
 			{
 				App->paused = false;
-				App->transitions->menuTransition(INGAME_MENU, FADE, 0.3);
+				App->transitions->menuTransition(INGAME_MENU, 0.3);
 			}
 			break;
 		case APPLY:
 			applySettings(newValues);
-			App->transitions->menuTransition(previous_menu, FADE, 0.3);
+			App->transitions->menuTransition(previous_menu, 0.3);
 			break;
 		case CANCEL:
 			newValues = startValues;
 			applySettings(startValues);
-			App->transitions->menuTransition(previous_menu, FADE, 0.3);
+			App->transitions->menuTransition(previous_menu, 0.3);
 			break;
 		case BACK:
-			App->transitions->menuTransition(previous_menu, FADE, 0.3);
+			App->transitions->menuTransition(previous_menu, 0.3);
 			break;
 		case RESTORE:
 			applySettings(defaultValues);
-			App->transitions->menuTransition(previous_menu, FADE, 0.3);
+			App->transitions->menuTransition(previous_menu, 0.3);
 			break;
 		case HOME:
 			if (!App->scene->current_lvl->data->default_paused)
 				App->SaveGame();
 			else
 				App->setSaveFileLoadable(false);
-			App->transitions->sceneTransition(1, FADE);
+			App->transitions->sceneTransition(1);
 			break;
 		}
 	}
