@@ -58,7 +58,7 @@ bool j1UIScene::Start()
 	{
 		UI_element* credits_img = App->gui->createImage(0, 0, App->tex->Load("gui/credits.png"), this);
 		//BACK
-		UI_element* back_button = App->gui->createButton(34 * App->gui->UI_scale, 675 * App->gui->UI_scale, NULL, { 849,69,133,36 }, { 849,106,133,36 }, { 849,143,133,36 }, this);
+		UI_element* back_button = App->gui->createButton(55 * App->gui->UI_scale, 615 * App->gui->UI_scale, NULL, { 849,69,133,36 }, { 849,106,133,36 }, { 849,143,133,36 }, this);
 		back_button->function = BACK;
 
 		UI_element* back_text = App->gui->createText("BACK", 200, 200, small_texts_font, white_color);
@@ -457,7 +457,7 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 			App->transitions->menuTransition(previous_menu, 0.3);
 			break;
 		case BACK:
-			App->transitions->menuTransition(previous_menu, 0.3);
+			App->transitions->menuTransition(previous_menu, 0.5);
 			break;
 		case RESTORE:
 			applySettings(defaultValues);
