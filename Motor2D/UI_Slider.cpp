@@ -2,6 +2,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "UI_Button.h"
+#include "Brofiler\Brofiler.h"
 
 void Slider::appendChild(int x, int y, UI_element * child)
 {
@@ -27,6 +28,8 @@ void Slider::setProgress(float newProgress)
 
 void Slider::BlitElement()
 {
+	BROFILER_CATEGORY("Slider Blit", Profiler::Color::LemonChiffon);
+
 	iPoint globalPos = calculateAbsolutePosition();
 	App->render->Blit(texture, globalPos.x, globalPos.y, &section, false, App->gui->UI_scale);
 

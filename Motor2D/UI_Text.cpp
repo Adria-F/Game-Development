@@ -3,6 +3,7 @@
 #include "j1Textures.h"
 #include "j1Fonts.h"
 #include "j1Render.h"
+#include "Brofiler\Brofiler.h"
 
 Text::~Text()
 {
@@ -64,6 +65,8 @@ void Text::setOutlineColor(SDL_Color newColor)
 
 void Text::BlitElement()
 {
+	BROFILER_CATEGORY("Text Blit", Profiler::Color::Fuchsia);
+
 	if (texture != nullptr)
 	{
 		SDL_SetTextureAlphaMod(texture, App->gui->alpha_value);

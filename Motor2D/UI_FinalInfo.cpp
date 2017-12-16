@@ -9,6 +9,7 @@
 #include "j1UIScene.h"
 #include "UI_ProgressBar.h"
 #include "UI_Chrono.h"
+#include "Brofiler\Brofiler.h"
 
 FinalInfo::FinalInfo(int x, int y, j1Module* callback) : UI_element(x, y, FINALINFO, { 0,0,0,0 }, callback)
 {
@@ -32,6 +33,8 @@ FinalInfo::~FinalInfo()
 
 void FinalInfo::BlitElement()
 {
+	BROFILER_CATEGORY("FinalInfo Blit", Profiler::Color::Aquamarine);
+
 	iPoint big_coin_socketPos = big_coin_socket->calculateAbsolutePosition();
 	iPoint big_coinPos = big_coin->calculateAbsolutePosition();
 	iPoint trophyPos = no_trophy->calculateAbsolutePosition();//Same pos for all the trophys because it has to be only 1.

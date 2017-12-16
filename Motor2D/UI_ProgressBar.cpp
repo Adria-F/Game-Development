@@ -3,6 +3,7 @@
 #include "j1Render.h"
 #include "j1Gui.h"
 #include "UI_Image.h"
+#include "Brofiler\Brofiler.h"
 
 ProgressBar::ProgressBar(int x, int y, SDL_Texture* texture, SDL_Rect empty, SDL_Rect full, Image* head, j1Module* callback) : UI_element(x, y, PROGRESSBAR, empty, callback, texture),
 full(full),
@@ -44,6 +45,8 @@ void ProgressBar::enterCurrentValue(float current_value)
 
 void ProgressBar::BlitElement()
 {
+	BROFILER_CATEGORY("Progress Bar Blit", Profiler::Color::Tan);
+
 	iPoint globalPos = calculateAbsolutePosition();
 	App->render->Blit(texture, globalPos.x, globalPos.y, &section, false, App->gui->UI_scale);
 	

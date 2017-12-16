@@ -2,6 +2,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Gui.h"
+#include "Brofiler\Brofiler.h"
 
 void Chrono::setStartValue(int new_start_value)
 {
@@ -28,6 +29,7 @@ void Chrono::restartChrono()
 
 void Chrono::BlitElement()
 {
+	BROFILER_CATEGORY("Chrono Blit", Profiler::Color::AntiqueWhite);
 	time_elapsed = counter.ReadSec();
 
 	switch (type)

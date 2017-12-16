@@ -1,6 +1,7 @@
 #include "UI_Button.h"
 #include "j1App.h"
 #include "j1Render.h"
+#include "Brofiler\Brofiler.h"
 
 void Button::setOutlined(bool isOutlined)
 {
@@ -29,6 +30,7 @@ void Button::appendChildAtCenter(UI_element * child)
 
 void Button::BlitElement()
 {
+	BROFILER_CATEGORY("Button Blit", Profiler::Color::DarkKhaki);
 	iPoint globalPos = calculateAbsolutePosition();
 	switch (state)
 	{

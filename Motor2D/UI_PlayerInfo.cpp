@@ -8,6 +8,7 @@
 #include "UI_Text.h"
 #include "j1Player.h"
 #include "j1EntityManager.h"
+#include "Brofiler\Brofiler.h"
 
 PlayerInfo::PlayerInfo(int x, int y, j1Module* callback): UI_element(x, y, PLAYERINFO, {0,0,0,0}, callback)
 {
@@ -33,6 +34,8 @@ PlayerInfo::~PlayerInfo()
 
 void PlayerInfo::BlitElement()
 {
+	BROFILER_CATEGORY("PlayerInfo Blit", Profiler::Color::Indigo);
+
 	iPoint coin_socketPos = coin_socket->calculateAbsolutePosition();
 	iPoint coinPos = coin->calculateAbsolutePosition();
 	iPoint godlivePos = god_live->calculateAbsolutePosition();
