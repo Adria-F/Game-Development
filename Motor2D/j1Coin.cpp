@@ -62,7 +62,7 @@ bool Coin::Update(float dt)
 		if (pos_relCam <= goingTo.x && virtualPosition.y <= goingTo.y)
 		{
 			j1Player* player = (j1Player*)App->entityManager->getPlayer();
-			player->score += 500;
+			player->score += 1000;
 			player->coins[id - 1] = true;
 			moving = false;
 			App->entityManager->DeleteEntity(this);
