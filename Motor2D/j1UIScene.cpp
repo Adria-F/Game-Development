@@ -508,6 +508,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 	{
 		Chrono* chrono = (Chrono*)element;
 		LOG("Clock alarm at: %d", chrono->time);
+		j1Player* player = (j1Player*)App->entityManager->getPlayer();
+		player->trophy--;
 	}
 
 	return ret;

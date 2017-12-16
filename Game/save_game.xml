@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<game_state loadable="false">
+<game_state loadable="true">
 	<input />
 	<window />
 	<textures />
