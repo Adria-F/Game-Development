@@ -21,7 +21,10 @@ public:
 	Image* brown_trophy = nullptr;
 	Image* silver_trophy = nullptr;
 	Image* gold_trophy = nullptr;
-	Text* final_score = nullptr;
+	Text* total_score = nullptr;
+	Text* productxTrophy = nullptr;
+
+	bool score_multiplicated = false;
 };
 
 

@@ -317,11 +317,7 @@ bool j1UIScene::Start()
 		lvl_end_window->appendChildAtCenter(succes_txt);
 		succes_txt->localPosition.y = 20;
 
-		//TOTAL SCORE
-		UI_element* total_score_txt = App->gui->createText("Total score:", 0, 0, big_texts_font, white_color, this);
-		total_score_txt->setOutlined(true);
-		lvl_end_window->appendChild(190 * App->gui->UI_scale, 300 * App->gui->UI_scale, total_score_txt);
-
+		//All the info from the player (trophy, score, coins)
 		UI_element* finalInfo = App->gui->createFinalInfo(0, 0, this);
 
 		//NEW GAME
