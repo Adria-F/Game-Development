@@ -14,6 +14,7 @@ PlayerInfo::PlayerInfo(int x, int y, j1Module* callback): UI_element(x, y, PLAYE
 	_TTF_Font* mid_texts_font = App->font->Load("fonts/TCCEB.ttf", 36);
 	SDL_Color white_color = { 255, 255, 255, 0 };
 	coin_socket = App->gui->createImageFromAtlas(x + 160, y + 2, { 948, 189, 48, 46 });
+	/*god_live = App->gui->createImage(x + 190, y + 2, {)*/
 	j1Player* player = (j1Player*)App->entityManager->getPlayer();
 	player->coins_pos[0] = { x + 160, y + 2 };
 	player->coins_pos[1] = { x + 185, y + 2 };
@@ -38,10 +39,17 @@ void PlayerInfo::BlitElement()
 
 	for (int i = 0; i < 3; i++)
 	{
+		if (App->entityManager->player_god_mode)
+			break;
 		if (i < player->lives)
 			App->render->Blit(live->texture, livePos.x + (i * 28), livePos.y, &live->section, false, App->gui->UI_scale);
 		else
 			App->render->Blit(empty_live->texture, livePos.x + (i * 28), livePos.y, &empty_live->section, false, App->gui->UI_scale);
+	}
+
+	if (App->entityManager->player_god_mode)
+	{
+
 	}
 	
 	for (int i = 0; i < 3; i++)

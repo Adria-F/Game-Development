@@ -19,6 +19,7 @@ public:
 	Image* coin_socket = nullptr;
 	Image* coin = nullptr;
 	Image* live = nullptr;
+	Image* god_live = nullptr;
 	Image* empty_live = nullptr;
 };
 
