@@ -17,7 +17,7 @@ It consisted on 3 deliveries:
 
 **D** - Move player to the right.
 
-**ESPACE** - jump/double jump (on air).
+**SPACE** - jump/double jump (on air).
 
 **MOUSE LEFT** - interact with UI elements that allows to click.
 

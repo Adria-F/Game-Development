@@ -11,7 +11,7 @@ Decompress the .zip file in any directory and execute the executable inside the 
 
 **D** - Move player to the right.
 
-**ESPACE** - jump/double jump (on air).
+**SPACE** - jump/double jump (on air).
 
 ##### Debug functionality:
 **F1** - Start from the very first level.
@@ -50,6 +50,9 @@ or enabled (if saved game with f5 or by going back to main menu while in mid-gam
 
 ### Link to the github repository: 
 https://github.com/Adria-F/Game-Development
+
+### Link to the web page:
+https://adria-f.github.io/Game-Development/
  
 ## Credits
-A game made by Norman Benet Gonz?z & Adri?errer Comas.
+A game made by Norman Benet González & Adrià Ferrer Comas.
