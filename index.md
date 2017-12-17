@@ -1,13 +1,16 @@
 ﻿# **Not A Typical Platformer** (N.A.T.P)
 It is a platformer game done for the assignments of the videogames development subject in the UPC.
 It consisted on 3 deliveries:
+
  1st - Creating the platformer itself, with a moving character and a special ability (double jump, dash, etc).
+ 
  2nd - Adding enemies with pathfinding (flying and walking enemy).
+ 
  3rd - Adding UI system and menus to control the game.
 
 ## Teaser Trailer
 
-<iframe width="560" height="315" src="https://youtu.be/GiHrWDm7B6M" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GiHrWDm7B6M" frameborder="0" allowfullscreen></iframe>
 
 ### Game Controls
 **A** - Move player to the left.
@@ -38,17 +41,22 @@ It consisted on 3 deliveries:
 **F11** - Activate/Deactivate Framecap.
 
 ### Main Core Subsytems
-(entities, UI, pathfinding, map, scene management)
 This game has 5 main modules:
+
 **Entity System** that holds all entities such as: player, enemies, collectibles and deals with their physics.
+
 It is connected with the **pathfinding** which is in charge of calculating the path that each enemy will do and send it to him.
+
 The **map** which reads .tmx files that hold all information of the tile based level (done in [Tiled](http://www.mapeditor.org/))(position and texture of each tile, collisions and entity position).
+
 The **UI** with a polymorphism system of UI elements that can be created and managed by the GUI module and stored in menu structs to deal with them in groups.
+
 And finally but not less important, the **scene management**, which is in charge of deliverying to the renderer the current level, menu and entities on screen as well as managing the transitions between them.
 
 ### Developer Team
 
 <img src="https://drive.google.com/uc?id=1vQUdU2pbTyUeGBdSpkp46poJoaWvpupi">
+
 [Adrià Ferrer](https://github.com/Adria-F)
 
 - Entity system.
@@ -58,6 +66,7 @@ And finally but not less important, the **scene management**, which is in charge
 - Half of UI elements implementation.
 
 <img src="https://drive.google.com/uc?id=14TNHnLRNvDjkyJJU8W_ZczK7v8pFBAsf">
+
 [Norman Benet](https://github.com/Normanbg)
 
 - Half of individual entities creation.
