@@ -64,10 +64,19 @@ bool j1UIScene::Start()
 		UI_element* back_text = App->gui->createText("BACK", 200, 200, small_texts_font, white_color);
 		back_text->setOutlined(true);
 		back_button->appendChildAtCenter(back_text);
+		//WEB BUTTON
+		UI_element* web_button = App->gui->createButton(825 * App->gui->UI_scale, 615 * App->gui->UI_scale, NULL, { 849,69,133,36 }, { 849,106,133,36 }, { 849,143,133,36 }, this);
+		web_button->function = WEB;
+
+		UI_element* web_text = App->gui->createText("WEB", 200, 200, small_texts_font, white_color);
+		web_text->setOutlined(true);
+		web_button->appendChildAtCenter(web_text);
 
 		creditsMenu->elements.add(credits_img);
 		creditsMenu->elements.add(back_button);
 		creditsMenu->elements.add(back_text);
+		creditsMenu->elements.add(web_button);
+		creditsMenu->elements.add(web_text);
 		menus.add(creditsMenu);
 	}
 
@@ -470,6 +479,8 @@ bool j1UIScene::OnUIEvent(UI_element* element, event_type event_type)
 				App->setSaveFileLoadable(false);
 			App->transitions->sceneTransition(1);
 			break;
+		case WEB:
+			App->RequestBrowser("https://adria-f.github.io/Game-Development/");
 		}
 	}
 	else if (event_type == MOUSE_LEFT_RELEASE)

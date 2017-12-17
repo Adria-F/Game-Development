@@ -39,7 +39,8 @@ enum element_function
 	BACK,
 	CANCEL,
 	APPLY,
-	HOME
+	HOME,
+	WEB
 };
 
 enum element_state
