@@ -385,6 +385,7 @@ bool j1Player::Load(pugi::xml_node& data)
 	lives = data.attribute("lives").as_uint();
 	virtualPosition.x = data.attribute("position_x").as_int();
 	virtualPosition.y = data.attribute("position_y").as_int();
+	score = data.attribute("score").as_int();
 	coins[0] = data.attribute("coin1").as_bool();
 	coins[1] = data.attribute("coin2").as_bool();
 	coins[2] = data.attribute("coin3").as_bool();
@@ -410,6 +411,8 @@ bool j1Player::Save(pugi::xml_node& data) const
 	data.append_attribute("level") = App->scene->current_lvl->data->lvl;
 
 	data.append_attribute("lives") = lives;
+
+	data.append_attribute("score") = score;
 
 	data.append_attribute("coin1") = coins[0];
 
