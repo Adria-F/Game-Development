@@ -381,15 +381,15 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 bool j1Player::Load(pugi::xml_node& data)
 {
-	App->scene->respawn_enemies = false;
-	App->scene->LoadLvl(data.attribute("level").as_int());
 	lives = data.attribute("lives").as_uint();
-	virtualPosition.x = data.attribute("position_x").as_int();
-	virtualPosition.y = data.attribute("position_y").as_int();
 	score = data.attribute("score").as_int();
 	coins[0] = data.attribute("coin1").as_bool();
 	coins[1] = data.attribute("coin2").as_bool();
 	coins[2] = data.attribute("coin3").as_bool();
+	App->scene->respawn_enemies = false;
+	App->scene->LoadLvl(data.attribute("level").as_int());
+	virtualPosition.x = data.attribute("position_x").as_int();
+	virtualPosition.y = data.attribute("position_y").as_int();
 	App->render->virtualCamPos = -(virtualPosition.x * (int)App->win->GetScale() - 300);
 	if (App->render->virtualCamPos > 0)
 	{
