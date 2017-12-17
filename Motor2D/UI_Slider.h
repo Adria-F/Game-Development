@@ -40,8 +40,8 @@ public:
 	SDL_Rect full;
 	Button* button = nullptr;
 	Text* progress_num = nullptr;
-	float progress;
-	int bar_length;
+	float progress = 0.0f;
+	int bar_length = 0;
 	modifier modify;
 };
 

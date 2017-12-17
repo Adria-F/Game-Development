@@ -6,7 +6,7 @@
 #include "p2List.h"
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
-#define DEFAULT_MUSIC_VOLUME 38
+#define DEFAULT_MUSIC_VOLUME 25
 #define DEFAULT_FX_VOLUME 128
 
 struct _Mix_Music;

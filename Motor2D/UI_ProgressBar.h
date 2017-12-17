@@ -34,11 +34,11 @@ public:
 public:
 
 	SDL_Rect full;
-	float max_value;
-	float progress;
+	float max_value = 0.0f;
+	float progress = 0.0f;
 	p2List<marker*> markers;
 	p2List<Image*> highlights;
-	Image* head;
+	Image* head = nullptr;
 	bar_type type;
 };
 
