@@ -132,6 +132,7 @@ bool j1Player::Update(float dt)
 			{
 				App->entityManager->player_god_mode = true;
 				App->audio->PlayFx(SSJ_transformation, 0);
+				App->SaveGame(true);
 			}
 		}
 

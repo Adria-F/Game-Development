@@ -135,13 +135,11 @@ void Entity::Entity_OnCollision(Collider* c1, Collider* c2)
 				App->audio->PlayFx(landing_fx, 0);
 				if (c1->type == COLLIDER_PLAYER && App->entityManager->player_god_mode)
 				{
-					if (App->entityManager->getPlayer()->old_savedCol != nullptr && App->entityManager->getPlayer()->old_savedCol->rect.x + App->entityManager->getPlayer()->old_savedCol->rect.w < c2->rect.x + c2->rect.w)
+					if (App->entityManager->getPlayer()->old_savedCol == nullptr || (App->entityManager->getPlayer()->old_savedCol->rect.x + App->entityManager->getPlayer()->old_savedCol->rect.w < c2->rect.x + c2->rect.w))
 					{
 						App->entityManager->getPlayer()->old_savedCol = c2;
 						App->SaveGame(true);
 					}
-					else if (App->entityManager->getPlayer()->old_savedCol == nullptr)
-						App->entityManager->getPlayer()->old_savedCol = c2;
 				}
 			}
 			colliding_bottom = true;
