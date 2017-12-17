@@ -83,9 +83,11 @@ or enabled (if saved game with f5 or by going back to main menu while in mid-gam
 
 - UI element progress bar that can be decreasing or increasing and have multiple marks that can be active or unactive with diferent textures.
 
-		In mid-game, there is a bar that decreases overtime and shows the current trophy that would be obtained, each one turning dark after losing it.
+		In mid-game, there is a bar that decreases overtime and shows the current trophy
+		that would be obtained, each one turning dark after losing it.
 
-		There is a button to pause the game, it will open a menu with a progress bar that shows the current position of the player respect the level length.
+		There is a button to pause the game, it will open a menu with a progress bar
+		that shows the current position of the player respect the level length.
 
 - After completing the game, it will open a menu with the score , the trophy and the coins obtained.
 
