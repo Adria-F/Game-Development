@@ -11,7 +11,9 @@ Decompress the .zip file in any directory and execute the executable inside the 
 
 **D** - Move player to the right.
 
-**ESPACE** - jump/double jump (on air).
+**SPACE** - jump/double jump (on air).
+
+**ESC** - Close application/toggle pause (in mid-game).
 
 ##### Debug functionality:
 **F1** - Start from the very first level.
@@ -33,21 +35,30 @@ Decompress the .zip file in any directory and execute the executable inside the 
 **F11** - Activate/Deactivate Framecap.
 
 ### Innovation features:
-- Logic for entities(animations, speed, jump force and collider size and position) is defined in tiled.
+- In the main menu, there is a continue button that can be unabled (after losing all lives or completing the game),
+or enabled (if saved game with f5 or by going back to main menu while in mid-game).
 
-	Their position on the map is also defined in tiled.
+- The volume control is done by sliders, which also show the current percentage.
 
-- When god mode is activated and the player dies or falls out of the map, he will reappear in the further platform that he has reached.
+- There is a switch button to toggle fullscreen.
 
-- When an enemy does not found a path to the player, after 1.5 seconds it will start flying/walking around.
+- The game can be paused at any time while in mid-game using the top-right button or 'ESC'.
 
-		Charger(Boar): Will walk along all the platform in each directions.
+- UI element progress bar that can be decreasing or increasing and have multiple marks that can be active or unactive with diferent textures.
 
-		Bat: Will fly randomly across air.
+		In mid-game, there is a bar that decreases overtime and shows the current trophy
+		that would be obtained, each one turning dark after losing it.
 
+		When the game is paused, it will open a menu with a progress bar
+		that shows the current position of the player respect the level length.
+
+- After completing the game, it will open a menu with the score , the trophy and the coins obtained.
 
 ### Link to the github repository: 
 https://github.com/Adria-F/Game-Development
+
+### Link to the web page:
+https://adria-f.github.io/Game-Development/
  
 ## Credits
-A game made by Norman Benet Gonz?z & Adri?errer Comas.
+A game made by Norman Benet González & Adrià Ferrer Comas.
