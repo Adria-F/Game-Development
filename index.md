@@ -119,7 +119,7 @@ or enabled (if saved game with f5 or by going back to main menu while in mid-gam
 
 ## Check Out the repository [here](https://github.com/Adria-F/Game-Development)
 
-## Download the last version of N.A.T.P [here](https://github.com/Adria-F/Game-Development/releases/tag/2.0)
+## Download the last version of N.A.T.P [here](https://github.com/Adria-F/Game-Development/releases/tag/3.0)
 
 
 ### License
