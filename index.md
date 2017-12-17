@@ -21,6 +21,8 @@ It consisted on 3 deliveries:
 
 **MOUSE LEFT** - interact with UI elements that allows to click.
 
+**ESC** - Close application/toggle pause (in mid-game).
+
 #### Debug Keys
 **F1** - Start from the very first level.
 
@@ -81,12 +83,14 @@ or enabled (if saved game with f5 or by going back to main menu while in mid-gam
 
 - There is a switch button to toggle fullscreen.
 
+- The game can be paused at any time while in mid-game using the top-right button or 'ESC'.
+
 - UI element progress bar that can be decreasing or increasing and have multiple marks that can be active or unactive with diferent textures.
 
 		In mid-game, there is a bar that decreases overtime and shows the current trophy
 		that would be obtained, each one turning dark after losing it.
 
-		There is a button to pause the game, it will open a menu with a progress bar
+		When the game is paused, it will open a menu with a progress bar
 		that shows the current position of the player respect the level length.
 
 - After completing the game, it will open a menu with the score , the trophy and the coins obtained.
@@ -109,7 +113,7 @@ or enabled (if saved game with f5 or by going back to main menu while in mid-gam
 
 - Half of individual entities creation.
 - Half of pathfinding algorythm.
-- Desing of the levels and difficulty.
+- Design of the levels and difficulty.
 - Menu composition and behaviour.
 - Half of UI elements implementation.
 
