@@ -76,6 +76,7 @@ bool j1Player::Start()
 	sound_one_time = false;
 	loading = false;
 	won = false;
+	trophy = 3;
 
 	old_savedCol = nullptr;
 
