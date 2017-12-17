@@ -214,12 +214,13 @@ void j1Scene::LoadLvl(int num)
 	if (current_lvl != nullptr)
 	{
 		App->entityManager->cleanCoins();
-		if (respawn_enemies && num == 2) //When reloading scene from 0 but player is not dead
+		if (respawn_enemies && num == 2) //When reloading the first scene and want to restart stats
 		{
 			j1Player* player = (j1Player*)App->entityManager->getPlayer();
 			player->coins[0] = player->coins[1] = player->coins[2] = false;
 			player->lives = 3;
 			player->score = 0;
+			player->trophy = 3;
 			App->uiScene->chrono->counter.Play();
 			App->uiScene->chrono->counter.Start();
 		}
